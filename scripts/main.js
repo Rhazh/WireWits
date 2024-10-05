@@ -1,73 +1,139 @@
-let NCRLog = [];
-let Quality = [];
+// Declare ncrLog and quality in the global scope so other scripts can access them
+let ncrLog = [];
+let quality = [];
 
+document.addEventListener('DOMContentLoaded', async () => {
+    // Load data from sessionStorage or default to empty arrays
+    ncrLog = JSON.parse(sessionStorage.getItem('ncrLog')) || [];
+    quality = JSON.parse(sessionStorage.getItem('quality')) || [];
 
-document.addEventListener('DOMContentLoaded', () => {
-    // Get the full path from the URL
-    const path = window.location.pathname; // This will give you the path, e.g., '/create.html'
-    const pageName = path.substring(path.lastIndexOf('/') + 1); // This retrieves the part after the last '/'
-    
+    const path = window.location.pathname;
+    const pageName = path.substring(path.lastIndexOf('/') + 1);
 
-    
+    const loadingIndicator = document.getElementById('loading');
+    if (loadingIndicator) loadingIndicator.style.display = 'block';
 
-
-    // Fetch data from Quality.json
-    fetch('seed-data/Quality.json')
-        .then(response => {
+    // Fetch seed data from JSON files
+    const fetchData = async (url) => {
+        try {
+            const response = await fetch(url);
             if (!response.ok) {
-                throw new Error('Failed to fetch Quality data: ' + response.statusText);
+                throw new Error(`Failed to fetch data from ${url}: ${response.statusText}`);
             }
-            return response.json();
-        })
-        .then(data => {
-            Quality = data; // Store the fetched Quality data
-            return fetch('seed-data/NCRLog.json'); // Fetch data from NCRLog.json
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Failed to fetch NCRLog data: ' + response.statusText);
-            }
-            return response.json();
-        })
-        .then(data => {
-            NCRLog = data; // Store the fetched NCRLog data
+            return await response.json();
+        } catch (error) {
+            console.error(error);
+            throw error;
+        }
+    };
 
-            // Call functions based on the page name
-            populateNotifications(); // For all pages
+    try {
+        // If session data is not available, fetch seed data and store it in sessionStorage
+        if (!ncrLog.length || !quality.length) {
+            const [qualityData, ncrData] = await Promise.all([
+                fetchData('seed-data/Quality.json'),
+                fetchData('seed-data/NCRLog.json')
+            ]);
 
+            quality = qualityData;
+            ncrLog = ncrData;
 
-            //for home page related items
-            if (pageName === 'index.html') { // Check for the specific page name
-                recentNCRs(); // Call recentNCRs function
-            }
-            if (pageName === 'view.html') {
-                performSearch(); //ensure page loads up with all NCRs that are still within the Quality Department
-            }
+            // Store seed data in sessionStorage for use in the current session
+            sessionStorage.setItem('quality', JSON.stringify(quality));
+            sessionStorage.setItem('ncrLog', JSON.stringify(ncrLog));
+        }
 
-            //to grab NCR number when an NCR is clicked
-            const urlParams = new URLSearchParams(window.location.search);
-            const ncrNumber = urlParams.get('ncr');
+        if (loadingIndicator) loadingIndicator.style.display = 'none';
 
-            //if NCR number present and the page the user is headed to
-            if (ncrNumber) {
-                if (pageName === 'create.html') {
-                    populateEditPage(ncrNumber);
-                } else if (pageName === 'details.html') {
-                    populateDetailsPage(ncrNumber);
-                }
-            }
-            //performSearch(); 
-            /* Add event listener for the NCR creation form
-            document.getElementById('createNCRForm').addEventListener('submit', function (event) {
-                event.preventDefault(); // Prevent default form submission
-                CreateNCR(); // Call the CreateNCR function
-            });*/
+        // Populate notifications or handle errors
+        populateNotifications();
 
+        const urlParams = new URLSearchParams(window.location.search);
+        const ncrNumber = urlParams.get('ncr');
 
+        // Handle different pages based on the current page name
+        if (pageName === 'index.html') {
+            recentNCRs();
+            setupNavigationButtons();
+        } else if (pageName === 'view.html') {
+            performSearch();
+        } else if (ncrNumber && pageName === 'create.html') {
+            toggleCreateEditModal(ncrNumber, true);
+            setupSaveNCR();
+            setupSubmitNCR();
+           
+        } else if (pageName === 'create.html') {
+            toggleCreateEditModal(null, false);
+            setupCreateNCRButton();
+            setupSaveNCR();
+            setupSubmitNCR();
+           
+            
+        } else if (ncrNumber && pageName === 'details.html') {
+            populateDetailsPage(ncrNumber);
+        }
 
-        })
-        .catch(error => {
-            console.error('Error:', error); // Log any errors encountered during fetch
-        });
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        if (loadingIndicator) loadingIndicator.style.display = 'none';
+        alert("An error occurred while loading data. Please try again later.");
+    }
 });
 
+// Set up navigation buttons on index.html
+function setupNavigationButtons() {
+    document.getElementById('btnView').addEventListener('click', () => {
+        window.location.href = 'view.html';
+    });
+
+    document.getElementById('btnCreate').addEventListener('click', () => {
+        window.location.href = 'create.html';
+    });
+
+    document.getElementById('btnReports').addEventListener('click', () => {
+        window.location.href = 'reports.html';
+    });
+}
+
+// Toggle between create and edit modals
+function toggleCreateEditModal(ncrNumber, isEditMode) {
+    const createNCRModal = document.getElementById('createNCRModal');
+    const createEditModal = document.getElementById('create-edit-modal');
+
+    if (isEditMode) {
+        createNCRModal.style.display = 'none';
+        createEditModal.style.display = 'block';
+        populateEditPage(ncrNumber);
+    } else {
+        createEditModal.style.display = 'none';
+        createNCRModal.style.display = 'block';
+    }
+}
+
+// Setup button to create a new NCR
+function setupCreateNCRButton() {
+    document.getElementById('btnCreateNCR').addEventListener('click', () => {
+        CreateNCR();
+        addNewNCRToRecent();
+    });
+}
+
+// Add the most recent NCR to the list of recent NCRs
+function addNewNCRToRecent() {
+    const lastNCR = ncrLog[ncrLog.length - 1];
+    quality.unshift(lastNCR);
+    sessionStorage.setItem('quality', JSON.stringify(quality));
+    recentNCRs();
+}
+
+function setupSaveNCR(){
+    document.getElementById('btnSave').addEventListener('click', () =>{
+        saveNCR()
+    });
+}
+
+function setupSubmitNCR(){
+    document.getElementById('btnSubmit').addEventListener('click', () =>{
+        submitNCR()
+    });
+}

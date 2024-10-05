@@ -1,21 +1,36 @@
-//FUNCTIONS
+// =======================================================================
+// FUNCTIONS SUPPORTING THE MAIN.JS
+// These must load first and are placed first when referencing in html
+// =======================================================================
 
-//1. Populate Notifications - For all pages
+//FUNCTIONS USED ON DASHBOARD/HOME PAGE
+
+// ==========================================
+// 1. Populate Notifications - For all pages
+// ==========================================
 function populateNotifications() {
     const dropdown = document.getElementById('dropdown-menu');
+    if (!dropdown) {
+        console.warn('Dropdown menu element not found.');
+        return;
+    }
     dropdown.innerHTML = ""; // Clear existing notifications
 
     const oldNotifications = getOldNotifications();
     const countLabel = document.getElementById('spnCount');
-    countLabel.textContent = `${oldNotifications.length}`; // Update count label
+    if (countLabel) {
+        countLabel.textContent = `${oldNotifications.length}`; // Update count label
+    } else {
+        console.warn('Count label element not found.');
+    }
 
     if (oldNotifications.length === 0) {
         dropdown.innerHTML = "<p>No urgent notifications</p>";
         return;
     }
 
-    //if urgent NCRS applicable
-    dropdown.innerHTML = "<p>Pending NCRs for Over 14 Days</p>"; //Text explaining why they are urgent
+    dropdown.innerHTML = "<p>Pending NCRs for Over 14 Days</p>"; // Text explaining urgency
+
     oldNotifications.forEach(ncrNumber => {
         const p = document.createElement('p');
         const link = document.createElement('a');
@@ -30,26 +45,56 @@ function populateNotifications() {
         p.appendChild(link);
         dropdown.appendChild(p);
     });
-} //end of Function 1
+}
 
-//2. Recent NCRs on Dashboard/Home Page
+// Sypporting Function - Get Old Notifications
+function getOldNotifications() {
+    const today = new Date();
+    const fourteenDaysAgo = new Date();
+    fourteenDaysAgo.setDate(today.getDate() - 14);
+
+    return quality.filter(item => new Date(item.dateCreated) < fourteenDaysAgo)
+        .map(item => item.ncrNumber);
+}
+
+// Supporoting functions for toggle down
+function toggleDropdown() {
+    const dropdown = document.getElementById('dropdown-menu');
+    dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+}
+
+// Toggle Profile Dropdown
+function toggleProfileDropdown() {
+    const dropdown = document.getElementById('profile-dropdown');
+    dropdown.style.display = dropdown.style.display === 'none' ? 'block' : 'none';
+}
+
+// ==============================================================
+// 2. Recent NCRs on Dashboard/Home Page
+// ==============================================================
 function recentNCRs() {
-    // Sort NCRs by NCRNumber (newest has the highest NCRNumber)
-    const recentN = Quality.reverse().slice(0, 5);
+    if (!quality.length) {
+        console.warn('No quality data available to display.');
+        return;
+    }
+
+    const recentNCRss = [...quality].reverse(); // Clone and reverse to avoid mutating the original array
+    const recentN = recentNCRss.slice(0, 5);
 
     console.log(recentN);
 
-    // Populate the results table
-    const tableBody = document.getElementById("tablecontent")
+    const tableBody = document.getElementById("tablecontent");
+    if (!tableBody) {
+        console.warn('Table body element not found.');
+        return;
+    }
     tableBody.innerHTML = ''; // Clear previous results
 
-    // Add Recent NCRs to the table
-    //TODO - FORMAT THE DATE AND ASK ARIANNE FOR CSS HERE
     recentN.forEach(result => {
         const newRow = `<tr>
                              <td>${result.ncrNumber}</td>
                              <td>${result.supplierName}</td>
-                             <td>${result.dateCreated}</td>
+                             <td>${formatDate(result.dateCreated)}</td>
                              <td>${result.ncrStatus}</td>
                              <td>
                                  <div style="display: grid; gap: 10px; grid-template-columns: 1fr 1fr">
@@ -59,160 +104,54 @@ function recentNCRs() {
                              </td>
                          </tr>`;
         tableBody.innerHTML += newRow;
-    })
-};//End of Function 2
-
-
-//3. Create Timestamp when Creating an NCR
-
-function Timestamp() {
-    const now = new Date();
-    const date = now.toLocaleDateString(); // Format: MM/DD/YYYY
-    const time = now.toLocaleTimeString(); // Format: HH:MM:SS AM/PM
-    return `${date} ${time}`;
-} //end of function 3
-
-
-// 4. function to generate NCRNumber in the format YYYY-XXX
-function NCRNumberGenerator() {
-    const currentYear = new Date().getFullYear();
-    const nextNumber = (NCRLog.length + 1).toString().padStart(3, '0');
-    return `${currentYear}-${nextNumber}`;
-} //end of function 4
-
-//5. function to Create an NCR --HAVE TO EDIT
-function CreateNCR() {
-    // Get form values
-    const applicableProcess = document.getElementById('applicableProcess').value;
-    const supplierName = document.getElementById('supplierName').value;
-    const ncrNumber = NCRNumberGenerator()
-    const dateCreated = Timestamp(); //calls the timestamp function
-
-    // Create a JSON object with the form data
-    const ncrData = {
-        ncrNumber: ncrNumber,
-        dateCreated: dateCreated,
-        createBy: "Test User",
-        supplierName: supplierName,
-        applicableProcess: applicableProcess,
-        ncrStatus: 'Active', //all created ncrs defaulted to status
-        dateClosed: '', //generated when an NCR is closed
-        closedBy: '' //from the user entity
-    }
-
-    // Convert to JSON string (if you want to store it in localStorage or send it)
-    const ncrJsonString = JSON.stringify(ncrData);
-
-    // For demonstration, log the JSON object and string
-    console.log('NCR Data (Object):', ncrData);
-    console.log('NCR Data (JSON String):', ncrJsonString);
-
-    //Optionally: store the data in localStorage
-    localStorage.setItem('ncrData', ncrJsonString);
-
-    //push NCR to NCRLog, then push to Quality?
-
-    // Redirect to the edit page with NCR number in the URL
-    window.location.href = `create.html?ncrNumber=${ncrData.ncrNumber}&supplierName=${encodeURIComponent(ncrData.supplierName)}&applicableProcess=${encodeURIComponent(ncrData.applicableProcess)}`;
-}; //end of function 5
-
-
-
-//SUPPORTING FUNCTIONS TO ORGANIZE
-//Get Old Notifications - supports Notifications
-function getOldNotifications() {
-    const today = new Date();
-    const fourteenDaysAgo = new Date();
-    fourteenDaysAgo.setDate(today.getDate() - 14);
-
-    return Quality.filter(item => new Date(item.dateCreated) < fourteenDaysAgo)
-        .map(item => item.ncrNumber);
-} //end of function 
-
-
-function performSearch() {
-    const ncrNumber = document.getElementById('ncrNumber').value.trim();
-    const supplierName = document.getElementById('supplierName').value;
-    const ncrStatus = document.getElementById('ncrStatus').value;
-    // Get start and end dates
-    const fromDate = document.getElementById('fromDate').value;
-    const toDate = document.getElementById('toDate').value;
-
-    const resultsCountMessage = document.getElementById('no-results-message');
-
-    // Validate date range
-    if (fromDate && toDate && new Date(fromDate) > new Date(toDate)) {
-        resultsCountMessage.textContent = 'Start date must be earlier than or equal to end date.';
-        resultsCountMessage.style.display = 'inline'; // Show the error message
-        return; // Exit the function early
-    }
-
-    // Filter the Quality array based on the provided criteria
-    const viewNCRs = Quality.filter(item => {
-        const isNcrNumberValid = ncrNumber ? item.ncrNumber.includes(ncrNumber) : true;
-        const isSupplierNameValid = supplierName ? item.supplierName === supplierName : true;
-        const isStatusValid = ncrStatus ? item.ncrStatus === ncrStatus : true;
-
-        // Date checks
-        const itemDateCreated = new Date(item.dateCreated);
-        const isDateCreatedValid = (
-            (fromDate ? itemDateCreated >= new Date(fromDate) : true) &&
-            (toDate ? itemDateCreated <= new Date(toDate) : true)
-        );
-
-        // Return true if all conditions are met
-        return isNcrNumberValid && isSupplierNameValid && isStatusValid && isDateCreatedValid;
     });
-    console.log(viewNCRs);
-    console.log(ncrNumber);
+}
 
-    // Populate the results table
-    const tableBody = document.getElementById("tablecontent")
-    tableBody.innerHTML = ''; // Clear previous results
+//Supporting Function - For Formatting Dates for User Output
+function formatDate(dateString) {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('en-US', { month: 'short', day: '2-digit', year: 'numeric' });
+}
 
-    //display results in table
-    // Add Recent NCRs to the table
-    //TODO - FORMAT THE DATE AND ASK ARIANNE FOR CSS HERE
-    viewNCRs.forEach(result => {
-        const newRow = `<tr>
-                            <td>${result.ncrNumber}</td>
-                            <td>${result.supplierName}</td>
-                            <td>${result.dateCreated}</td>
-                            <td>${result.ncrStatus}</td>
-                            <td>
-                                <div style="display: grid; gap: 10px; grid-template-columns: 1fr 1fr">
-                                    <button onclick="detailsEntry('${result.ncrNumber}')">View</button>
-                                    <button onclick="editEntry('${result.ncrNumber}')">Edit</button>
-                                </div>
-                            </td>
-                        </tr>`;
-        tableBody.innerHTML += newRow;
-    })
-};
+//FUNCTIONS USED ON DETAILS PAGE (WHEN VIEWING ONE NCR)
 
-// Populate the Details Page of an NCR when a user clicks view
+// ===========================================================
+// 3. View Details of NCR
+//Populate the Details Page of an NCR when a user clicks view
+// ===========================================================
 function populateDetailsPage(ncrNumber) {
-    const entry = Quality.find(item => item.ncrNumber === ncrNumber);
+    const entry = quality.find(item => item.ncrNumber === ncrNumber);
     if (entry) {
-        document.getElementById('ncrNumber').textContent = entry.ncrNumber;
-        document.getElementById('dateCreated').textContent = entry.dateCreated;
-        document.getElementById('createdBy').textContent = entry.createdBy;
-        document.getElementById('ncrStatus').textContent = entry.ncrStatus;
-        document.getElementById('applicableProcess').textContent = entry.applicableProcess;
-        document.getElementById('supplierName').textContent = entry.supplierName;
-        document.getElementById('poNumber').textContent = entry.poNumber;
-        document.getElementById('soNumber').textContent = entry.soNumber;
-        document.getElementById('quantityReceived').textContent = entry.quantityReceived;
-        document.getElementById('quantityDefect').textContent = entry.quantityDefective;
-        document.getElementById('itemDescription').textContent = entry.itemDescription;
-        document.getElementById('defectDescription').textContent = entry.defectDescription;
-        document.getElementById('engNeeded').textContent = entry.engNeeded;
-        document.getElementById('itemConform').textContent = entry.itemConform;
-        populateDocumentFiles(entry.documentFiles); // Assuming documents is an array in your data
+        document.getElementById('ncrNumber').textContent = entry.ncrNumber ?? "";
+        document.getElementById('dateCreated').textContent = formatDate(entry.dateCreated) ?? "";
+        document.getElementById('createdBy').textContent = entry.createdBy ?? "";
+        document.getElementById('ncrStatus').textContent = entry.ncrStatus ?? "";
+        document.getElementById('applicableProcess').textContent = entry.applicableProcess ?? "";
+        document.getElementById('supplierName').textContent = entry.supplierName ?? "";
+
+        // Use nullish coalescing to handle missing or undefined values
+        document.getElementById('poNumber').textContent = entry.poNumber ?? "";
+        document.getElementById('soNumber').textContent = entry.soNumber ?? "";
+        document.getElementById('quantityReceived').textContent = entry.quantityReceived ?? "";
+        document.getElementById('quantityDefect').textContent = entry.quantityDefective ?? "";
+        document.getElementById('itemDescription').textContent = entry.itemDescription ?? "";
+        document.getElementById('defectDescription').textContent = entry.defectDescription ?? "";
+        
+        // Assuming engineering is related to defect description, corrected as `engNeeded`
+        document.getElementById('engNeeded').textContent = entry.engNeeded ?? "No";
+
+        document.getElementById('itemConform').textContent = entry.itemConform ?? "No";
+
+        // Call to populate document files if they exist
+        if (entry.documentFiles) {
+            populateDocumentFiles(entry.documentFiles);
+        }
+    } else {
+        console.error(`NCR with number ${ncrNumber} not found.`);
     }
 }
 
-// Populate Document Files
+// Supporting Function - Populate Document Files
 function populateDocumentFiles(documentFiles) {
     const documentList = document.getElementById('attachedDocument');
     documentList.innerHTML = ''; // Clear existing files
@@ -230,12 +169,25 @@ function populateDocumentFiles(documentFiles) {
     }
 }
 
-// Populate the Edit Page
+// Supporting Function - Redirection to Details Page of NCR when View button is clicked
+function detailsEntry(ncrNumber) {
+    window.location.href = `details.html?ncr=${ncrNumber}`; // Redirect to edit page
+    console.log(ncr);
+}
+
+//FUNCTION USED ON AN EDIT PAGE - HAPPENS AT THE CREATE PAGE
+
+// ============================================================
+// 4. Edit The Information of an NCR that has been Created
+// Populate the Create Page of an NCR when a user clicks Edit
+// or immediately after creationg an NCR
+// ============================================================
 function populateEditPage(ncrNumber) {
-    const entry = Quality.find(item => item.ncrNumber === ncrNumber);
+    document.getElementById('create-edit')
+    const entry = quality.find(item => item.ncrNumber === ncrNumber);
     if (entry) {
         document.getElementById('ncrNumber').textContent = entry.ncrNumber;
-        document.getElementById('dateCreated').textContent = entry.dateCreated;
+        document.getElementById('dateCreated').textContent = formatDate(entry.dateCreated);
         document.getElementById('createdBy').textContent = entry.createdBy;
         document.getElementById('ncrStatus').textContent = entry.ncrStatus;
         document.getElementById('applicableProcess').value = entry.applicableProcess;
@@ -246,32 +198,245 @@ function populateEditPage(ncrNumber) {
         document.getElementById('quantityDefect').value = entry.quantityDefective;
         document.getElementById('itemDescription').value = entry.itemDescription;
         document.getElementById('defectDescription').value = entry.defectDescription;
-        document.getElementById('engNeeded').checked = entry.engNeeded === 'Yes'; 
-        document.getElementById('itemConform').checked = entry.itemConform === 'Yes'; 
+        document.getElementById('engNeeded').checked = entry.engNeeded === 'Yes';
+        document.getElementById('itemConform').checked = entry.itemConform === 'Yes';
     }
+    document.getElementById('createNCRModal').style.display = 'none'; // Hide the modal
+    document.getElementById('create-edit-NCR').style.display = 'block'; // Show the edit section
 }
 
-
-
-// Other functions like toggleDropdown, editEntry, viewEntry, etc., go here
-
-function toggleDropdown() {
-    const dropdown = document.getElementById('dropdown-menu');
-    dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
-}
-
-// Toggle Profile Dropdown
-function toggleProfileDropdown() {
-    const dropdown = document.getElementById('profile-dropdown');
-    dropdown.style.display = dropdown.style.display === 'none' ? 'block' : 'none';
-}
-
-// Example edit function
+// Supporting Function - Redirection to Edit an NCR when Edit button is clicked
 function editEntry(ncrNumber) {
     window.location.href = `create.html?ncr=${ncrNumber}`; // Redirect to edit page
 }
 
-function detailsEntry(ncrNumber) {
-    window.location.href = `details.html?ncr=${ncrNumber}`; // Redirect to edit page
-    console.log(ncr);
+//FUNCTION USED ON VIEW NCRS PAGE TO PERFORM SEARCH
+
+// ====================================================================
+//  5. Perform Search - Used for Filtering
+//     sets results to a table
+//     View NCRs page is initialized to show NCRS still with Quality
+// ====================================================================
+function performSearch() {
+    const ncrNumber = document.getElementById('ncrNumber')?.value.trim();
+    const supplierName = document.getElementById('supplierName')?.value;
+    const ncrStatus = document.getElementById('ncrStatus')?.value;
+    const fromDate = document.getElementById('fromDate')?.value;
+    const toDate = document.getElementById('toDate')?.value;
+
+    const resultsCountMessage = document.getElementById('no-results-message');
+
+    if (fromDate && toDate && new Date(fromDate) > new Date(toDate)) {
+        resultsCountMessage.textContent = 'Start date must be earlier than or equal to end date.';
+        resultsCountMessage.style.display = 'inline';
+        return;
+    }
+
+    const viewNCRs = quality.filter(item => {
+        const isNcrNumberValid = ncrNumber ? item.ncrNumber.includes(ncrNumber) : true;
+        const isSupplierNameValid = supplierName ? item.supplierName === supplierName : true;
+        const isStatusValid = ncrStatus ? item.ncrStatus === ncrStatus : true;
+
+        const itemDateCreated = new Date(item.dateCreated);
+        const isDateCreatedValid = (
+            (fromDate ? itemDateCreated >= new Date(fromDate) : true) &&
+            (toDate ? itemDateCreated <= new Date(toDate) : true)
+        );
+
+        return isNcrNumberValid && isSupplierNameValid && isStatusValid && isDateCreatedValid;
+    });
+
+    const tableBody = document.getElementById("tablecontent");
+    if (!tableBody) {
+        console.warn('Table body element not found.');
+        return;
+    }
+    tableBody.innerHTML = '';
+
+    viewNCRs.reverse().forEach(result => {
+        const newRow = `<tr>
+                            <td>${result.ncrNumber}</td>
+                            <td>${result.supplierName}</td>
+                            <td>${formatDate(result.dateCreated)}</td>
+                            <td>${result.ncrStatus}</td>
+                            <td>
+                                <div style="display: grid; gap: 10px; grid-template-columns: 1fr 1fr">
+                                    <button onclick="detailsEntry('${result.ncrNumber}')">View</button>
+                                    <button onclick="editEntry('${result.ncrNumber}')">Edit</button>
+                                </div>
+                            </td>
+                        </tr>`;
+        tableBody.innerHTML += newRow;
+    });
+}
+
+//NCR MANAGEMENT FUNCTIONS - CREATE, SAVE, SUBMIT, CANCEL
+
+
+// ===================================================
+// 6. Function to Create an NCR
+// ==================================================
+function CreateNCR() {
+    // Ensure ncrLog and quality are initialized
+    if (!Array.isArray(ncrLog)) {
+        ncrLog = [];  // Initialize ncrLog if undefined
+    }
+    if (!Array.isArray(quality)) {
+        quality = [];  // Initialize quality if undefined
+    }
+
+    // Get form values
+    const applicableProcess = document.getElementById('napplicableProcess')?.value || '';
+    const supplierName = document.getElementById('nsupplierName')?.value || '';
+
+    // Generate NCR Number and Timestamp
+    const ncrNumber = NCRNumberGenerator();
+    const dateCreated = Timestamp();
+
+    // Creating NCR log entry
+    const ncrLogEntry = {
+        ncrNumber: ncrNumber,
+        dateCreated: dateCreated,
+        createdBy: "Test User",  // Replace with actual user data if available
+        supplierName: supplierName,
+        applicableProcess: applicableProcess,
+        status: "Active",
+        dateClosed: "",  // Blank initially
+        closedBy: ""     // Blank initially
+    };
+
+    console.log("New NCR Log Entry:", ncrLogEntry);
+
+    // Add the entry to the ncrLog array
+    ncrLog.push(ncrLogEntry);
+
+    // Prepare quality array entry
+    const qualityEntry = {
+        ncrNumber: ncrLogEntry.ncrNumber,
+        dateCreated: ncrLogEntry.dateCreated,
+        createdBy: ncrLogEntry.createdBy,
+        supplierName: ncrLogEntry.supplierName,
+        applicableProcess: ncrLogEntry.applicableProcess,
+        poNumber: "",  // Empty for now, to be updated later
+        soNumber: "",  // Empty for now, to be updated later
+        quantityReceived: "",  // Empty for now
+        quantityDefect: "",  // Empty for now
+        engNeeded: "No",  // Default value
+        itemConform: "No",  // Default value
+        itemDescription: "",  // Empty for now
+        defectDescription: "",  // Empty for now
+        documentFiles: "",  // Empty for now
+        ncrStatus: "Quality"
+    };
+
+    // Add the entry to the quality array
+    quality.push(qualityEntry);
+    console.log("Updated Quality Array:", quality);
+
+    // Persist ncrLog and quality to sessionStorage
+    sessionStorage.setItem('ncrLog', JSON.stringify(ncrLog));
+    sessionStorage.setItem('quality', JSON.stringify(quality));
+
+    // Display the newly created NCR data in the UI
+    document.getElementById('createNCRModal').style.display = 'none';
+    document.getElementById('create-edit-modal').style.display = 'block';
+
+    // Dynamically update elements with the new NCR data
+    populateEditPage(qualityEntry.ncrNumber)
+    console.log("Persisted NCR Log:", ncrLog);
+    console.log("Persisted Quality:", quality);
+}
+
+// Supporting Functions - Timestamp function - returns the current date
+function Timestamp() {
+    return new Date().toLocaleDateString(); // Format: MM/DD/YYYY
+}
+
+// Supporting Functions - NCR Number Generator function - creates unique NCR number in format YYYY-XXX
+function NCRNumberGenerator() {
+    const currentYear = new Date().getFullYear();
+    const nextNumber = (ncrLog.length + 1).toString().padStart(3, '0'); // Pads to 3 digits
+    return `${currentYear}-${nextNumber}`;
+}
+
+// =================================================================
+// 7. Function to Save the NCR temporarily (incomplete data)
+// =================================================================
+function saveNCR() {
+    const ncrNumber = document.getElementById('ncrNumber').textContent;
+    
+    // Collect current form values
+    const poNumber = document.getElementById('poNumber')?.value || '';
+    const soNumber = document.getElementById('soNumber')?.value || '';
+    const quantityReceived = document.getElementById('quantityReceived')?.value || '';
+    const quantityDefect = document.getElementById('quantityDefect')?.value || '';
+    const engNeeded = document.getElementById('engNeeded')?.checked || 'No';
+    const itemConform = document.getElementById('itemConform')?.checked || 'No';
+    const itemDescription = document.getElementById('itemDescription')?.value || '';
+    const defectDescription = document.getElementById('defectDescription')?.value || '';
+    
+    // Update the corresponding NCR in the quality array
+    const qualityEntry = quality.find(entry => entry.ncrNumber === ncrNumber);
+
+    if (qualityEntry) {
+        qualityEntry.poNumber = poNumber;
+        qualityEntry.soNumber = soNumber;
+        qualityEntry.quantityReceived = quantityReceived;
+        qualityEntry.quantityDefect = quantityDefect;
+        qualityEntry.engNeeded = engNeeded;
+        qualityEntry.itemConform = itemConform;
+        qualityEntry.itemDescription = itemDescription;
+        qualityEntry.defectDescription = defectDescription;
+
+        // Persist updated quality array to sessionStorage
+        sessionStorage.setItem('quality', JSON.stringify(quality));
+
+        alert('Your changes have been saved. You can continue later.');
+    }
+}
+
+// ===================================================================
+// 8. Function to Submit the NCR (all required fields must be filled)
+// ===================================================================
+function submitNCR() {
+    const ncrNumber = document.getElementById('ncrNumber').textContent;
+    
+    // Collect current form values
+    const poNumber = document.getElementById('poNumber')?.value || '';
+    const soNumber = document.getElementById('soNumber')?.value || '';
+    const quantityReceived = document.getElementById('quantityReceived')?.value || '';
+    const quantityDefect = document.getElementById('quantityDefect')?.value || '';
+    const engNeeded = document.getElementById('engNeeded')?.value || 'No';
+    const itemConform = document.getElementById('itemConform')?.value || 'No';
+    const itemDescription = document.getElementById('itemDescription')?.value || '';
+    const defectDescription = document.getElementById('defectDescription')?.value || '';
+    
+    // Check if all required fields are filled
+    if (!poNumber || !soNumber || !quantityReceived || !quantityDefect || !itemDescription || !defectDescription) {
+        alert('Please fill out all the required fields before submitting.');
+        return;
+    }
+
+    // Update the corresponding NCR in the quality array
+    const qualityEntry = quality.find(entry => entry.ncrNumber === ncrNumber);
+
+    if (qualityEntry) {
+        qualityEntry.poNumber = poNumber;
+        qualityEntry.soNumber = soNumber;
+        qualityEntry.quantityReceived = quantityReceived;
+        qualityEntry.quantityDefect = quantityDefect;
+        qualityEntry.engNeeded = engNeeded;
+        qualityEntry.itemConform = itemConform;
+        qualityEntry.itemDescription = itemDescription;
+        qualityEntry.defectDescription = defectDescription;
+        
+        // Mark the NCR as submitted
+        qualityEntry.ncrStatus = 'Submitted';
+        
+        // Persist updated quality array to sessionStorage
+        sessionStorage.setItem('quality', JSON.stringify(quality));
+        
+        alert('NCR has been successfully submitted.');
+        // Redirect or perform other actions as needed
+    }
 }

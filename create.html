@@ -4,152 +4,202 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit NCR</title>
+    <title>Create NCR</title>
 </head>
 
 
 <body>
     <header>
         <div class="header-col">
-            <div class="logo">
-                <img src="images/logo.png" alt="Crossfire logo" height="1024" width="1024" />
+            <div class="header-col-left">
+                <!--logo-->
+                <div class="logo">
+                    <img src="images/logo.png" alt="Crossfire logo" height="74" width="345" />
+                </div>
+                <!--navigation menu-->
+                <nav>
+                    <ul>
+                        <li><a href="index.html" class="nav-active" id="home">Dashboard</a></li>
+                        <li><a href="create.html" id="create" class="createNCR">Create NCR</a></li>
+                        <li><a href="view.html" id="view">View NCRs</a></li>
+                        <li><a href="reports.html" id="reports">Reports</a></li>
+                    </ul>
+                </nav>
             </div>
-            <div class="profile">
-                <button id="btnProfile" onclick="toggleProfileDropdown()">👤</button>
-                <div id="profile-dropdown" style="display:none;">
+            <div class="header-col-right">
+                <div class="notification">
+                    <button id="btnNotification" onclick="toggleDropdown()">
+                        <img src="images/icon-notif.svg" alt="Notification icon" height="35" width="30" />
+                    </button>
+                    <span id="spnCount">0</span>
+                </div>
+                <div id="dropdown-menu" style="display:none;">
+                    <!-- Notifications will be populated here -->
+                </div>
+                <div class="profile">
+                    <button id="btnProfile" onclick="toggleProfileDropdown()">
+                        <div class="user-avatar">
+                            <img src="images/user-profile.png" alt="User profile image" height="50" width="50" /> 
+                        </div>
+                        <div class="user-details">
+                            <div class="user-fullname">Cassandra Washington</div>
+                            <div class="user-role">Administrator</div>
+                        </div>
+                    </button>
+                </div>
+                <div id="profile-dropdown">
                     <ul>
                         <li><a href="#">Logout</a></li>
                     </ul>
                 </div>
-            </div>
-            <div class="notification">
-                <button id="btnNotification" onclick="toggleDropdown()">🔔</button>
-                <span id="spnCount">0</span>
-            </div>
-            <div id="dropdown-menu" style="display:none;">
-                <!-- Notifications will be populated here -->
+                
             </div>
         </div>
     </header>
-    <aside>
+    <main> 
+        <h1 id="create-edit-NCR">Create NCR</h1> <!--title may change depending on user actions-->
 
-        <div class="side-bar">
-            <ul>
-                <li><a href="index.html" id="home">Home</a></li>
-                <li><a href="create.html" id="create">Create NCR</a></li>
-                <li><a href="view.html" id="view">View NCRs</a></li>
-                <li><a href="reports.html" id="reports">Reports</a></li>
-                <hr>
-                <li><a href="faqs.html" id="faqs">FAQs</a></li>
-                <li><a href="settings.html" id="settings">Settings</a></li>
-            </ul>
-        </div>
-    </aside>
-
-
-    <h1>Edit NCR</h1>
-    <!--Form Field-->
-    <form>
-        <div>
-            <div>
-                <strong>NCR Number:</strong> <span id="ncrNumber"></span>
-            </div>
-            <div>
-                <strong>Date Created:</strong><span id="dateCreated"></span>
-            </div>
-            <div>
-                <strong>Created By:</strong><span id="createdBy"></span>
-            </div>
-            <div>
-                <strong>Status:</strong> <span id="ncrStatus"></span>
-            </div>
-        </div>
-
-        <div>
-            <div>
-                <label for="applicableProcess">Applicable Process:</label>
-                <select id="applicableProcess" required>
-                    <option>Select a process</option disabled=true>
-                    <option value="Supplier or Rec-Insp">Supplier or Rec-Insp</option>
-                    <option value="WIP (Production Order)">WIP (Production Order)</option>
-                </select>
-            </div>
-            <div>
-                <label for="supplierName">Supplier Name:</label>
-                <select id="supplierName" required>
-                    <option>Select a Supplier</option disabled=true>
-                    <option value="Auto Parts Ltd.">Auto Parts Ltd.</option>
-                    <option value="Building Materials Co.">Building Materials Co.</option>
-                    <option value="Cosmetics Corp.">Cosmetics Corp.</option>
-                    <option value="Depot Home">Depot Home</option>
-                    <option value="Fresh Foods Co.">Fresh Foods Co.</option>
-                    <option value="Global Supplies">Global Supplies</option>
-                    <option value="Home Goods Inc.">Home Goods Inc.</option>
-                    <option value="Medical Supplies Inc.">Medical Supplies Inc.</option>
-                    <option value="Tech Parts Co.">Tech Parts Co.</option>
-                    <option value="Textile Supplies">Textile Supplies</option>
-                </select>
-            </div>
-            <div>
-                <label for="poNumber">Prod. Number:</label>
-                <input id="poNumber" name="poNumber" type="text" placeholder="Enter Production Number">
-                <!--include regex for pattern: digits-->
-            </div>
-            <div>
-                <label for="soNumber">Sales Order Number:</label>
-                <input id="soNumber" name="soNumber" type="text" placeholder="Enter Sales Order Number" required>
-                <!--include regex for pattern: digits-->
+        <div id="createNCRModal" class="modal">
+            <div class="modal-content">
+                <span class="btnClose">&times;</span>
+                <h2>Create NCR</h2> <!--Heading may change-->
+                <form id="createNCRForm">
+                    <div>
+                        <label for="napplicableProcess">Applicable Process:</label>
+                        <select id="napplicableProcess" name="napplicableProcess" required>
+                            <option value="" disabled selected>Select a process</option>
+                            <!-- Added value="" and selected attribute -->
+                            <option value="Supplier or Rec-Insp">Supplier or Rec-Insp</option>
+                            <option value="WIP (Production Order)">WIP (Production Order)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="nsupplierName">Supplier Name:</label>
+                        <select id="nsupplierName" name="nsupplierName" required>
+                            <option value="" disabled selected>Select a Supplier</option>
+                            <!-- Added value="" and selected attribute -->
+                            <option value="Auto Parts Ltd.">Auto Parts Ltd.</option>
+                            <option value="Building Materials Co.">Building Materials Co.</option>
+                            <option value="Cosmetics Corp.">Cosmetics Corp.</option>
+                            <option value="Depot Home">Depot Home</option>
+                            <option value="Fresh Foods Co.">Fresh Foods Co.</option>
+                            <option value="Global Supplies">Global Supplies</option>
+                            <option value="Home Goods Inc.">Home Goods Inc.</option>
+                            <option value="Medical Supplies Inc.">Medical Supplies Inc.</option>
+                            <option value="Tech Parts Co.">Tech Parts Co.</option>
+                            <option value="Textile Supplies">Textile Supplies</option>
+                        </select>
+                    </div>
+                    <button type="button" id="btnCreateNCR" class="btnPrimary">Create</button>
+                    <button type="button" class="btnSecondary" id="btncancelNCR">Cancel</button>
+                </form>
             </div>
         </div>
+        <!--Form Field-->
+        <div id="create-edit-modal">
+            <form>
+                <div>
+                    <div>
+                        <strong>NCR Number:</strong> <span id="ncrNumber"></span>
+                    </div>
+                    <div>
+                        <strong>Date Created:</strong><span id="dateCreated"></span>
+                    </div>
+                    <div>
+                        <strong>Created By:</strong><span id="createdBy"></span>
+                    </div>
+                    <div>
+                        <strong>Status:</strong> <span id="ncrStatus"></span>
+                    </div>
+                </div>
 
-        <div>
-            <!--include validation against negatives and ensure that defective is not more received-->
-            <div>
-                <label for="quantityReceived">Quantity Received:</label>
-                <input id="quantityReceived" name="quantityReceived" type="number" placeholder="Enter Quantity Received"
-                    required>
-            </div>
-            <div>
-                <label for="quantityDefect">Quantity Defective:</label>
-                <input id="quantityDefect" name="quantityDefect" type="number"
-                    placeholder="Enter Quantity Defective" required>
-            </div>
-        </div>
+                <div>
+                    <div>
+                        <label for="applicableProcess">Applicable Process:</label>
+                        <select id="applicableProcess" required>
+                            <option>Select a process</option disabled=true>
+                            <option value="Supplier or Rec-Insp">Supplier or Rec-Insp</option>
+                            <option value="WIP (Production Order)">WIP (Production Order)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="supplierName">Supplier Name:</label>
+                        <select id="supplierName" required>
+                            <option>Select a Supplier</option disabled=true>
+                            <option value="Auto Parts Ltd.">Auto Parts Ltd.</option>
+                            <option value="Building Materials Co.">Building Materials Co.</option>
+                            <option value="Cosmetics Corp.">Cosmetics Corp.</option>
+                            <option value="Depot Home">Depot Home</option>
+                            <option value="Fresh Foods Co.">Fresh Foods Co.</option>
+                            <option value="Global Supplies">Global Supplies</option>
+                            <option value="Home Goods Inc.">Home Goods Inc.</option>
+                            <option value="Medical Supplies Inc.">Medical Supplies Inc.</option>
+                            <option value="Tech Parts Co.">Tech Parts Co.</option>
+                            <option value="Textile Supplies">Textile Supplies</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="poNumber">Prod. Number:</label>
+                        <input id="poNumber" name="poNumber" type="text" placeholder="Enter Production Number">
+                        <!--include regex for pattern: digits-->
+                    </div>
+                    <div>
+                        <label for="soNumber">Sales Order Number:</label>
+                        <input id="soNumber" name="soNumber" type="text" placeholder="Enter Sales Order Number"
+                            required>
+                        <!--include regex for pattern: digits-->
+                    </div>
+                </div>
 
-        <div>
-            <div>
-                <label for="itemDescription">Item Description:</label><br>
-                <input id="itemDescription" name="itemDescription" placeholder="Describe the Item" required>
-            </div>
-            <div>
-                <label for="defectDescription">Description of Defect:</label><br>
-                <textarea id="defectDescription" name="defectDescription"
-                    placeholder="Describe the defect in as much detail as possible" required></textarea>
-            </div>
-            <div>
-                <label for="attachDocument">Attach a document</label><br>
-                <input id="attachedDocument" name="attachedDocument" type="file">
-            </div>
-            <div>
-                <input id="itemConform" name="itemConform" type="checkbox">
-                <label for="itemConform">Item marked Conforming?</label>
+                <div>
+                    <!--include validation against negatives and ensure that defective is not more received-->
+                    <div>
+                        <label for="quantityReceived">Quantity Received:</label>
+                        <input id="quantityReceived" name="quantityReceived" type="number"
+                            placeholder="Enter Quantity Received" required>
+                    </div>
+                    <div>
+                        <label for="quantityDefect">Quantity Defective:</label>
+                        <input id="quantityDefect" name="quantityDefect" type="number"
+                            placeholder="Enter Quantity Defective" required>
+                    </div>
+                </div>
 
-                <input id="engNeeded" name="engNeeded" type="checkbox">
-                <label for="engNeeded">Forward to Engineering?</label>  
-            </div>
-        </div>
-        <div>
-            <div>
-                <button type="Save" id="btnSave" class="btnPrimary">Save</button>
-            </div>
-            <div>
-                <button type="Submit" id="btnSubmit" class="btnSecondary btnDisable">Submit</button>
-            </div>
-            <div>
-                <button type="Cancel" id="btnCancel" class="btnSecondary">Cancel</button>
-            </div>
-        </div>
-    </form>
+                <div>
+                    <div>
+                        <label for="itemDescription">Item Description:</label><br>
+                        <input id="itemDescription" name="itemDescription" placeholder="Describe the Item" required>
+                    </div>
+                    <div>
+                        <label for="defectDescription">Description of Defect:</label><br>
+                        <textarea id="defectDescription" name="defectDescription"
+                            placeholder="Describe the defect in as much detail as possible" required></textarea>
+                    </div>
+                    <div>
+                        <label for="attachDocument">Attach a document</label><br>
+                        <input id="attachedDocument" name="attachedDocument" type="file">
+                    </div>
+                    <div>
+                        <input id="itemConform" name="itemConform" type="checkbox">
+                        <label for="itemConform">Item marked Conforming?</label>
+
+                        <input id="engNeeded" name="engNeeded" type="checkbox">
+                        <label for="engNeeded">Forward to Engineering?</label>
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        <button type="button" id="btnSave" class="btnPrimary">Save</button>
+                    </div>
+                    <div>
+                        <button type="button" id="btnSubmit" class="btnSecondary btnDisable">Submit</button>
+                    </div>
+                    <div>
+                        <button type="button" id="btnCancel" class="btnSecondary">Cancel</button>
+                    </div>
+                </div>
+            </form>
+        </div> 
     </main>
     <footer>
         <p><small>2024 Copyright.QCision -WireWits. All rights reserved.</small></p>
