@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NCR Details</title>
+</head>
+
+
+<body>
+    <header>
+        <div class="header-col">
+            <div class="header-two-col">
+                <!--logo-->
+                <div class="logo">
+                    <img src="images/logo.png" alt="Crossfire logo" height="1024" width="1024" />
+                </div>
+                <!--navigation menu-->
+                <div>
+                    <ul>
+                        <li><a href="index.html" id="home">Home</a></li>
+                        <li><a href="create.html" id="create">Create NCR</a></li>
+                        <li><a href="view.html" id="view">View NCRs</a></li>
+                        <li><a href="reports.html" id="reports">Reports</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="header-two-col">
+                <div class="profile">
+                    <button id="btnProfile" onclick="toggleProfileDropdown()">👤</button>
+                </div>
+                <div id="profile-dropdown" style="display:none;">
+                    <ul>
+                        <li><a href="#">Logout</a></li>
+                    </ul>
+                </div>
+                <div class="notification">
+                    <button id="btnNotification" onclick="toggleDropdown()">🔔</button>
+                    <span id="spnCount">0</span>
+                </div>
+                <div id="dropdown-menu" style="display:none;">
+                    <!-- Notifications will be populated here -->
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <h1>NCR Information</h1>
+        <div>
+            <div>
+                <strong>NCR Number:</strong> <span id="ncrNumber"></span>
+            </div>
+            <div>
+                <strong>Date Created:</strong> <span id="dateCreated"></span>
+            </div>
+            <div>
+                <strong>Created By:</strong> <span id="createdBy"></span>
+            </div>
+            <div>
+                <strong>Status:</strong> <span id="ncrStatus"></span>
+            </div>
+        </div>
+
+        <div>
+            <div>
+                <strong>Supplier Name:</strong> <span id="supplierName"></span>
+            </div>
+            <div>
+                <strong>Production Number:</strong> <span id="poNumber"></span>
+            </div>
+            <div>
+                <strong>Quantity Received:</strong> <span id="quantityReceived"></span>
+            </div>
+            <div>
+                <strong>Forward to Engineering:</strong> <span id="engNeeded"></span>
+            </div>
+        </div>
+
+        <div>
+            <div>
+                <strong>Applicable Process:</strong> <span id="applicableProcess"></span>
+            </div>
+            <div>
+                <strong>Sales Order Number:</strong> <span id="soNumber"></span>
+            </div>
+            <div>
+                <strong>Quantity Defective:</strong> <span id="quantityDefect"></span>
+            </div>
+            <div>
+                <strong>Item marked conforming:</strong> <span id="itemConform"></span>
+            </div>
+        </div>
+
+        <div>
+            <div>
+                <p><strong>Item Description:</strong> <span id="itemDescription"></span></p>
+            </div>
+
+            <div>
+                <p><strong>Description of Defect:</strong></p>
+                <ul id="defectDescription"></ul>
+            </div>
+            <div>
+                <h3>Document Files:</h3>
+                <ul id="attachedDocument">
+                    <!-- Document files will be populated here -->
+                </ul>
+            </div>
+        </div>
+
+        <div>
+            <button
+                onclick="window.location.href='create.html?ncr=' + document.getElementById('ncrNumber').textContent;">Edit</button>
+        </div>
+    </main>
+    <footer>
+        <P><small>2024 Copyright.QCision -WireWits. All rights reserved.</small></P>
+    </footer>
+    <script src="scripts/functions.js"></script>
+    <script src="scripts/main.js"></script>
+</body>

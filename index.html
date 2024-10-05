@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+
+    <link href="styles.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <div class="header-col">
+            <div class="header-col-left">
+                <!--logo-->
+                <div class="logo">
+                    <img src="images/logo.png" alt="Crossfire logo" height="74" width="345" />
+                </div>
+                <!--navigation menu-->
+                <nav>
+                    <ul>
+                        <li><a href="index.html" class="nav-active" id="home">Dashboard</a></li>
+                        <li><a href="create.html" id="create" class="createNCR">Create NCR</a></li>
+                        <li><a href="view.html" id="view">View NCRs</a></li>
+                        <li><a href="reports.html" id="reports">Reports</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="header-col-right">
+                <div class="notification">
+                    <button id="btnNotification" onclick="toggleDropdown()">
+                        <img src="images/icon-notif.svg" alt="Notification icon" height="35" width="30" />
+                    </button>
+                    <span id="spnCount">0</span>
+                </div>
+                <div id="dropdown-menu" style="display:none;">
+                    <!-- Notifications will be populated here -->
+                </div>
+                <div class="profile">
+                    <button id="btnProfile" onclick="toggleProfileDropdown()">
+                        <div class="user-avatar">
+                            <img src="images/user-profile.png" alt="User profile image" height="50" width="50" /> 
+                        </div>
+                        <div class="user-details">
+                            <div class="user-fullname">Cassandra Washington</div>
+                            <div class="user-role">Administrator</div>
+                        </div>
+                    </button>
+                </div>
+                <div id="profile-dropdown">
+                    <ul>
+                        <li><a href="#">Logout</a></li>
+                    </ul>
+                </div>
+                
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <div class="page-title">
+                <h1>Dashboard</h1>
+            </div>
+            <section id="dashboardSection">
+                <!--dashboard buttons-->
+                <div class="dashboard">
+                    <div class="dash-col">
+                        <button id="btnCreate" class="createNCR">
+                            <img src="images/icon-create-ncr.svg" alt="Create NCR icon" width="95" height="95" />
+                            Create NCR
+                        </button>
+                    </div>
+                    <div class="dash-col">
+                        <button id="btnView">
+                            <img src="images/icon-view-ncrs.svg" alt="View NCR icon" width="95" height="95" />
+                            View NCRs
+                        </button>
+                    </div>
+                    <div class="dash-col">
+                        <button id="btnReports">
+                            <img src="images/icon-reports.svg" alt="Reports icon" width="95" height="95" />
+                            Reports
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <section id="SecRcentNCR">
+                <div class="table-col">
+                    <div class="table-title">
+                        <h2>Recent NCRs</h2> <!--Heading may change-->
+                    </div>
+                    <table id="recentNCRs-table">
+                        <thead>
+                            <tr>
+                                <th>NCR Number</th>
+                                <th>Supplier</th>
+                                <th>Date Created</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tablecontent">
+                            <!--Results will be populated here-->
+                        </tbody>
+                    </table>
+                </div>
+
+            </section>
+
+            <!--NCR Create Pop-Up box-->
+            <section id="SecCreateNCR" style="display: none;">
+                <div id="createNCRModal" class="modal">
+                    <div class="modal-content">
+                        <span class="btnClose">&times;</span>
+                        <h2>Create NCR</h2> <!--Heading may change-->
+                        <form id="createNCRForm">
+                            <div>
+                                <label for="applicableProcess">Applicable Process:</label>
+                                <select id="applicableProcess" required>
+                                    <option>Select a process</option disabled=true>
+                                    <option value="Supplier or Rec-Insp">Supplier or Rec-Insp</option>
+                                    <option value="WIP (Production Order)">WIP (Production Order)</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label for="supplierName">Supplier Name:</label>
+                                <select id="supplierName" required>
+                                    <option>Select a Supplier</option disabled=true>
+                                    <option value="Auto Parts Ltd.">Auto Parts Ltd.</option>
+                                    <option value="Building Materials Co.">Building Materials Co.</option>
+                                    <option value="Cosmetics Corp.">Cosmetics Corp.</option>
+                                    <option value="Depot Home">Depot Home</option>
+                                    <option value="Fresh Foods Co.">Fresh Foods Co.</option>
+                                    <option value="Global Supplies">Global Supplies</option>
+                                    <option value="Home Goods Inc.">Home Goods Inc.</option>
+                                    <option value="Medical Supplies Inc.">Medical Supplies Inc.</option>
+                                    <option value="Tech Parts Co.">Tech Parts Co.</option>
+                                    <option value="Textile Supplies">Textile Supplies</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btnPrimary">Create</button>
+                            <button type="button" class="btnSecondary" id="cancelNCR">Cancel</button>
+                    </div>
+                    </form>
+                </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <P><small>2024 Copyright.QCision -WireWits. All rights reserved.</small></P>
+    </footer>
+    <script src="scripts/functions.js"></script>
+    <script src="scripts/main.js"></script>
+</body>
+
+</html>

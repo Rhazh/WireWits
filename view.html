@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View NCRs</title>
+</head>
+
+<body>
+    <header>
+        <div class="header-col">
+            <div class="header-two-col">
+                <!--logo-->
+                <div class="logo">
+                    <img src="images/logo.png" alt="Crossfire logo" height="1024" width="1024" />
+                </div>
+                <!--navigation menu-->
+                <div>
+                    <ul>
+                        <li><a href="index.html" id="home">Home</a></li>
+                        <li><a href="create.html" id="create">Create NCR</a></li>
+                        <li><a href="view.html" id="view">View NCRs</a></li>
+                        <li><a href="reports.html" id="reports">Reports</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="header-two-col">
+                <div class="profile">
+                    <button id="btnProfile" onclick="toggleProfileDropdown()">👤</button>
+                </div>
+                <div id="profile-dropdown" style="display:none;">
+                    <ul>
+                        <li><a href="#">Logout</a></li>
+                    </ul>
+                </div>
+                <div class="notification">
+                    <button id="btnNotification" onclick="toggleDropdown()">🔔</button>
+                    <span id="spnCount">0</span>
+                </div>
+                <div id="dropdown-menu" style="display:none;">
+                    <!-- Notifications will be populated here -->
+                </div>
+            </div>
+        </div>
+    </header>
+    <main>
+        <!--filter by NCR Number, the status, Date Range, Supplier-->
+        <h1>View NCRs</h1>
+        <div class="search-container">
+            <div>
+                <label for="ncrNumber">Filter By NCR Number:</label>
+                <input type="text" id="ncrNumber" placeholder="2024-001">
+            </div>
+            <div>
+                <label for="supplierName">Filter by Supplier:</label>
+                <!--performSearch may not work in this case so change-->
+                <select id="supplierName" onchange="performSearch()">
+                    <option value="">Select Supplier</option>
+                    <option value="Auto Parts Ltd.">Auto Parts Ltd.</option>
+                    <option value="Building Materials Co.">Building Materials Co.</option>
+                    <option value="Cosmetics Corp.">Cosmetics Corp.</option>
+                    <option value="Depot Home">Depot Home</option>
+                    <option value="Fresh Foods Co.">Fresh Foods Co.</option>
+                    <option value="Global Supplies">Global Supplies</option>
+                    <option value="Home Goods Inc.">Home Goods Inc.</option>
+                    <option value="Medical Supplies Inc.">Medical Supplies Inc.</option>
+                    <option value="Tech Parts Co.">Tech Parts Co.</option>
+                    <option value="Textile Supplies">Textile Supplies</option>
+                    <!-- Options will be populated dynamically -->
+                </select>
+            </div>
+            <div>
+                <label for="ncrStatus">Filter by Status:</label>
+                 <!--performSearch may not work in this case so change-->
+                <select id="ncrStatus" onchange="performSearch()">
+                    <option value="Quality">Quality</option>
+                    <option value="Engineering">Engineering</option>
+                    <option value="Operations">Operations</option>
+                </select>
+            </div>
+            <div>
+                <label for="fromDate">From:</label>
+                <input type="date" id="fromDate">
+            </div>
+            <div>
+                <label for="toDate">To:</label>
+                <input type="date" id="toDate">
+            </div>
+            <div>
+                <button type="button" onclick="performSearch()">Search</button>
+            </div>
+            <div>
+                <button type="button" onclick="clearSearch()">Clear</button>
+            </div>
+            <div>
+                <span id="no-results-message" style="color: red; margin-left: 10px; display: none;"></span>
+            </div>
+        </div>
+
+        <h2>Available Records</h2>
+        <table id="results-table">
+            <thead>
+                <tr>
+                    <th style="text-align: left;">NCR Number</th>
+                    <th style="text-align: left;">Supplier</th>
+                    <th style="text-align: left;">Date Created</th>
+                    <th style="text-align: left;">Status</th>
+                    <th style="text-align: left;">Actions</th>
+                </tr>
+            </thead>
+            <tbody id="tablecontent">
+                <!-- Results will be populated here -->
+            </tbody>
+        </table>
+    </main>
+    <footer>
+        <P><small>2024 Copyright.QCision -WireWits. All rights reserved.</small></P>
+    </footer>
+    <script src="scripts/functions.js"></script>
+    <script src="scripts/main.js"></script>
+</body>

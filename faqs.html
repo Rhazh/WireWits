@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQs</title>
+</head>
+
+
+<body>
+    <header>
+        <div class="header-col">
+            <div class="header-two-col">
+                <!--logo-->
+                <div class="logo">
+                    <img src="images/logo.png" alt="Crossfire logo" height="1024" width="1024" />
+                </div>
+                <!--navigation menu-->
+                <div>
+                    <ul>
+                        <li><a href="index.html" id="home">Home</a></li>
+                        <li><a href="create.html" id="create">Create NCR</a></li>
+                        <li><a href="view.html" id="view">View NCRs</a></li>
+                        <li><a href="reports.html" id="reports">Reports</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="header-two-col">
+                <div class="profile">
+                    <button id="btnProfile" onclick="toggleProfileDropdown()">👤</button>
+                </div>
+                <div id="profile-dropdown" style="display:none;">
+                    <ul>
+                        <li><a href="#">Logout</a></li>
+                    </ul>
+                </div>
+                <div class="notification">
+                    <button id="btnNotification" onclick="toggleDropdown()">🔔</button>
+                    <span id="spnCount">0</span>
+                </div>
+                <div id="dropdown-menu" style="display:none;">
+                    <!-- Notifications will be populated here -->
+                </div>
+            </div>
+        </div>
+    </header>

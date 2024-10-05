@@ -1,0 +1,232 @@
+[
+    {
+        "ncrNumber": "2024-001",
+        "dateCreated": "08/30/2024",
+        "createdBy": "Cassandra Washington",
+        "supplierName": "Depot Home",
+        "applicableProcess": "Supplier or Rec-Insp",
+        "poNumber": "0111559536",
+        "soNumber": "1157674",
+        "quantityReceived": 24,
+        "quantityDefective": 7,
+        "engNeeded": "Yes",
+        "itemConform": "Yes",
+        "itemDescription": "Defective Paint Quality Control Report",
+        "defectDescription": [
+            "Color mismatch: The final paint color differs from the intended or specified shade.",
+            "Bubbling or blistering: Air bubbles form on the paint surface, affecting the finish."
+        ],
+        "documentFiles": [
+            "898971321_9882189.jpeg",
+            "918239_98391.docx"
+        ],
+        "ncrStatus": "Quality"
+    },
+    {
+        "ncrNumber": "2024-002",
+        "dateCreated": "08/31/2024",
+        "createdBy": "Marcus Allen",
+        "supplierName": "Global Supplies",
+        "applicableProcess": "WIP (Production Order)",
+        "poNumber": "0111559537",
+        "soNumber": "1157675",
+        "quantityReceived": 30,
+        "quantityDefective": 5,
+        "engNeeded": "No",
+        "itemConform": "No",
+        "itemDescription": "Quality Control for Packaging",
+        "defectDescription": [
+            "Incorrect labeling: Labels do not match the contents.",
+            "Seal failure: Packaging seals are compromised."
+        ],
+        "documentFiles": [
+            "1029384756.jpeg",
+            "2938475612.docx"
+        ],
+        "ncrStatus": "Quality"
+    },
+    {
+        "ncrNumber": "2024-003",
+        "dateCreated": "09/21/2024",
+        "createdBy": "Sophia Lee",
+        "supplierName": "Tech Parts Co.",
+        "applicableProcess": "Supplier or Rec-Insp",
+        "poNumber": "0111559538",
+        "soNumber": "1157676",
+        "quantityReceived": 50,
+        "quantityDefective": 12,
+        "engNeeded": "Yes",
+        "itemConform": "Yes",
+        "itemDescription": "Electronics Inspection Report",
+        "defectDescription": [
+            "Short circuit: Components are improperly configured.",
+            "Component failure: Certain parts do not function as expected."
+        ],
+        "documentFiles": [
+            "8473625147.jpeg",
+            "5647382910.docx"
+        ],
+        "ncrStatus": "Quality"
+    },
+    {
+        "ncrNumber": "2024-004",
+        "dateCreated": "09/22/2024",
+        "createdBy": "James Smith",
+        "supplierName": "Home Goods Inc.",
+        "applicableProcess": "WIP (Production Order)",
+        "poNumber": "0111559539",
+        "soNumber": "1157677",
+        "quantityReceived": 15,
+        "quantityDefective": 2,
+        "engNeeded": "No",
+        "itemConform": "No",
+        "itemDescription": "Furniture Quality Inspection",
+        "defectDescription": [
+            "Scratches on surface: Visible damage on the wood finish.",
+            "Incorrect dimensions: Items do not match the specifications."
+        ],
+        "documentFiles": [
+            "1122334455.jpeg",
+            "9988776655.docx"
+        ],
+        "ncrStatus": "Quality"
+    },
+    {
+        "ncrNumber": "2024-005",
+        "dateCreated": "09/23/2024",
+        "createdBy": "Emily Davis",
+        "supplierName": "Auto Parts Ltd.",
+        "applicableProcess": "Supplier or Rec-Insp",
+        "poNumber": "0111559540",
+        "soNumber": "1157678",
+        "quantityReceived": 40,
+        "quantityDefective": 8,
+        "engNeeded": "Yes",
+        "itemConform": "Yes",
+        "itemDescription": "Mechanical Parts Inspection",
+        "defectDescription": [
+            "Wear and tear: Parts show signs of aging.",
+            "Misalignment: Components do not fit together properly."
+        ],
+        "documentFiles": [
+            "5647382910.jpeg",
+            "1234567890.docx"
+        ],
+        "ncrStatus": "Quality"
+    },
+    {
+        "ncrNumber": "2024-006",
+        "dateCreated": "09/24/2024",
+        "createdBy": "Oliver Brown",
+        "supplierName": "Fresh Foods Co.",
+        "applicableProcess": "WIP (Production Order)",
+        "poNumber": "0111559541",
+        "soNumber": "1157679",
+        "quantityReceived": 60,
+        "quantityDefective": 10,
+        "engNeeded": "No",
+        "itemConform": "No",
+        "itemDescription": "Food Safety Inspection Report",
+        "defectDescription": [
+            "Contamination: Signs of foreign materials present.",
+            "Temperature control failure: Items stored outside safe temperature ranges."
+        ],
+        "documentFiles": [
+            "9876543210.jpeg",
+            "4567891230.docx"
+        ],
+        "ncrStatus": "Quality"
+    },
+    {
+        "ncrNumber": "2024-007",
+        "dateCreated": "09/25/2024",
+        "createdBy": "Isabella Johnson",
+        "supplierName": "Textile Supplies",
+        "applicableProcess": "Supplier or Rec-Insp",
+        "poNumber": "0111559542",
+        "soNumber": "1157680",
+        "quantityReceived": 22,
+        "quantityDefective": 4,
+        "engNeeded": "Yes",
+        "itemConform": "Yes",
+        "itemDescription": "Fabric Quality Control Report",
+        "defectDescription": [
+            "Color fading: Fabric loses its original color.",
+            "Weak seams: Seams are not durable enough."
+        ],
+        "documentFiles": [
+            "3216549870.jpeg",
+            "6543219870.docx"
+        ],
+        "ncrStatus": "Quality"
+    },
+    {
+        "ncrNumber": "2024-008",
+        "dateCreated": "09/26/2024",
+        "createdBy": "Liam Miller",
+        "supplierName": "Building Materials Co.",
+        "applicableProcess": "WIP (Production Order)",
+        "poNumber": "0111559543",
+        "soNumber": "1157681",
+        "quantityReceived": 35,
+        "quantityDefective": 6,
+        "engNeeded": "No",
+        "itemConform": "No",
+        "itemDescription": "Construction Materials Inspection",
+        "defectDescription": [
+            "Inconsistent sizing: Materials do not match specified sizes.",
+            "Surface defects: Cracks or chips present."
+        ],
+        "documentFiles": [
+            "1597534862.jpeg",
+            "7539518520.docx"
+        ],
+        "ncrStatus": "Quality"
+    },
+    {
+        "ncrNumber": "2024-009",
+        "dateCreated": "09/27/2024",
+        "createdBy": "Mia Wilson",
+        "supplierName": "Cosmetics Corp.",
+        "applicableProcess": "Supplier or Rec-Insp",
+        "poNumber": "0111559544",
+        "soNumber": "1157682",
+        "quantityReceived": 28,
+        "quantityDefective": 3,
+        "engNeeded": "Yes",
+        "itemConform": "Yes",
+        "itemDescription": "Cosmetic Product Quality Report",
+        "defectDescription": [
+            "Packaging damage: Outer packaging is damaged.",
+            "Ingredient mismatch: Ingredients do not match the label."
+        ],
+        "documentFiles": [
+            "8523697410.jpeg",
+            "1472583690.docx"
+        ],
+        "ncrStatus": "Quality"
+    },
+    {
+        "ncrNumber": "2024-010",
+        "dateCreated": "09/28/2024",
+        "createdBy": "Noah Martinez",
+        "supplierName": "Medical Supplies Inc.",
+        "applicableProcess": "WIP (Production Order)",
+        "poNumber": "0111559545",
+        "soNumber": "1157683",
+        "quantityReceived": 45,
+        "quantityDefective": 1,
+        "engNeeded": "No",
+        "itemConform": "Yes",
+        "itemDescription": "Medical Equipment Quality Inspection",
+        "defectDescription": [
+            "Calibration error: Equipment is not calibrated correctly.",
+            "Packaging concerns: Some items are not properly packaged."
+        ],
+        "documentFiles": [
+            "4561237890.jpeg",
+            "2589631470.docx"
+        ],
+        "ncrStatus": "Quality"
+    }
+]
