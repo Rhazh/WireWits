@@ -37,8 +37,13 @@
                     </button>
                     <span id="spnCount">0</span>
                 </div>
-                <div id="dropdown-menu" style="display:none;" class="dropdown-notif">
-                    <!-- Notifications will be populated here -->
+                <div class="notif-container" id="notifDisplay">
+                    <div class="notif-desc">
+
+                    </div>
+                    <div class="notif-list" id="notifList">
+                        <!-- Notifications will be populated here -->
+                    </div>
                 </div>
                 <div class="profile">
                     <button id="btnProfile" onclick="toggleProfileDropdown()">
@@ -51,7 +56,7 @@
                         </div>
                     </button>
                 </div>
-                <div id="profile-dropdown">
+                <div id="profile-dropdown" style="display:none;" >
                     <ul>
                         <li><a href="#">Logout</a></li>
                     </ul>

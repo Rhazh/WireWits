@@ -161,52 +161,27 @@ nav ul li a:hover {
 .dropdown-notif {
     position: absolute;
     z-index: 99;
-    top: 100px;
+    top: 70px;
     right: 180px;
     padding: 15px;
     background-color: #fdfdfd;
     box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
     border-radius: 7px;
 
-
 }
 
-.dropdown-menu ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.dropdown-menu ul li {
-    padding: 10px 20px;
-    border-bottom: 1px solid #e3e7f2;
-    color: #333;
-    transition: background-color 0.3s ease-in-out;
-}
-
-.dropdown-menu ul li:last-child {
-    border-bottom: none;
-}
-
-.dropdown-menu ul li:hover {
-    background-color: #f1f5ff; /* Subtle hover effect */
-    cursor: pointer;
-}
-
-/* Notification count styling */
-#spnCount {
+.dropdown-notif-triangle {
     position: absolute;
-    top: -5px;
-    right: -10px;
-    background-color: #ff2c2c;
-    color: white;
-    border-radius: 50%;
-    padding: 5px;
-    font-size: 12px;
-    font-weight: bold;
+    top: -8px;
+    left: 134px;
+    height: 15px;
+    width: 15px;
+    border-radius: 6px 0px 0px 0px;
+    transform: rotate(45deg);
+    background: #fdfdfd;
 }
 
-/* Profile Dropdown (optional) */
+/* Profile Dropdown (optional)
 #profile-dropdown {
     position: absolute;
     top: 60px;
@@ -239,7 +214,7 @@ nav ul li a:hover {
     cursor: pointer;
 }
 
-
+ */
 
 
 
@@ -396,40 +371,40 @@ table thead{
 }
 
 
-
+/*
 .modal {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
+    display: none;
+    position: fixed;
+    z-index: 1; 
     left: 0;
     top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgba(0, 0, 0, 0.7); /* Black background with transparency */
+    width: 100%; 
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.7); 
 }
 
-/* Modal Content */
+/* Modal Content
 .modal-content {
-    background-color: white; /* White background for modal content */
-    margin: 15% auto; /* 15% from the top and centered */
+    background-color: white; /* White background for modal content
+    margin: 15% auto; /* 15% from the top and centered
     padding: 20px;
     border: 1px solid #888;
-    width: 80%; /* Could be more or less, depending on screen size */
-    border-radius: 8px; /* Rounded corners */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Optional shadow */
-    backdrop-filter: blur(10px); /* Blurs the background */
+    width: 80%; /* Could be more or less, depending on screen size
+    border-radius: 8px; /* Rounded corners 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Optional shadow 
+    backdrop-filter: blur(10px); /* Blurs the background
 }
 
-/* Close Button */
+/* Close Button
 .btnClose {
     cursor: pointer;
-    float: right; /* Align to the right */
-    font-size: 28px; /* Font size for close button */
+    float: right; /* Align to the right 
+    font-size: 28px; /* Font size for close button 
     font-weight: bold;
 }
 
-/* Adjust button styles if needed */
+/* Adjust button styles if needed
 .btnPrimary, .btnSecondary {
     padding: 10px 20px;
     margin-top: 10px;
@@ -439,14 +414,15 @@ table thead{
 }
 
 .btnPrimary {
-    background-color: #007bff; /* Primary button color */
+    background-color: #007bff; /* Primary button color
     color: white;
 }
 
 .btnSecondary {
-    background-color: #e9e9e9; /* Secondary button color */
+    background-color: #e9e9e9; /* Secondary button color
     color: #173551;
 }
+*/
 
 footer {
     padding: 10px;
