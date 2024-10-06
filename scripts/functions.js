@@ -9,7 +9,7 @@
 // 1. Populate Notifications - For all pages
 // ==========================================
 function populateNotifications() {
-    const dropdown = document.getElementById('dropdown-menu');
+    const dropdown = document.getElementById('notifList');
     if (!dropdown) {
         console.warn('Dropdown menu element not found.');
         return;
@@ -59,7 +59,7 @@ function getOldNotifications() {
 
 // Supporoting functions for toggle down
 function toggleDropdown() {
-    const dropdown = document.getElementById('dropdown-menu');
+    const dropdown = document.getElementById('notifList');
     dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
 }
 
