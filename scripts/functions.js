@@ -297,8 +297,8 @@ function CreateNCR() {
     }
 
     // Get form values
-    const applicableProcess = document.getElementById('napplicableProcess').value;
-    const supplierName = document.getElementById('nsupplierName').value;
+    const applicableProcess = document.getElementById('napplicableProcess')?.value;
+    const supplierName = document.getElementById('nsupplierName')?.value;
 
     if(applicableProcess == "" || supplierName == ""){
         alert("Please select both Applicable Process and Supplier")
