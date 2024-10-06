@@ -59,7 +59,7 @@ function getOldNotifications() {
 
 // Supporoting functions for toggle down
 function toggleDropdown() {
-    const dropdown = document.getElementById('notifList');
+    const dropdown = document.getElementById('notifDisplay');
     dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
 }
 
