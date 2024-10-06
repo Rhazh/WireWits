@@ -61,7 +61,7 @@
 
         <div id="createNCRModal" class="modal">
             <div class="modal-content">
-                <span class="btnClose">&times;</span>
+                <span class="btnClose" onclick="goBack()">&times;</span>
                 <h2>Create NCR</h2> <!--Heading may change-->
                 <form id="createNCRForm">
                     <div>
@@ -91,7 +91,7 @@
                         </select>
                     </div>
                     <button type="button" id="btnCreateNCR" class="btnPrimary">Create</button>
-                    <button type="button" class="btnSecondary" id="btncancelNCR">Cancel</button>
+                    <button type="button" class="btnSecondary" id="btncancelNCR" onclick="goBack()">Cancel</button>
                 </form>
             </div>
         </div>
@@ -176,7 +176,7 @@
                             placeholder="Describe the defect in as much detail as possible" required></textarea>
                     </div>
                     <div>
-                        <label for="attachDocument">Attach a document</label><br>
+                        <label for="attachedDocument">Attach a document</label><br>
                         <input id="attachedDocument" name="attachedDocument" type="file">
                     </div>
                     <div>
@@ -195,7 +195,7 @@
                         <button type="button" id="btnSubmit" class="btnSecondary btnDisable">Submit</button>
                     </div>
                     <div>
-                        <button type="button" id="btnCancel" class="btnSecondary">Cancel</button>
+                        <button type="button" id="btnCancel" class="btnSecondary" onclick="goBack()">Cancel</button>
                     </div>
                 </div>
             </form>

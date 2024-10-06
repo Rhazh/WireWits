@@ -137,3 +137,7 @@ function setupSubmitNCR(){
         submitNCR()
     });
 }
+
+function goBack() {
+    window.history.back();
+}
