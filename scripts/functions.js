@@ -297,8 +297,13 @@ function CreateNCR() {
     }
 
     // Get form values
-    const applicableProcess = document.getElementById('napplicableProcess')?.value || '';
-    const supplierName = document.getElementById('nsupplierName')?.value || '';
+    const applicableProcess = document.getElementById('napplicableProcess').value;
+    const supplierName = document.getElementById('nsupplierName').value;
+
+    if(applicableProcess == "" || supplierName == ""){
+        alert("Please select both Applicable Process and Supplier")
+        return;
+    }
 
     // Generate NCR Number and Timestamp
     const ncrNumber = NCRNumberGenerator();
@@ -386,6 +391,10 @@ function saveNCR() {
     const itemDescription = document.getElementById('itemDescription')?.value || '';
     const defectDescription = document.getElementById('defectDescription')?.value || '';
     
+    if(Number(quantityDefect) > Number(quantityReceived)){
+        alert('The number of defects cannot exceed the quantity received.')
+        return;
+    }
     // Update the corresponding NCR in the quality array
     const qualityEntry = quality.find(entry => entry.ncrNumber === ncrNumber);
 
@@ -427,6 +436,10 @@ function submitNCR() {
         alert('Please fill out all the required fields before submitting.');
         return;
     }
+
+    if(Number(quantityDefect) > Number(quantityReceived)){
+        alert('The number of defects cannot exceed the quantity received.')
+        return;}
 
     // Update the corresponding NCR in the quality array
     const qualityEntry = quality.find(entry => entry.ncrNumber === ncrNumber);
