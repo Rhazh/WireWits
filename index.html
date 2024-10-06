@@ -37,8 +37,13 @@
                     </button>
                     <span id="spnCount">0</span>
                 </div>
-                <div id="dropdown-menu" style="display:none;">
-                    <!-- Notifications will be populated here -->
+                <div class="notif-container" id="notifDisplay">
+                    <div class="notif-desc">
+
+                    </div>
+                    <div class="notif-list" id="notifList">
+                        <!-- Notifications will be populated here -->
+                    </div>
                 </div>
                 <div class="profile">
                     <button id="btnProfile" onclick="toggleProfileDropdown()">
@@ -51,7 +56,7 @@
                         </div>
                     </button>
                 </div>
-                <div id="profile-dropdown">
+                <div id="profile-dropdown" style="display:none;" >
                     <ul>
                         <li><a href="#">Logout</a></li>
                     </ul>
@@ -116,7 +121,7 @@
     </main>
 
     <footer>
-        <P><small>2024 Copyright.QCision - WireWits. All rights reserved.</small></P>
+        <p><small>&copy; 2024 Copyright. QCision - WireWits. All rights reserved.</small></p>
     </footer>
     <script src="scripts/functions.js"></script>
     <script src="scripts/main.js"></script>

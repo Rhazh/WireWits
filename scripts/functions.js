@@ -9,7 +9,7 @@
 // 1. Populate Notifications - For all pages
 // ==========================================
 function populateNotifications() {
-    const dropdown = document.getElementById('dropdown-menu');
+    const dropdown = document.getElementById('notifList');
     if (!dropdown) {
         console.warn('Dropdown menu element not found.');
         return;
@@ -59,7 +59,7 @@ function getOldNotifications() {
 
 // Supporoting functions for toggle down
 function toggleDropdown() {
-    const dropdown = document.getElementById('dropdown-menu');
+    const dropdown = document.getElementById('notifList');
     dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
 }
 
@@ -98,7 +98,7 @@ function recentNCRs() {
                              <td>${result.ncrStatus}</td>
                              <td>
                                  <div>
-                                     <button onclick="detailsEntry('${result.ncrNumber}')">
+                                    <button onclick="detailsEntry('${result.ncrNumber}')">
                                         <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                                             <path stroke="currentColor" stroke-width="2" d="M21 12c0 1.2-4.03 6-9 6s-9-4.8-9-6c0-1.2 4.03-6 9-6s9 4.8 9 6Z"/>
                                             <path stroke="currentColor" stroke-width="2" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
@@ -297,8 +297,13 @@ function CreateNCR() {
     }
 
     // Get form values
-    const applicableProcess = document.getElementById('napplicableProcess')?.value || '';
-    const supplierName = document.getElementById('nsupplierName')?.value || '';
+    const applicableProcess = document.getElementById('napplicableProcess')?.value;
+    const supplierName = document.getElementById('nsupplierName')?.value;
+
+    if(applicableProcess == "" || supplierName == ""){
+        alert("Please select both Applicable Process and Supplier")
+        return;
+    }
 
     // Generate NCR Number and Timestamp
     const ncrNumber = NCRNumberGenerator();
@@ -386,6 +391,10 @@ function saveNCR() {
     const itemDescription = document.getElementById('itemDescription')?.value || '';
     const defectDescription = document.getElementById('defectDescription')?.value || '';
     
+    if(Number(quantityDefect) > Number(quantityReceived)){
+        alert('The number of defects cannot exceed the quantity received.')
+        return;
+    }
     // Update the corresponding NCR in the quality array
     const qualityEntry = quality.find(entry => entry.ncrNumber === ncrNumber);
 
@@ -427,6 +436,10 @@ function submitNCR() {
         alert('Please fill out all the required fields before submitting.');
         return;
     }
+
+    if(Number(quantityDefect) > Number(quantityReceived)){
+        alert('The number of defects cannot exceed the quantity received.')
+        return;}
 
     // Update the corresponding NCR in the quality array
     const qualityEntry = quality.find(entry => entry.ncrNumber === ncrNumber);
