@@ -10,6 +10,7 @@
 // ==========================================
 function populateNotifications() {
     const dropdown = document.getElementById('notifList');
+    const dropdownDesc = document.getElementById('notifDesc');
     if (!dropdown) {
         console.warn('Dropdown menu element not found.');
         return;
@@ -29,7 +30,7 @@ function populateNotifications() {
         return;
     }
 
-    dropdown.innerHTML = "<p>Pending NCRs for Over 14 Days</p>"; // Text explaining urgency
+    dropdownDesc.innerHTML = "<p>Pending NCRs for Over 14 Days</p>"; // Text explaining urgency
 
     oldNotifications.forEach(ncrNumber => {
         const p = document.createElement('p');

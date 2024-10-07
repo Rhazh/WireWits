@@ -138,6 +138,7 @@ function setupSubmitNCR(){
     });
 }
 
+//Going back to last page
 function goBack() {
     window.history.back();
 }
