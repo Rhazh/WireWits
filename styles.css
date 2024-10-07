@@ -89,7 +89,12 @@ nav ul li a:hover {
     transition: border 0.3s ease-in-out, color 0.3s ease-in-out;
 }
 
-
+#btnProfile, #btnNotification {
+    background: none;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+}
 
 
 
@@ -98,13 +103,6 @@ nav ul li a:hover {
 .profile,
 .notification {
     margin-left: 20px;
-}
-
-#btnProfile, #btnNotification {
-    background: none;
-    border: none;
-    font-size: 18px;
-    cursor: pointer;
 }
 
 .user-container button {
@@ -137,6 +135,51 @@ nav ul li a:hover {
     font-weight: 700;
     text-transform: uppercase;
 }
+
+.profile {
+    min-width: 250px;
+}
+
+.profile-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    margin: 20px 0;
+    width: 250px;
+    z-index: 9;
+    background-color: #fdfdfd;
+    box-shadow: 0 3px 5px -2px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.profile-dropdown ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.profile-dropdown ul li {
+    width: 100%;
+}
+
+.profile-dropdown ul li button {
+    width: 100%;
+    text-align: left;
+    background-color: #fdfdfd;
+    border: none;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+}
+
+.profile-dropdown ul li button:hover {
+    background-color: #f1f5ff;
+    color:#007bff;
+}
+
 
 .notification, .profile {
     position: relative;
