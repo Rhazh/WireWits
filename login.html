@@ -22,16 +22,26 @@
                 <input id="username" name="username" type="text" placeholder="Enter your Username" required>
 
             </div>
-            
+
             <div>
                 <label for="password">Password</label>
-                <input id="password" name="password" type="text" placeholder="Password" required>
+                <input id="password" name="password" type="password" placeholder="Password" required>
             </div>
-        </div>
 
+            <div>
+                <label for="ncrStatus">Department</label>
+                <select id="ncrStatus" >
+                    <option value="Quality">Quality</option>
+                    <option value="Engineering">Engineering</option>
+                    <option value="Operations">Operations</option>
+                    <option value="Administrator">Administrator</option>
+                </select>
+            </div>
+
+        </div>
         <div>
             <div>
-                <button type="button" id="btnLogin">Log In</button>
+                <button type="submit" id="btnLogin">Log In</button>
             </div>
 
             <div>

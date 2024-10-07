@@ -4,7 +4,7 @@ document.getElementById('btnLogin').addEventListener('click', function() {
 
     // Simulate successful login for a specific user
     if (username === 'testUser' && password === 'testPass') {
-        alert('Login successful! Redirecting...');
+       
         // Simulate redirect
         window.location.href = 'index.html'; // Change this to your home page
     } else {
