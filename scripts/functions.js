@@ -470,6 +470,9 @@ function submitNCR() {
     const qualityEntry = quality.find(entry => entry.ncrNumber === ncrNumber);
 
     if (qualityEntry) {
+
+        const engNeededCheckbox = document.getElementById('engNeeded');
+
         qualityEntry.poNumber = poNumber;
         qualityEntry.soNumber = soNumber;
         qualityEntry.quantityReceived = quantityReceived;
@@ -480,12 +483,13 @@ function submitNCR() {
         qualityEntry.defectDescription = defectDescription;
         
         // Mark the NCR as submitted
-        qualityEntry.ncrStatus = 'Submitted';
+        qualityEntry.ncrStatus = engNeededCheckbox.checked ? "Engineering" : "Operation";
         
         // Persist updated quality array to sessionStorage
         sessionStorage.setItem('quality', JSON.stringify(quality));
         
         alert('NCR has been successfully submitted.');
         // Redirect or perform other actions as needed
+        window.location.href = 'index.html';
     }
 }
