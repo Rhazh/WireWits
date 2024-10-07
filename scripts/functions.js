@@ -10,6 +10,7 @@
 // ==========================================
 function populateNotifications() {
     const dropdown = document.getElementById('notifList');
+    const dropdownDesc = document.getElementById('notifDesc');
     if (!dropdown) {
         console.warn('Dropdown menu element not found.');
         return;
@@ -29,7 +30,7 @@ function populateNotifications() {
         return;
     }
 
-    dropdown.innerHTML = "<p>Pending NCRs for Over 14 Days</p>"; // Text explaining urgency
+    dropdownDesc.innerHTML = "<p>Pending NCRs for Over 14 Days</p>"; // Text explaining urgency
 
     oldNotifications.forEach(ncrNumber => {
         const p = document.createElement('p');
@@ -47,7 +48,7 @@ function populateNotifications() {
     });
 }
 
-// Sypporting Function - Get Old Notifications
+// Supporting Function - Get Old Notifications
 function getOldNotifications() {
     const today = new Date();
     const fourteenDaysAgo = new Date();
@@ -57,6 +58,20 @@ function getOldNotifications() {
         .map(item => item.ncrNumber);
 }
 
+// Close dropdown if clicked outside
+document.addEventListener('click', function(event) {
+    const notifDisplay = document.getElementById('notifDisplay');
+    const btnNotification = document.getElementById('btnNotification');
+    const btnProfile = document.getElementById('btnNotification');
+
+    // Check if the click was outside the notification display and the button
+    if (!notifDisplay.contains(event.target) && 
+        !btnNotification.contains(event.target) &&
+        !btnProfile.contains(event.target)) {
+        notifDisplay.style.display = 'none'; // Hide the dropdown
+    }
+});
+
 // Supporoting functions for toggle down
 function toggleDropdown() {
     const dropdown = document.getElementById('notifDisplay');
@@ -65,7 +80,7 @@ function toggleDropdown() {
 
 // Toggle Profile Dropdown
 function toggleProfileDropdown() {
-    const dropdown = document.getElementById('profile-dropdown');
+    const dropdown = document.getElementById('profileDropdown');
     dropdown.style.display = dropdown.style.display === 'none' ? 'block' : 'none';
 }
 
