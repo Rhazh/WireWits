@@ -113,8 +113,16 @@
             </div>
             <div id="createNCRModal" class="modal">
                 <div class="modal-content">
-                    <span class="btnClose" onclick="goBack()">&times;</span>
-                    <h2>Create NCR</h2> <!--Heading may change-->
+                    <div class="modal-top">
+                        <span class="btnClose" onclick="goBack()">
+                            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="none" viewBox="0 0 24 24">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18 17.94 6M18 18 6.06 6"/>
+                            </svg>
+                        </span>
+                        <div class="modal-title">
+                            <h2>Create NCR</h2> <!--Heading may change-->
+                        </div>
+                    </div>
                     <form id="createNCRForm">
                         <div>
                             <label for="napplicableProcess">Applicable Process:</label>

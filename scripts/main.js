@@ -101,12 +101,12 @@ function toggleCreateEditModal(ncrNumber, isEditMode) {
     const createEditModal = document.getElementById('create-edit-modal');
 
     if (isEditMode) {
-        createNCRModal.style.display = 'none';
-        createEditModal.style.display = 'block';
+        createNCRModal.style.visibility = 'hidden';
+        createEditModal.style.visibility = 'visible';
         populateEditPage(ncrNumber);
     } else {
-        createEditModal.style.display = 'none';
-        createNCRModal.style.display = 'block';
+        createEditModal.style.visibility = 'hidden';
+        createNCRModal.style.visibility = 'visible';
     }
 }
 
