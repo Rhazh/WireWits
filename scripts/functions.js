@@ -62,10 +62,12 @@ function getOldNotifications() {
 document.addEventListener('click', function(event) {
     const notifDisplay = document.getElementById('notifDisplay');
     const btnNotification = document.getElementById('btnNotification');
+    const btnProfile = document.getElementById('btnNotification');
 
     // Check if the click was outside the notification display and the button
     if (!notifDisplay.contains(event.target) && 
-        !btnNotification.contains(event.target)) {
+        !btnNotification.contains(event.target) &&
+        !btnProfile.contains(event.target)) {
         notifDisplay.style.display = 'none'; // Hide the dropdown
     }
 });
