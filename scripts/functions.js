@@ -237,8 +237,8 @@ function populateEditPage(ncrNumber) {
         document.getElementById('engNeeded').checked = entry.engNeeded === 'Yes';
         document.getElementById('itemConform').checked = entry.itemConform === 'Yes';
     }
-    document.getElementById('createNCRModal').style.display = 'none'; // Hide the modal
-    document.getElementById('create-edit-NCR').style.display = 'block'; // Show the edit section
+    document.getElementById('createNCRModal').style.visibility = 'hidden'; // Hide the modal
+    document.getElementById('create-edit-NCR').style.visibility = 'visible'; // Show the edit section
 }
 
 // Supporting Function - Redirection to Edit an NCR when Edit button is clicked
@@ -379,8 +379,8 @@ function CreateNCR() {
     sessionStorage.setItem('quality', JSON.stringify(quality));
 
     // Display the newly created NCR data in the UI
-    document.getElementById('createNCRModal').style.display = 'none';
-    document.getElementById('create-edit-modal').style.display = 'block';
+    document.getElementById('createNCRModal').style.visibility = 'hidden';
+    document.getElementById('create-edit-modal').style.visibility = 'visible';
 
     // Dynamically update elements with the new NCR data
     populateEditPage(qualityEntry.ncrNumber)

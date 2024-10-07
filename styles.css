@@ -441,18 +441,45 @@ footer {
     display: flex;
     align-items: center;
     justify-content: center;
+    z-index: 999;
 }
 
 .modal-content {
-    display: fixed;
     width: 600px;
     height: auto;
+    display: flex;
     background-color: #fdfdfd;
     padding: 30px;
     border-radius: 10px;
     box-sizing: border-box;
     box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
     margin-top: -150px;
-
+    flex-direction: column;
 }
 
+.modal-top {
+    position: flex;
+    justify-content: space-between;
+    align-items: center;
+    grid-template-columns: 1fr 1fr;
+}
+
+.modal-content .btnClose {
+    position: relative;
+    cursor: pointer;
+    color: #173551;
+    box-sizing: border-box;
+    margin: 0px;
+    height: auto;
+}
+
+.modal-content .btnClose svg:hover {
+    border-radius: 25px;
+    color: #fdfdfd;
+    transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out;
+    background-color: #007bff;
+}
+
+.modal-title {
+
+}
