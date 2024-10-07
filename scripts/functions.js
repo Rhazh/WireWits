@@ -54,7 +54,7 @@ function getOldNotifications() {
     const fourteenDaysAgo = new Date();
     fourteenDaysAgo.setDate(today.getDate() - 14);
 
-    return quality.filter(item => new Date(item.dateCreated) < fourteenDaysAgo)
+    return quality.filter(item => new Date(item.dateCreated) < fourteenDaysAgo && item.ncrStatus == "Quality")
         .map(item => item.ncrNumber);
 }
 
@@ -483,7 +483,7 @@ function submitNCR() {
         qualityEntry.defectDescription = defectDescription;
         
         // Mark the NCR as submitted
-        qualityEntry.ncrStatus = engNeededCheckbox.checked ? "Engineering" : "Operation";
+        qualityEntry.ncrStatus = engNeededCheckbox.checked ? "Engineering" : "Operations";
         
         // Persist updated quality array to sessionStorage
         sessionStorage.setItem('quality', JSON.stringify(quality));
