@@ -47,7 +47,7 @@ function populateNotifications() {
     });
 }
 
-// Sypporting Function - Get Old Notifications
+// Supporting Function - Get Old Notifications
 function getOldNotifications() {
     const today = new Date();
     const fourteenDaysAgo = new Date();
@@ -56,6 +56,18 @@ function getOldNotifications() {
     return quality.filter(item => new Date(item.dateCreated) < fourteenDaysAgo)
         .map(item => item.ncrNumber);
 }
+
+// Close dropdown if clicked outside
+document.addEventListener('click', function(event) {
+    const notifDisplay = document.getElementById('notifDisplay');
+    const btnNotification = document.getElementById('btnNotification');
+
+    // Check if the click was outside the notification display and the button
+    if (!notifDisplay.contains(event.target) && 
+        !btnNotification.contains(event.target)) {
+        notifDisplay.style.display = 'none'; // Hide the dropdown
+    }
+});
 
 // Supporoting functions for toggle down
 function toggleDropdown() {
