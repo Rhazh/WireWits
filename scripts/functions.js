@@ -62,7 +62,7 @@ function getOldNotifications() {
 document.addEventListener('click', function(event) {
     const notifDisplay = document.getElementById('notifDisplay');
     const btnNotification = document.getElementById('btnNotification');
-    const btnProfile = document.getElementById('btnNotification');
+    const btnProfile = document.getElementById('btnProfile');
 
     // Check if the click was outside the notification display and the button
     if (!notifDisplay.contains(event.target) && 
