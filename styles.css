@@ -171,8 +171,9 @@ nav ul li a:hover {
     padding: 10px 20px;
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 15px;
     cursor: pointer;
+    font-size: 18px;
 }
 
 .profile-dropdown ul li button:hover {
@@ -225,11 +226,43 @@ nav ul li a:hover {
     box-sizing: border-box;
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.15);
     text-align: center;
-    text-transform: uppercase;
     color: #173551;
     font-weight: 600;
 }
 
+.notif-title {
+    text-transform: uppercase;
+}
+
+.notif-desc {
+    margin-top: 20px;
+    margin-bottom: -5px;
+    color: #666;
+}
+
+.notif-list {
+    min-height: 100px;
+    padding-bottom: 10px;
+}
+
+.notif-list a {
+    display: block;
+    padding: 15px 20px;
+    width: 100%;
+    box-sizing: border-box;
+    text-decoration: none;
+    color: #007bff;
+}
+
+.notif-list p:hover {
+    background-color: #007bff;
+    color: #fdfdfd;
+}
+
+
+.notif-list p:hover a {
+    color: #fdfdfd;
+}
 
 
 
