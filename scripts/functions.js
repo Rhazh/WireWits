@@ -58,17 +58,27 @@ function getOldNotifications() {
         .map(item => item.ncrNumber);
 }
 
-// Close dropdown if clicked outside
+// Close dropdown if clicked outside (Notification)
 document.addEventListener('click', function(event) {
     const notifDisplay = document.getElementById('notifDisplay');
     const btnNotification = document.getElementById('btnNotification');
-    const btnProfile = document.getElementById('btnProfile');
 
     // Check if the click was outside the notification display and the button
     if (!notifDisplay.contains(event.target) && 
-        !btnNotification.contains(event.target) &&
-        !btnProfile.contains(event.target)) {
+        !btnNotification.contains(event.target)) {
         notifDisplay.style.display = 'none'; // Hide the dropdown
+    }
+});
+
+// Close dropdown if clicked outside (Profile)
+document.addEventListener('click', function(event) {
+    const profileDisplay = document.getElementById('profileDropdown');
+    const btnProfile = document.getElementById('btnProfile');
+
+    // Check if the click was outside the notification display and the button
+    if (!profileDisplay.contains(event.target) && 
+        !btnProfile.contains(event.target)) {
+        profileDisplay.style.display = 'none'; // Hide the dropdown
     }
 });
 
