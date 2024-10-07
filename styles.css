@@ -107,7 +107,7 @@ nav ul li a:hover {
     cursor: pointer;
 }
 
-.profile button {
+.user-container button {
     display: flex;
     align-items: center;
 }
@@ -138,7 +138,7 @@ nav ul li a:hover {
     text-transform: uppercase;
 }
 
-.notification {
+.notification, .profile {
     position: relative;
 }
 
@@ -186,43 +186,6 @@ nav ul li a:hover {
     color: #173551;
     font-weight: 600;
 }
-
-
-
-/* Profile Dropdown (optional)
-#profile-dropdown {
-    position: absolute;
-    top: 60px;
-    right: 0;
-    background-color: #fdfdfd;
-    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
-    border-radius: 4px;
-    width: 150px;
-    z-index: 1000;
-    display: none;
-}
-
-#profile-dropdown ul {
-    list-style: none;
-    padding: 10px 0;
-    margin: 0;
-}
-
-#profile-dropdown ul li {
-    padding: 10px 20px;
-    border-bottom: 1px solid #e3e7f2;
-}
-
-#profile-dropdown ul li:last-child {
-    border-bottom: none;
-}
-
-#profile-dropdown ul li:hover {
-    background-color: #f1f5ff;
-    cursor: pointer;
-}
-
- */
 
 
 
