@@ -78,7 +78,7 @@ function toggleDropdown() {
 
 // Toggle Profile Dropdown
 function toggleProfileDropdown() {
-    const dropdown = document.getElementById('profile-dropdown');
+    const dropdown = document.getElementById('profileDropdown');
     dropdown.style.display = dropdown.style.display === 'none' ? 'block' : 'none';
 }
 
