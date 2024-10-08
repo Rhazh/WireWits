@@ -1,3 +1,4 @@
+/* Default Branding Style */
 * {
     margin: 0;
     padding: 0;
@@ -18,6 +19,8 @@ body {
     flex-direction: column;
 }
 
+/* Default Branding Style */
+/* ------- Header ------- */
 header {
     background-color: #fdfdfd;
     padding-left: 50px;
@@ -29,29 +32,34 @@ header {
     height: 70px;
 }
 
-.header-col{
+header .header-col{
     display: flex;
     justify-content: space-between;
     width: 100%;
     align-items: center;
-    
 }
 
-.header-col-left,
-.header-col-right {
+header .header-col-left,
+header .header-col-right {
     display: flex;
     align-items: center;
 }
 
-.logo {
+/* Default Branding Style */
+/* ------- Header ------- */
+/* -------- Logo -------- */
+header .logo {
     padding-right: 50px;
 }
 
-.logo img {
+header .logo img {
     height: 35px;
     width: auto;
 }
 
+/* Default Branding Style */
+/* ------- Header ------- */
+/* --------- Nav -------- */
 nav {
     height: 100%;
     margin: 0;
@@ -82,106 +90,22 @@ nav ul li a.nav-active {
     border-bottom: 5px solid #1a1a1a; 
 }
 
-
 nav ul li a:hover {
     color: #007bff; 
     border-bottom: 5px solid #007bff; 
     transition: border 0.3s ease-in-out, color 0.3s ease-in-out;
 }
 
-#btnProfile, #btnNotification {
+/* Default Branding Style */
+/* ------- Header ------- */
+/* --- Notifications ---- */
+#btnProfile, 
+#btnNotification {
     background: none;
     border: none;
     font-size: 18px;
     cursor: pointer;
 }
-
-
-
-
-
-.profile,
-.notification {
-    margin-left: 20px;
-}
-
-.user-container button {
-    display: flex;
-    align-items: center;
-}
-
-.user-avatar {
-    display: flex;
-    justify-content: center;
-}
-
-.user-avatar img{
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    margin-right: 15px;
-}
-
-.user-details {
-    text-align: left;
-}
-
-.user-details .user-fullname,
-.user-details .user-role {
-    color: #173551;
-}
-
-.user-details .user-role {
-    font-weight: 700;
-    text-transform: uppercase;
-}
-
-.profile {
-    min-width: 250px;
-}
-
-.profile-dropdown {
-    display: none;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    margin: 20px 0;
-    width: 250px;
-    z-index: 9;
-    background-color: #fdfdfd;
-    box-shadow: 0 3px 5px -2px rgba(0, 0, 0, 0.2);
-    border-radius: 10px;
-    overflow: hidden;
-}
-
-.profile-dropdown ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-}
-
-.profile-dropdown ul li {
-    width: 100%;
-}
-
-.profile-dropdown ul li button {
-    width: 100%;
-    text-align: left;
-    background-color: #fdfdfd;
-    border: none;
-    padding: 10px 20px;
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    cursor: pointer;
-    font-size: 18px;
-}
-
-.profile-dropdown ul li button:hover {
-    background-color: #f1f5ff;
-    color:#007bff;
-}
-
 
 .notification, .profile {
     position: relative;
@@ -260,14 +184,97 @@ nav ul li a:hover {
     color: #fdfdfd;
 }
 
-
 .notif-list p:hover a {
     color: #fdfdfd;
 }
 
+.profile,
+.notification {
+    margin-left: 20px;
+}
 
+/* Default Branding Style */
+/* ------- Header ------- */
+/* ---- User Profile ---- */
+.user-container button {
+    display: flex;
+    align-items: center;
+}
 
+.user-avatar {
+    display: flex;
+    justify-content: center;
+}
 
+.user-avatar img{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 15px;
+}
+
+.user-details {
+    text-align: left;
+}
+
+.user-details .user-fullname,
+.user-details .user-role {
+    color: #173551;
+}
+
+.user-details .user-role {
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.profile {
+    min-width: 250px;
+}
+
+.profile-dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    margin: 20px 0;
+    width: 250px;
+    z-index: 9;
+    background-color: #fdfdfd;
+    box-shadow: 0 3px 5px -2px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.profile-dropdown ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.profile-dropdown ul li {
+    width: 100%;
+}
+
+.profile-dropdown ul li button {
+    width: 100%;
+    text-align: left;
+    background-color: #fdfdfd;
+    border: none;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.profile-dropdown ul li button:hover {
+    background-color: #f1f5ff;
+    color:#007bff;
+}
+
+/* Default Branding Style */
+/* -------- Main -------- */
 main {
     display: flex;
     justify-content: center;
@@ -295,6 +302,27 @@ h2 {
     font-size: 21px;
 }
 
+/* Default Branding Style */
+/* ------ Footer -------- */
+footer {
+    display: absolute;
+    padding: 10px;
+    text-align: center;
+    background-color: #173551;
+    color: #fdfdfd;
+    bottom: 0;
+    width: 100%;
+    margin-top: auto;
+    font-weight: normal;
+    box-sizing: border-box;
+}
+
+/* -------------------------------------------------------------- */
+/* -------------------------------------------------------------- */
+/* -------------------------------------------------------------- */
+
+/* --- Dashboard Page --- */
+/* -- Dashboard Buttons - */
 .dashboard {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -303,7 +331,6 @@ h2 {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 20px;
 }
 
 .dash-col,
@@ -331,7 +358,6 @@ h2 {
     color:#173551;
     cursor: pointer;
     text-align: center;
-    
 }
 
 .dashboard .dash-col button img {
@@ -353,11 +379,12 @@ h2 {
     transition: border 0.3s ease-in-out, color 0.3s ease-in-out;
 }
 
+/* --- Dashboard Page --- */
+/* -- Dashboard Buttons - */
 .table-col {
     margin-top: 30px;
     padding-bottom: 15px;
 }
-
 
 .table-col .table-title {
     padding: 30px 30px 15px 30px;
@@ -406,7 +433,6 @@ table thead{
     border-radius: 7px;
 }
 
-
 .table-col table button:hover {
     background-color: #007bff;
     color: #fdfdfd;
@@ -420,37 +446,28 @@ table thead{
     background-color: rgba(0, 123, 255, 0.05);
 }
 
-footer {
-    display: absolute;
-    padding: 10px;
-    text-align: center;
-    background-color: #173551;
-    color: #fdfdfd;
-    bottom: 0;
-    width: 100%;
-    margin-top: auto;
-    font-weight: normal;
-    box-sizing: border-box;
-}
+/* -------------------------------------------------------------- */
+/* -------------------------------------------------------------- */
+/* -------------------------------------------------------------- */
 
+/* ----- Create Page ----- */
+/* -------- Modal -------- */
 .modal {
     background-color: rgba(0, 0, 0, 0.2);
     backdrop-filter: blur(3px);
     position: fixed;
     top: 0;
     left: 0;
-    width: 100vw;
     width: 100%;
     height: 100%;
     display: flex;
-    align-items: center;
     align-items: flex-start;
     justify-content: center;
     z-index: 999;
     overflow: auto;
 }
 
-.modal-content {
+.modal-container {
     width: 600px;
     height: auto;
     display: flex;
@@ -460,21 +477,19 @@ footer {
     box-sizing: border-box;
     box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
     flex-direction: column;
+    margin: 15% auto;
+    position: relative;
 }
 
 .modal-top {
-    position: flex;
+    display: flex;
     justify-content: space-between;
     align-items: center;
-    grid-template-columns: 1fr 1fr;
-    max-width: 600px;
-    position: relative;
-    margin-top: 15%;
+    margin-bottom: 20px;
 }
 
-.modal-content .btnClose {
+.modal-container .btnClose {
     position: relative;
-    position: absolute;
     cursor: pointer;
     color: #173551;
     box-sizing: border-box;
@@ -491,11 +506,15 @@ footer {
     background-color: #007bff;
 }
 
-.modal-title {
 
-.modal-form {
-    width: 100%;
-}
+
+
+
+
+
+/* -------------------------------------------------------------- */
+/* -------------------------------------------------------------- */
+/* -------------------------------------------------------------- */
 
 /* Breadcrumb styling */
 .breadcrumb-container {
