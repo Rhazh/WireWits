@@ -58,13 +58,14 @@
                 <div class="profile">
                     <div class="user-container">
                         <button id="btnProfile" aria-haspopup="true" tabindex="0" aria-expanded="false" aria-controls="profileDropdown" onclick="toggleProfileDropdown()">
-                            <div class="user-avatar">
-                                <img src="images/user-profile.png" alt="User profile image" title="User profile image" height="50" width="50" /> 
-                            </div>
-                            <div class="user-details">
-                                <div class="user-fullname">Cassandra Washington</div>
-                                <div class="user-role">Administrator</div>
-                            </div>
+                            <span class="user-avatar">
+                                <img id="profilePic"src="images/user-profile.png" alt="User profile image" title="User profile image" height="50" width="50"> 
+                            </span>
+                            <span class="user-details">
+                                <span id="userFullname" class="user-fullname">Cassandra Washington</span>
+                                <br>
+                                <span id="userRole" class="user-role">Administrator</span>
+                            </span>
                         </button>
                     </div>
                     <div id="profileDropdown" class="profile-dropdown" tabindex="0" role="region" aria-labelledby="btnProfile">
