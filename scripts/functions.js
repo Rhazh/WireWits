@@ -365,9 +365,9 @@ function CreateNCR() {
         engNeeded: "No",  // Default value
         itemConform: "No",  // Default value
         itemDescription: "",  // Empty for now
-        defectDescription: "",  // Empty for now
-        documentFiles: "",  // Empty for now
-        ncrStatus: "Quality"
+        defectDescription: [],  // Empty for now
+        documentFiles: [],  // Empty for now
+        ncrStatus: "Quality"   
     };
 
     // Add the entry to the quality array
@@ -383,9 +383,34 @@ function CreateNCR() {
     document.getElementById('create-edit-modal').style.visibility = 'visible';
 
     // Dynamically update elements with the new NCR data
-    populateEditPage(qualityEntry.ncrNumber)
+    
     console.log("Persisted NCR Log:", ncrLog);
     console.log("Persisted Quality:", quality);
+    console.log(quality);
+    //populateEditPage(qualityEntry.ncrNumber)
+
+   
+    const entry = quality.find(item => item.ncrNumber === ncrLogEntry.ncrNumber);
+    if (entry) {
+        document.getElementById('ncrNumber').textContent = entry.ncrNumber;
+        document.getElementById('dateCreated').textContent = formatDate(entry.dateCreated);
+        document.getElementById('createdBy').textContent = entry.createdBy;
+        document.getElementById('ncrStatus').textContent = entry.ncrStatus;
+        document.getElementById('applicableProcess').value = entry.applicableProcess;
+        document.getElementById('supplierName').value = entry.supplierName;
+        document.getElementById('poNumber').value = entry.poNumber? entry.poNumber : '';
+        document.getElementById('soNumber').value = entry.soNumber? entry.soNumber : '';
+        document.getElementById('quantityReceived').value = entry.quantityReceived;
+        document.getElementById('quantityDefect').value = entry.quantityDefective;
+        document.getElementById('itemDescription').value = entry.itemDescription? entry.itemDescription : '';
+        document.getElementById('defectDescription').value = entry.defectDescription? entry.defectDescription : '';
+        document.getElementById('engNeeded').checked = entry.engNeeded === 'Yes';
+        document.getElementById('itemConform').checked = entry.itemConform === 'Yes';
+    }
+    console.log("check", quality)
+    document.getElementById('createNCRModal').style.visibility = 'hidden'; // Hide the modal
+    document.getElementById('create-edit-NCR').style.visibility = 'visible'; // Show the edit section
+
 }
 
 // Supporting Functions - Timestamp function - returns the current date
