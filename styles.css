@@ -45,6 +45,7 @@ header .header-col-right {
     align-items: center;
 }
 
+
 /* Default Branding Style */
 /* ------- Header ------- */
 /* -------- Logo -------- */
@@ -105,6 +106,13 @@ nav ul li a:hover {
     border: none;
     font-size: 18px;
     cursor: pointer;
+}
+
+#btnNotification
+
+#btnProfile{
+    gap: 10px;
+    display: inline-flex;
 }
 
 .notification, .profile {
@@ -188,6 +196,7 @@ nav ul li a:hover {
     color: #fdfdfd;
 }
 
+
 .profile,
 .notification {
     margin-left: 20px;
@@ -255,11 +264,13 @@ nav ul li a:hover {
     width: 100%;
 }
 
-.profile-dropdown ul li button {
+.profile-dropdown ul li a {
     width: 100%;
     text-align: left;
     background-color: #fdfdfd;
     border: none;
+    color: #173551;
+    text-decoration: none;
     padding: 10px 20px;
     display: flex;
     align-items: center;
@@ -268,10 +279,11 @@ nav ul li a:hover {
     font-size: 18px;
 }
 
-.profile-dropdown ul li button:hover {
+.profile-dropdown ul li a:hover {
     background-color: #f1f5ff;
     color:#007bff;
 }
+
 
 /* Default Branding Style */
 /* -------- Main -------- */
