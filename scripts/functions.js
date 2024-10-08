@@ -108,7 +108,7 @@ function recentNCRs() {
 
     console.log(recentN);
 
-    const tableBody = document.getElementById("tablecontent");
+    const tableBody = document.getElementById("indextablecontent");
     if (!tableBody) {
         console.warn('Table body element not found.');
         return;
