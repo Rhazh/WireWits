@@ -142,3 +142,27 @@ function setupSubmitNCR(){
 function goBack() {
     window.history.back();
 }
+
+// login codes
+document.addEventListener('DOMContentLoaded', () => {
+    const user = JSON.parse(localStorage.getItem('loggedInUser'));
+    const fullNameElement = document.getElementById('userFullname');
+    const roleElement = document.getElementById('userRole');
+
+    if (user && fullNameElement && roleElement) {
+        fullNameElement.textContent = `${user.user_Firstname} ${user.user_Lastname}`;
+        roleElement.textContent = user.Department_Name;
+
+        // Logout codes
+        document.getElementById('logout').addEventListener('click', function() {
+            
+            localStorage.removeItem('loggedInUser');
+
+            // Redirect to the login page
+            window.location.href = 'login.html'; 
+        });
+
+    } else {
+        console.error("Profile elements not found or no user logged in.");
+    }
+});
