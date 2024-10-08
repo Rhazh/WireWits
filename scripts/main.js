@@ -143,66 +143,26 @@ function goBack() {
     window.history.back();
 }
 
-//============================================
-//      Bread Crumbs
-//============================================
+// login codes
+document.addEventListener('DOMContentLoaded', () => {
+    const user = JSON.parse(localStorage.getItem('loggedInUser'));
+    const fullNameElement = document.getElementById('userFullname');
+    const roleElement = document.getElementById('userRole');
 
-document.addEventListener('DOMContentLoaded', function() {
-    // Define the page paths and titles (derived path structure)
-    const breadcrumbMap = {
-        'index.html': 'Dashboard',
-        'view.html': 'View NCRs',
-        'create.html': 'Create NCR',
-        'details.html': 'NCR Details',
-        'faqs.html' : 'FAQs',
-        'login.html' : 'Login',
-        'reports.html' : 'Reports',
-        'settings.html' : 'Settings',
-        'underdevelopment.html' : 'Under Development',
-        // Add more paths as necessary
-    };
+    if (user && fullNameElement && roleElement) {
+        fullNameElement.textContent = `${user.user_Firstname} ${user.user_Lastname}`;
+        roleElement.textContent = user.Department_Name;
 
-    // Get the current page path
-    const currentPage = window.location.pathname.split('/').pop();
+        // Logout codes
+        document.getElementById('logout').addEventListener('click', function() {
+            
+            localStorage.removeItem('loggedInUser');
 
-    // Define derived paths (e.g., index -> view -> details)
-    const derivedPath = [];
-    if (currentPage === 'details.html') {
-        derivedPath.push('index.html', 'view.html', 'details.html');
-    } else if (currentPage === 'create.html') {
-        derivedPath.push('index.html', 'create.html');
-    } else if (currentPage === 'view.html') {
-        derivedPath.push('index.html', 'view.html');
+            // Redirect to the login page
+            window.location.href = 'login.html'; 
+        });
+
     } else {
-        derivedPath.push('index.html'); // Default case for the homepage
+        console.error("Profile elements not found or no user logged in.");
     }
-
-    // Get the breadcrumb list container
-    const breadcrumbList = document.querySelector('.breadcrumb-list');
-
-    // Populate the breadcrumb based on the derived path
-    derivedPath.forEach((page, index) => {
-        const listItem = document.createElement('li');
-
-        if (index === derivedPath.length - 1) {
-            // For the last item (current page), just display the name without a link
-            listItem.textContent = breadcrumbMap[page];
-        } else {
-            // For other items, create a link
-            const link = document.createElement('a');
-            link.href = page;
-            link.textContent = breadcrumbMap[page];
-            listItem.appendChild(link);
-        }
-
-        // Append the list item to the breadcrumb list
-        breadcrumbList.appendChild(listItem);
-
-        // Add separator except for the last item
-        if (index < derivedPath.length - 1) {
-            const separator = document.createElement('span');
-            separator.textContent = ' > ';
-            breadcrumbList.appendChild(separator);
-        }
-    });
 });
