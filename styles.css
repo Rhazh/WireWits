@@ -141,6 +141,7 @@ nav ul li a:hover {
 }
 
 .profile-dropdown {
+    display: none;
     position: absolute;
     top: 100%;
     left: 0;
@@ -416,60 +417,6 @@ table thead{
     background-color: rgba(0, 123, 255, 0.05);
 }
 
-
-/*
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 1; 
-    left: 0;
-    top: 0;
-    width: 100%; 
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0, 0, 0, 0.7); 
-}
-
-/* Modal Content
-.modal-content {
-    background-color: white; /* White background for modal content
-    margin: 15% auto; /* 15% from the top and centered
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%; /* Could be more or less, depending on screen size
-    border-radius: 8px; /* Rounded corners 
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Optional shadow 
-    backdrop-filter: blur(10px); /* Blurs the background
-}
-
-/* Close Button
-.btnClose {
-    cursor: pointer;
-    float: right; /* Align to the right 
-    font-size: 28px; /* Font size for close button 
-    font-weight: bold;
-}
-
-/* Adjust button styles if needed
-.btnPrimary, .btnSecondary {
-    padding: 10px 20px;
-    margin-top: 10px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.btnPrimary {
-    background-color: #007bff; /* Primary button color
-    color: white;
-}
-
-.btnSecondary {
-    background-color: #e9e9e9; /* Secondary button color
-    color: #173551;
-}
-*/
-
 footer {
     display: absolute;
     padding: 10px;
@@ -481,4 +428,58 @@ footer {
     margin-top: auto;
     font-weight: normal;
     box-sizing: border-box;
+}
+
+.modal {
+    background-color: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(3px);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+}
+
+.modal-content {
+    width: 600px;
+    height: auto;
+    display: flex;
+    background-color: #fdfdfd;
+    padding: 30px;
+    border-radius: 10px;
+    box-sizing: border-box;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+    margin-top: -150px;
+    flex-direction: column;
+}
+
+.modal-top {
+    position: flex;
+    justify-content: space-between;
+    align-items: center;
+    grid-template-columns: 1fr 1fr;
+}
+
+.modal-content .btnClose {
+    position: relative;
+    cursor: pointer;
+    color: #173551;
+    box-sizing: border-box;
+    margin: 0px;
+    height: auto;
+}
+
+.modal-content .btnClose svg:hover {
+    border-radius: 25px;
+    color: #fdfdfd;
+    transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out;
+    background-color: #007bff;
+}
+
+.modal-title {
+
 }

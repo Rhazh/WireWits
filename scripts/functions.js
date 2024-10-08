@@ -54,21 +54,31 @@ function getOldNotifications() {
     const fourteenDaysAgo = new Date();
     fourteenDaysAgo.setDate(today.getDate() - 14);
 
-    return quality.filter(item => new Date(item.dateCreated) < fourteenDaysAgo)
+    return quality.filter(item => new Date(item.dateCreated) < fourteenDaysAgo && item.ncrStatus == "Quality")
         .map(item => item.ncrNumber);
 }
 
-// Close dropdown if clicked outside
+// Close dropdown if clicked outside (Notification)
 document.addEventListener('click', function(event) {
     const notifDisplay = document.getElementById('notifDisplay');
     const btnNotification = document.getElementById('btnNotification');
-    const btnProfile = document.getElementById('btnProfile');
 
     // Check if the click was outside the notification display and the button
     if (!notifDisplay.contains(event.target) && 
-        !btnNotification.contains(event.target) &&
-        !btnProfile.contains(event.target)) {
+        !btnNotification.contains(event.target)) {
         notifDisplay.style.display = 'none'; // Hide the dropdown
+    }
+});
+
+// Close dropdown if clicked outside (Profile)
+document.addEventListener('click', function(event) {
+    const profileDisplay = document.getElementById('profileDropdown');
+    const btnProfile = document.getElementById('btnProfile');
+
+    // Check if the click was outside the notification display and the button
+    if (!profileDisplay.contains(event.target) && 
+        !btnProfile.contains(event.target)) {
+        profileDisplay.style.display = 'none'; // Hide the dropdown
     }
 });
 
@@ -227,8 +237,8 @@ function populateEditPage(ncrNumber) {
         document.getElementById('engNeeded').checked = entry.engNeeded === 'Yes';
         document.getElementById('itemConform').checked = entry.itemConform === 'Yes';
     }
-    document.getElementById('createNCRModal').style.display = 'none'; // Hide the modal
-    document.getElementById('create-edit-NCR').style.display = 'block'; // Show the edit section
+    document.getElementById('createNCRModal').style.visibility = 'hidden'; // Hide the modal
+    document.getElementById('create-edit-NCR').style.visibility = 'visible'; // Show the edit section
 }
 
 // Supporting Function - Redirection to Edit an NCR when Edit button is clicked
@@ -369,8 +379,8 @@ function CreateNCR() {
     sessionStorage.setItem('quality', JSON.stringify(quality));
 
     // Display the newly created NCR data in the UI
-    document.getElementById('createNCRModal').style.display = 'none';
-    document.getElementById('create-edit-modal').style.display = 'block';
+    document.getElementById('createNCRModal').style.visibility = 'hidden';
+    document.getElementById('create-edit-modal').style.visibility = 'visible';
 
     // Dynamically update elements with the new NCR data
     populateEditPage(qualityEntry.ncrNumber)
@@ -460,6 +470,9 @@ function submitNCR() {
     const qualityEntry = quality.find(entry => entry.ncrNumber === ncrNumber);
 
     if (qualityEntry) {
+
+        const engNeededCheckbox = document.getElementById('engNeeded');
+
         qualityEntry.poNumber = poNumber;
         qualityEntry.soNumber = soNumber;
         qualityEntry.quantityReceived = quantityReceived;
@@ -470,12 +483,13 @@ function submitNCR() {
         qualityEntry.defectDescription = defectDescription;
         
         // Mark the NCR as submitted
-        qualityEntry.ncrStatus = 'Submitted';
+        qualityEntry.ncrStatus = engNeededCheckbox.checked ? "Engineering" : "Operations";
         
         // Persist updated quality array to sessionStorage
         sessionStorage.setItem('quality', JSON.stringify(quality));
         
         alert('NCR has been successfully submitted.');
         // Redirect or perform other actions as needed
+        window.location.href = 'index.html';
     }
 }

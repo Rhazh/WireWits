@@ -107,7 +107,101 @@
             </div>
         </div>
     </header>
-
+    <main>
+        <section>
+            <!--Filter options here to go through NCR-->
+            <!--filter by NCR Number, the status, Date Range, Supplier-->
+        <h1>View NCRs</h1>
+        <div class="search-container">
+            <div>
+                <label for="ncrNumber">Filter By NCR Number:</label>
+                <input type="text" id="ncrNumber" placeholder="2024-001">
+            </div>
+            <div>
+                <label for="ncrStatus">Filter by Status:</label>
+                 <!--performSearch may not work in this case so change-->
+                <select id="ncrStatus" onchange="performSearch()">
+                    <option value="All">Active</option>
+                    <option value="Active">Active</option>
+                    <option value="Closed">Closed</option>
+                </select>
+            </div>
+            <div>
+                <label for="supplierName">Filter by Supplier:</label>
+                <!--performSearch may not work in this case so change-->
+                <select id="supplierName" onchange="performSearch()">
+                    <option value="">Select Supplier</option>
+                    <option value="Auto Parts Ltd.">Auto Parts Ltd.</option>
+                    <option value="Building Materials Co.">Building Materials Co.</option>
+                    <option value="Cosmetics Corp.">Cosmetics Corp.</option>
+                    <option value="Depot Home">Depot Home</option>
+                    <option value="Fresh Foods Co.">Fresh Foods Co.</option>
+                    <option value="Global Supplies">Global Supplies</option>
+                    <option value="Home Goods Inc.">Home Goods Inc.</option>
+                    <option value="Medical Supplies Inc.">Medical Supplies Inc.</option>
+                    <option value="Tech Parts Co.">Tech Parts Co.</option>
+                    <option value="Textile Supplies">Textile Supplies</option>
+                    <!-- Options will be populated dynamically -->
+                </select>
+            </div>
+           
+            <div>
+                <label for="fromDate">From:</label>
+                <input type="date" id="fromDate">
+            </div>
+            <div>
+                <label for="toDate">To:</label>
+                <input type="date" id="toDate">
+            </div>
+            <div>
+                <button type="button" onclick="performSearch()">Search</button>
+            </div>
+            <div>
+                <button type="button" onclick="clearSearch()">Clear</button>
+            </div>
+            <div>
+                <span id="no-results-message" style="color: red; margin-left: 10px; display: none;"></span>
+            </div>
+        </div>
+        </section>
+        <section>
+            <!--List goes here-->
+            <h2>Available Reports</h2>
+        <table id="results-table">
+            <thead>
+                <tr>
+                    <th style="text-align: left;">NCR Number</th>
+                    <th style="text-align: left;">Created By</th>
+                    <th style="text-align: left;">Date Created</th>
+                    <th style="text-align: left;">Status</th>
+                    <th style="text-align: left;">Last Updated</th>
+                    <th style="text-align: left;">Actions</th>
+                </tr>
+            </thead>
+            <tbody id="tablecontent">
+                <!-- Results will be populated here -->
+            </tbody>
+        </table>
+        </section>
+        <section>
+            <!--detail information on an NCR history goes here-->
+            <h2>Available Records</h2>
+        <table id="results-table">
+            <thead>
+                <tr>
+                    <th style="text-align: left;">Date</th>
+                    <th style="text-align: left;">Action Type</th>
+                    <th style="text-align: left;">Status</th>
+                    <th style="text-align: left;">Action Description</th>
+                    <th style="text-align: left;">Changed By</th>
+                </tr>
+            </thead>
+            <tbody id="tablecontent">
+                <!-- Results will be populated here -->
+            </tbody>
+        </table>
+        </section>
+    </main>
     <footer>
         <p><small>&copy; 2024 Copyright. QCision - WireWits. All rights reserved.</small></p>
     </footer>
