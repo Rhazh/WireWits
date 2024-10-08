@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="View detailed NCR (Non-Conformance Report) information, including status, quantities, and defect descriptions.">
     <title>NCR Details</title>
     
     <link href="styles.css" rel="stylesheet">
@@ -19,45 +20,45 @@
             <div class="header-col-left">
                 <!--logo-->
                 <div class="logo">
-                    <img src="images/logo.png" alt="Crossfire logo" height="74" width="345" />
+                    <img src="images/logo.png" alt="Crossfire logo" title="Crossfire logo" height="74" width="345" />
                 </div>
                 <!--navigation menu-->
                 <nav>
                     <ul>
-                        <li><a href="index.html"  id="home">Dashboard</a></li>
-                        <li><a href="create.html" id="create" class="createNCR">Create NCR</a></li>
-                        <li><a href="view.html" class="nav-active" id="view">View NCRs</a></li>
-                        <li><a href="reports.html" id="reports">Reports</a></li>
+                        <li><a href="index.html"  id="home" tabindex="0">Dashboard</a></li>
+                        <li><a href="create.html" id="create" class="createNCR" tabindex="0">Create NCR</a></li>
+                        <li><a href="view.html" class="nav-active" id="view" tabindex="0">View NCRs</a></li>
+                        <li><a href="reports.html" id="reports" tabindex="0">Reports</a></li>
                     </ul>
                 </nav>
             </div>
             <div class="header-col-right">
                 <div class="notification">
                     <div class="notif-button-container">
-                        <button id="btnNotification" onclick="toggleDropdown()">
+                        <button id="btnNotification" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-controls="notifDisplay" onclick="toggleDropdown()">
                             <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="none" viewBox="0 0 24 24">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M12 5.365V3m0 2.365a5.338 5.338 0 0 1 5.133 5.368v1.8c0 2.386 1.867 2.982 1.867 4.175 0 .593 0 1.292-.538 1.292H5.538C5 18 5 17.301 5 16.708c0-1.193 1.867-1.789 1.867-4.175v-1.8A5.338 5.338 0 0 1 12 5.365ZM8.733 18c.094.852.306 1.54.944 2.112a3.48 3.48 0 0 0 4.646 0c.638-.572 1.236-1.26 1.33-2.112h-6.92Z"/>
                             </svg>                              
                         </button>
-                        <span id="spnCount" class="notif-count">0</span>
+                        <span id="spnCount" class="notif-count" aria-live="polite">0</span>
                     </div>
-                    <div class="notif-dropdown-container" id="notifDisplay">
+                    <div class="notif-dropdown-container" id="notifDisplay" role="region" aria-labelledby="btnNotification">
                         <div class="notif-label">
                             <span class="notif-title">Notifications</span>
                             <div class="notif-desc" id="notifDesc">
                                 <!-- Notifications description -->
                             </div>
                         </div>
-                        <div class="notif-list" id="notifList">
+                        <div class="notif-list" id="notifList" tabindex="0">
                             <!-- Notifications will be populated here -->
                         </div>
                     </div>
                 </div>
                 <div class="profile">
                     <div class="user-container">
-                        <button id="btnProfile" onclick="toggleProfileDropdown()">
+                        <button id="btnProfile" aria-haspopup="true" tabindex="0" aria-expanded="false" aria-controls="profileDropdown" onclick="toggleProfileDropdown()">
                             <div class="user-avatar">
-                                <img src="images/user-profile.png" alt="User profile image" height="50" width="50" /> 
+                                <img src="images/user-profile.png" alt="User profile image" title="User profile image" height="50" width="50" /> 
                             </div>
                             <div class="user-details">
                                 <div class="user-fullname">Cassandra Washington</div>
@@ -65,10 +66,10 @@
                             </div>
                         </button>
                     </div>
-                    <div id="profileDropdown" class="profile-dropdown" >
+                    <div id="profileDropdown" class="profile-dropdown"  tabindex="0" role="region" aria-labelledby="btnProfile">
                         <ul>
                             <li>
-                                <button href="#">
+                                <button href="underdevelopment.html" tabindex="0">
                                     <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                                         <path stroke="currentColor" stroke-width="2" d="M7 17v1a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1a3 3 0 0 0-3-3h-4a3 3 0 0 0-3 3Zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
                                     </svg>
@@ -76,7 +77,7 @@
                                 </button>
                             </li>
                             <li>
-                                <button href="#">
+                                <button href="settings.html" tabindex="0">
                                     <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13v-2a1 1 0 0 0-1-1h-.757l-.707-1.707.535-.536a1 1 0 0 0 0-1.414l-1.414-1.414a1 1 0 0 0-1.414 0l-.536.535L14 4.757V4a1 1 0 0 0-1-1h-2a1 1 0 0 0-1 1v.757l-1.707.707-.536-.535a1 1 0 0 0-1.414 0L4.929 6.343a1 1 0 0 0 0 1.414l.536.536L4.757 10H4a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h.757l.707 1.707-.535.536a1 1 0 0 0 0 1.414l1.414 1.414a1 1 0 0 0 1.414 0l.536-.535 1.707.707V20a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-.757l1.707-.708.536.536a1 1 0 0 0 1.414 0l1.414-1.414a1 1 0 0 0 0-1.414l-.535-.536.707-1.707H20a1 1 0 0 0 1-1Z"/>
                                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/>
@@ -85,7 +86,7 @@
                                 </button>
                             </li>
                             <li>
-                                <button href="#">
+                                <button href="faqs.html" tabindex="0">
                                     <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.529 9.988a2.502 2.502 0 1 1 5 .191A2.441 2.441 0 0 1 12 12.582V14m-.01 3.008H12M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
                                     </svg>
@@ -93,7 +94,7 @@
                                 </button>
                             </li>
                             <li>
-                                <button href="#">
+                                <button href="login.html" tabindex="0">
                                     <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H8m12 0-4 4m4-4-4-4M9 4H7a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h2"/>
                                     </svg>
@@ -109,6 +110,9 @@
 
     <main>
         <h1>NCR Information</h1>
+        <nav aria-label="Breadcrumb">
+            <ol class="breadcrumb-list" tabindex="0"></ol> <!-- Breadcrumbs will be dynamically populated here -->
+        </nav>
         <div>
             <div>
                 <strong>NCR Number:</strong> <span id="ncrNumber"></span>
