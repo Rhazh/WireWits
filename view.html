@@ -59,7 +59,7 @@
                     <div class="user-container">
                         <button id="btnProfile" aria-haspopup="true" tabindex="0" aria-expanded="false" aria-controls="profileDropdown" onclick="toggleProfileDropdown()">
                             <span class="user-avatar">
-                                <img src="images/user-profile.png" alt="User profile image" title="User profile image" height="50" width="50"> 
+                                <img id="profilePic" src="images/user-profile.png" alt="User profile image" title="User profile image" height="50" width="50"> 
                             </span>
                             <span class="user-details">
                                 <span id="userFullname"  class="user-fullname">Cassandra Washington</span>
@@ -118,7 +118,7 @@
         <div class="search-container">
             <div>
                 <label for="ncrNumber">Filter By NCR Number:</label>
-                <input type="text" id="ncrNumber" placeholder="2024-001" tabindex="0">
+                <input type="text" id="ncrNumber" placeholder="2024-001">
             </div>
             <div>
                 <label for="supplierName">Filter by Supplier:</label>
@@ -177,7 +177,7 @@
                     <th style="text-align: left;">Actions</th>
                 </tr>
             </thead>
-            <tbody id="tablecontent">
+            <tbody id="viewtablecontent">
                 <!-- Results will be populated here -->
             </tbody>
         </table>

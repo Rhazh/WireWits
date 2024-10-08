@@ -108,7 +108,7 @@ function recentNCRs() {
 
     console.log(recentN);
 
-    const tableBody = document.getElementById("tablecontent");
+    const tableBody = document.getElementById("indextablecontent");
     if (!tableBody) {
         console.warn('Table body element not found.');
         return;
@@ -282,7 +282,7 @@ function performSearch() {
         return isNcrNumberValid && isSupplierNameValid && isStatusValid && isDateCreatedValid;
     });
 
-    const tableBody = document.getElementById("tablecontent");
+    const tableBody = document.getElementById("viewtablecontent");
     if (!tableBody) {
         console.warn('Table body element not found.');
         return;
@@ -365,9 +365,9 @@ function CreateNCR() {
         engNeeded: "No",  // Default value
         itemConform: "No",  // Default value
         itemDescription: "",  // Empty for now
-        defectDescription: "",  // Empty for now
-        documentFiles: "",  // Empty for now
-        ncrStatus: "Quality"
+        defectDescription: [],  // Empty for now
+        documentFiles: [],  // Empty for now
+        ncrStatus: "Quality"   
     };
 
     // Add the entry to the quality array
@@ -383,9 +383,34 @@ function CreateNCR() {
     document.getElementById('create-edit-modal').style.visibility = 'visible';
 
     // Dynamically update elements with the new NCR data
-    populateEditPage(qualityEntry.ncrNumber)
+    
     console.log("Persisted NCR Log:", ncrLog);
     console.log("Persisted Quality:", quality);
+    console.log(quality);
+    //populateEditPage(qualityEntry.ncrNumber)
+
+   
+    const entry = quality.find(item => item.ncrNumber === ncrLogEntry.ncrNumber);
+    if (entry) {
+        document.getElementById('ncrNumber').textContent = entry.ncrNumber;
+        document.getElementById('dateCreated').textContent = formatDate(entry.dateCreated);
+        document.getElementById('createdBy').textContent = entry.createdBy;
+        document.getElementById('ncrStatus').textContent = entry.ncrStatus;
+        document.getElementById('applicableProcess').value = entry.applicableProcess;
+        document.getElementById('supplierName').value = entry.supplierName;
+        document.getElementById('poNumber').value = entry.poNumber? entry.poNumber : '';
+        document.getElementById('soNumber').value = entry.soNumber? entry.soNumber : '';
+        document.getElementById('quantityReceived').value = entry.quantityReceived;
+        document.getElementById('quantityDefect').value = entry.quantityDefective;
+        document.getElementById('itemDescription').value = entry.itemDescription? entry.itemDescription : '';
+        document.getElementById('defectDescription').value = entry.defectDescription? entry.defectDescription : '';
+        document.getElementById('engNeeded').checked = entry.engNeeded === 'Yes';
+        document.getElementById('itemConform').checked = entry.itemConform === 'Yes';
+    }
+    console.log("check", quality)
+    document.getElementById('createNCRModal').style.visibility = 'hidden'; // Hide the modal
+    document.getElementById('create-edit-NCR').style.visibility = 'visible'; // Show the edit section
+
 }
 
 // Supporting Functions - Timestamp function - returns the current date
@@ -497,171 +522,145 @@ function submitNCR() {
 // ===================================================================
 // 9. Function to Populate the Reports
 // ===================================================================
-document.addEventListener("DOMContentLoaded", () => {
-    populateReports(); // Call the function to fetch and display data
-    fetchNCRRecords();
-});
+let allRecords = []; // Global variable to hold all records
+let allReports = []; // Global variable to hold all reports
 
-async function populateReports() {
+async function fetchReportsData() {
     try {
-        const response = await fetch('seed-data/History.json'); // Update with your correct path
-        if (!response.ok) throw new Error('Network response was not ok');
-        const historyData = await response.json();
-        const filteredData = filterHistoryData(historyData);
-        displayReports(filteredData);
-    } catch (error) {
-        console.error('Error fetching history data:', error);
-    }
-}
-
-function filterHistoryData(historyData) {
-    const ncrNumber = document.getElementById('ncrNumber')?.value.trim();
-    const ncrStatus = document.getElementById('ncrStatus')?.value;
-    const fromDate = document.getElementById('fromDate')?.value;
-    const toDate = document.getElementById('toDate')?.value;
-
-    const filteredData = historyData.filter(item => {
-        const isNcrNumberValid = ncrNumber ? item.NCR_Number.includes(ncrNumber) : true;
-        const isStatusValid = ncrStatus && ncrStatus !== 'All' ? item.Status === ncrStatus : true;
-
-        const itemChangedOn = new Date(item.Changed_On);
-        const isDateValid = (
-            (fromDate ? itemChangedOn >= new Date(fromDate) : true) &&
-            (toDate ? itemChangedOn <= new Date(toDate) : true)
-        );
-
-        return isNcrNumberValid && isStatusValid && isDateValid;
-    });
-
-    return filteredData;
-}
-
-function displayReports(filteredData) {
-    const tableBody = document.getElementById("reportsTableContent");
-    if (!tableBody) {
-        console.warn('Table body element not found.');
-        return;
-    }
-    tableBody.innerHTML = ''; // Clear previous results
-
-    if (filteredData.length === 0) {
-        tableBody.innerHTML = "<tr><td colspan='5'>No reports available for this NCR number.</td></tr>";
-        return;
-    }
-
-    filteredData.forEach(report => {
-        const newRow = `<tr>
-                            <td>${formatDate(report.Changed_On)}</td>
-                            <td>${report.Action_Type}</td>
-                            <td>${report.Status}</td>
-                            <td>${report.Action_Description}</td>
-                            <td>${report.Changed_By}</td>
-                        </tr>`;
-        tableBody.innerHTML += newRow;
-    });
-}
-
-// Function to fetch the JSON data and populate the table
-async function fetchNCRData() {
-    try {
-        const response = await fetch('seed-data/Quality.json');
+        const response = await fetch('seed-data/NCRLog.json'); // Update with the correct path
         if (!response.ok) {
-            throw new Error('Network response was not ok');
+            throw new Error('Network response was not ok ' + response.statusText);
         }
-        const data = await response.json();
-
-        // Filter records for the selected NCR Number
-        const filteredRecords = data.filter(record => record.ncrNumber === ncrNumber);
-        populateNCRRecordsTable(filteredRecords);
-        populateNCRTable(data);
+        allReports = await response.json(); // Store all reports globally
+        populateReportsTable(allReports);
     } catch (error) {
-        console.error('There was a problem with the fetch operation:', error);
+        console.error('Error fetching reports data:', error);
     }
 }
 
-// Function to populate the table with fetched data
-function populateNCRTable(data) {
-    const tableBody = document.getElementById("tablecontent");
-    tableBody.innerHTML = ''; // Clear existing content
 
-    data.forEach(item => {
-        const newRow = `<tr>
-                            <td>${item.ncrNumber}</td>
-                            <td>${item.createdBy}</td>
-                            <td>${formatDate(item.dateCreated)}</td>
-                            <td>${item.ncrStatus}</td>
-                            <td>${item.lastUpdated || 'N/A'}</td> <!-- Assuming lastUpdated is part of the data -->
-                            <td>
-                                <button onclick="viewNCR('${item.ncrNumber}')">View</button>
-                            </td>
-                        </tr>`;
-        tableBody.innerHTML += newRow;
-    });
+async function fetchRecordsData() {
+    try {
+        const response = await fetch('seed-data/History.json'); // Update with the correct path
+        if (!response.ok) {
+            throw new Error('Network response was not ok ' + response.statusText);
+        }
+        allRecords = await response.json(); // Store all records globally
+        populateRecordsTable(allRecords);
+    } catch (error) {
+        console.error('Error fetching records data:', error);
+    }
 }
 
-// Function to populate the Available Records table
-function populateNCRRecordsTable(records) {
-    const recordsTableBody = document.getElementById("reportsTableContent");
-    recordsTableBody.innerHTML = ''; // Clear existing content
-
-    records.forEach(record => {
-        const newRow = `<tr>
-                            <td>${formatDate(record.dateCreated)}</td>
-                            <td>${record.actionType || 'N/A'}</td>
-                            <td>${record.ncrStatus}</td>
-                            <td>${record.actionDescription || 'N/A'}</td>
-                            <td>${record.changedBy || 'N/A'}</td>
-                        </tr>`;
-        recordsTableBody.innerHTML += newRow;
-    });
-}
-
-let ncrRecords = []; // This should be populated in your fetch function
-
-async function fetchNCRRecords() {
-    const response = await fetch('seed-data/History.json');
-    ncrRecords = await response.json(); // Store the fetched records
-}
-
-function viewNCR(ncrNumber) {
-    console.log("Filtering for NCR Number:", ncrNumber); // Log the selected NCR number
-    console.log("All NCR Records:", ncrRecords); // Log all available records
-
-    // Filter records based on the selected NCR number
-    const filteredRecords = ncrRecords.filter(record => record.NCR_Number === ncrNumber);
-    
-    console.log("Filtered Records:", filteredRecords); // Log filtered records
-    
-    displayAvailableRecords(filteredRecords);
-}
-
-function displayAvailableRecords(filteredRecords) {
-    const availableRecordsTable = document.getElementById('reportsTableContent');
-    availableRecordsTable.innerHTML = ''; // Clear previous content
-
-    filteredRecords.forEach(record => {
+function populateReportsTable(data) {
+    const tableContent = document.getElementById('tablecontent');
+    tableContent.innerHTML = ''; // Clear existing rows
+    data.forEach(report => {
         const row = document.createElement('tr');
         row.innerHTML = `
-            <td>${formatDate(record.Changed_On)}</td>
+            <td>${report.ncrNumber}</td>
+            <td>${report.createdBy}</td>
+            <td>${report.dateCreated}</td>
+            <td>${report.status}</td>
+            <td>${report.lastUpdated}</td>
+            <td><button onclick="viewReport('${report.ncrNumber}')">View History</button></td>
+        `;
+        tableContent.appendChild(row);
+    });
+}
+
+function populateRecordsTable(data) {
+    const tableContent = document.getElementById('reportsTableContent');
+    tableContent.innerHTML = ''; // Clear existing rows
+    data.forEach(record => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${record.Changed_On}</td>
             <td>${record.Action_Type}</td>
             <td>${record.Status}</td>
             <td>${record.Action_Description}</td>
             <td>${record.Changed_By}</td>
         `;
-        availableRecordsTable.appendChild(row);
+        tableContent.appendChild(row);
     });
+}
 
-    if (filteredRecords.length === 0) {
-        const row = document.createElement('tr');
-        row.innerHTML = `<td colspan="5">No records found for this NCR number.</td>`;
-        availableRecordsTable.appendChild(row);
+function viewReport(ncrNumber) {
+    const filteredRecords = allRecords.filter(record => record.NCR_Number === ncrNumber);
+    populateRecordsTable(filteredRecords); // Populate with filtered records
+    
+    // Show the records table only if there are matching records
+    const table = document.querySelector('#reports-table');
+    if (filteredRecords.length > 0) {
+        table.style.display = 'block'; // Show the records table
+    } else {
+        table.style.display = 'none'; // Hide if no records
     }
 }
 
+function performSearchReports() {
+    const ncrNumber = document.getElementById('ncrNumber').value.trim().toLowerCase();
+    const ncrStatus = document.getElementById('ncrStatus').value;
+    const fromDateValue = document.getElementById('fromDate').value;
+    const toDateValue = document.getElementById('toDate').value;
 
-// Call the fetch function when the page loads
+    let filteredReports = allReports;
+
+    // Filter by NCR Number
+    if (ncrNumber) {
+        filteredReports = filteredReports.filter(report => report.ncrNumber.toLowerCase().includes(ncrNumber));
+    }
+
+    // Filter by Status
+    if (ncrStatus !== 'All') {
+        filteredReports = filteredReports.filter(report => report.status === ncrStatus);
+    }
+
+    // Filter by Date Range
+    if (fromDateValue) {
+        const fromDate = new Date(fromDateValue);
+        filteredReports = filteredReports.filter(report => new Date(report.dateCreated) >= fromDate);
+    }
+    if (toDateValue) {
+        const toDate = new Date(toDateValue);
+        filteredReports = filteredReports.filter(report => new Date(report.dateCreated) <= toDate);
+    }
+
+    // Populate the table with filtered results
+    populateReportsTable(filteredReports);
+
+    // Show or hide "no results" message
+    const noResultsMessage = document.getElementById('no-results-message');
+    if (filteredReports.length === 0) {
+        noResultsMessage.textContent = 'No results found.';
+        noResultsMessage.style.display = 'block';
+    } else {
+        noResultsMessage.style.display = 'none';
+    }
+}
+
+function clearSearch() {
+    /*
+    // Clear search inputs
+    document.getElementById('ncrNumber').value = '';
+    document.getElementById('ncrStatus').value = 'All';
+    document.getElementById('fromDate').value = '';
+    document.getElementById('toDate').value = '';
+
+    // Reset the table to show all reports
+    populateReportsTable(allReports);
+
+    // Hide "no results" message
+    document.getElementById('no-results-message').style.display = 'none';
+    */
+    location.reload();
+}
+
 document.addEventListener('DOMContentLoaded', () => {
-    fetchNCRData();
+    fetchReportsData();
+    fetchRecordsData();
+    document.querySelector('#reports-table').style.display = 'none';
 });
+
 
 

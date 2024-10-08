@@ -58,14 +58,13 @@
                 <div class="profile">
                     <div class="user-container">
                         <button id="btnProfile" aria-haspopup="true" tabindex="0" aria-expanded="false" aria-controls="profileDropdown" onclick="toggleProfileDropdown()">
-                            <span class="user-avatar">
-                                <img src="images/user-profile.png" alt="User profile image" title="User profile image" height="50" width="50"> 
-                            </span>
-                            <span class="user-details">
-                                <span id="userFullname"  class="user-fullname">Cassandra Washington</span>
-                                <br>
-                                <span id="userRole" class="user-role">Administrator</span>
-                            </span>
+                            <div class="user-avatar">
+                                <img id="profilePic" src="images/user-profile.png" alt="User profile image" title="User profile image" height="50" width="50" /> 
+                            </div>
+                            <div class="user-details">
+                                <div class="user-fullname">Cassandra Washington</div>
+                                <div class="user-role">Administrator</div>
+                            </div>
                         </button>
                     </div>
                     <div id="profileDropdown" class="profile-dropdown" tabindex="0" role="region" aria-labelledby="btnProfile">
@@ -96,7 +95,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a id="logout" href="login.html" tabindex="0">
+                                <button href="login.html" tabindex="0">
                                     <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H8m12 0-4 4m4-4-4-4M9 4H7a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h2"/>
                                     </svg>
@@ -130,7 +129,7 @@
                         </div>
                     </div>
                     <form id="createNCRForm" class="modal-form">
-                        <div class="modal-column">
+                        <div class="modal-col-one">
                             <label for="napplicableProcess">Applicable Process:</label>
                             <select id="napplicableProcess" name="napplicableProcess" aria-describedby="processHelp" required>
                                 <option value="" disabled selected>Select a process</option>
@@ -156,9 +155,11 @@
                                 <option value="Textile Supplies">Textile Supplies</option>
                             </select>
                         </div>
-                        <button type="button" id="btnCreateNCR" class="btnPrimary">Create</button>
-                        <button type="button" class="btnSecondary" id="btncancelNCR" onclick="goBack()">Cancel</button>
-                    </form>
+                        <div class="modal-col-two">
+                            <button type="button" id="btnCreateNCR" class="button-primary">Create</button>
+                            <button type="button" class="button-secondary" id="btncancelNCR" onclick="goBack()">Cancel</button>    
+                        </div>
+                        </form>
                 </div>
             </div>
             <!--Form Field-->
@@ -175,7 +176,7 @@
                             <strong>Created By:</strong><span id="createdBy"></span>
                         </div>
                         <div>
-                            <strong>Status:</strong> <span id="ncrStatus"></span>
+                            <strong>Status:</strong><span id="ncrStatus"></span>
                         </div>
                     </div>
 

@@ -104,10 +104,7 @@ function toggleCreateEditModal(ncrNumber, isEditMode) {
         createNCRModal.style.visibility = 'hidden';
         createEditModal.style.visibility = 'visible';
         populateEditPage(ncrNumber);
-    } else {
-        createEditModal.style.visibility = 'hidden';
-        createNCRModal.style.visibility = 'visible';
-    }
+    } 
 }
 
 // Setup button to create a new NCR
@@ -148,17 +145,29 @@ document.addEventListener('DOMContentLoaded', () => {
     const user = JSON.parse(localStorage.getItem('loggedInUser'));
     const fullNameElement = document.getElementById('userFullname');
     const roleElement = document.getElementById('userRole');
+    const profilePicElement = document.getElementById('profilePic');
 
     if (user && fullNameElement && roleElement) {
         fullNameElement.textContent = `${user.user_Firstname} ${user.user_Lastname}`;
         roleElement.textContent = user.Department_Name;
 
+         // Set the profile picture based on gender
+         if (user.gender === 'male') {
+           
+            profilePicElement.src = "images/user-profile_v1.png"; 
+        } else if (user.gender === 'female') {
+           
+            profilePicElement.src = "images/user-profile.png"; 
+        }
+        
+       
+        
         // Logout codes
         document.getElementById('logout').addEventListener('click', function() {
             
             localStorage.removeItem('loggedInUser');
+            alert("Successfully Logged out");
 
-            // Redirect to the login page
             window.location.href = 'login.html'; 
         });
 

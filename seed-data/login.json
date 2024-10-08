@@ -9,7 +9,8 @@
             "email": "john.doe@example.com",
             "password": "Marc123",
             "created_on": "2024-01-15T10:00:00Z",
-            "Department_Name": "Quality"
+            "Department_Name": "Quality",
+            "gender":"male"
         },
         {
             "user_Id": "2",
@@ -20,7 +21,8 @@
             "email": "jane.smith@example.com",
             "password": "Cass234",
             "created_on": "2024-02-10T12:00:00Z",
-            "Department_Name": "Administrator"
+            "Department_Name": "Administrator",
+            "gender": "female"
         },
         {
             "user_Id": "3",
@@ -31,7 +33,8 @@
             "email": "alice.johnson@example.com",
             "password": "Soph384",
             "created_on": "2024-03-05T14:30:00Z",
-            "Department_Name": "Quality"
+            "Department_Name": "Quality",
+            "gender":"female"
         },
         {
             "user_Id": "4",
@@ -42,7 +45,8 @@
             "email": "mark.brown@example.com",
             "password": "James456",
             "created_on": "2024-04-01T09:00:00Z",
-            "Department_Name": "Administrator"
+            "Department_Name": "Administrator",
+            "gender":"male"
         }
     ]
 }
