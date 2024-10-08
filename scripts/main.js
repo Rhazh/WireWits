@@ -104,10 +104,7 @@ function toggleCreateEditModal(ncrNumber, isEditMode) {
         createNCRModal.style.visibility = 'hidden';
         createEditModal.style.visibility = 'visible';
         populateEditPage(ncrNumber);
-    } else {
-        createEditModal.style.visibility = 'hidden';
-        createNCRModal.style.visibility = 'visible';
-    }
+    } 
 }
 
 // Setup button to create a new NCR
