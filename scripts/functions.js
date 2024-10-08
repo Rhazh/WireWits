@@ -228,12 +228,12 @@ function populateEditPage(ncrNumber) {
         document.getElementById('ncrStatus').textContent = entry.ncrStatus;
         document.getElementById('applicableProcess').value = entry.applicableProcess;
         document.getElementById('supplierName').value = entry.supplierName;
-        document.getElementById('poNumber').value = entry.poNumber;
-        document.getElementById('soNumber').value = entry.soNumber;
+        document.getElementById('poNumber').value = entry.poNumber? entry.poNumber : '';
+        document.getElementById('soNumber').value = entry.soNumber? entry.soNumber : '';
         document.getElementById('quantityReceived').value = entry.quantityReceived;
         document.getElementById('quantityDefect').value = entry.quantityDefective;
-        document.getElementById('itemDescription').value = entry.itemDescription;
-        document.getElementById('defectDescription').value = entry.defectDescription;
+        document.getElementById('itemDescription').value = entry.itemDescription? entry.itemDescription : '';
+        document.getElementById('defectDescription').value = entry.defectDescription? entry.defectDescription : '';
         document.getElementById('engNeeded').checked = entry.engNeeded === 'Yes';
         document.getElementById('itemConform').checked = entry.itemConform === 'Yes';
     }
@@ -488,7 +488,7 @@ function submitNCR() {
         // Persist updated quality array to sessionStorage
         sessionStorage.setItem('quality', JSON.stringify(quality));
         
-        alert('NCR has been successfully submitted.');
+        alert('NCR has been successfully submitted. You can provide more information now or continue later.');
         // Redirect or perform other actions as needed
         window.location.href = 'index.html';
     }

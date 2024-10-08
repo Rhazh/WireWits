@@ -20,7 +20,7 @@
             <div class="header-col-left">
                 <!--logo-->
                 <div class="logo">
-                    <img src="images/logo.png" alt="Crossfire logo" title="Crossfire logo" height="74" width="345" />
+                    <img src="images/logo.png" alt="Crossfire logo" title="Crossfire logo" height="74" width="345">
                 </div>
                 <!--navigation menu-->
                 <nav aria-label="Main Navigation">
@@ -58,7 +58,7 @@
                     <div class="user-container">
                         <button id="btnProfile" aria-haspopup="true" tabindex="0" aria-expanded="false" aria-controls="profileDropdown" onclick="toggleProfileDropdown()">
                             <div class="user-avatar">
-                                <img src="images/user-profile.png" alt="User profile image" title="User profile image" height="50" width="50" /> 
+                                <img src="images/user-profile.png" alt="User profile image" title="User profile image" height="50" width="50"> 
                             </div>
                             <div class="user-details">
                                 <div id="userFullname"  class="user-fullname">Cassandra Washington</div>
@@ -107,7 +107,6 @@
             </div>
         </div>
     </header>
-
     <main>
         <div class="container">
             <div class="page-title">
@@ -115,36 +114,36 @@
                     <nav aria-label="Breadcrumb">
                         <ol class="breadcrumb-list" tabindex="0"></ol> <!-- Breadcrumbs will be dynamically populated here -->
                     </nav>
-                <h1>Dashboard</h1>
+                </div>
             </div>
-            <section id="dashboardSection"  role="region" aria-labelledby="dashboardTitle">
+            <section id="dashboardSection" aria-labelledby="dashboardTitle">
+                <h1 id="dashboardTitle">Dashboard</h1>
                 <!--dashboard buttons-->
                 <div class="dashboard">
                     <div class="dash-col">
                         <button id="btnCreate" class="createNCR" tabindex="0">
-                            <img src="images/icon-create-ncr.svg" alt="Create NCR icon" title="Create NCR icon"  width="95" height="95" />
+                            <img src="images/icon-create-ncr.svg" alt="Create NCR icon" title="Create NCR icon"  width="95" height="95">
                             Create NCR
                         </button>
                     </div>
                     <div class="dash-col">
                         <button id="btnView" tabindex="0">
-                            <img src="images/icon-view-ncrs.svg" alt="View NCR icon" title="View NCR icon" width="95" height="95" />
+                            <img src="images/icon-view-ncrs.svg" alt="View NCR icon" title="View NCR icon" width="95" height="95">
                             View NCRs
                         </button>
                     </div>
                     <div class="dash-col">
                         <button id="btnReports" tabindex="0">
-                            <img src="images/icon-reports.svg" alt="Reports icon" title="Reports icon" width="95" height="95" />
+                            <img src="images/icon-reports.svg" alt="Reports icon" title="Reports icon" width="95" height="95">
                             Reports
                         </button>
                     </div>
                 </div>
             </section>
-
-            <section id="SecRcentNCR" role="region" aria-labelledby="recentNCRsTitle" tabindex="0">
+            <section id="SecRcentNCR" aria-labelledby="recentNCRsTitle" tabindex="0">
                 <div class="table-col">
                     <div class="table-title">
-                        <h2>Recent NCRs</h2> <!--Heading may change-->
+                        <h2 id="recentNCRsTitle">Recent NCRs</h2> <!--Heading may change-->
                     </div>
                     <table id="recentNCRs-table" tabindex="0">
                         <thead>
@@ -165,12 +164,10 @@
             <!--Removed popup modal for Create NCR, moved it to Create Page-->
         </div>
     </main>
-
     <footer>
         <p><small>&copy; 2024 Copyright. QCision - WireWits. All rights reserved.</small></p>
     </footer>
     <script src="scripts/functions.js"></script>
     <script src="scripts/main.js"></script>
 </body>
-
 </html>
