@@ -1,20 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Configure the settings for the application.">
-    <title>Settings</title>
-    
-    <link href="styles.css" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <meta name="description" content="Page under development.">
+    <title>Under Development</title>
+    <link href="styles.css" rel="stylesheet"> <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
     <link rel="icon" type="image/x-icon" href="images/crossfire-logo-fevicon.png">
 </head>
-
-
 <body>
     <header>
         <div class="header-col">
@@ -26,14 +21,14 @@
                 <!--navigation menu with aria landmark-->
                 <nav aria-label="Main Navigation">
                     <ul>
-                        <li><a href="index.html" class="nav-active" id="home" aria-current="page" tabindex="0">Dashboard</a></li>
+                        <li><a href="index.html"  id="home" aria-current="page" tabindex="0">Dashboard</a></li>
                         <li><a href="create.html" id="create" class="createNCR" tabindex="0">Create NCR</a></li>
                         <li><a href="view.html" id="view" tabindex="0">View NCRs</a></li>
                         <li><a href="reports.html" id="reports" tabindex="0">Reports</a></li>
                     </ul>
                 </nav>
             </div>
-            <div class="header-col-right">
+            <div class="header-col-right"> 
                 <div class="notification">
                     <div class="notif-button-container">
                         <button id="btnNotification" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-controls="notifDisplay" onclick="toggleDropdown()">
@@ -43,7 +38,7 @@
                         </button>
                         <span id="spnCount" class="notif-count" aria-live="polite">0</span>
                     </div>
-                    <div class="notif-dropdown-container" id="notifDisplay" role="region" aria-labelledby="btnNotification" >
+                    <div class="notif-dropdown-container" id="notifDisplay" role="region" aria-labelledby="btnNotification" tabindex="0">
                         <div class="notif-label">
                             <span class="notif-title">Notifications</span>
                             <div class="notif-desc" id="notifDesc">
@@ -112,8 +107,12 @@
         <nav aria-label="Breadcrumb">
             <ol class="breadcrumb-list" tabindex="0"></ol> <!-- Breadcrumbs will be dynamically populated here -->
         </nav>
+        <h1 id="under-development">Page Under Development</h1>
     </main>
     <footer>
         <p><small>&copy; 2024 Copyright. QCision - WireWits. All rights reserved.</small></p>
     </footer>
-    </body>
+    <script src="scripts/functions.js"></script>
+    <script src="scripts/main.js"></script>
+</body>
+</html>
