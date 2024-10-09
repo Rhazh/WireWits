@@ -119,61 +119,76 @@
                 <!--title may change depending on user actions-->
                 <h1>Search</h1>
             </div>
-            <div class="div-container">
-                <div>
-                    <label for="ncrNumber">Filter By NCR Number:</label>
-                    <input type="text" id="ncrNumber" placeholder="2024-001">
+            <div class="search-section">
+                <div class="div-container">
+                    <div class="div-section">
+                        <div class="three-cols">
+                            <div>
+                                <label for="ncrNumber">Filter By NCR Number:</label>
+                                <input type="text" id="ncrNumber" placeholder="2024-001">
+                            </div>
+                            <div>
+                                <label for="fromDate">From:</label>
+                                <input type="date" id="fromDate" tabindex="0">
+                            </div>
+                            <div>
+                                <label for="toDate">To:</label>
+                                <input type="date" id="toDate" tabindex="0">
+                            </div>
+                        </div>
+                        
+                        <div class="search-section-button">
+                            <div>
+                                <button type="button" onclick="performSearch()" tabindex="0" class="button-primary">Search</button>
+                            </div>
+                            <div>
+                                <button type="button" onclick="clearSearch()" tabindex="0" class="button-secondary">Clear</button>
+                            </div>
+                            <div>
+                                <span id="no-results-message" class="search-error-message" tabindex="0"></span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div>
-                    <label for="supplierName">Filter by Supplier:</label>
-                    <!--performSearch may not work in this case so change-->
-                    <select id="supplierName" onchange="performSearch()" tabindex="0">
-                        <option value="">Select Supplier</option>
-                        <option value="Auto Parts Ltd.">Auto Parts Ltd.</option>
-                        <option value="Building Materials Co.">Building Materials Co.</option>
-                        <option value="Cosmetics Corp.">Cosmetics Corp.</option>
-                        <option value="Depot Home">Depot Home</option>
-                        <option value="Fresh Foods Co.">Fresh Foods Co.</option>
-                        <option value="Global Supplies">Global Supplies</option>
-                        <option value="Home Goods Inc.">Home Goods Inc.</option>
-                        <option value="Medical Supplies Inc.">Medical Supplies Inc.</option>
-                        <option value="Tech Parts Co.">Tech Parts Co.</option>
-                        <option value="Textile Supplies">Textile Supplies</option>
-                        <!-- Options will be populated dynamically -->
-                    </select>
-                </div>
-                <div>
-                    <label for="ncrStatus">Filter by Status:</label>
-                     <!--performSearch may not work in this case so change-->
-                    <select id="ncrStatus" onchange="performSearch()" tabindex="0">
-                        <option value="Quality">Quality</option>
-                        <option value="Engineering">Engineering</option>
-                        <option value="Operations">Operations</option>
-                    </select>
-                </div>
-                <div>
-                    <label for="fromDate">From:</label>
-                    <input type="date" id="fromDate" tabindex="0">
-                </div>
-                <div>
-                    <label for="toDate">To:</label>
-                    <input type="date" id="toDate" tabindex="0">
-                </div>
-                <div>
-                    <button type="button" onclick="performSearch()" tabindex="0">Search</button>
-                </div>
-                <div>
-                    <button type="button" onclick="clearSearch()" tabindex="0">Clear</button>
-                </div>
-                <div>
-                    <span id="no-results-message" style="color: red; margin-left: 10px; display: none;" tabindex="0"></span>
-                </div>
+
             </div>
+            
     
             <div class="div-table">
                 <div class="div-container">
                     <div class="table-title">
-                        <h2>Available Records</h2> <!--Heading may change-->
+                        <div class="two-cols">
+                            <div class="search-table-title">
+                                <h2>Available Records</h2> <!--Heading may change-->
+                            </div>
+                            <div class="two-cols">
+                                <div>
+                                    <!--performSearch may not work in this case so change-->
+                                    <select id="supplierName" onchange="performSearch()" tabindex="0">
+                                        <option value="">Select Supplier</option>
+                                        <option value="Auto Parts Ltd.">Auto Parts Ltd.</option>
+                                        <option value="Building Materials Co.">Building Materials Co.</option>
+                                        <option value="Cosmetics Corp.">Cosmetics Corp.</option>
+                                        <option value="Depot Home">Depot Home</option>
+                                        <option value="Fresh Foods Co.">Fresh Foods Co.</option>
+                                        <option value="Global Supplies">Global Supplies</option>
+                                        <option value="Home Goods Inc.">Home Goods Inc.</option>
+                                        <option value="Medical Supplies Inc.">Medical Supplies Inc.</option>
+                                        <option value="Tech Parts Co.">Tech Parts Co.</option>
+                                        <option value="Textile Supplies">Textile Supplies</option>
+                                        <!-- Options will be populated dynamically -->
+                                    </select>
+                                </div>
+                                <div>
+                                    <!--performSearch may not work in this case so change-->
+                                    <select id="ncrStatus" onchange="performSearch()" tabindex="0">
+                                        <option value="Quality">Quality</option>
+                                        <option value="Engineering">Engineering</option>
+                                        <option value="Operations">Operations</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <table id="results-table" tabindex="0">
                         <thead>
