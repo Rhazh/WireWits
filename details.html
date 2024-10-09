@@ -111,75 +111,95 @@
     </header>
 
     <main>
-        <h1>NCR Information</h1>
-        <nav aria-label="Breadcrumb">
-            <ol class="breadcrumb-list" tabindex="0"></ol> <!-- Breadcrumbs will be dynamically populated here -->
-        </nav>
-        <div>
-            <div>
-                <strong>NCR Number:</strong> <span id="ncrNumber"></span>
+        <div class="container">
+            <div class="breadcrumb-container">
+                <div aria-label="Breadcrumb">
+                    <ol class="breadcrumb-list" tabindex="0"></ol> <!-- Breadcrumbs will be dynamically populated here -->
+                </div>
             </div>
-            <div>
-                <strong>Date Created:</strong> <span id="dateCreated"></span>
+            <div class="page-title">
+                <h1>NCR Information</h1>
             </div>
-            <div>
-                <strong>Created By:</strong> <span id="createdBy"></span>
+            <div class="form-ncr">
+                <div class="div-container">
+                    <div class="form-header">
+                        <div class="form-ncr-details">
+                            <strong>NCR Number:</strong>
+                            <span id="ncrNumber"></span>
+                        </div>
+                        <div class="form-ncr-details">
+                            <strong>Date Created:</strong>
+                            <span id="dateCreated"></span>
+                        </div>
+                        <div class="form-ncr-details">
+                            <strong>Created By:</strong>
+                            <span id="createdBy"></span>
+                        </div>
+                        <div class="form-ncr-details">
+                            <strong>Status:</strong>
+                            <span id="ncrStatus"></span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="div-container">
+                    <div class="form-section">
+                        <div class="four-cols">
+                            <div class="form-ncr-details">
+                                <strong>Supplier Name:</strong>
+                                <span id="supplierName"></span>
+                            </div>
+                            <div class="form-ncr-details">
+                                <strong>Production Number:</strong>
+                                <span id="poNumber"></span>
+                            </div>
+                            <div class="form-ncr-details">
+                                <strong>Quantity Received:</strong>
+                                <span id="quantityReceived"></span>
+                            </div>
+                            <div class="form-ncr-details">
+                                <strong>Forward to Engineering:</strong>
+                                <span id="engNeeded"></span>
+                            </div>
+                            <div class="form-ncr-details">
+                                <strong>Applicable Process:</strong> <span id="applicableProcess"></span>
+                            </div>
+                            <div class="form-ncr-details">
+                                <strong>Sales Order Number:</strong> <span id="soNumber"></span>
+                            </div>
+                            <div class="form-ncr-details">
+                                <strong>Quantity Defective:</strong> <span id="quantityDefect"></span>
+                            </div>
+                            <div class="form-ncr-details">
+                                <strong>Item marked conforming:</strong> <span id="itemConform"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="div-container">
+                    <div class="form-section">
+                        <div>
+                            <p><strong>Item Description:</strong> <span id="itemDescription"></span></p>
+                        </div>
+            
+                        <div>
+                            <p><strong>Description of Defect:</strong></p>
+                            <ul id="defectDescription"></ul>
+                        </div>
+                        <div>
+                            <p><strong>Document Files:</strong></p>
+                            <ul id="attachedDocument">
+                                <!-- Document files will be populated here -->
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="form-ncr-buttons">
+                        <button class="button-primary" onclick="window.location.href='create.html?ncr=' + document.getElementById('ncrNumber').textContent;">Edit</button>
+                    </div>
+                </div>
             </div>
-            <div>
-                <strong>Status:</strong> <span id="ncrStatus"></span>
-            </div>
-        </div>
-
-        <div>
-            <div>
-                <strong>Supplier Name:</strong> <span id="supplierName"></span>
-            </div>
-            <div>
-                <strong>Production Number:</strong> <span id="poNumber"></span>
-            </div>
-            <div>
-                <strong>Quantity Received:</strong> <span id="quantityReceived"></span>
-            </div>
-            <div>
-                <strong>Forward to Engineering:</strong> <span id="engNeeded"></span>
-            </div>
-        </div>
-
-        <div>
-            <div>
-                <strong>Applicable Process:</strong> <span id="applicableProcess"></span>
-            </div>
-            <div>
-                <strong>Sales Order Number:</strong> <span id="soNumber"></span>
-            </div>
-            <div>
-                <strong>Quantity Defective:</strong> <span id="quantityDefect"></span>
-            </div>
-            <div>
-                <strong>Item marked conforming:</strong> <span id="itemConform"></span>
-            </div>
-        </div>
-
-        <div>
-            <div>
-                <p><strong>Item Description:</strong> <span id="itemDescription"></span></p>
-            </div>
-
-            <div>
-                <p><strong>Description of Defect:</strong></p>
-                <ul id="defectDescription"></ul>
-            </div>
-            <div>
-                <h3>Document Files:</h3>
-                <ul id="attachedDocument">
-                    <!-- Document files will be populated here -->
-                </ul>
-            </div>
-        </div>
-
-        <div>
-            <button
-                onclick="window.location.href='create.html?ncr=' + document.getElementById('ncrNumber').textContent;">Edit</button>
         </div>
     </main>
     <footer>

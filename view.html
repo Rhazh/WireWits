@@ -28,7 +28,7 @@
                     <ul>
                         <li><a href="index.html"  id="home" aria-current="page" tabindex="0">Dashboard</a></li>
                         <li><a href="create.html" id="create" tabindex="0">Create NCR</a></li>
-                        <li><a href="view.html" id="view" class="createNCR"  tabindex="0">View NCRs</a></li>
+                        <li><a href="view.html" id="view" class="nav-active"  tabindex="0">View NCRs</a></li>
                         <li><a href="reports.html" id="reports" tabindex="0">Reports</a></li>
                     </ul>
                 </nav>
@@ -110,15 +110,17 @@
         </div>
     </header>
     <main>
-        <!--filter by NCR Number, the status, Date Range, Supplier-->
-        <div aria-label="Breadcrumb">
-            <ol class="breadcrumb-list" tabindex="0"></ol> <!-- Breadcrumbs will be dynamically populated here -->
-        </div>
         <div class="container">
+            <div class="breadcrumb-container">
+                <div aria-label="Breadcrumb">
+                    <ol class="breadcrumb-list" tabindex="0"></ol> <!-- Breadcrumbs will be dynamically populated here -->
+                </div>
+            </div>
             <div class="page-title">
                 <!--title may change depending on user actions-->
                 <h1>Search</h1>
             </div>
+            <!--filter by NCR Number, the status, Date Range, Supplier-->
             <div class="search-section">
                 <div class="div-container">
                     <div class="div-section">

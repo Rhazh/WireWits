@@ -30,9 +30,12 @@ header {
     align-items: center;
     box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
     height: 70px;
+    position: sticky;
+    top: 0;
+    z-index: 99;
 }
 
-header .header-col{
+header .header-col {
     display: flex;
     justify-content: space-between;
     width: 100%;
@@ -228,7 +231,7 @@ nav ul li a:hover {
 }
 
 .profile {
-    min-width: 250px;
+    max-width: 250px;
 }
 
 .profile-dropdown {
@@ -278,13 +281,16 @@ nav ul li a:hover {
 /* -------- Main -------- */
 main {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     box-sizing: border-box;
+    width: 100%;
 }
 
 .container {
     width: 1200px;
-    padding: 30px 20px;
+    padding: 0 20px 50px;
+    margin: 0 auto;
 }
 
 .page-title {
@@ -508,6 +514,7 @@ table thead{
 
 .modal .two-cols button {
     padding: 12px;
+    margin-top: 15px;
 }
 
 /* -------------------------------------------------------------- */
@@ -695,9 +702,6 @@ textarea {
     display: block;
     font-size: 18px;
     box-sizing: border-box;
-}
-
-textarea {
     font-family: "Instrument Sans", sans-serif;
 }
 
@@ -736,16 +740,23 @@ label {
     display: block;
 }
 
-.two-cols {
+.two-cols,
+.three-cols,
+.four-cols {
     display: grid;
-    grid-template-columns: 1fr 1fr;
     grid-gap: 30px;
 }
 
+.two-cols {
+    grid-template-columns: 1fr 1fr;
+}
+
 .three-cols {
-    display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    grid-gap: 30px;
+}
+
+.four-cols {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
 }
 
 button {
@@ -783,14 +794,8 @@ button {
 
 /* Breadcrumb styling */
 .breadcrumb-container {
-    margin: 20px 0;
-    background-color: #fdfdfd;
-    padding: 10px 20px;
-    border-radius: 10px;
-    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
-    display: flex;
-    align-items: center;
-    font-size: 16px;
+    position: relative;
+    margin: 20px 0 0;
 }
 
 .breadcrumb-list {
