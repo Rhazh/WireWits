@@ -108,7 +108,7 @@ function recentNCRs() {
 
     console.log(recentN);
 
-    const tableBody = document.getElementById("indextablecontent");
+    const tableBody = document.getElementById("indexTableContent");
     if (!tableBody) {
         console.warn('Table body element not found.');
         return;
@@ -238,7 +238,7 @@ function populateEditPage(ncrNumber) {
         document.getElementById('itemConform').checked = entry.itemConform === 'Yes';
     }
     document.getElementById('createNCRModal').style.visibility = 'hidden'; // Hide the modal
-    document.getElementById('create-edit-NCR').style.visibility = 'visible'; // Show the edit section
+    document.getElementById('createEditNCR').style.visibility = 'visible'; // Show the edit section
 }
 
 // Supporting Function - Redirection to Edit an NCR when Edit button is clicked
@@ -260,7 +260,7 @@ function performSearch() {
     const fromDate = document.getElementById('fromDate')?.value;
     const toDate = document.getElementById('toDate')?.value;
 
-    const resultsCountMessage = document.getElementById('no-results-message');
+    const resultsCountMessage = document.getElementById('noResultsMessage');
 
     if (fromDate && toDate && new Date(fromDate) > new Date(toDate)) {
         resultsCountMessage.textContent = 'Start date must be earlier than or equal to end date.';
@@ -282,7 +282,7 @@ function performSearch() {
         return isNcrNumberValid && isSupplierNameValid && isStatusValid && isDateCreatedValid;
     });
 
-    const tableBody = document.getElementById("viewtablecontent");
+    const tableBody = document.getElementById("viewTableContent");
     if (!tableBody) {
         console.warn('Table body element not found.');
         return;
@@ -391,7 +391,7 @@ function CreateNCR() {
 
     // Display the newly created NCR data in the UI
     document.getElementById('createNCRModal').style.visibility = 'hidden';
-    document.getElementById('create-edit-modal').style.visibility = 'visible';
+    document.getElementById('createEditMmodal').style.visibility = 'visible';
     
 
     // Dynamically update elements with the new NCR data
@@ -421,7 +421,7 @@ function CreateNCR() {
     }
     console.log("check", quality)
     document.getElementById('createNCRModal').style.visibility = 'hidden'; // Hide the modal
-    document.getElementById('create-edit-NCR').style.visibility = 'visible'; // Show the edit section
+    document.getElementById('createEditNCR').style.visibility = 'visible'; // Show the edit section
     alert('NCR created successfully.');
 
 }
@@ -579,7 +579,7 @@ async function fetchRecordsData() {
 }
 
 function populateReportsTable(data) {
-    const tableContent = document.getElementById('tablecontent');
+    const tableContent = document.getElementById('tableContent');
     tableContent.innerHTML = ''; // Clear existing rows
     data.forEach(report => {
         const row = document.createElement('tr');
@@ -616,7 +616,7 @@ function viewReport(ncrNumber) {
     populateRecordsTable(filteredRecords); // Populate with filtered records
 
     // Show the records table only if there are matching records
-    const table = document.querySelector('#reports-table');
+    const table = document.querySelector('#reportsTable');
     if (filteredRecords.length > 0) {
         table.style.display = 'block'; // Show the records table
     } else {
@@ -656,7 +656,7 @@ function performSearchReports() {
     populateReportsTable(filteredReports);
 
     // Show or hide "no results" message
-    const noResultsMessage = document.getElementById('no-results-message');
+    const noResultsMessage = document.getElementById('noResultsMessage');
     if (filteredReports.length === 0) {
         noResultsMessage.textContent = 'No results found.';
         noResultsMessage.style.display = 'block';
@@ -677,7 +677,7 @@ function clearSearch() {
     populateReportsTable(allReports);
 
     // Hide "no results" message
-    document.getElementById('no-results-message').style.display = 'none';
+    document.getElementById('noResultsMessage').style.display = 'none';
     */
     location.reload();
 }
@@ -685,7 +685,7 @@ function clearSearch() {
 document.addEventListener('DOMContentLoaded', () => {
     fetchReportsData();
     fetchRecordsData();
-    document.querySelector('#reports-table').style.display = 'none';
+    document.querySelector('#reportsTable').style.display = 'none';
 });
 
 

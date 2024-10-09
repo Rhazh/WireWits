@@ -98,7 +98,7 @@ function setupNavigationButtons() {
 // Toggle between create and edit modals
 function toggleCreateEditModal(ncrNumber, isEditMode) {
     const createNCRModal = document.getElementById('createNCRModal');
-    const createEditModal = document.getElementById('create-edit-modal');
+    const createEditModal = document.getElementById('createEditMmodal');
 
     if (isEditMode) {
         createNCRModal.style.visibility = 'hidden';
