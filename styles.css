@@ -63,6 +63,11 @@ header .logo img {
 /* Default Branding Style */
 /* ------- Header ------- */
 /* --------- Nav -------- */
+
+abbr {
+    text-decoration: none;
+    border-bottom: none;
+}
 nav {
     height: 100%;
     margin: 0;
