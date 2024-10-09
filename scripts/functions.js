@@ -59,24 +59,24 @@ function getOldNotifications() {
 }
 
 // Close dropdown if clicked outside (Notification)
-document.addEventListener('click', function(event) {
+document.addEventListener('click', function (event) {
     const notifDisplay = document.getElementById('notifDisplay');
     const btnNotification = document.getElementById('btnNotification');
 
     // Check if the click was outside the notification display and the button
-    if (!notifDisplay.contains(event.target) && 
+    if (!notifDisplay.contains(event.target) &&
         !btnNotification.contains(event.target)) {
         notifDisplay.style.display = 'none'; // Hide the dropdown
     }
 });
 
 // Close dropdown if clicked outside (Profile)
-document.addEventListener('click', function(event) {
+document.addEventListener('click', function (event) {
     const profileDisplay = document.getElementById('profileDropdown');
     const btnProfile = document.getElementById('btnProfile');
 
     // Check if the click was outside the notification display and the button
-    if (!profileDisplay.contains(event.target) && 
+    if (!profileDisplay.contains(event.target) &&
         !btnProfile.contains(event.target)) {
         profileDisplay.style.display = 'none'; // Hide the dropdown
     }
@@ -172,7 +172,7 @@ function populateDetailsPage(ncrNumber) {
         document.getElementById('quantityDefect').textContent = entry.quantityDefective ?? "";
         document.getElementById('itemDescription').textContent = entry.itemDescription ?? "";
         document.getElementById('defectDescription').textContent = entry.defectDescription ?? "";
-        
+
         // Assuming engineering is related to defect description, corrected as `engNeeded`
         document.getElementById('engNeeded').textContent = entry.engNeeded ?? "No";
 
@@ -228,12 +228,12 @@ function populateEditPage(ncrNumber) {
         document.getElementById('ncrStatus').textContent = entry.ncrStatus;
         document.getElementById('applicableProcess').value = entry.applicableProcess;
         document.getElementById('supplierName').value = entry.supplierName;
-        document.getElementById('poNumber').value = entry.poNumber? entry.poNumber : '';
-        document.getElementById('soNumber').value = entry.soNumber? entry.soNumber : '';
+        document.getElementById('poNumber').value = entry.poNumber ? entry.poNumber : '';
+        document.getElementById('soNumber').value = entry.soNumber ? entry.soNumber : '';
         document.getElementById('quantityReceived').value = entry.quantityReceived;
         document.getElementById('quantityDefect').value = entry.quantityDefective;
-        document.getElementById('itemDescription').value = entry.itemDescription? entry.itemDescription : '';
-        document.getElementById('defectDescription').value = entry.defectDescription? entry.defectDescription : '';
+        document.getElementById('itemDescription').value = entry.itemDescription ? entry.itemDescription : '';
+        document.getElementById('defectDescription').value = entry.defectDescription ? entry.defectDescription : '';
         document.getElementById('engNeeded').checked = entry.engNeeded === 'Yes';
         document.getElementById('itemConform').checked = entry.itemConform === 'Yes';
     }
@@ -336,7 +336,7 @@ function CreateNCR() {
     const applicableProcess = document.getElementById('napplicableProcess')?.value;
     const supplierName = document.getElementById('nsupplierName')?.value;
 
-    if(applicableProcess == "" || supplierName == ""){
+    if (applicableProcess == "" || supplierName == "") {
         alert("Please select both Applicable Process and Supplier")
         return;
     }
@@ -378,7 +378,7 @@ function CreateNCR() {
         itemDescription: "",  // Empty for now
         defectDescription: [],  // Empty for now
         documentFiles: [],  // Empty for now
-        ncrStatus: "Quality"   
+        ncrStatus: "Quality"
     };
 
     // Add the entry to the quality array
@@ -394,13 +394,13 @@ function CreateNCR() {
     document.getElementById('create-edit-modal').style.visibility = 'visible';
 
     // Dynamically update elements with the new NCR data
-    
+
     console.log("Persisted NCR Log:", ncrLog);
     console.log("Persisted Quality:", quality);
     console.log(quality);
     //populateEditPage(qualityEntry.ncrNumber)
 
-   
+
     const entry = quality.find(item => item.ncrNumber === ncrLogEntry.ncrNumber);
     if (entry) {
         document.getElementById('ncrNumber').textContent = entry.ncrNumber;
@@ -409,12 +409,12 @@ function CreateNCR() {
         document.getElementById('ncrStatus').textContent = entry.ncrStatus;
         document.getElementById('applicableProcess').value = entry.applicableProcess;
         document.getElementById('supplierName').value = entry.supplierName;
-        document.getElementById('poNumber').value = entry.poNumber? entry.poNumber : '';
-        document.getElementById('soNumber').value = entry.soNumber? entry.soNumber : '';
+        document.getElementById('poNumber').value = entry.poNumber ? entry.poNumber : '';
+        document.getElementById('soNumber').value = entry.soNumber ? entry.soNumber : '';
         document.getElementById('quantityReceived').value = entry.quantityReceived;
         document.getElementById('quantityDefect').value = entry.quantityDefective;
-        document.getElementById('itemDescription').value = entry.itemDescription? entry.itemDescription : '';
-        document.getElementById('defectDescription').value = entry.defectDescription? entry.defectDescription : '';
+        document.getElementById('itemDescription').value = entry.itemDescription ? entry.itemDescription : '';
+        document.getElementById('defectDescription').value = entry.defectDescription ? entry.defectDescription : '';
         document.getElementById('engNeeded').checked = entry.engNeeded === 'Yes';
         document.getElementById('itemConform').checked = entry.itemConform === 'Yes';
     }
@@ -442,7 +442,7 @@ function NCRNumberGenerator() {
 // =================================================================
 function saveNCR() {
     const ncrNumber = document.getElementById('ncrNumber').textContent;
-    
+
     // Collect current form values
     const poNumber = document.getElementById('poNumber')?.value || '';
     const soNumber = document.getElementById('soNumber')?.value || '';
@@ -453,9 +453,14 @@ function saveNCR() {
     const itemDescription = document.getElementById('itemDescription')?.value || '';
     const defectDescription = document.getElementById('defectDescription')?.value || '';
     const ncrStatus = document.getElementById('ncrStatus')?.value || 'Quality';
-    
-    if(Number(quantityDefect) > Number(quantityReceived)){
+
+    if (Number(quantityDefect) > Number(quantityReceived)) {
         alert('The number of defects cannot exceed the quantity received.')
+        return;
+    }
+
+    if (Number(quantityDefect) < 0 || Number(quantityReceived) < 0) {
+        alert('Quantity Received and Quantity Defective cannot be negative.')
         return;
     }
     // Update the corresponding NCR in the quality array
@@ -484,7 +489,7 @@ function saveNCR() {
 // ===================================================================
 function submitNCR() {
     const ncrNumber = document.getElementById('ncrNumber').textContent;
-    
+
     // Collect current form values
     const poNumber = document.getElementById('poNumber')?.value || '';
     const soNumber = document.getElementById('soNumber')?.value || '';
@@ -494,16 +499,22 @@ function submitNCR() {
     const itemConform = document.getElementById('itemConform')?.value || 'No';
     const itemDescription = document.getElementById('itemDescription')?.value || '';
     const defectDescription = document.getElementById('defectDescription')?.value || '';
-    
+
     // Check if all required fields are filled
     if (!poNumber || !soNumber || !quantityReceived || !quantityDefect || !itemDescription || !defectDescription) {
         alert('Please fill out all the required fields before submitting.');
         return;
     }
 
-    if(Number(quantityDefect) > Number(quantityReceived)){
+    if (Number(quantityDefect) > Number(quantityReceived)) {
         alert('The number of defects cannot exceed the quantity received.')
-        return;}
+        return;
+    }
+
+    if (Number(quantityDefect) < 1 || Number(quantityReceived) < 1) {
+        alert('Quantity Received and Quantity Defective cannot be less than 1.')
+        return;
+    }
 
     // Update the corresponding NCR in the quality array
     const qualityEntry = quality.find(entry => entry.ncrNumber === ncrNumber);
@@ -520,13 +531,13 @@ function submitNCR() {
         qualityEntry.itemConform = itemConform;
         qualityEntry.itemDescription = itemDescription;
         qualityEntry.defectDescription = defectDescription;
-        
+
         // Mark the NCR as submitted
         qualityEntry.ncrStatus = engNeededCheckbox.checked ? "Engineering" : "Operations";
-        
+
         // Persist updated quality array to sessionStorage
         sessionStorage.setItem('quality', JSON.stringify(quality));
-        
+
         alert('NCR has been successfully submitted.');
         // Redirect or perform other actions as needed
         window.location.href = 'index.html';
@@ -602,7 +613,7 @@ function populateRecordsTable(data) {
 function viewReport(ncrNumber) {
     const filteredRecords = allRecords.filter(record => record.NCR_Number === ncrNumber);
     populateRecordsTable(filteredRecords); // Populate with filtered records
-    
+
     // Show the records table only if there are matching records
     const table = document.querySelector('#reports-table');
     if (filteredRecords.length > 0) {
