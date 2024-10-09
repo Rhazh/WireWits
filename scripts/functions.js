@@ -678,15 +678,9 @@ function clearSearch() {
     populateReportsTable(allReports);
 
     // Hide "no results" message
-<<<<<<< Updated upstream
-    document.getElementById('noResultsMessage').style.display = 'none';
-    */
-    location.reload();
-=======
     document.getElementById('no-results-message').style.display = 'none';
 
     //location.reload();
->>>>>>> Stashed changes
 }
 
 document.addEventListener('DOMContentLoaded', () => {
