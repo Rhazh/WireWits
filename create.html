@@ -170,19 +170,19 @@
                         <div class="form-header">
                             <div class="form-ncr-details">
                                 <strong>NCR Number:</strong>
-                                <span id="ncrNumber">test</span>
+                                <span id="ncrNumber"></span>
                             </div>
                             <div class="form-ncr-details">
                                 <strong>Date Created:</strong>
-                                <span id="dateCreated">test</span>
+                                <span id="dateCreated"></span>
                             </div>
                             <div class="form-ncr-details">
                                 <strong>Created By:</strong>
-                                <span id="createdBy">test</span>
+                                <span id="createdBy"></span>
                             </div>
                             <div class="form-ncr-details">
                                 <strong>Status:</strong>
-                                <span id="ncrStatus">test</span>
+                                <span id="ncrStatus"></span>
                             </div>
                         </div>
                     </div>
@@ -215,16 +215,18 @@
                                     </select>
                                 </div>
                             </div>
-                            <div>
-                                <label for="poNumber">Prod. Number:</label>
-                                <input id="poNumber" name="poNumber" type="text" placeholder="Enter Production Number">
-                                <!--include regex for pattern: digits-->
-                            </div>
-                            <div>
-                                <label for="soNumber">Sales Order Number:</label>
-                                <input id="soNumber" name="soNumber" type="text" placeholder="Enter Sales Order Number"
-                                    required>
-                                <!--include regex for pattern: digits-->
+                            <div class="two-cols">
+                                <div>
+                                    <label for="poNumber">Prod. Number:</label>
+                                    <input id="poNumber" name="poNumber" type="text" placeholder="Enter Production Number">
+                                    <!--include regex for pattern: digits-->
+                                </div>
+                                <div>
+                                    <label for="soNumber">Sales Order Number:</label>
+                                    <input id="soNumber" name="soNumber" type="text" placeholder="Enter Sales Order Number"
+                                        required>
+                                    <!--include regex for pattern: digits-->
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -232,49 +234,67 @@
 
                     <div class="div-container">
                         <!--include validation against negatives and ensure that defective is not more received-->
-                        <div>
-                            <label for="quantityReceived">Quantity Received:</label>
-                            <input id="quantityReceived" name="quantityReceived" type="number"
-                                placeholder="Enter Quantity Received" required>
-                        </div>
-                        <div>
-                            <label for="quantityDefect">Quantity Defective:</label>
-                            <input id="quantityDefect" name="quantityDefect" type="number"
-                                placeholder="Enter Quantity Defective" required>
+                        <div class="form-section">
+                            <div class="two-cols">
+                                <div>
+                                    <label for="quantityReceived">Quantity Received:</label>
+                                    <input id="quantityReceived" name="quantityReceived" type="number"
+                                        placeholder="Enter Quantity Received" required>
+                                </div>
+                                <div>
+                                    <label for="quantityDefect">Quantity Defective:</label>
+                                    <input id="quantityDefect" name="quantityDefect" type="number"
+                                        placeholder="Enter Quantity Defective" required>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
                     <div class="div-container">
-                        <div>
-                            <label for="itemDescription">Item Description:</label><br>
-                            <input id="itemDescription" name="itemDescription" placeholder="Describe the Item" required>
+                        <div class="form-section">
+                            <div>
+                                <label for="itemDescription">Item Description:</label>
+                                <input id="itemDescription" name="itemDescription" placeholder="Describe the item" required>
+                            </div>
+                            <div>
+                                <label for="defectDescription">Description of Defect:</label>
+                                <textarea id="defectDescription" name="defectDescription" rows="5"
+                                    placeholder="Describe the defect in as much detail as possible" required></textarea>
+                            </div>
+                            <div>
+                                <label for="attachedDocument">Attach a document:</label>
+                                <div class="file-upload">
+                                    <input id="attachedDocument" name="attachedDocument" type="file" />
+                                    <div class="file-upload-details">
+                                        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="none" viewBox="0 0 24 24">
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v9m-5 0H5a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1h-2M8 9l4-5 4 5m1 8h.01"/>
+                                        </svg>                                          
+                                        <p>Drop a file here to upload, or<br>click here to browse</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-checkbox-container">
+                                <div class="form-checkbox">
+                                    <input id="itemConform" name="itemConform" type="checkbox">
+                                    <label for="itemConform">Item marked conforming?</label>
+                                </div>
+                                <div class="form-checkbox">
+                                    <input id="engNeeded" name="engNeeded" type="checkbox">
+                                    <label for="engNeeded">Forward to Engineering?</label>
+                                </div>
+                            </div>
                         </div>
-                        <div>
-                            <label for="defectDescription">Description of Defect:</label><br>
-                            <textarea id="defectDescription" name="defectDescription"
-                                placeholder="Describe the defect in as much detail as possible" required></textarea>
-                        </div>
-                        <div>
-                            <label for="attachedDocument">Attach a document</label><br>
-                            <input id="attachedDocument" name="attachedDocument" type="file">
-                        </div>
-                        <div>
-                            <input id="itemConform" name="itemConform" type="checkbox">
-                            <label for="itemConform">Item marked Conforming?</label>
-
-                            <input id="engNeeded" name="engNeeded" type="checkbox">
-                            <label for="engNeeded">Forward to Engineering?</label>
-                        </div>
-                    </div>
-                    <div>
-                        <div>
-                            <button type="button" id="btnSave" class="btnPrimary">Save</button>
-                        </div>
-                        <div>
-                            <button type="button" id="btnSubmit" class="btnSecondary btnDisable">Submit</button>
-                        </div>
-                        <div>
-                            <button type="button" id="btnCancel" class="btnSecondary" onclick="goBack()">Cancel</button>
+                        
+                        <div class="form-ncr-buttons">
+                            <div>
+                                <button type="button" id="btnSave" class="button-primary">Save</button>
+                            </div>
+                            <div>
+                                <button type="button" id="btnSubmit" class="button-secondary btnDisable">Submit</button>
+                            </div>
+                            <div>
+                                <button type="button" id="btnCancel" class="button-secondary" onclick="goBack()">Cancel</button>
+                            </div>
                         </div>
                     </div>
                 </form>
