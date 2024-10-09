@@ -493,7 +493,7 @@ table thead{
     margin-bottom: 20px;
 }
 
-.modal-container .btnClose {
+.modal-container .btn-close {
     position: absolute;
     top: 20px;
     right: 20px;
@@ -503,7 +503,7 @@ table thead{
     height: auto;
 }
 
-.modal-container .btnClose svg:hover {
+.modal-container .btn-close svg:hover {
     border-radius: 25px;
     color: #fdfdfd;
     transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out;
