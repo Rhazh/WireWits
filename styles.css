@@ -478,7 +478,7 @@ table thead{
     box-sizing: border-box;
     box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
     flex-direction: column;
-    margin: 15% auto auto auto;
+    margin: 150px auto auto auto;
     position: relative;
 }
 
@@ -506,15 +506,25 @@ table thead{
     background-color: #007bff;
 }
 
-.modal .modal-form {
+.modal-form {
     display: flex;
     flex-direction: column;
     gap: 15px;
 }
 
-.modal .two-cols button {
+.modal-form .two-cols button {
     padding: 12px;
     margin-top: 15px;
+}
+
+.modal-logo {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.modal-logo img{
+    height: 50px;
+    width: auto;
 }
 
 /* -------------------------------------------------------------- */
@@ -603,7 +613,6 @@ table thead{
 .form-checkbox-container{
     display: flex;
     flex-direction: column;
-    gap: 10px;
 }
 
 .form-checkbox label {

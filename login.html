@@ -5,53 +5,45 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Login to the service to Create and manage NCRs.">
-    <title>LOGIN </title>
+    <title>Login</title>
 
     <link href="styles.css" rel="stylesheet">
     <link rel="icon" type="image/x-icon" href="images/favicon.png">
-
 </head>
 
 <body>
-    
-        <img src="images/logo.png" alt="Crossfire logo" title="Crossfire logo" height="74" width="345" />
-    
-
-    <form id="loginForm">
-        <div>
-            <div>
-                <label for="username">Username</label>
-                <input id="username" name="username" type="text" placeholder="Enter your Username" required>
-
+    <div class="modal-login">
+        <div class="modal-container">
+            <div class="modal-logo">
+                <img src="images/logo.png" alt="Crossfire logo" title="Crossfire logo" height="74" width="345" />
             </div>
-
-            <div>
-                <label for="password">Password</label>
-                <input id="password" name="password" type="password" placeholder="Password" required>
-            </div>
-
-            <div>
-                <label for="department">Department</label>
-                <select id="department" >
-                    <option value="Quality">Quality</option>
-                    <option value="Operations">Operations</option>
-                    <option value="Administrator">Administrator</option>
-                </select>
-            </div>
-
+            <form id="loginForm">
+                <div class="modal-form">
+                    <div>
+                        <label for="username">Username:</label>
+                        <input id="username" name="username" type="text" placeholder="Enter your Username" required>
+                    </div>
+                    <div>
+                        <label for="password">Password:</label>
+                        <input id="password" name="password" type="password" placeholder="Password" required>
+                    </div>
+                    <div>
+                        <label for="department">Department:</label>
+                        <select id="department" >
+                            <option value="Quality">Quality</option>
+                            <option value="Operations">Operations</option>
+                            <option value="Administrator">Administrator</option>
+                        </select>
+                    </div>
+                    <div class="two-cols">
+                        <button class="button-primary" type="submit" id="btnLogin">Log In</button>
+                        <button class="button-secondary" type="button" id="btncancel">Cancel</button>
+                    </div>
+                </div>
+            </form>
         </div>
-        <div>
-            <div>
-                <button type="submit" id="btnLogin">Log In</button>
-            </div>
-
-            <div>
-                <button type="button" id="btncancel">Cancel</button>
-            </div>
-
-        </div>
-    </form>
-
+    </div>
+    
     <footer>
         <p><small>&copy; 2024 Copyright. QCision - WireWits. All rights reserved.</small></p>
     </footer>

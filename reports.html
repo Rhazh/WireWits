@@ -112,83 +112,104 @@
         </div>
     </header>
     <main>
-        <section>
-            <!--Filter options here to go through NCR-->
-            <!--filter by NCR Number, the status, Date Range, Supplier-->
-        <h1>View NCRs</h1>
-        <nav aria-label="Breadcrumb">
-            <ol class="breadcrumb-list" tabindex="0"></ol> <!-- Breadcrumbs will be dynamically populated here -->
-        </nav>
-        <div class="search-container">
-            <div>
-                <label for="ncrNumber">Filter By NCR Number:</label>
-                <input type="text" id="ncrNumber" placeholder="2024-001" oninput="performSearchReports()">
+        <div class="container">
+            <div class="breadcrumb-container">
+                <div aria-label="Breadcrumb">
+                    <ol class="breadcrumb-list" tabindex="0"></ol> <!-- Breadcrumbs will be dynamically populated here -->
+                </div>
             </div>
-            <div>
-                <label for="ncrStatus">Filter by Status:</label>
-                 <!--performSearch may not work in this case so change-->
-                <select id="ncrStatus" onchange="performSearchReports()">
-                    <option value="All">All</option>
-                    <option value="Active">Active</option>
-                    <option value="Closed">Closed</option>
-                </select>
-            </div>    
-            <div>
-                <label for="fromDate">From:</label>
-                <input type="date" id="fromDate">
+            <div class="page-title">
+                <!--title may change depending on user actions-->
+                <h1>Reports</h1>
             </div>
-            <div>
-                <label for="toDate">To:</label>
-                <input type="date" id="toDate">
-            </div>
-            <div>
-                <button type="button" onclick="performSearchReports()">Search</button>
-            </div>
-            <div>
-                <button type="button" onclick="clearSearch()">Clear</button>
-            </div>
-            <div>
-                <span id="no-results-message" style="color: red; margin-left: 10px; display: none;"></span>
-            </div>
+            <section class="search-section">
+                <!--Filter options here to go through NCR-->
+                <!--filter by NCR Number, the status, Date Range, Supplier-->
+                <div class="div-container">
+                    <div class="div-section">
+                        <div class="four-cols">
+                            <div>
+                                <label for="ncrNumber">Filter By NCR Number:</label>
+                                <input type="text" id="ncrNumber" placeholder="2024-001" oninput="performSearchReports()">
+                            </div>
+                            <div>
+                                <label for="ncrStatus">Filter by Status:</label>
+                                <!--performSearch may not work in this case so change-->
+                                <select id="ncrStatus" onchange="performSearchReports()">
+                                    <option value="All">All</option>
+                                    <option value="Active">Active</option>
+                                    <option value="Closed">Closed</option>
+                                </select>
+                            </div>    
+                            <div>
+                                <label for="fromDate">From:</label>
+                                <input type="date" id="fromDate">
+                            </div>
+                            <div>
+                                <label for="toDate">To:</label>
+                                <input type="date" id="toDate">
+                            </div>
+                        </div>
+                        <div class="search-section-button">
+                            <div>
+                                <button class="button-primary" type="button" onclick="performSearchReports()">Search</button>
+                            </div>
+                            <div>
+                                <button class="button-secondary" type="button" onclick="clearSearch()">Clear</button>
+                            </div>
+                            <div>
+                                <span id="no-results-message" class="search-error-message"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="div-table">
+                <div class="div-container">
+                    <div class="table-title">
+                        <h2>Available Reports</h2>
+                    </div>
+                    <!--List goes here-->
+                    <table id="results-table">
+                        <thead>
+                            <tr>
+                                <th style="text-align: left;">NCR Number</th>
+                                <th style="text-align: left;">Created By</th>
+                                <th style="text-align: left;">Date Created</th>
+                                <th style="text-align: left;">Status</th>
+                                <th style="text-align: left;">Last Updated</th>
+                                <th style="text-align: left;">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tablecontent">
+                            <!-- Results will be populated here -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+            <section id="reports-table">
+                <!--detail information on an NCR history goes here-->
+                <h2>Available Records</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="text-align: left;">Date</th>
+                            <th style="text-align: left;">Action Type</th>
+                            <th style="text-align: left;">Status</th>
+                            <th style="text-align: left;">Action Description</th>
+                            <th style="text-align: left;">Changed By</th>
+                        </tr>
+                    </thead>
+                    <tbody id="reportsTableContent">
+                        <!-- Results will be populated here -->
+                    </tbody>
+                </table>
+            </section>
+            
         </div>
-        </section>
-        <section>
-            <!--List goes here-->
-            <h2>Available Reports</h2>
-        <table id="results-table">
-            <thead>
-                <tr>
-                    <th style="text-align: left;">NCR Number</th>
-                    <th style="text-align: left;">Created By</th>
-                    <th style="text-align: left;">Date Created</th>
-                    <th style="text-align: left;">Status</th>
-                    <th style="text-align: left;">Last Updated</th>
-                    <th style="text-align: left;">Action</th>
-                </tr>
-            </thead>
-            <tbody id="tablecontent">
-                <!-- Results will be populated here -->
-            </tbody>
-        </table>
-        </section>
-        <section id="reports-table">
-            <!--detail information on an NCR history goes here-->
-            <h2>Available Records</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th style="text-align: left;">Date</th>
-                    <th style="text-align: left;">Action Type</th>
-                    <th style="text-align: left;">Status</th>
-                    <th style="text-align: left;">Action Description</th>
-                    <th style="text-align: left;">Changed By</th>
-                </tr>
-            </thead>
-            <tbody id="reportsTableContent">
-                <!-- Results will be populated here -->
-            </tbody>
-        </table>
-        </section>
+        
+        
+        
     </main>
     <footer>
         <p><small>&copy; 2024 Copyright. QCision - WireWits. All rights reserved.</small></p>
