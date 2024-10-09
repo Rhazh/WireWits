@@ -156,74 +156,81 @@
                                 <option value="Textile Supplies">Textile Supplies</option>
                             </select>
                         </div>
-                        <div class="modal-col-two">
+                        <div class="two-cols">
                             <button type="button" id="btnCreateNCR" class="button-primary">Create</button>
                             <button type="button" class="button-secondary" id="btncancelNCR" onclick="goBack()">Cancel</button>    
                         </div>
-                        </form>
+                    </form>
                 </div>
             </div>
             <!--Form Field-->
             <div id="create-edit-modal">
-                <form>
-                    <div class="form-header section-container">
-                        <div class="form-ncr-details">
-                            <strong>NCR Number:</strong>
-                            <span id="ncrNumber">test</span>
-                        </div>
-                        <div class="form-ncr-details">
-                            <strong>Date Created:</strong>
-                            <span id="dateCreated">test</span>
-                        </div>
-                        <div class="form-ncr-details">
-                            <strong>Created By:</strong>
-                            <span id="createdBy">test</span>
-                        </div>
-                        <div class="form-ncr-details">
-                            <strong>Status:</strong>
-                            <span id="ncrStatus">test</span>
-                        </div>
-                    </div>
-
-                    <div>
-                        <div>
-                            <label for="applicableProcess">Applicable Process:</label>
-                            <select id="applicableProcess" required>
-                                <option>Select a process</option disabled=true>
-                                <option value="Supplier or Rec-Insp">Supplier or Rec-Insp</option>
-                                <option value="WIP (Production Order)">WIP (Production Order)</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label for="supplierName">Supplier Name:</label>
-                            <select id="supplierName" required>
-                                <option>Select a Supplier</option disabled=true>
-                                <option value="Auto Parts Ltd.">Auto Parts Ltd.</option>
-                                <option value="Building Materials Co.">Building Materials Co.</option>
-                                <option value="Cosmetics Corp.">Cosmetics Corp.</option>
-                                <option value="Depot Home">Depot Home</option>
-                                <option value="Fresh Foods Co.">Fresh Foods Co.</option>
-                                <option value="Global Supplies">Global Supplies</option>
-                                <option value="Home Goods Inc.">Home Goods Inc.</option>
-                                <option value="Medical Supplies Inc.">Medical Supplies Inc.</option>
-                                <option value="Tech Parts Co.">Tech Parts Co.</option>
-                                <option value="Textile Supplies">Textile Supplies</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label for="poNumber">Prod. Number:</label>
-                            <input id="poNumber" name="poNumber" type="text" placeholder="Enter Production Number">
-                            <!--include regex for pattern: digits-->
-                        </div>
-                        <div>
-                            <label for="soNumber">Sales Order Number:</label>
-                            <input id="soNumber" name="soNumber" type="text" placeholder="Enter Sales Order Number"
-                                required>
-                            <!--include regex for pattern: digits-->
+                <form class="form-ncr">
+                    <div class="div-container">
+                        <div class="form-header">
+                            <div class="form-ncr-details">
+                                <strong>NCR Number:</strong>
+                                <span id="ncrNumber">test</span>
+                            </div>
+                            <div class="form-ncr-details">
+                                <strong>Date Created:</strong>
+                                <span id="dateCreated">test</span>
+                            </div>
+                            <div class="form-ncr-details">
+                                <strong>Created By:</strong>
+                                <span id="createdBy">test</span>
+                            </div>
+                            <div class="form-ncr-details">
+                                <strong>Status:</strong>
+                                <span id="ncrStatus">test</span>
+                            </div>
                         </div>
                     </div>
 
-                    <div>
+                    <div class="div-container">
+                        <div class="form-section">
+                            <div class="two-cols">
+                                <div>
+                                    <label for="applicableProcess">Applicable Process:</label>
+                                    <select id="applicableProcess" required>
+                                        <option>Select a process</option disabled=true>
+                                        <option value="Supplier or Rec-Insp">Supplier or Rec-Insp</option>
+                                        <option value="WIP (Production Order)">WIP (Production Order)</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label for="supplierName">Supplier Name:</label>
+                                    <select id="supplierName" required>
+                                        <option>Select a Supplier</option disabled=true>
+                                        <option value="Auto Parts Ltd.">Auto Parts Ltd.</option>
+                                        <option value="Building Materials Co.">Building Materials Co.</option>
+                                        <option value="Cosmetics Corp.">Cosmetics Corp.</option>
+                                        <option value="Depot Home">Depot Home</option>
+                                        <option value="Fresh Foods Co.">Fresh Foods Co.</option>
+                                        <option value="Global Supplies">Global Supplies</option>
+                                        <option value="Home Goods Inc.">Home Goods Inc.</option>
+                                        <option value="Medical Supplies Inc.">Medical Supplies Inc.</option>
+                                        <option value="Tech Parts Co.">Tech Parts Co.</option>
+                                        <option value="Textile Supplies">Textile Supplies</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div>
+                                <label for="poNumber">Prod. Number:</label>
+                                <input id="poNumber" name="poNumber" type="text" placeholder="Enter Production Number">
+                                <!--include regex for pattern: digits-->
+                            </div>
+                            <div>
+                                <label for="soNumber">Sales Order Number:</label>
+                                <input id="soNumber" name="soNumber" type="text" placeholder="Enter Sales Order Number"
+                                    required>
+                                <!--include regex for pattern: digits-->
+                            </div>
+                        </div>
+                    </div>
+                    
+
+                    <div class="div-container">
                         <!--include validation against negatives and ensure that defective is not more received-->
                         <div>
                             <label for="quantityReceived">Quantity Received:</label>
@@ -237,7 +244,7 @@
                         </div>
                     </div>
 
-                    <div>
+                    <div class="div-container">
                         <div>
                             <label for="itemDescription">Item Description:</label><br>
                             <input id="itemDescription" name="itemDescription" placeholder="Describe the Item" required>
