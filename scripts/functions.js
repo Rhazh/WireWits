@@ -161,7 +161,7 @@ function populateDetailsPage(ncrNumber) {
         document.getElementById('ncrNumber').textContent = entry.ncrNumber ?? "";
         document.getElementById('dateCreated').textContent = formatDate(entry.dateCreated) ?? "";
         document.getElementById('createdBy').textContent = entry.createdBy ?? "";
-        document.getElementById('ncrStatus').textContent = entry.ncrStatus ?? "";
+        document.getElementById('ncrStatus').textContent = entry.ncrStatus ?? "Quality";
         document.getElementById('applicableProcess').textContent = entry.applicableProcess ?? "";
         document.getElementById('supplierName').textContent = entry.supplierName ?? "";
 
@@ -349,7 +349,7 @@ function CreateNCR() {
     const ncrLogEntry = {
         ncrNumber: ncrNumber,
         dateCreated: dateCreated,
-        createdBy: "Test User",  // Replace with actual user data if available
+        createdBy: "Marcus Allen",  // Replace with actual user data if available
         supplierName: supplierName,
         applicableProcess: applicableProcess,
         status: "Active",
@@ -392,6 +392,7 @@ function CreateNCR() {
     // Display the newly created NCR data in the UI
     document.getElementById('createNCRModal').style.visibility = 'hidden';
     document.getElementById('create-edit-modal').style.visibility = 'visible';
+    
 
     // Dynamically update elements with the new NCR data
 
