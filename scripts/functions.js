@@ -421,6 +421,7 @@ function CreateNCR() {
     console.log("check", quality)
     document.getElementById('createNCRModal').style.visibility = 'hidden'; // Hide the modal
     document.getElementById('create-edit-NCR').style.visibility = 'visible'; // Show the edit section
+    alert('NCR created successfully.');
 
 }
 
@@ -451,6 +452,7 @@ function saveNCR() {
     const itemConform = document.getElementById('itemConform')?.checked || 'No';
     const itemDescription = document.getElementById('itemDescription')?.value || '';
     const defectDescription = document.getElementById('defectDescription')?.value || '';
+    const ncrStatus = document.getElementById('ncrStatus')?.value || 'Quality';
     
     if(Number(quantityDefect) > Number(quantityReceived)){
         alert('The number of defects cannot exceed the quantity received.')
@@ -468,6 +470,7 @@ function saveNCR() {
         qualityEntry.itemConform = itemConform;
         qualityEntry.itemDescription = itemDescription;
         qualityEntry.defectDescription = defectDescription;
+        qualityEntry.ncrStatus = ncrStatus;
 
         // Persist updated quality array to sessionStorage
         sessionStorage.setItem('quality', JSON.stringify(quality));
@@ -524,7 +527,7 @@ function submitNCR() {
         // Persist updated quality array to sessionStorage
         sessionStorage.setItem('quality', JSON.stringify(quality));
         
-        alert('NCR has been successfully submitted. You can provide more information now or continue later.');
+        alert('NCR has been successfully submitted.');
         // Redirect or perform other actions as needed
         window.location.href = 'index.html';
     }

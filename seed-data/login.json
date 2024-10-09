@@ -2,12 +2,12 @@
     "users": [
         {
             "user_Id": "1",
-            "user_name": "testUser",
+            "user_name": "quality",
             "user_Firstname": "Marcus",
             "user_Middlename": "A.",
             "user_Lastname": "Allen",
             "email": "john.doe@example.com",
-            "password": "Marc123",
+            "password": "1234",
             "created_on": "2024-01-15T10:00:00Z",
             "Department_Name": "Quality",
             "gender":"male"
