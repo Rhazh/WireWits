@@ -61,7 +61,7 @@
                     <div class="user-container">
                         <button id="btnProfile" title="Clcik to view profile" aria-haspopup="true" tabindex="0" aria-expanded="false" aria-controls="profileDropdown" onclick="toggleProfileDropdown()">
                             <span class="user-avatar">
-                                <img id="profilePic"src="images/user-profile.png" alt="User profile image" title="User profile image" height="50" width="50"> 
+                                <img id="profilePic" src="images/user-profile.png" alt="User profile image" title="User profile image" height="50" width="50"> 
                             </span>
                             <span class="user-details">
                                 <span id="userFullname" class="user-fullname">Cassandra Washington</span>
@@ -114,7 +114,7 @@
     <main> 
         <div class="container">
             <div class="breadcrumb-container">
-                <div aria-label="Breadcrumb">
+                <div>
                     <ol class="breadcrumb-list" tabindex="0"></ol> <!-- Breadcrumbs will be dynamically populated here -->
                 </div>
             </div>
@@ -136,7 +136,7 @@
                     <form id="createNCRForm" class="modal-form">
                         <div>
                             <label for="napplicableProcess">Applicable Process:<span class="required">*</span></label>
-                            <select id="napplicableProcess" name="napplicableProcess" aria-describedby="processHelp" required>
+                            <select id="napplicableProcess" name="napplicableProcess"  required>
                                 <option value="" disabled selected>Select a process</option>
                                 <!-- Added value="" and selected attribute -->
                                 <option value="Supplier or Rec-Insp">Supplier or Rec-Insp</option>
@@ -197,7 +197,7 @@
                                 <div>
                                     <label for="applicableProcess">Applicable Process:<span class="required">*</span></label>
                                     <select id="applicableProcess" required>
-                                        <option>Select a process</option disabled=true>
+                                        <option value="" disabled selected>Select a process</option>
                                         <option value="Supplier or Rec-Insp">Supplier or Rec-Insp</option>
                                         <option value="WIP (Production Order)">WIP (Production Order)</option>
                                     </select>
@@ -205,7 +205,7 @@
                                 <div>
                                     <label for="supplierName">Supplier Name:<span class="required">*</span></label>
                                     <select id="supplierName" required>
-                                        <option>Select a Supplier</option disabled=true>
+                                        <option value="" disabled selected>Select a Supplier</option>
                                         <option value="Auto Parts Ltd.">Auto Parts Ltd.</option>
                                         <option value="Building Materials Co.">Building Materials Co.</option>
                                         <option value="Cosmetics Corp.">Cosmetics Corp.</option>
@@ -268,7 +268,7 @@
                             <div>
                                 <label for="attachedDocument">Attach a document:</label>
                                 <div class="file-upload">
-                                    <input id="attachedDocument" name="attachedDocument" type="file" />
+                                    <input id="attachedDocument" name="attachedDocument" type="file">
                                     <div class="file-upload-details">
                                         <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="none" viewBox="0 0 24 24">
                                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v9m-5 0H5a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1h-2M8 9l4-5 4 5m1 8h.01"/>
