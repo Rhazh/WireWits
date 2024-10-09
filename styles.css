@@ -45,7 +45,6 @@ header .header-col-right {
     align-items: center;
 }
 
-
 /* Default Branding Style */
 /* ------- Header ------- */
 /* -------- Logo -------- */
@@ -106,13 +105,6 @@ nav ul li a:hover {
     border: none;
     font-size: 18px;
     cursor: pointer;
-}
-
-#btnNotification
-
-#btnProfile{
-    gap: 10px;
-    display: inline-flex;
 }
 
 .notification, .profile {
@@ -196,7 +188,6 @@ nav ul li a:hover {
     color: #fdfdfd;
 }
 
-
 .profile,
 .notification {
     margin-left: 20px;
@@ -264,13 +255,11 @@ nav ul li a:hover {
     width: 100%;
 }
 
-.profile-dropdown ul li a {
+.profile-dropdown ul li button {
     width: 100%;
     text-align: left;
     background-color: #fdfdfd;
     border: none;
-    color: #173551;
-    text-decoration: none;
     padding: 10px 20px;
     display: flex;
     align-items: center;
@@ -280,10 +269,9 @@ nav ul li a:hover {
 }
 
 .profile-dropdown ul li button:hover {
-    background-color: #f1f5ff;
+    background-color: #fdfdfd;
     color:#007bff;
 }
-
 
 /* Default Branding Style */
 /* -------- Main -------- */
@@ -345,26 +333,26 @@ footer {
     align-items: center;
 }
 
-.dash-col,
-.table-col{
+.dashboard .div-container,
+.div-table .div-container {
     width: 100%;
     border: none;
 }
 
-.dash-col {
+.dashboard .div-container {
     height: 13em;
     display: flex;
 }
 
-.dashboard .dash-col button,
-.table-col {
+.div-container,
+.dashboard .div-container button {
     background-color: #fdfdfd;
     box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
     border-radius: 10px;
     border: none;
 }
 
-.dashboard .dash-col button {
+.dashboard .div-container button {
     width: 100%;
     height: 100%;
     color:#173551;
@@ -372,13 +360,13 @@ footer {
     text-align: center;
 }
 
-.dashboard .dash-col button img {
+.dashboard .div-container button img {
     width: 100%;
     height: 95px;
     margin-bottom: 15px;
 }
 
-.dashboard .dash-col button {
+.dashboard .div-container button {
     font-size: 21px;
     font-weight: 600;
     text-transform: uppercase;
@@ -386,23 +374,23 @@ footer {
     border: 5px solid transparent;
 }
 
-.dashboard .dash-col button:hover {
+.dashboard .div-container button:hover {
     border: 5px solid #007bff;
     transition: border 0.3s ease-in-out, color 0.3s ease-in-out;
 }
 
 /* --- Dashboard Page --- */
 /* -- Dashboard Buttons - */
-.table-col {
+.div-table .div-container {
     margin-top: 30px;
     padding-bottom: 15px;
 }
 
-.table-col .table-title {
+.div-table .div-container .table-title {
     padding: 30px 30px 15px 30px;
 }
 
-.table-col table {
+.div-table .div-container table {
     width: 100%;
     text-align: left;
     border-collapse: collapse;
@@ -415,24 +403,24 @@ table thead{
     font-weight: 700;
 }
 
-.table-col table thead tr th {
+.div-table .div-container table thead tr th {
     padding: 10px 30px;
 }
 
-.table-col table tbody tr{
+.div-table .div-container table tbody tr{
     border-bottom: 2px solid #d3d3d3;
     height: 60px;
 }
 
-.table-col table tbody tr td {
+.div-table .div-container table tbody tr td {
     padding: 10px 30px;
 }
 
-.table-col table tbody tr:last-child {
+.div-table .div-container table tbody tr:last-child {
     border-bottom: none;
 }
 
-.table-col table button {
+.div-table .div-container table button {
     display: inline-flex;
     align-items: center;
     padding: 5px 10px;
@@ -445,16 +433,16 @@ table thead{
     border-radius: 7px;
 }
 
-.table-col table button:hover {
+.div-table .div-container table button:hover {
     background-color: #007bff;
     color: #fdfdfd;
 }
 
-.table-col table button svg {
+.div-table .div-container table button svg {
     margin-right: 5px;
 }
 
-.table-col table tbody tr:hover {
+.div-table .div-container table tbody tr:hover {
     background-color: rgba(0, 123, 255, 0.05);
 }
 
@@ -465,8 +453,9 @@ table thead{
 /* ----- Create Page ----- */
 /* -------- Modal -------- */
 .modal {
+    display: none;
     background-color: rgba(0, 0, 0, 0.2);
-    backdrop-filter: blur(3px);
+    backdrop-filter: blur(8px);
     position: fixed;
     top: 0;
     left: 0;
@@ -557,9 +546,34 @@ table thead{
 
 .modal .modal-form .modal-col-two button {
     padding: 10px 15px;
-
 }
 
+
+/* -------------------------------------------------------------- */
+/* -------------------------------------------------------------- */
+/* -------------------------------------------------------------- */
+
+/* ----- Create Page ----- */
+/* -------- Modal -------- */
+.form-header {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-gap: 10px;
+    padding: 30px;
+}
+
+.form-ncr-details {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+/* -------------------------------------------------------------- */
+/* -------------------------------------------------------------- */
+/* -------------------------------------------------------------- */
+
+/* Default Branding Style */
+/* -------- Form -------- */
 select option {
     line-height: 20px;
 }
