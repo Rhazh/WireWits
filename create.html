@@ -133,7 +133,7 @@
                     </div>
                     <form id="createNCRForm" class="modal-form">
                         <div>
-                            <label for="napplicableProcess">Applicable Process:</label>
+                            <label for="napplicableProcess">Applicable Process:<span class="required">*</span></label>
                             <select id="napplicableProcess" name="napplicableProcess" aria-describedby="processHelp" required>
                                 <option value="" disabled selected>Select a process</option>
                                 <!-- Added value="" and selected attribute -->
@@ -142,7 +142,7 @@
                             </select>
                         </div>
                         <div>
-                            <label for="nsupplierName">Supplier Name:</label>
+                            <label for="nsupplierName">Supplier Name:<span class="required">*</span></label>
                             <select id="nsupplierName" name="nsupplierName" required>
                                 <option value="" disabled selected>Select a Supplier</option>
                                 <!-- Added value="" and selected attribute -->
@@ -193,7 +193,7 @@
                         <div class="form-section">
                             <div class="two-cols">
                                 <div>
-                                    <label for="applicableProcess">Applicable Process:</label>
+                                    <label for="applicableProcess">Applicable Process:<span class="required">*</span></label>
                                     <select id="applicableProcess" required>
                                         <option>Select a process</option disabled=true>
                                         <option value="Supplier or Rec-Insp">Supplier or Rec-Insp</option>
@@ -201,7 +201,7 @@
                                     </select>
                                 </div>
                                 <div>
-                                    <label for="supplierName">Supplier Name:</label>
+                                    <label for="supplierName">Supplier Name:<span class="required">*</span></label>
                                     <select id="supplierName" required>
                                         <option>Select a Supplier</option disabled=true>
                                         <option value="Auto Parts Ltd.">Auto Parts Ltd.</option>
@@ -224,7 +224,7 @@
                                     <!--include regex for pattern: digits-->
                                 </div>
                                 <div>
-                                    <label for="soNumber">Sales Order Number:</label>
+                                    <label for="soNumber">Sales Order Number:<span class="required">*</span></label>
                                     <input id="soNumber" name="soNumber" type="text" placeholder="Enter Sales Order Number"
                                         required>
                                     <!--include regex for pattern: digits-->
@@ -239,12 +239,12 @@
                         <div class="form-section">
                             <div class="two-cols">
                                 <div>
-                                    <label for="quantityReceived">Quantity Received:</label>
+                                    <label for="quantityReceived">Quantity Received:<span class="required">*</span></label>
                                     <input id="quantityReceived" name="quantityReceived" type="number"
                                         placeholder="Enter Quantity Received" required>
                                 </div>
                                 <div>
-                                    <label for="quantityDefect">Quantity Defective:</label>
+                                    <label for="quantityDefect">Quantity Defective:<span class="required">*</span></label>
                                     <input id="quantityDefect" name="quantityDefect" type="number"
                                         placeholder="Enter Quantity Defective" required>
                                 </div>
@@ -255,11 +255,11 @@
                     <div class="div-container">
                         <div class="form-section">
                             <div>
-                                <label for="itemDescription">Item Description:</label>
+                                <label for="itemDescription">Item Description:<span class="required">*</span></label>
                                 <input id="itemDescription" name="itemDescription" placeholder="Describe the item" required>
                             </div>
                             <div>
-                                <label for="defectDescription">Description of Defect:</label>
+                                <label for="defectDescription">Description of Defect:<span class="required">*</span></label>
                                 <textarea id="defectDescription" name="defectDescription" rows="5"
                                     placeholder="Describe the defect in as much detail as possible" required></textarea>
                             </div>
