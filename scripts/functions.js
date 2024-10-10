@@ -454,6 +454,7 @@ function saveNCR() {
     const itemDescription = document.getElementById('itemDescription')?.value || '';
     const defectDescription = document.getElementById('defectDescription')?.value || '';
     const ncrStatus = document.getElementById('ncrStatus')?.value || 'Quality';
+    
 
     if (Number(quantityDefect) > Number(quantityReceived)) {
         alert('The number of defects cannot exceed the quantity received.')
@@ -666,7 +667,7 @@ function performSearchReports() {
 }
 
 function clearSearch() {
-    /*
+    
     // Clear search inputs
     document.getElementById('ncrNumber').value = '';
     document.getElementById('ncrStatus').value = 'All';
@@ -677,9 +678,9 @@ function clearSearch() {
     populateReportsTable(allReports);
 
     // Hide "no results" message
-    document.getElementById('noResultsMessage').style.display = 'none';
-    */
-    location.reload();
+    document.getElementById('no-results-message').style.display = 'none';
+
+    //location.reload();
 }
 
 document.addEventListener('DOMContentLoaded', () => {
