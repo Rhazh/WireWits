@@ -98,7 +98,7 @@ function setupNavigationButtons() {
 // Toggle between create and edit modals
 function toggleCreateEditModal(ncrNumber, isEditMode) {
     const createNCRModal = document.getElementById('createNCRModal');
-    const createEditModal = document.getElementById('create-edit-modal');
+    const createEditModal = document.getElementById('createEditMmodal');
 
     if (isEditMode) {
         createNCRModal.style.visibility = 'hidden';
@@ -203,6 +203,8 @@ document.addEventListener('DOMContentLoaded', function() {
         derivedPath.push('index.html', 'create.html');
     } else if (currentPage === 'view.html') {
         derivedPath.push('index.html', 'view.html');
+    } else if (currentPage === 'reports.html') {
+        derivedPath.push('index.html', 'reports.html');
     } else {
         derivedPath.push('index.html'); // Default case for the homepage
     }
