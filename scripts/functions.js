@@ -116,6 +116,7 @@ function recentNCRs() {
     tableBody.innerHTML = ''; // Clear previous results
 
     recentN.forEach(result => {
+        const editButtonDisabled = result.ncrStatus !== "Quality" ? "disabled" : "";
         const newRow = `<tr>
                              <td>${result.ncrNumber}</td>
                              <td>${result.supplierName}</td>
@@ -130,7 +131,7 @@ function recentNCRs() {
                                         </svg>
                                         View
                                     </button>
-                                    <button onclick="editEntry('${result.ncrNumber}')">
+                                    <button onclick="editEntry('${result.ncrNumber}')${editButtonDisabled}">
                                         <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"/>
                                         </svg>
@@ -177,6 +178,12 @@ function populateDetailsPage(ncrNumber) {
         document.getElementById('engNeeded').textContent = entry.engNeeded ?? "No";
 
         document.getElementById('itemConform').textContent = entry.itemConform ?? "No";
+        
+        // Disable edit button if status is not "Quality"
+        const editButton = document.getElementById('editButton'); // Assuming you have an edit button with this ID
+        if (editButton) {
+            editButton.disabled = entry.ncrStatus !== "Quality";
+        }
 
         // Call to populate document files if they exist
         if (entry.documentFiles) {
@@ -265,7 +272,11 @@ function performSearch() {
     if (fromDate && toDate && new Date(fromDate) > new Date(toDate)) {
         resultsCountMessage.textContent = 'Start date must be earlier than or equal to end date.';
         resultsCountMessage.style.display = 'inline';
+        resultsCountMessage.style.display = 'none';
         return;
+    }
+    else {
+        resultsCountMessage.style.display = 'none'; // Hide error if date range is valid
     }
 
     const viewNCRs = quality.filter(item => {
@@ -281,15 +292,33 @@ function performSearch() {
 
         return isNcrNumberValid && isSupplierNameValid && isStatusValid && isDateCreatedValid;
     });
-
+    
     const tableBody = document.getElementById("viewtablecontent");
+    // Check if NCR number contains any alphabetic characters
+    if (ncrNumber && /[a-zA-Z]/.test(ncrNumber)) {
+        resultsCountMessage.textContent = 'NCR Number must not contain alphabetic characters.';
+        resultsCountMessage.style.display = 'inline';
+    } 
+    // Show no results message if the filtered array is empty
+    else if (viewNCRs.length === 0) {
+        resultsCountMessage.textContent = 'No results found.';
+        resultsCountMessage.style.display = 'inline';
+    } else {
+        resultsCountMessage.style.display = 'none';
+        // Optionally, you can display the results here
+        console.log(viewNCRs); // Or update the UI to show results
+    }
+
     if (!tableBody) {
         console.warn('Table body element not found.');
         return;
     }
     tableBody.innerHTML = '';
 
-    viewNCRs.reverse().forEach(result => {
+    const tenResults = viewNCRs.slice(0, 10);
+
+    tenResults.reverse().forEach(result => {
+        const editButtonDisabled = result.ncrStatus !== "Quality" ? "disabled" : "";
         const newRow = `<tr>
                             <td>${result.ncrNumber}</td>
                             <td>${result.supplierName}</td>
@@ -304,7 +333,7 @@ function performSearch() {
                                         </svg>
                                         View
                                     </button>
-                                    <button onclick="editEntry('${result.ncrNumber}')">
+                                    <button onclick="editEntry('${result.ncrNumber}')"${editButtonDisabled}>
                                         <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"/>
                                         </svg>
