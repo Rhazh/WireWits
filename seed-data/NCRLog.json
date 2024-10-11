@@ -6,7 +6,7 @@
         "createdBy": "Cassandra Washington",
         "supplierName": "Depot Home",
         "applicableProcess": "Supplier or Rec-Insp",
-        "status": "Active",
+        "status": "Open",
         "dateClosed": "",
         "closedBy": ""
     },
@@ -17,7 +17,7 @@
         "createdBy": "Marcus Allen",
         "supplierName": "Global Supplies",
         "applicableProcess": "WIP (Production Order)",
-        "status": "Active",
+        "status": "Open",
         "dateClosed": "",
         "closedBy": ""
     },
@@ -28,7 +28,7 @@
         "createdBy": "Sophia Lee",
         "supplierName": "Tech Parts Co.",
         "applicableProcess": "Supplier or Rec-Insp",
-        "status": "Active",
+        "status": "Open",
         "dateClosed": "",
         "closedBy": ""
     },
@@ -39,7 +39,7 @@
         "createdBy": "James Smith",
         "supplierName": "Home Goods Inc.",
         "applicableProcess": "WIP (Production Order)",
-        "status": "Active",
+        "status": "Open",
         "dateClosed": "",
         "closedBy": ""
     },
@@ -50,7 +50,7 @@
         "createdBy": "Emily Davis",
         "supplierName": "Auto Parts Ltd.",
         "applicableProcess": "Supplier or Rec-Insp",
-        "status": "Active",
+        "status": "Open",
         "dateClosed": "",
         "closedBy": ""
     },
@@ -61,7 +61,7 @@
         "createdBy": "Oliver Brown",
         "supplierName": "Fresh Foods Co.",
         "applicableProcess": "WIP (Production Order)",
-        "status": "Active",
+        "status": "Open",
         "dateClosed": "",
         "closedBy": ""
     },
@@ -72,7 +72,7 @@
         "createdBy": "Isabella Johnson",
         "supplierName": "Textile Supplies",
         "applicableProcess": "Supplier or Rec-Insp",
-        "status": "Active",
+        "status": "Open",
         "dateClosed": "",
         "closedBy": ""
     },
@@ -83,7 +83,7 @@
         "createdBy": "Liam Miller",
         "supplierName": "Building Materials Co.",
         "applicableProcess": "WIP (Production Order)",
-        "status": "Active",
+        "status": "Open",
         "dateClosed": "",
         "closedBy": ""
     },
@@ -94,7 +94,7 @@
         "createdBy": "Mia Wilson",
         "supplierName": "Cosmetics Corp.",
         "applicableProcess": "Supplier or Rec-Insp",
-        "status": "Active",
+        "status": "Open",
         "dateClosed": "",
         "closedBy": ""
     },
@@ -105,7 +105,7 @@
         "createdBy": "Noah Martinez",
         "supplierName": "Medical Supplies Inc.",
         "applicableProcess": "WIP (Production Order)",
-        "status": "Active",
+        "status": "Open",
         "dateClosed": "",
         "closedBy": ""
     }

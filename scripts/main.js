@@ -1,11 +1,14 @@
 // Declare ncrLog and quality in the global scope so other scripts can access them
 let ncrLog = [];
 let quality = [];
+let history = [];
+//let login = [];
 
 document.addEventListener('DOMContentLoaded', async () => {
     // Load data from sessionStorage or default to empty arrays
     ncrLog = JSON.parse(sessionStorage.getItem('ncrLog')) || [];
     quality = JSON.parse(sessionStorage.getItem('quality')) || [];
+    history = JSON.parse(sessionStorage.getItem('history')) || [];
 
     const path = window.location.pathname;
     const pageName = path.substring(path.lastIndexOf('/') + 1);
@@ -29,18 +32,21 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     try {
         // If session data is not available, fetch seed data and store it in sessionStorage
-        if (!ncrLog.length || !quality.length) {
-            const [qualityData, ncrData] = await Promise.all([
+        if (!ncrLog.length || !quality.length || !history.length) {
+            const [qualityData, ncrData, historyData] = await Promise.all([
                 fetchData('seed-data/Quality.json'),
-                fetchData('seed-data/NCRLog.json')
+                fetchData('seed-data/NCRLog.json'),
+                fetchData('seed-data/History.json')
             ]);
 
             quality = qualityData;
             ncrLog = ncrData;
+            history = historyData
 
             // Store seed data in sessionStorage for use in the current session
             sessionStorage.setItem('quality', JSON.stringify(quality));
             sessionStorage.setItem('ncrLog', JSON.stringify(ncrLog));
+            sessionStorage.setItem('history', JSON.stringify(history));
         }
 
         if (loadingIndicator) loadingIndicator.style.display = 'none';
@@ -61,16 +67,20 @@ document.addEventListener('DOMContentLoaded', async () => {
             toggleCreateEditModal(ncrNumber, true);
             setupSaveNCR();
             setupSubmitNCR();
-           
+
         } else if (pageName === 'create.html') {
             toggleCreateEditModal(null, false);
             setupCreateNCRButton();
             setupSaveNCR();
             setupSubmitNCR();
-           
             
         } else if (ncrNumber && pageName === 'details.html') {
             populateDetailsPage(ncrNumber);
+        }
+        else if (pageName === 'reports.html') {
+            performSearchReports();
+            //fetchRecordsData();
+            //document.querySelector('#reportTable').style.display = 'none';
         }
 
     } catch (error) {
@@ -104,7 +114,7 @@ function toggleCreateEditModal(ncrNumber, isEditMode) {
         createNCRModal.style.visibility = 'hidden';
         createEditModal.style.visibility = 'visible';
         populateEditPage(ncrNumber);
-    } 
+    }
 }
 
 // Setup button to create a new NCR
@@ -123,14 +133,14 @@ function addNewNCRToRecent() {
     recentNCRs();
 }
 
-function setupSaveNCR(){
-    document.getElementById('btnSave').addEventListener('click', () =>{
+function setupSaveNCR() {
+    document.getElementById('btnSave').addEventListener('click', () => {
         saveNCR()
     });
 }
 
-function setupSubmitNCR(){
-    document.getElementById('btnSubmit').addEventListener('click', () =>{
+function setupSubmitNCR() {
+    document.getElementById('btnSubmit').addEventListener('click', () => {
         submitNCR()
     });
 }
@@ -151,24 +161,24 @@ document.addEventListener('DOMContentLoaded', () => {
         fullNameElement.textContent = `${user.user_Firstname} ${user.user_Lastname}`;
         roleElement.textContent = user.Department_Name;
 
-         // Set the profile picture based on gender
-         if (user.gender === 'male') {
-           
-            profilePicElement.src = "images/user-profile_v1.png"; 
+        // Set the profile picture based on gender
+        if (user.gender === 'male') {
+
+            profilePicElement.src = "images/user-profile_v1.png";
         } else if (user.gender === 'female') {
-           
-            profilePicElement.src = "images/user-profile.png"; 
+
+            profilePicElement.src = "images/user-profile.png";
         }
-        
-       
-        
+
+
+
         // Logout codes
-        document.getElementById('logout').addEventListener('click', function() {
-            
+        document.getElementById('logout').addEventListener('click', function () {
+
             localStorage.removeItem('loggedInUser');
             alert("Successfully Logged out");
 
-            window.location.href = 'login.html'; 
+            window.location.href = 'login.html';
         });
 
     } else {
@@ -180,17 +190,17 @@ document.addEventListener('DOMContentLoaded', () => {
 //      Bread Crumbs
 //============================================
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const breadcrumbMap = {
         'index.html': 'Dashboard',
         'view.html': 'View NCRs',
         'create.html': 'Create NCR',
         'details.html': 'NCR Details',
-        'faqs.html' : 'FAQs',
-        'login.html' : 'Login',
-        'reports.html' : 'Reports',
-        'settings.html' : 'Settings',
-        'underdevelopment.html' : 'Under Development',
+        'faqs.html': 'FAQs',
+        'login.html': 'Login',
+        'reports.html': 'Reports',
+        'settings.html': 'Settings',
+        'underdevelopment.html': 'Under Development',
     };
 
     // Get the current page path

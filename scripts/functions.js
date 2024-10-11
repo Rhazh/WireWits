@@ -317,9 +317,9 @@ function performSearch() {
     }
     tableBody.innerHTML = '';
 
-    const tenResults = viewNCRs.slice(0, 10);
+    //const tenResults = viewNCRs.slice(0, 10);
 
-    tenResults.reverse().forEach(result => {
+    viewNCRs.reverse().forEach(result => {
         const editButtonDisabled = result.ncrStatus !== "Quality" ? "disabled" : "";
         const newRow = `<tr>
                             <td>${result.ncrNumber}</td>
@@ -362,6 +362,9 @@ function CreateNCR() {
     if (!Array.isArray(quality)) {
         quality = [];  // Initialize quality if undefined
     }
+    if (!Array.isArray(history)) {
+        history = [];  // Initialize quality if undefined
+    }
 
     // Get form values
     const applicableProcess = document.getElementById('napplicableProcess')?.value;
@@ -380,18 +383,32 @@ function CreateNCR() {
     const ncrLogEntry = {
         ncrNumber: ncrNumber,
         dateCreated: dateCreated,
+        lastUpdated: dateCreated,
         createdBy: "Marcus Allen",  // Replace with actual user data if available
         supplierName: supplierName,
         applicableProcess: applicableProcess,
-        status: "Active",
+        status: "Open",
         dateClosed: "",  // Blank initially
         closedBy: ""     // Blank initially
     };
 
-    console.log("New NCR Log Entry:", ncrLogEntry);
+    //console.log("New NCR Log Entry:", ncrLogEntry);
 
     // Add the entry to the ncrLog array
     ncrLog.push(ncrLogEntry);
+
+    //Prepare History array entry
+    const historyEntry = {
+        ncrNumber: ncrLogEntry.ncrNumber,
+        actionType: "Generate",
+        status: ncrLogEntry.status,
+        actionDescription: "New NCR generated",
+        changedBy: ncrLogEntry.createdBy,
+        changedOn: ncrLogEntry.dateCreated
+    }
+    // Add the entry to the history array
+    history.push(historyEntry);
+
 
     // Prepare quality array entry
     const qualityEntry = {
@@ -414,10 +431,11 @@ function CreateNCR() {
 
     // Add the entry to the quality array
     quality.push(qualityEntry);
-    console.log("Updated Quality Array:", quality);
+    //console.log("Updated Quality Array:", quality);
 
     // Persist ncrLog and quality to sessionStorage
     sessionStorage.setItem('ncrLog', JSON.stringify(ncrLog));
+    sessionStorage.setItem('history', JSON.stringify(history));
     sessionStorage.setItem('quality', JSON.stringify(quality));
 
     // Display the newly created NCR data in the UI
@@ -427,13 +445,14 @@ function CreateNCR() {
 
     // Dynamically update elements with the new NCR data
 
-    console.log("Persisted NCR Log:", ncrLog);
-    console.log("Persisted Quality:", quality);
-    console.log(quality);
-    //populateEditPage(qualityEntry.ncrNumber)
+    //console.log("Persisted NCR Log:", ncrLog);
+    //console.log("Persisted Quality:", quality);
+    //console.log(quality);
+    console.log(history)
+    populateEditPage(qualityEntry.ncrNumber)
 
 
-    const entry = quality.find(item => item.ncrNumber === ncrLogEntry.ncrNumber);
+    /*const entry = quality.find(item => item.ncrNumber === ncrLogEntry.ncrNumber);
     if (entry) {
         document.getElementById('ncrNumber').textContent = entry.ncrNumber;
         document.getElementById('dateCreated').textContent = formatDate(entry.dateCreated);
@@ -450,10 +469,10 @@ function CreateNCR() {
         document.getElementById('engNeeded').checked = entry.engNeeded === 'Yes';
         document.getElementById('itemConform').checked = entry.itemConform === 'Yes';
     }
-    console.log("check", quality)
+    
     document.getElementById('createNCRModal').style.visibility = 'hidden'; // Hide the modal
     document.getElementById('createEditNCR').style.visibility = 'visible'; // Show the edit section
-    alert('NCR created successfully.');
+    alert('NCR created successfully.');*/
 
 }
 
@@ -512,8 +531,23 @@ function saveNCR() {
         // Persist updated quality array to sessionStorage
         sessionStorage.setItem('quality', JSON.stringify(quality));
 
+        //make history array and push to history json
+        const historyEntry = {
+            ncrNumber: ncrNumber,
+            actionType: "Edit",
+            status: 'Open',
+            actionDescription: "Edited the NCR",
+            changedBy: "Marcus Allen",
+            changedOn: Timestamp()
+        }
+
+        history.push(historyEntry);
+        sessionStorage.setItem('history', JSON.stringify(history));
+
         alert('Your changes have been saved. You can continue later.');
     }
+
+   
 }
 
 // ===================================================================
@@ -570,6 +604,19 @@ function submitNCR() {
         // Persist updated quality array to sessionStorage
         sessionStorage.setItem('quality', JSON.stringify(quality));
 
+         //make history array and push to history json
+         const historyEntry = {
+            ncrNumber: ncrNumber,
+            actionType: "Submit",
+            status: 'Open',
+            actionDescription: "Submission by Quality",
+            changedBy: "Marcus Allen",
+            changedOn: Timestamp()
+        }
+
+        history.push(historyEntry);
+        sessionStorage.setItem('history', JSON.stringify(history));
+
         alert('NCR has been successfully submitted.');
         // Redirect or perform other actions as needed
         window.location.href = 'index.html';
@@ -579,10 +626,11 @@ function submitNCR() {
 // ===================================================================
 // 9. Function to Populate the Reports
 // ===================================================================
-let allRecords = []; // Global variable to hold all records
-let allReports = []; // Global variable to hold all reports
 
-async function fetchReportsData() {
+//let allRecords = []; // Global variable to hold all records
+//let allReports = []; // Global variable to hold all reports
+
+/*async function fetchReportsData() {
     try {
         const response = await fetch('seed-data/NCRLog.json'); // Update with the correct path
         if (!response.ok) {
@@ -607,7 +655,7 @@ async function fetchRecordsData() {
     } catch (error) {
         console.error('Error fetching records data:', error);
     }
-}
+}*/
 
 function populateReportsTable(data) {
     const tableContent = document.getElementById('tableContent');
@@ -632,18 +680,19 @@ function populateRecordsTable(data) {
     data.forEach(record => {
         const row = document.createElement('tr');
         row.innerHTML = `
-            <td>${record.Changed_On}</td>
-            <td>${record.Action_Type}</td>
-            <td>${record.Status}</td>
-            <td>${record.Action_Description}</td>
-            <td>${record.Changed_By}</td>
+        <td>${record.ncrNumber}</td>    
+        <td>${record.changedOn}</td>
+            <td>${record.actionType}</td>
+            <td>${record.status}</td>
+            <td>${record.actionDescription}</td>
+            <td>${record.changedBy}</td>
         `;
         tableContent.appendChild(row);
     });
 }
 
 function viewReport(ncrNumber) {
-    const filteredRecords = allRecords.filter(record => record.NCR_Number === ncrNumber);
+    const filteredRecords = history.filter(record => record.ncrNumber === ncrNumber);
     populateRecordsTable(filteredRecords); // Populate with filtered records
 
     // Show the records table only if there are matching records
@@ -661,7 +710,7 @@ function performSearchReports() {
     const fromDateValue = document.getElementById('fromDate').value;
     const toDateValue = document.getElementById('toDate').value;
 
-    let filteredReports = allReports;
+    let filteredReports = ncrLog;
 
     // Filter by NCR Number
     if (ncrNumber) {
@@ -713,11 +762,12 @@ function clearSearch() {
     location.reload();
 }
 
+/*
 document.addEventListener('DOMContentLoaded', () => {
     fetchReportsData();
     fetchRecordsData();
     document.querySelector('#reportTable').style.display = 'none';
-});
+});*/
 
 
 
