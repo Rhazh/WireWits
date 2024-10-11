@@ -292,8 +292,23 @@ function performSearch() {
 
         return isNcrNumberValid && isSupplierNameValid && isStatusValid && isDateCreatedValid;
     });
+    
+    const tableBody = document.getElementById("viewTableContent");
+    // Check if NCR number contains any alphabetic characters
+    if (ncrNumber && /[a-zA-Z]/.test(ncrNumber)) {
+        resultsCountMessage.textContent = 'NCR Number must not contain alphabetic characters.';
+        resultsCountMessage.style.display = 'inline';
+    } 
+    // Show no results message if the filtered array is empty
+    else if (viewNCRs.length === 0) {
+        resultsCountMessage.textContent = 'No results found.';
+        resultsCountMessage.style.display = 'inline';
+    } else {
+        resultsCountMessage.style.display = 'none';
+        // Optionally, you can display the results here
+        console.log(viewNCRs); // Or update the UI to show results
+    }
 
-    const tableBody = document.getElementById("viewtablecontent");
     if (!tableBody) {
         console.warn('Table body element not found.');
         return;
@@ -405,7 +420,7 @@ function CreateNCR() {
 
     // Display the newly created NCR data in the UI
     document.getElementById('createNCRModal').style.visibility = 'hidden';
-    document.getElementById('createEditMmodal').style.visibility = 'visible';
+    document.getElementById('createEditModal').style.visibility = 'visible';
     
 
     // Dynamically update elements with the new NCR data
@@ -468,7 +483,6 @@ function saveNCR() {
     const itemDescription = document.getElementById('itemDescription')?.value || '';
     const defectDescription = document.getElementById('defectDescription')?.value || '';
     const ncrStatus = document.getElementById('ncrStatus')?.value || 'Quality';
-    
 
     if (Number(quantityDefect) > Number(quantityReceived)) {
         alert('The number of defects cannot exceed the quantity received.')
@@ -681,7 +695,7 @@ function performSearchReports() {
 }
 
 function clearSearch() {
-    
+    /*
     // Clear search inputs
     document.getElementById('ncrNumber').value = '';
     document.getElementById('ncrStatus').value = 'All';
@@ -693,14 +707,14 @@ function clearSearch() {
 
     // Hide "no results" message
     document.getElementById('no-results-message').style.display = 'none';
-
-    //location.reload();
+    */
+    location.reload();
 }
 
 document.addEventListener('DOMContentLoaded', () => {
     fetchReportsData();
     fetchRecordsData();
-    document.querySelector('#reportsTable').style.display = 'none';
+    document.querySelector('#reportTable').style.display = 'none';
 });
 
 
