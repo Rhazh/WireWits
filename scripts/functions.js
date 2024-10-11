@@ -272,12 +272,14 @@ function performSearch() {
     if (fromDate && toDate && new Date(fromDate) > new Date(toDate)) {
         resultsCountMessage.textContent = 'Start date must be earlier than or equal to end date.';
         resultsCountMessage.style.display = 'inline';
-        resultsCountMessage.style.display = 'none';
         return;
-    }
-    else {
+    } else {
         resultsCountMessage.style.display = 'none'; // Hide error if date range is valid
     }
+
+    // Convert fromDate and toDate to Date objects
+    const fromDateObj = fromDate ? new Date(fromDate + 'T00:00:00') : null; // Start of the day
+    const toDateObj = toDate ? new Date(toDate + 'T23:59:59') : null; // End of the day
 
     const viewNCRs = quality.filter(item => {
         const isNcrNumberValid = ncrNumber ? item.ncrNumber.includes(ncrNumber) : true;
@@ -286,13 +288,13 @@ function performSearch() {
 
         const itemDateCreated = new Date(item.dateCreated);
         const isDateCreatedValid = (
-            (fromDate ? itemDateCreated >= new Date(fromDate) : true) &&
-            (toDate ? itemDateCreated <= new Date(toDate) : true)
+            (fromDateObj ? itemDateCreated >= fromDateObj : true) &&
+            (toDateObj ? itemDateCreated <= toDateObj : true)
         );
 
         return isNcrNumberValid && isSupplierNameValid && isStatusValid && isDateCreatedValid;
     });
-    
+
     const tableBody = document.getElementById("viewTableContent");
     // Check if NCR number contains any alphabetic characters
     if (ncrNumber && /[a-zA-Z]/.test(ncrNumber)) {
