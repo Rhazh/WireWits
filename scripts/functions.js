@@ -722,13 +722,24 @@ function performSearchReports() {
         filteredReports = filteredReports.filter(report => report.status === ncrStatus);
     }
 
+    // Date validation
+    if (fromDateValue && toDateValue && new Date(fromDateValue) > new Date(toDateValue)) {
+        const noResultsMessage = document.getElementById('noResultsMessage');
+        noResultsMessage.textContent = 'Start date must be earlier than or equal to end date.';
+        noResultsMessage.style.display = 'inline';
+        return; // Exit the function if validation fails
+    } else {
+        const noResultsMessage = document.getElementById('noResultsMessage');
+        noResultsMessage.style.display = 'none'; // Hide error if date range is valid
+    }
+
     // Filter by Date Range
     if (fromDateValue) {
-        const fromDate = new Date(fromDateValue);
+        const fromDate = new Date(fromDateValue + 'T00:00:00'); // Start of the day
         filteredReports = filteredReports.filter(report => new Date(report.dateCreated) >= fromDate);
     }
     if (toDateValue) {
-        const toDate = new Date(toDateValue);
+        const toDate = new Date(toDateValue + 'T23:59:59'); // End of the day
         filteredReports = filteredReports.filter(report => new Date(report.dateCreated) <= toDate);
     }
 
@@ -737,7 +748,12 @@ function performSearchReports() {
 
     // Show or hide "no results" message
     const noResultsMessage = document.getElementById('noResultsMessage');
-    if (filteredReports.length === 0) {
+    // Check if NCR number contains any alphabetic characters
+    if (ncrNumber && /[a-zA-Z]/.test(ncrNumber)) {
+        noResultsMessage.textContent = 'NCR Number must not contain alphabetic characters.';
+        noResultsMessage.style.display = 'inline';
+    } 
+    else if (filteredReports.length === 0) {
         noResultsMessage.textContent = 'No results found.';
         noResultsMessage.style.display = 'block';
     } else {
