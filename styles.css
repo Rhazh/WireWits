@@ -857,3 +857,72 @@ button {
     pointer-events: none;
     cursor: default;
 }
+
+/* -------------------------------------------------------------- */
+/* -------------------------------------------------------------- */
+/* -------------------------------------------------------------- */
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        padding: 10px;
+    }
+
+    .logo {
+        font-size: 20px;
+        margin-bottom: 10px;
+    }
+
+    nav ul {
+        display: none; /* Hide the navigation links by default */
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+    }
+
+    nav ul li {
+        width: 100%;
+        text-align: center;
+    }
+
+    nav ul li a {
+        display: block;
+        padding: 15px;
+        font-size: 16px;
+    }
+
+    /* Hamburger menu icon */
+    .hamburger {
+        display: block;
+        cursor: pointer;
+        font-size: 24px;
+        color: #007bff;
+        background: none;
+        border: none;
+        margin-left: auto;
+    }
+
+    /* Show the nav links when hamburger is clicked */
+    nav.open ul {
+        display: flex;
+    }
+}
+/* Extra small devices */
+@media only screen and (max-width: 600px) {
+
+}
+
+/* Small devices */
+@media only screen and (min-width: 600px) {
+
+}
+
+
+/* Medium devices */
+@media only screen and (min-width: 768px) {
+    
+}
+
+/* Large devices */
+@media only screen and (min-width: 992px) {
+    
+}
