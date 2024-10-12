@@ -186,10 +186,10 @@ function populateDetailsPage(ncrNumber) {
             editButton.disabled = entry.ncrStatus !== "Quality";
         }
 
-        // Call to populate document files if they exist
+        /* Call to populate document files if they exist
         if (entry.documentFiles) {
             populateDocumentFiles(entry.documentFiles);
-        }
+        }*/
     } else {
         console.error(`NCR with number ${ncrNumber} not found.`);
     }
@@ -462,6 +462,7 @@ function CreateNCR() {
     //console.log(quality);
     console.log(history)
     populateEditPage(qualityEntry.ncrNumber)
+    console.log(quality)
 
 
     /*const entry = quality.find(item => item.ncrNumber === ncrLogEntry.ncrNumber);
@@ -511,25 +512,46 @@ function saveNCR() {
     const soNumber = document.getElementById('soNumber')?.value || '';
     const quantityReceived = document.getElementById('quantityReceived')?.value || '';
     const quantityDefect = document.getElementById('quantityDefect')?.value || '';
-    const engNeeded = document.getElementById('engNeeded')?.checked || 'No';
-    const itemConform = document.getElementById('itemConform')?.checked || 'No';
+    const engNeeded = document.getElementById('engNeeded')?.checked ? 'Yes' : 'No';
+    const itemConform = document.getElementById('itemConform')?.checked ? 'Yes' : 'No';
     const itemDescription = document.getElementById('itemDescription')?.value || '';
     const defectDescription = document.getElementById('defectDescription')?.value || '';
     const ncrStatus = document.getElementById('ncrStatus')?.value || 'Quality';
 
+    // Validate input
     if (Number(quantityDefect) > Number(quantityReceived)) {
-        alert('The number of defects cannot exceed the quantity received.')
+        alert('The number of defects cannot exceed the quantity received.');
         return;
     }
 
     if (Number(quantityDefect) < 0 || Number(quantityReceived) < 0) {
-        alert('Quantity Received and Quantity Defective cannot be negative.')
+        alert('Quantity Received and Quantity Defective cannot be negative.');
         return;
     }
-    // Update the corresponding NCR in the quality array
+
+    // Find the NCR entry in the quality array based on ncrNumber
     const qualityEntry = quality.find(entry => entry.ncrNumber === ncrNumber);
 
     if (qualityEntry) {
+        // Check if any changes were made by comparing the original values with the new ones
+        const noChanges = (
+            qualityEntry.poNumber === poNumber &&
+            qualityEntry.soNumber === soNumber &&
+            qualityEntry.quantityReceived === quantityReceived &&
+            qualityEntry.quantityDefect === quantityDefect &&
+            qualityEntry.engNeeded === engNeeded &&
+            qualityEntry.itemConform === itemConform &&
+            qualityEntry.itemDescription === itemDescription &&
+            qualityEntry.defectDescription === defectDescription &&
+            qualityEntry.ncrStatus === ncrStatus
+        );
+
+        if (noChanges) {
+            alert('No changes were made.');
+            return;
+        }
+
+        // If changes were made, update the entry
         qualityEntry.poNumber = poNumber;
         qualityEntry.soNumber = soNumber;
         qualityEntry.quantityReceived = quantityReceived;
@@ -543,24 +565,26 @@ function saveNCR() {
         // Persist updated quality array to sessionStorage
         sessionStorage.setItem('quality', JSON.stringify(quality));
 
-        //make history array and push to history json
+        // Create a history entry and add it to the history array
         const historyEntry = {
             ncrNumber: ncrNumber,
             actionType: "Edit",
             status: 'Open',
             actionDescription: "Edited the NCR",
             changedBy: "Marcus Allen",
-            changedOn: Timestamp()
-        }
+            changedOn: Timestamp() // Use function timestamp
+        };
 
+        // Push the history entry and save it in sessionStorage
         history.push(historyEntry);
         sessionStorage.setItem('history', JSON.stringify(history));
 
         alert('Your changes have been saved. You can continue later.');
+    } else {
+        alert('NCR not found. Please check the NCR number.');
     }
-
-   
 }
+
 
 // ===================================================================
 // 8. Function to Submit the NCR (all required fields must be filled)
@@ -677,9 +701,9 @@ function populateReportsTable(data) {
         row.innerHTML = `
             <td>${report.ncrNumber}</td>
             <td>${report.createdBy}</td>
-            <td>${report.dateCreated}</td>
+            <td>${formatDate(report.dateCreated)}</td>
             <td>${report.status}</td>
-            <td>${report.lastUpdated}</td>
+            <td>${formatDate(report.lastUpdated)}</td>
             <td><button onclick="viewReport('${report.ncrNumber}')">View History</button></td>
         `;
         tableContent.appendChild(row);
@@ -693,7 +717,7 @@ function populateRecordsTable(data) {
         const row = document.createElement('tr');
         row.innerHTML = `
         <td>${record.ncrNumber}</td>    
-        <td>${record.changedOn}</td>
+        <td>${formatDate(record.changedOn)}</td>
             <td>${record.actionType}</td>
             <td>${record.status}</td>
             <td>${record.actionDescription}</td>

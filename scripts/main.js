@@ -121,7 +121,7 @@ function toggleCreateEditModal(ncrNumber, isEditMode) {
 function setupCreateNCRButton() {
     document.getElementById('btnCreateNCR').addEventListener('click', () => {
         CreateNCR();
-        addNewNCRToRecent();
+        //addNewNCRToRecent();
     });
 }
 
