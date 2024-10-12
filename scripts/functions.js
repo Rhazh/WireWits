@@ -806,7 +806,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 document.addEventListener('DOMContentLoaded', function() {
     const toggleCheckbox = document.getElementById('mobList');
-    const navMenu = document.querySelector('nav');
+    const navMenu = document.getElementById('mainNav');
 
     // Function to toggle the nav menu
     toggleCheckbox.addEventListener('change', function() {
