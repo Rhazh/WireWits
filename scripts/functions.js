@@ -279,21 +279,12 @@ function performSearch() {
     }
 
     // Remove duplicates from quality based on ncrNumber
-    const seenNcrNumbers = new Set();
-    const uniqueQuality = quality.filter(item => {
-        if (seenNcrNumbers.has(item.ncrNumber)) {
-            return false; // Skip duplicates
-        } else {
-            seenNcrNumbers.add(item.ncrNumber);
-            return true; // Keep unique item
-        }
-        }).sort((a, b) => {
-            const numA = parseInt(a.ncrNumber.split('-')[1], 10); // Extract numeric part
-            const numB = parseInt(b.ncrNumber.split('-')[1], 10); // Extract numeric part
-            return numA - numB; // Sort numerically
-        }).slice(0, 10);
-
-    //const uniqueQuality = Array.from(new Map(quality.map(item => [item.ncrNumber, item])).values())                                
+    const uniqueQuality = Array.from(new Map(quality.map(item => [item.ncrNumber, item])).values())
+    .sort((a, b) => {
+        const numA = parseInt(a.ncrNumber.split('-')[1], 10); // Extract numeric part
+        const numB = parseInt(b.ncrNumber.split('-')[1], 10); // Extract numeric part
+        return numA - numB; // Sort numerically
+    })                                
                                 
 
     // Convert fromDate and toDate to Date objects
@@ -337,8 +328,10 @@ function performSearch() {
     tableBody.innerHTML = '';
 
     //const tenResults = viewNCRs.slice(0, 10);
+    // Get the last 10 results if there are more than 10
+    const tenResults = viewNCRs.length > 10 ? viewNCRs.slice(-10) : viewNCRs;
 
-    viewNCRs.reverse().forEach(result => {
+    tenResults.reverse().forEach(result => {
         const editButtonDisabled = result.ncrStatus !== "Quality" ? "disabled" : "";
         const newRow = `<tr>
                             <td>${result.ncrNumber}</td>
