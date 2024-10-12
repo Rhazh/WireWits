@@ -18,6 +18,7 @@ body {
     flex-direction: column;
     width: 100%;
     box-sizing: border-box;
+    min-height: 100vh;
 }
 
 /* Default Branding Style */
@@ -314,7 +315,7 @@ main {
 
 .container {
     width: 1200px;
-    padding: 0 20px 50px;
+    padding: 0 20px 30px;
     margin: 0 auto;
 }
 
@@ -359,7 +360,7 @@ footer {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-gap: 20px;
-    margin: 15px 0;
+    margin: 15px 0 30px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -413,12 +414,13 @@ footer {
 /* --- Dashboard Page --- */
 /* --- Dashboard Table -- */
 .div-table .div-container {
-    margin-top: 30px;
-    padding-bottom: 15px;
+    padding: 10px 0;
 }
 
-.div-table .div-container .table-title {
-    padding: 30px 30px 15px 30px;
+.table-title {
+    height: 70px;
+    display: flex;
+    align-items: center;
 }
 
 .div-table .div-container table {
@@ -427,24 +429,33 @@ footer {
     border-collapse: collapse;
 }
 
-table thead{
+table thead {
     background-color: #e3e7f2;
     text-transform: uppercase;
-    color: #666;
+    color: #1a1a1a;
     font-weight: 700;
 }
 
+.table-title,
+.div-table .div-container table thead tr th:first-child,
+.div-table .div-container table tbody tr td:first-child {
+    padding-left: 30px;
+}
+
+.div-table .div-container table thead tr th,
+.div-table .div-container table tbody tr td {
+    padding-right: 20px;
+}
+
 .div-table .div-container table thead tr th {
-    padding: 10px 30px;
+    align-items: center;
+    justify-content: flex-start;
+    height: 50px;
 }
 
 .div-table .div-container table tbody tr{
     border-bottom: 2px solid #d3d3d3;
     height: 60px;
-}
-
-.div-table .div-container table tbody tr td {
-    padding: 10px 30px;
 }
 
 .div-table .div-container table tbody tr:last-child {
@@ -892,6 +903,28 @@ button {
         width: 70%;
     }
 
+    header .logo img{
+        height: auto;
+        width: 80px;
+    }
+
+    .notification {
+        position: relative; /* Ensure the dropdown is positioned relative to the notification container */
+    }
+
+    .notif-dropdown-container {
+        position: fixed;
+        top: 60px;
+        left: 5vw;
+        width: 90vw;
+        max-height: calc(100vh - 60px);
+        overflow-y: auto;
+    }
+
+    main {
+        padding: 0 10px 10px !important;
+    }
+
 }
 
 
@@ -966,6 +999,58 @@ button {
         box-shadow: none;
     }
 
+    .container {
+        width: 100%;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    main {
+        padding: 0 20px 20px;
+    }
+
+    .div-table .div-container {
+        overflow-x: auto;
+        overflow-y: hidden;
+        scrollbar-color: #007bff #e3e7f2;
+        position: relative;
+    }
+    
+    .div-table .div-container table {
+        width: 100%;
+        table-layout: auto;
+    }
+
+    .table-title,
+    .div-table .div-container th:first-child,
+    .div-table .div-container td:first-child {
+        position: sticky;
+        left: 0;
+        z-index: 3;
+    }
+
+    .div-table .div-container th:first-child {
+        background-color: #e3e7f2;
+    }
+
+    .div-table .div-container th:first-child,
+    .div-table .div-container td:first-child {
+        padding-left: 10px;
+    }
+
+    .div-table .div-container td:first-child {
+        background-color: #fdfdfd;
+    }
+
+    .div-table .div-container th {
+        position: sticky;
+        top: 0;
+        z-index: 2;
+    }
+
+    .div-table .div-container td {
+        white-space: nowrap;
+    }
 }
 
 /* Large devices */
@@ -992,8 +1077,14 @@ button {
         margin-left: 0.5rem;
     }
 
-    .container {
-        width: 67rem;
-        padding: 0 1.2rem 2.8rem;
+    main {
+        padding: 0 50px 20px;
     }
+
+    .container {
+        width: 100%;
+        padding: 0;
+        margin: 0;
+    }
+
 }
