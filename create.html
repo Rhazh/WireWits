@@ -19,6 +19,12 @@
     <header>
         <div class="header-col">
             <div class="header-col-left">
+                <!--mobile navigation menu-->
+                <div class="mob-nav" id="mobNav" aria-label="Mobile Navigation">
+                    <label class="mob-nav-icon">
+                        <input type="checkbox" id="mobList"/>
+                    </label>
+                </div>
                 <!--logo-->
                 <div class="logo">
                     <a href="index.html">
@@ -26,10 +32,10 @@
                     </a>
                 </div>
                 <!--navigation menu-->
-                <nav aria-label="Main Navigation">
+                <nav aria-label="Main Navigation" id="mainNav">
                     <ul>
-                        <li><a href="index.html"  id="home" aria-current="page" title="Dashboard page" tabindex="0">Dashboard</a></li>
-                        <li><a href="create.html" id="create" class="nav-active" title="Create new Non-Conformance Report" tabindex="0">Create <abbr title="Non-Conformance Report">NCR</abbr></a></li>
+                        <li><a href="index.html" id="home" aria-current="page" title="Dashboard page" tabindex="0">Dashboard</a></li>
+                        <li><a href="create.html" class="nav-active" id="create"  title="Create new Non-Conformance Report" tabindex="0">Create <abbr title="Non-Conformance Report">NCR</abbr></a></li>
                         <li><a href="view.html" id="view" tabindex="0" title="View existing Non-Conformance Reports" >View <abbr title="Non-Conformance Reports">NCRs</abbr> </a></li>
                         <li><a href="reports.html" id="reports" title="View Reports" tabindex="0">Reports</a></li>
                     </ul>
@@ -45,14 +51,14 @@
                         </button>
                         <span id="spnCount" class="notif-count" aria-live="polite">0</span>
                     </div>
-                    <div class="notif-dropdown-container" id="notifDisplay" role="region" aria-labelledby="btnNotification" >
+                    <div class="notif-dropdown-container" id="notifDisplay">
                         <div class="notif-label">
                             <span class="notif-title">Notifications</span>
                             <div class="notif-desc" id="notifDesc">
                                 <!-- Notifications description -->
                             </div>
                         </div>
-                        <div class="notif-list" id="notifList">
+                        <div class="notif-list" id="notifList" tabindex="0">
                             <!-- Notifications will be populated here -->
                         </div>
                     </div>
@@ -65,7 +71,6 @@
                             </span>
                             <span class="user-details">
                                 <span id="userFullname" class="user-fullname">Cassandra Washington</span>
-                                <br>
                                 <span id="userRole" class="user-role">Administrator</span>
                             </span>
                         </button>

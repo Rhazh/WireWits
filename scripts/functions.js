@@ -797,5 +797,16 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelector('#reportTable').style.display = 'none';
 });*/
 
+document.addEventListener('DOMContentLoaded', function() {
+    const toggleCheckbox = document.getElementById('mobList');
+    const navMenu = document.getElementById('mainNav');
 
-
+    // Function to toggle the nav menu
+    toggleCheckbox.addEventListener('change', function() {
+        if (toggleCheckbox.checked) {
+            navMenu.style.display = 'block'; // Show the nav
+        } else {
+            navMenu.style.display = 'none'; // Hide the nav
+        }
+    });
+});
