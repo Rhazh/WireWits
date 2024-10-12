@@ -107,6 +107,7 @@ function recentNCRs() {
     const recentN = recentNCRss.slice(0, 5);
 
     console.log(recentN);
+    console.log(recentNCRss);
 
     const tableBody = document.getElementById("indexTableContent");
     if (!tableBody) {
@@ -260,7 +261,7 @@ function editEntry(ncrNumber) {
 //     sets results to a table
 //     View NCRs page is initialized to show NCRS still with Quality
 // ====================================================================
-function performSearch() {
+function performSearch() {    
     const ncrNumber = document.getElementById('ncrNumber')?.value.trim();
     const supplierName = document.getElementById('supplierName')?.value;
     const ncrStatus = document.getElementById('ncrStatus')?.value;
@@ -277,11 +278,29 @@ function performSearch() {
         resultsCountMessage.style.display = 'none'; // Hide error if date range is valid
     }
 
+    // Remove duplicates from quality based on ncrNumber
+    const seenNcrNumbers = new Set();
+    const uniqueQuality = quality.filter(item => {
+        if (seenNcrNumbers.has(item.ncrNumber)) {
+            return false; // Skip duplicates
+        } else {
+            seenNcrNumbers.add(item.ncrNumber);
+            return true; // Keep unique item
+        }
+        }).sort((a, b) => {
+            const numA = parseInt(a.ncrNumber.split('-')[1], 10); // Extract numeric part
+            const numB = parseInt(b.ncrNumber.split('-')[1], 10); // Extract numeric part
+            return numA - numB; // Sort numerically
+        }).slice(0, 10);
+
+    //const uniqueQuality = Array.from(new Map(quality.map(item => [item.ncrNumber, item])).values())                                
+                                
+
     // Convert fromDate and toDate to Date objects
     const fromDateObj = fromDate ? new Date(fromDate + 'T00:00:00') : null; // Start of the day
     const toDateObj = toDate ? new Date(toDate + 'T23:59:59') : null; // End of the day
 
-    const viewNCRs = quality.filter(item => {
+    const viewNCRs = uniqueQuality.filter(item => {
         const isNcrNumberValid = ncrNumber ? item.ncrNumber.includes(ncrNumber) : true;
         const isSupplierNameValid = supplierName ? item.supplierName === supplierName : true;
         const isStatusValid = ncrStatus ? item.ncrStatus === ncrStatus : true;
