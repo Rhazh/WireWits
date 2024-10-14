@@ -19,6 +19,12 @@
     <header>
         <div class="header-col">
             <div class="header-col-left">
+                <!--mobile navigation menu-->
+                <div class="mob-nav" id="mobNav" aria-label="Mobile Navigation">
+                    <label class="mob-nav-icon">
+                        <input type="checkbox" id="mobList"/>
+                    </label>
+                </div>
                 <!--logo-->
                 <div class="logo">
                     <a href="index.html">
@@ -26,11 +32,11 @@
                     </a>
                 </div>
                 <!--navigation menu-->
-                <nav aria-label="Main Navigation">
+                <nav aria-label="Main Navigation" id="mainNav">
                     <ul>
-                        <li><a href="index.html"  id="home" aria-current="page" title="Dashboard page" tabindex="0">Dashboard</a></li>
+                        <li><a href="index.html" id="home" aria-current="page" title="Dashboard page" tabindex="0">Dashboard</a></li>
                         <li><a href="create.html" id="create"  title="Create new Non-Conformance Report" tabindex="0">Create <abbr title="Non-Conformance Report">NCR</abbr></a></li>
-                        <li><a href="view.html" id="view" class="nav-active" tabindex="0" title="View existing Non-Conformance Reports" >View <abbr title="Non-Conformance Reports">NCRs</abbr> </a></li>
+                        <li><a href="view.html" class="nav-active" id="view" tabindex="0" title="View existing Non-Conformance Reports" >View <abbr title="Non-Conformance Reports">NCRs</abbr> </a></li>
                         <li><a href="reports.html" id="reports" title="View Reports" tabindex="0">Reports</a></li>
                     </ul>
                 </nav>
@@ -61,11 +67,10 @@
                     <div class="user-container">
                         <button id="btnProfile" title="Clcik to view profile" aria-haspopup="true" tabindex="0" aria-expanded="false" aria-controls="profileDropdown" onclick="toggleProfileDropdown()">
                             <span class="user-avatar">
-                                <img id="profilePic"src="images/user-profile.png" alt="User profile image" title="User profile image" height="50" width="50"> 
+                                <img id="profilePic" src="images/user-profile.png" alt="User profile image" title="User profile image" height="50" width="50"> 
                             </span>
                             <span class="user-details">
                                 <span id="userFullname" class="user-fullname">Cassandra Washington</span>
-                                <br>
                                 <span id="userRole" class="user-role">Administrator</span>
                             </span>
                         </button>
@@ -129,7 +134,7 @@
                         <div class="three-cols">
                             <div>
                                 <label for="ncrNumber">Filter By NCR Number:</label>
-                                <input type="text" id="ncrNumber" placeholder="2024-001">
+                                <input type="text" id="ncrNumber" placeholder="2024-001" oninput="performSearch()">
                             </div>
                             <div>
                                 <label for="fromDate">From:</label>
