@@ -169,6 +169,12 @@ document.addEventListener('DOMContentLoaded', async () => {
         cancelButton.addEventListener('click', goBack); // Use event listener instead of inline onclick
     }
 
+    // Set up the Cancel button
+    const cancelCreateButton = document.getElementById('btnCancel');
+    if (cancelCreateButton) {
+        cancelCreateButton.addEventListener('click', goBack); // Use event listener instead of inline onclick
+    }
+
     // Set up the modal close button
     const closeModalButton = document.getElementById('btnCloseModal');
     if (closeModalButton) {

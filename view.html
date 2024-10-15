@@ -149,6 +149,32 @@
                                 <label for="toDate">To:</label>
                                 <input type="date" id="toDate" tabindex="0">
                             </div>
+                            
+                            <div>
+                                <!--performSearch may not work in this case so change-->
+                                <select id="supplierName" onchange="performSearch()" tabindex="0">
+                                    <option value="">Select Supplier</option>
+                                    <option value="Auto Parts Ltd.">Auto Parts Ltd.</option>
+                                    <option value="Building Materials Co.">Building Materials Co.</option>
+                                    <option value="Cosmetics Corp.">Cosmetics Corp.</option>
+                                    <option value="Depot Home">Depot Home</option>
+                                    <option value="Fresh Foods Co.">Fresh Foods Co.</option>
+                                    <option value="Global Supplies">Global Supplies</option>
+                                    <option value="Home Goods Inc.">Home Goods Inc.</option>
+                                    <option value="Medical Supplies Inc.">Medical Supplies Inc.</option>
+                                    <option value="Tech Parts Co.">Tech Parts Co.</option>
+                                    <option value="Textile Supplies">Textile Supplies</option>
+                                    <!-- Options will be populated dynamically -->
+                                </select>
+                            </div>
+                            <div>
+                                <!--performSearch may not work in this case so change-->
+                                <select id="ncrStatus" onchange="performSearch()" tabindex="0">
+                                    <option value="Quality">Quality</option>
+                                    <option value="Engineering">Engineering</option>
+                                    <option value="Operations">Operations</option>
+                                </select>
+                            </div>
                         </div>
                         
                         <div class="search-section-button">
@@ -173,33 +199,6 @@
                         <div class="two-cols">
                             <div class="search-table-title">
                                 <h2>Available Records</h2> <!--Heading may change-->
-                            </div>
-                            <div class="two-cols">
-                                <div>
-                                    <!--performSearch may not work in this case so change-->
-                                    <select id="supplierName" onchange="performSearch()" tabindex="0">
-                                        <option value="">Select Supplier</option>
-                                        <option value="Auto Parts Ltd.">Auto Parts Ltd.</option>
-                                        <option value="Building Materials Co.">Building Materials Co.</option>
-                                        <option value="Cosmetics Corp.">Cosmetics Corp.</option>
-                                        <option value="Depot Home">Depot Home</option>
-                                        <option value="Fresh Foods Co.">Fresh Foods Co.</option>
-                                        <option value="Global Supplies">Global Supplies</option>
-                                        <option value="Home Goods Inc.">Home Goods Inc.</option>
-                                        <option value="Medical Supplies Inc.">Medical Supplies Inc.</option>
-                                        <option value="Tech Parts Co.">Tech Parts Co.</option>
-                                        <option value="Textile Supplies">Textile Supplies</option>
-                                        <!-- Options will be populated dynamically -->
-                                    </select>
-                                </div>
-                                <div>
-                                    <!--performSearch may not work in this case so change-->
-                                    <select id="ncrStatus" onchange="performSearch()" tabindex="0">
-                                        <option value="Quality">Quality</option>
-                                        <option value="Engineering">Engineering</option>
-                                        <option value="Operations">Operations</option>
-                                    </select>
-                                </div>
                             </div>
                         </div>
                     </div>
