@@ -583,9 +583,9 @@ function saveNCR() {
     const itemDescription = document.getElementById('itemDescription')?.value || '';
     const defectDescription = document.getElementById('defectDescription')?.value || '';
 
-    console.log(quantityReceived, typeof(quantityReceived))
+    console.log(quantityReceived, typeof (quantityReceived))
 
-   
+
 
     // Find the NCR entry in the quality array based on ncrNumber
     const qualityEntry = quality.find(entry => entry.ncrNumber === ncrNumber);
@@ -611,57 +611,64 @@ function saveNCR() {
             return;
         }
 
-        if (quantityReceived != ""){
-            if(parsedQuantityReceived < 1){
+        if (quantityReceived != "") {
+            if (parsedQuantityReceived < 1) {
                 alert('Quantity Received cannot be less than 1')
                 return;
             }
         }
-    
-        if (quantityDefect != ""){
-            if(parsedQuantityDefect < 1){
+
+        if (quantityDefect != "") {
+            if (parsedQuantityDefect < 1) {
                 alert('Quantity Defective cannot be less than 1')
                 return
             }
         }
-    
+
         if (Number(quantityDefect) > Number(quantityReceived)) {
             alert('The number of defects cannot exceed the quantity received.')
             return;
         }
-       
 
-        // If changes were made, update the entry
-        qualityEntry.applicableProcess = applicableProcess;
-        qualityEntry.supplierName = supplierName;
-        qualityEntry.poNumber = poNumber;
-        qualityEntry.soNumber = soNumber;
-        qualityEntry.quantityReceived = quantityReceived;
-        qualityEntry.quantityDefect = quantityDefect;
-        qualityEntry.engNeeded = engNeeded;
-        qualityEntry.itemConform = itemConform;
-        qualityEntry.itemDescription = itemDescription;
-        qualityEntry.defectDescription = defectDescription;
-        qualityEntry.documentFiles = [...uploadedFiles];  // Store the accumulated uploaded files
+        const confirmation = confirm("Are you sure you want to save the NCR?");
+        if (confirmation) {
+            // Call your save function here
+            // If changes were made, update the entry
+            qualityEntry.applicableProcess = applicableProcess;
+            qualityEntry.supplierName = supplierName;
+            qualityEntry.poNumber = poNumber;
+            qualityEntry.soNumber = soNumber;
+            qualityEntry.quantityReceived = quantityReceived;
+            qualityEntry.quantityDefect = quantityDefect;
+            qualityEntry.engNeeded = engNeeded;
+            qualityEntry.itemConform = itemConform;
+            qualityEntry.itemDescription = itemDescription;
+            qualityEntry.defectDescription = defectDescription;
+            qualityEntry.documentFiles = [...uploadedFiles];  // Store the accumulated uploaded files
 
-        // Persist updated quality array to sessionStorage
-        sessionStorage.setItem('quality', JSON.stringify(quality));
+            // Persist updated quality array to sessionStorage
+            sessionStorage.setItem('quality', JSON.stringify(quality));
 
-        // Create a history entry and add it to the history array
-        const historyEntry = {
-            ncrNumber: ncrNumber,
-            actionType: "Edit",
-            status: 'Open',
-            actionDescription: "Edited the NCR",
-            changedBy: changedBy,  // This should be dynamically set to the actual user
-            changedOn: Timestamp() // Use function timestamp
-        };
+            // Create a history entry and add it to the history array
+            const historyEntry = {
+                ncrNumber: ncrNumber,
+                actionType: "Edit",
+                status: 'Open',
+                actionDescription: "Edited the NCR",
+                changedBy: changedBy,  // This should be dynamically set to the actual user
+                changedOn: Timestamp() // Use function timestamp
+            };
 
-        // Push the history entry and save it in sessionStorage
-        history.push(historyEntry);
-        sessionStorage.setItem('history', JSON.stringify(history));
+            // Push the history entry and save it in sessionStorage
+            history.push(historyEntry);
+            sessionStorage.setItem('history', JSON.stringify(history));
 
-        alert('Your changes have been saved. You can continue later.');
+            alert('Your changes have been saved. You can continue later.');
+        } else {
+            // If the user cancels, do nothing or add custom logic
+            alert("Save operation cancelled.");
+            populateEditPage(qualityEntry.ncrNumber)
+        }
     } else {
         alert('NCR not found. Please check the NCR number.');
     }
@@ -708,47 +715,53 @@ function submitNCR() {
         return;
     }
 
-    // Update the corresponding NCR in the quality array
-    const qualityEntry = quality.find(entry => entry.ncrNumber === ncrNumber);
+    const confirmation = confirm("Are you sure you want to submit the NCR?");
+    if (confirmation) {
+        // Update the corresponding NCR in the quality array
+        const qualityEntry = quality.find(entry => entry.ncrNumber === ncrNumber);
 
-    if (qualityEntry) {
+        if (qualityEntry) {
 
-        const engNeededCheckbox = document.getElementById('engNeeded');
+            const engNeededCheckbox = document.getElementById('engNeeded');
 
-        qualityEntry.applicableProcess = applicableProcess;
-        qualityEntry.supplierName = supplierName;
-        qualityEntry.poNumber = poNumber;
-        qualityEntry.soNumber = soNumber;
-        qualityEntry.quantityReceived = quantityReceived;
-        qualityEntry.quantityDefect = quantityDefect;
-        qualityEntry.engNeeded = engNeeded;
-        qualityEntry.itemConform = itemConform;
-        qualityEntry.itemDescription = itemDescription;
-        qualityEntry.defectDescription = defectDescription;
-        qualityEntry.documentFiles = [...uploadedFiles];
+            qualityEntry.applicableProcess = applicableProcess;
+            qualityEntry.supplierName = supplierName;
+            qualityEntry.poNumber = poNumber;
+            qualityEntry.soNumber = soNumber;
+            qualityEntry.quantityReceived = quantityReceived;
+            qualityEntry.quantityDefect = quantityDefect;
+            qualityEntry.engNeeded = engNeeded;
+            qualityEntry.itemConform = itemConform;
+            qualityEntry.itemDescription = itemDescription;
+            qualityEntry.defectDescription = defectDescription;
+            qualityEntry.documentFiles = [...uploadedFiles];
 
-        // Mark the NCR as submitted
-        qualityEntry.ncrStatus = engNeededCheckbox.checked ? "Engineering" : "Operations";
+            // Mark the NCR as submitted
+            qualityEntry.ncrStatus = engNeededCheckbox.checked ? "Engineering" : "Operations";
 
-        // Persist updated quality array to sessionStorage
-        sessionStorage.setItem('quality', JSON.stringify(quality));
+            // Persist updated quality array to sessionStorage
+            sessionStorage.setItem('quality', JSON.stringify(quality));
 
-        //make history array and push to history json
-        const historyEntry = {
-            ncrNumber: ncrNumber,
-            actionType: "Submit",
-            status: 'Open',
-            actionDescription: "Submission by Quality",
-            changedBy: changedBy,
-            changedOn: Timestamp()
+            //make history array and push to history json
+            const historyEntry = {
+                ncrNumber: ncrNumber,
+                actionType: "Submit",
+                status: 'Open',
+                actionDescription: "Submission by Quality",
+                changedBy: changedBy,
+                changedOn: Timestamp()
+            }
+
+            history.push(historyEntry);
+            sessionStorage.setItem('history', JSON.stringify(history));
+
+            alert('NCR has been successfully submitted.');
+            // Redirect or perform other actions as needed
+            window.location.href = 'index.html';
         }
-
-        history.push(historyEntry);
-        sessionStorage.setItem('history', JSON.stringify(history));
-
-        alert('NCR has been successfully submitted.');
-        // Redirect or perform other actions as needed
-        window.location.href = 'index.html';
+    } else {
+        // If the user cancels, do nothing or add custom logic
+        alert("Submit operation cancelled.");
     }
 }
 
@@ -931,7 +944,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelector('#reportTable').style.display = 'none';
 });*/
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const toggleCheckbox = document.getElementById('mobList');
     const navMenu = document.getElementById('mainNav');
 
@@ -944,3 +957,5 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
+
+
