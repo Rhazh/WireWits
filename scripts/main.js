@@ -1,10 +1,42 @@
-// Declare ncrLog and quality in the global scope so other scripts can access them
+// Declare global variables
 let ncrLog = [];
 let quality = [];
 let history = [];
-//let login = [];
 
 document.addEventListener('DOMContentLoaded', async () => {
+    // Check if the user is logged in
+    const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
+    
+    // Redirect to login if the user is not logged in
+    if (!loggedInUser) {
+        window.location.href = 'login.html';
+        return;
+    }
+
+    // Populate user profile details in the UI (e.g., for the header)
+    const fullNameElement = document.getElementById('userFullname');
+    const roleElement = document.getElementById('userRole');
+    const profilePicElement = document.getElementById('profilePic');
+
+    if (loggedInUser && fullNameElement && roleElement) {
+        fullNameElement.textContent = `${loggedInUser.user_Firstname} ${loggedInUser.user_Lastname}`;
+        roleElement.textContent = loggedInUser.Department_Name;
+
+        // Set profile picture based on gender
+        profilePicElement.src = loggedInUser.gender === 'male' ? 'images/user-profile_v1.png' : 'images/user-profile.png';
+
+        // Logout functionality
+        document.getElementById('logout').addEventListener('click', function () {
+            localStorage.removeItem('loggedInUser');
+            sessionStorage.clear();
+            alert("Successfully logged out.");
+            window.location.href = 'login.html';
+        });
+    } else {
+        console.error("Profile elements not found or no user logged in.");
+    }
+
+    // Proceed if the user is logged in
     // Load data from sessionStorage or default to empty arrays
     ncrLog = JSON.parse(sessionStorage.getItem('ncrLog')) || [];
     quality = JSON.parse(sessionStorage.getItem('quality')) || [];
@@ -41,7 +73,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
             quality = qualityData;
             ncrLog = ncrData;
-            history = historyData
+            history = historyData;
 
             // Store seed data in sessionStorage for use in the current session
             sessionStorage.setItem('quality', JSON.stringify(quality));
@@ -67,20 +99,15 @@ document.addEventListener('DOMContentLoaded', async () => {
             toggleCreateEditModal(ncrNumber, true);
             setupSaveNCR();
             setupSubmitNCR();
-
         } else if (pageName === 'create.html') {
             toggleCreateEditModal(null, false);
             setupCreateNCRButton();
             setupSaveNCR();
             setupSubmitNCR();
-            
         } else if (ncrNumber && pageName === 'details.html') {
             populateDetailsPage(ncrNumber);
-        }
-        else if (pageName === 'reports.html') {
+        } else if (pageName === 'reports.html') {
             performSearchReports();
-            //fetchRecordsData();
-            //document.querySelector('#reportTable').style.display = 'none';
         }
 
     } catch (error) {
@@ -88,109 +115,60 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (loadingIndicator) loadingIndicator.style.display = 'none';
         alert("An error occurred while loading data. Please try again later.");
     }
-});
 
-// Set up navigation buttons on index.html
-function setupNavigationButtons() {
-    document.getElementById('btnView').addEventListener('click', () => {
-        window.location.href = 'view.html';
-    });
-
-    document.getElementById('btnCreate').addEventListener('click', () => {
-        window.location.href = 'create.html';
-    });
-
-    document.getElementById('btnReports').addEventListener('click', () => {
-        window.location.href = 'reports.html';
-    });
-}
-
-// Toggle between create and edit modals
-function toggleCreateEditModal(ncrNumber, isEditMode) {
-    const createNCRModal = document.getElementById('createNCRModal');
-    const createEditModal = document.getElementById('createEditModal');
-
-    if (isEditMode) {
-        createNCRModal.style.visibility = 'hidden';
-        createEditModal.style.visibility = 'visible';
-        populateEditPage(ncrNumber);
-    }
-}
-
-// Setup button to create a new NCR
-function setupCreateNCRButton() {
-    document.getElementById('btnCreateNCR').addEventListener('click', () => {
-        CreateNCR();
-        //addNewNCRToRecent();
-    });
-}
-
-// Add the most recent NCR to the list of recent NCRs
-function addNewNCRToRecent() {
-    const lastNCR = ncrLog[ncrLog.length - 1];
-    quality.unshift(lastNCR);
-    sessionStorage.setItem('quality', JSON.stringify(quality));
-    recentNCRs();
-}
-
-function setupSaveNCR() {
-    document.getElementById('btnSave').addEventListener('click', () => {
-        saveNCR()
-    });
-}
-
-function setupSubmitNCR() {
-    document.getElementById('btnSubmit').addEventListener('click', () => {
-        submitNCR()
-    });
-}
-
-//Going back to last page
-function goBack() {
-    window.history.back();
-}
-
-// login codes
-document.addEventListener('DOMContentLoaded', () => {
-    const user = JSON.parse(localStorage.getItem('loggedInUser'));
-    const fullNameElement = document.getElementById('userFullname');
-    const roleElement = document.getElementById('userRole');
-    const profilePicElement = document.getElementById('profilePic');
-
-    if (user && fullNameElement && roleElement) {
-        fullNameElement.textContent = `${user.user_Firstname} ${user.user_Lastname}`;
-        roleElement.textContent = user.Department_Name;
-
-        // Set the profile picture based on gender
-        if (user.gender === 'male') {
-
-            profilePicElement.src = "images/user-profile_v1.png";
-        } else if (user.gender === 'female') {
-
-            profilePicElement.src = "images/user-profile.png";
-        }
-
-
-
-        // Logout codes
-        document.getElementById('logout').addEventListener('click', function () {
-
-            localStorage.removeItem('loggedInUser');
-            alert("Successfully Logged out");
-
-            window.location.href = 'login.html';
+    // Set up navigation buttons on index.html
+    function setupNavigationButtons() {
+        document.getElementById('btnView').addEventListener('click', () => {
+            window.location.href = 'view.html';
         });
 
-    } else {
-        console.error("Profile elements not found or no user logged in.");
+        document.getElementById('btnCreate').addEventListener('click', () => {
+            window.location.href = 'create.html';
+        });
+
+        document.getElementById('btnReports').addEventListener('click', () => {
+            window.location.href = 'reports.html';
+        });
     }
-});
 
-//============================================
-//      Bread Crumbs
-//============================================
+    // Toggle between create and edit modals
+    function toggleCreateEditModal(ncrNumber, isEditMode) {
+        const createNCRModal = document.getElementById('createNCRModal');
+        const createEditModal = document.getElementById('createEditModal');
 
-document.addEventListener('DOMContentLoaded', function () {
+        if (isEditMode) {
+            createNCRModal.style.visibility = 'hidden';
+            createEditModal.style.visibility = 'visible';
+            populateEditPage(ncrNumber);
+        }
+    }
+
+    // Setup button to create a new NCR
+    function setupCreateNCRButton() {
+        document.getElementById('btnCreateNCR').addEventListener('click', () => {
+            CreateNCR();
+        });
+    }
+
+    // Set up the Save and Submit NCR functions
+    function setupSaveNCR(fullNameElement) {
+        document.getElementById('btnSave').addEventListener('click', () => {
+            saveNCR();
+        });
+    }
+
+    function setupSubmitNCR() {
+        document.getElementById('btnSubmit').addEventListener('click', () => {
+            submitNCR();
+        });
+    }
+
+    // Function to go back to the previous page
+    function goBack() {
+        window.history.back();
+    }
+
+    // Set up breadcrumbs
     const breadcrumbMap = {
         'index.html': 'Dashboard',
         'view.html': 'View NCRs',
@@ -246,4 +224,4 @@ document.addEventListener('DOMContentLoaded', function () {
             breadcrumbList.appendChild(separator);
         }
     });
-}); 
+});

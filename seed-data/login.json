@@ -14,14 +14,14 @@
         },
         {
             "user_Id": "2",
-            "user_name": "adminUser",
+            "user_name": "cwashington",
             "user_Firstname": "Cassandra",
             "user_Middlename": "B.",
             "user_Lastname": "Washington",
             "email": "jane.smith@example.com",
-            "password": "Cass234",
+            "password": "Quality1234",
             "created_on": "2024-02-10T12:00:00Z",
-            "Department_Name": "Administrator",
+            "Department_Name": "Quality",
             "gender": "female"
         },
         {
