@@ -22,6 +22,13 @@ body {
 }
 
 /* Default Branding Style */
+/* ----- Skip Links ----- */
+.skip-links-div {
+    position: absolute;
+    top: -9999px;
+}
+
+/* Default Branding Style */
 /* ------- Header ------- */
 header {
     background-color: #fdfdfd;
@@ -93,11 +100,12 @@ nav {
     padding: 0;
 }
 
-nav ul {
+ul {
     list-style-type: none;
 }
 
-nav ul, nav li {
+nav ul, 
+nav li {
     display: flex;
     height: 100%;
     box-sizing: border-box;
@@ -857,6 +865,7 @@ button {
     background-color: #e3e7f2;
 }
 
+
 /* -------------------------------------------------------------- */
 /* -------------------------------------------------------------- */
 /* -------------------------------------------------------------- */
@@ -886,12 +895,6 @@ button {
 
 .breadcrumb-list li a:hover {
     color: #0056b3; /* Hover color */
-}
-
-.breadcrumb-list li::after {
-    content: '>';
-    margin-left: 10px;
-    color: #666; /* Separator color */
 }
 
 .breadcrumb-list li:last-child::after {
@@ -990,8 +993,10 @@ button {
         grid-column: span 1;
     }
 
-    .three-cols {
-        grid-template-columns: 1fr;
+    .three-cols,
+    .four-cols {
+        display: flex;
+        flex-direction: column;
     }
 }
 
@@ -1138,7 +1143,8 @@ button {
         grid-template-columns: auto;
     }
 
-    .div-container .form-header {
+    .div-container .form-header,
+    .four-cols {
         grid-template-columns: 1fr 1fr;
     }
 
