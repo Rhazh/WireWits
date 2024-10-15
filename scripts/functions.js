@@ -870,8 +870,24 @@ function performSearchReports() {
         filteredReports = filteredReports.filter(report => new Date(report.dateCreated) <= toDate);
     }
 
+    // Sort filtered reports by NCRNumber in descending order
+    filteredReports.sort((a, b) => {
+        const [yearA, seqA] = a.ncrNumber.split('-').map(Number);
+        const [yearB, seqB] = b.ncrNumber.split('-').map(Number);
+
+        // Compare years in descending order
+        if (yearA !== yearB) {
+            return yearB - yearA; // Sort by year descending
+        }
+        // Compare sequence numbers in descending order
+        return seqB - seqA; // Sort by sequence number descending
+    });
+
+    // Take the first 10 results after sorting
+    const tenResults = filteredReports.length > 10 ? filteredReports.slice(0, 10) : filteredReports;
+
     // Populate the table with filtered results
-    populateReportsTable(filteredReports);
+    populateReportsTable(tenResults);
 
     // Show or hide "no results" message
     const noResultsMessage = document.getElementById('noResultsMessage');
@@ -887,6 +903,7 @@ function performSearchReports() {
         noResultsMessage.style.display = 'none';
     }
 }
+
 
 function clearSearch() {
     /*
@@ -912,7 +929,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelector('#reportTable').style.display = 'none';
 });*/
 
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', function() {
     const toggleCheckbox = document.getElementById('mobList');
     const navMenu = document.getElementById('mainNav');
 

@@ -163,8 +163,21 @@ document.addEventListener('DOMContentLoaded', async () => {
         });
     }
 
+    // Set up the Cancel button
+    const cancelButton = document.getElementById('btnCancelNCR');
+    if (cancelButton) {
+        cancelButton.addEventListener('click', goBack); // Use event listener instead of inline onclick
+    }
+
+    // Set up the modal close button
+    const closeModalButton = document.getElementById('btnCloseModal');
+    if (closeModalButton) {
+        closeModalButton.addEventListener('click', goBack); // Reuse the goBack function
+    }
+    
     // Function to go back to the previous page
     function goBack() {
+        console.log("Going back...");
         window.history.back();
     }
 
