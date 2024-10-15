@@ -583,8 +583,7 @@ table thead {
 .form-header,
 .form-section,
 .div-section {
-    padding: 30px 30px 0;
-    margin-bottom: 30px;
+    padding: 30px;
 }
 
 .form-ncr-details {
@@ -596,6 +595,11 @@ table thead {
 .form-section {
     display: grid;
     grid-gap: 30px;
+    box-sizing: border-box;
+}
+
+.form-section div {
+    box-sizing: border-box;
 }
 
 .form-ncr {
@@ -607,12 +611,21 @@ table thead {
 .form-ncr-buttons {
     display: flex;
     gap: 30px;
-    margin: 20px 30px 40px;
 }
 
 .form-ncr-buttons button {
     padding: 12px 30px;
     width: 170px;
+}
+
+#fileSummary,
+#fileNames {
+    text-align: left;
+}
+
+.file-upload-details #fileSummary {
+    margin-top: 15px;
+    margin-bottom: 10px;
 }
 
 /* -------------------------------------------------------------- */
@@ -621,6 +634,10 @@ table thead {
 
 /* ----- Search Page ----- */
 /* ---- Search Section --- */
+.search-section {
+    margin-bottom: 30px;
+}
+
 .search-section .three-cols {
     row-gap: 15px;
 }
@@ -629,7 +646,6 @@ table thead {
     display: flex;
     column-gap: 15px;
     margin-top: 35px;
-    padding-bottom: 35px;
     align-items: center;
 }
 
@@ -755,6 +771,7 @@ textarea {
     font-size: 18px;
     box-sizing: border-box;
     font-family: "Instrument Sans", sans-serif;
+    max-width: 100%;
 }
 
 .file-upload input:focus + .file-upload-details {
@@ -898,6 +915,15 @@ button {
 
 /* X-Small devices */
 @media only screen and (max-width: 425px) {
+    
+    .form-ncr-buttons {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .form-ncr-buttons div button {
+        width: 100% !important;
+    }
 }
 
 /* Small devices */
@@ -949,6 +975,24 @@ button {
         height: 30%;
     }
 
+    .form-header, 
+    .form-section, 
+    .div-section {
+        padding: 10px 10px 0;
+    }
+
+    .modal-container {
+        width: 90%;
+        padding: 15px;
+    }
+
+    .search-section .div-container .div-section .three-cols div:first-child {
+        grid-column: span 1;
+    }
+
+    .three-cols {
+        grid-template-columns: 1fr;
+    }
 }
 
 /* Medium devices */
@@ -1074,12 +1118,68 @@ button {
     .div-table .div-container td {
         white-space: nowrap;
     }
+    
+    .form-ncr-buttons {
+        gap: 10px;
+    }
+
+    .form-ncr-buttons div button {
+        width: auto;
+        padding: 10px 20px;
+    }
+
+    .form-header, 
+    .form-section, 
+    .div-section {
+        padding: 20px;
+    }
+
+    .two-cols {
+        grid-template-columns: auto;
+    }
+
+    .div-container .form-header {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .form-checkbox label {
+        width: auto;
+        padding: 8px 10px;
+        margin: 0;
+    }
+
+    .form-checkbox input + label:before {
+        top: 0;
+        margin-right: 10px;
+    }
+
+    .modal-form .two-cols {
+        gap: 0;
+    }
+
+    .dashboard .div-container button {
+        font-size: 18px;
+    }
+
+    .dashboard .div-container button img {
+        width: 80px;
+        height: auto;
+    }
+
+    .three-cols {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .search-section .div-container .div-section .three-cols div:first-child {
+        grid-column: span 2;
+    }
 }
 
 /* Large devices */
 @media screen and (max-width: 1440px) {
     body, 
-    span {
+    span,
+    p {
         font-size: 16px;
     }
 
