@@ -43,7 +43,7 @@ function populateNotifications() {
         return;
     }
 
-    dropdownDesc.innerHTML = "<p>Pending NCRs for Over 14 Days</p>"; // Text explaining urgency
+    dropdownDesc.innerHTML = "<p>Pending NCRs for Over 30 Days</p>"; // Text explaining urgency
 
     oldNotifications.forEach(ncrNumber => {
         const p = document.createElement('p');
@@ -65,7 +65,7 @@ function populateNotifications() {
 function getOldNotifications() {
     const today = new Date();
     const fourteenDaysAgo = new Date();
-    fourteenDaysAgo.setDate(today.getDate() - 14);
+    fourteenDaysAgo.setDate(today.getDate() - 30);
 
     return quality.filter(item => new Date(item.dateCreated) < fourteenDaysAgo && item.ncrStatus == "Quality")
         .map(item => item.ncrNumber);
@@ -130,7 +130,7 @@ function recentNCRs() {
     tableBody.innerHTML = ''; // Clear previous results
 
     recentN.forEach(result => {
-        const editButtonDisabled = result.ncrStatus !== "Quality" ? "disabled" : "";
+        //const editButtonDisabled = result.ncrStatus !== "Quality" ? "disabled" : "";
         const newRow = `<tr>
                              <td>${result.ncrNumber}</td>
                              <td>${result.supplierName}</td>
@@ -145,7 +145,7 @@ function recentNCRs() {
                                         </svg>
                                         View
                                     </button>
-                                    <button onclick="editEntry('${result.ncrNumber}')${editButtonDisabled}">
+                                    <button onclick="handleEditEntry('${result.ncrNumber}', '${result.ncrStatus}')">
                                         <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"/>
                                         </svg>
@@ -206,8 +206,18 @@ function populateDetailsPage(ncrNumber) {
 
         // Disable edit button if status is not "Quality"
         const editButton = document.getElementById('editButton'); // Assuming you have an edit button with this ID
+
         if (editButton) {
-            editButton.disabled = entry.ncrStatus !== "Quality";
+            editButton.onclick = () => {
+                const ncrStatus = entry.ncrStatus; // Get the NCR status from the entry object
+
+                if (ncrStatus !== "Quality") {
+                    alert(`This NCR is already submitted to ${ncrStatus}.`);
+                } else {
+                    // Proceed to edit the entry
+                    editEntry(entry.ncrNumber, ncrStatus);
+                }
+            };
         }
 
         /*Call to populate document files if they exist
@@ -286,7 +296,16 @@ function populateEditPage(ncrNumber) {
 
 // Supporting Function - Redirection to Edit an NCR when Edit button is clicked
 function editEntry(ncrNumber) {
-    window.location.href = `create.html?ncr=${ncrNumber}`; // Redirect to edit page
+        window.location.href = `create.html?ncr=${ncrNumber}`; // Redirect to edit page
+}
+
+// Supporting Function - Redirection to Edit an NCR when Edit button is clicked
+function handleEditEntry(ncrNumber, ncrStatus) {
+    if (ncrStatus !== "Quality") {
+        alert(`This NCR is already submitted to ${ncrStatus}.`);
+    } else {
+        window.location.href = `create.html?ncr=${ncrNumber}`; // Redirect to edit page
+    }
 }
 
 //FUNCTION USED ON VIEW NCRS PAGE TO PERFORM SEARCH
@@ -367,7 +386,7 @@ function performSearch() {
     const tenResults = viewNCRs.length > 10 ? viewNCRs.slice(-10) : viewNCRs;
 
     tenResults.reverse().forEach(result => {
-        const editButtonDisabled = result.ncrStatus !== "Quality" ? "disabled" : "";
+        //const editButtonDisabled = result.ncrStatus !== "Quality" ? "disabled" : "";
         const newRow = `<tr>
                             <td>${result.ncrNumber}</td>
                             <td>${result.supplierName}</td>
@@ -382,7 +401,7 @@ function performSearch() {
                                         </svg>
                                         View
                                     </button>
-                                    <button onclick="editEntry('${result.ncrNumber}')"${editButtonDisabled}>
+                                    <button onclick="handleEditEntry('${result.ncrNumber}', '${result.ncrStatus}')">
                                         <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"/>
                                         </svg>
@@ -663,12 +682,23 @@ function saveNCR() {
             history.push(historyEntry);
             sessionStorage.setItem('history', JSON.stringify(history));
 
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+        alert('Your changes have been saved. You can continue later.');
+        window.history.back();
+=======
+>>>>>>> Stashed changes
             alert('Your changes have been saved. You can continue later.');
         } else {
             // If the user cancels, do nothing or add custom logic
             alert("Save operation cancelled.");
             populateEditPage(qualityEntry.ncrNumber)
         }
+<<<<<<< Updated upstream
+=======
+>>>>>>> 3a7cb71047766d2477870b6a85fc34b862b1c032
+>>>>>>> Stashed changes
     } else {
         alert('NCR not found. Please check the NCR number.');
     }
@@ -759,9 +789,25 @@ function submitNCR() {
             // Redirect or perform other actions as needed
             window.location.href = 'index.html';
         }
+<<<<<<< Updated upstream
     } else {
         // If the user cancels, do nothing or add custom logic
         alert("Submit operation cancelled.");
+=======
+<<<<<<< HEAD
+
+        history.push(historyEntry);
+        sessionStorage.setItem('history', JSON.stringify(history));
+
+        alert('NCR has been successfully submitted.');
+        // Redirect or perform other actions as needed
+        window.history.back();
+=======
+    } else {
+        // If the user cancels, do nothing or add custom logic
+        alert("Submit operation cancelled.");
+>>>>>>> 3a7cb71047766d2477870b6a85fc34b862b1c032
+>>>>>>> Stashed changes
     }
 }
 
