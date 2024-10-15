@@ -84,7 +84,9 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (loadingIndicator) loadingIndicator.style.display = 'none';
 
         // Populate notifications or handle errors
+       
         populateNotifications();
+        NavBar();
 
         const urlParams = new URLSearchParams(window.location.search);
         const ncrNumber = urlParams.get('ncr');
