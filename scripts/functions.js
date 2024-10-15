@@ -274,7 +274,7 @@ function populateEditPage(ncrNumber) {
             // Display previously uploaded files
             fileNamesDisplay.innerHTML = `Previously Uploaded Files:<br>${entry.documentFiles.join('<br>')}`;
         } else {
-            fileNamesDisplay.textContent = 'No files uploaded yet.';
+            //fileNamesDisplay.textContent = 'No files uploaded yet.';
         }
 
         // Ensure that the global uploadedFiles array contains previously uploaded files
@@ -520,6 +520,7 @@ let uploadedFiles = [];
 document.getElementById('attachedDocument').addEventListener('change', function () {
     const fileInput = document.getElementById('attachedDocument');
     const fileNamesDisplay = document.getElementById('fileNames');
+    const fileSummaryDisplay = document.getElementById('fileSummary');
 
     // Get the selected files
     const files = Array.from(fileInput.files);
@@ -553,9 +554,10 @@ document.getElementById('attachedDocument').addEventListener('change', function 
 
     // Display the file names in the file-upload-details section
     if (uploadedFiles.length > 0) {
-        fileNamesDisplay.innerHTML = `Uploaded Files:<br>${uploadedFiles.join('<br>')}`;
+        fileSummaryDisplay.innerHTML = "Uploaded Files:"
+        fileNamesDisplay.innerHTML = `${uploadedFiles.join('<br>')}`;
     } else {
-        fileNamesDisplay.textContent = 'No files uploaded yet.';
+        //fileNamesDisplay.textContent = 'No files uploaded yet.';
     }
 
     // Clear the file input so the same file can be uploaded again if needed
