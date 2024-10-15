@@ -4,6 +4,32 @@
     padding: 0;
 }
 
+.pagination-container {
+    margin: 20px 0;
+    text-align: center;
+}
+
+.pagination-container button {
+    margin: 0 5px;
+    padding: 5px 10px;
+    border: 1px solid #007bff;
+    background-color: #ffffff;
+    color: #007bff;
+    cursor: pointer;
+}
+
+.pagination-container button.active {
+    background-color: #007bff;
+    color: #ffffff;
+}
+
+.pagination-container button:hover {
+    background-color: #007bff;
+    color: #ffffff;
+}
+
+
+
 body {
     font-family: "Instrument Sans", sans-serif;
     font-optical-sizing: auto;

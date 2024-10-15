@@ -315,37 +315,64 @@ function handleEditEntry(ncrNumber, ncrStatus) {
 //     sets results to a table
 //     View NCRs page is initialized to show NCRS still with Quality
 // ====================================================================
+let currentPage = 1; // Initialize the current page
+let resultsPerPage = 10; // Number of results to show per page
+
+function setupPagination(totalResults, displayResultsFunc, tableBodyId, paginationContainerId) {
+    const totalPages = Math.ceil(totalResults / resultsPerPage);
+    const paginationContainer = document.getElementById(paginationContainerId);
+    paginationContainer.innerHTML = ''; // Clear previous pagination
+
+    for (let page = 1; page <= totalPages; page++) {
+        const pageButton = document.createElement('button');
+        pageButton.textContent = page;
+        pageButton.onclick = () => {
+            currentPage = page; // Set current page to the clicked page
+            displayResultsFunc(currentPage, resultsPerPage, tableBodyId); // Update results based on current page
+        };
+
+        // Highlight the active page
+        if (page === currentPage) {
+            pageButton.classList.add('active');
+        }
+
+        paginationContainer.appendChild(pageButton); // Add button to pagination
+    }
+}
+
+function resetPagination() {
+    currentPage = 1; // Reset to the first page
+}
+
 function performSearch() {
-    const ncrNumber = document.getElementById('ncrNumber')?.value.trim();
-    const supplierName = document.getElementById('supplierName')?.value;
-    const ncrStatus = document.getElementById('ncrStatus')?.value;
-    const fromDate = document.getElementById('fromDate')?.value;
-    const toDate = document.getElementById('toDate')?.value;
+    const ncrNumber = document.getElementById('ncrNumber').value.trim();
+    const supplierName = document.getElementById('supplierName').value;
+    const ncrStatus = document.getElementById('ncrStatus').value;
+    const fromDate = document.getElementById('fromDate').value;
+    const toDate = document.getElementById('toDate').value;
 
     const resultsCountMessage = document.getElementById('noResultsMessage');
 
+    // Date validation
     if (fromDate && toDate && new Date(fromDate) > new Date(toDate)) {
         resultsCountMessage.textContent = 'Start date must be earlier than or equal to end date.';
         resultsCountMessage.style.display = 'inline';
         return;
     } else {
-        resultsCountMessage.style.display = 'none'; // Hide error if date range is valid
+        resultsCountMessage.style.display = 'none';
     }
 
-    // Remove duplicates from quality based on ncrNumber
     const uniqueQuality = Array.from(new Map(quality.map(item => [item.ncrNumber, item])).values())
         .sort((a, b) => {
-            const numA = parseInt(a.ncrNumber.split('-')[1], 10); // Extract numeric part
-            const numB = parseInt(b.ncrNumber.split('-')[1], 10); // Extract numeric part
-            return numA - numB; // Sort numerically
-        })
+            const numA = parseInt(a.ncrNumber.split('-')[1], 10);
+            const numB = parseInt(b.ncrNumber.split('-')[1], 10);
+            return numB - numA;
+        });
 
+    const fromDateObj = fromDate ? new Date(fromDate + 'T00:00:00') : null;
+    const toDateObj = toDate ? new Date(toDate + 'T23:59:59') : null;
 
-    // Convert fromDate and toDate to Date objects
-    const fromDateObj = fromDate ? new Date(fromDate + 'T00:00:00') : null; // Start of the day
-    const toDateObj = toDate ? new Date(toDate + 'T23:59:59') : null; // End of the day
-
-    const viewNCRs = uniqueQuality.filter(item => {
+    const filteredResults = uniqueQuality.filter(item => {
         const isNcrNumberValid = ncrNumber ? item.ncrNumber.includes(ncrNumber) : true;
         const isSupplierNameValid = supplierName ? item.supplierName === supplierName : true;
         const isStatusValid = ncrStatus ? item.ncrStatus === ncrStatus : true;
@@ -359,34 +386,15 @@ function performSearch() {
         return isNcrNumberValid && isSupplierNameValid && isStatusValid && isDateCreatedValid;
     });
 
+    const totalResults = filteredResults.length;
+
+    // Display results based on current page
     const tableBody = document.getElementById("viewTableContent");
-    // Check if NCR number contains any alphabetic characters
-    if (ncrNumber && /[a-zA-Z]/.test(ncrNumber)) {
-        resultsCountMessage.textContent = 'NCR Number must not contain alphabetic characters.';
-        resultsCountMessage.style.display = 'inline';
-    }
-    // Show no results message if the filtered array is empty
-    else if (viewNCRs.length === 0) {
-        resultsCountMessage.textContent = 'No results found.';
-        resultsCountMessage.style.display = 'inline';
-    } else {
-        resultsCountMessage.style.display = 'none';
-        // Optionally, you can display the results here
-        console.log(viewNCRs); // Or update the UI to show results
-    }
+    const paginatedResults = filteredResults.slice((currentPage - 1) * resultsPerPage, currentPage * resultsPerPage);
+    
+    tableBody.innerHTML = ''; // Clear previous results
 
-    if (!tableBody) {
-        console.warn('Table body element not found.');
-        return;
-    }
-    tableBody.innerHTML = '';
-
-    //const tenResults = viewNCRs.slice(0, 10);
-    // Get the last 10 results if there are more than 10
-    const tenResults = viewNCRs.length > 10 ? viewNCRs.slice(-10) : viewNCRs;
-
-    tenResults.reverse().forEach(result => {
-        //const editButtonDisabled = result.ncrStatus !== "Quality" ? "disabled" : "";
+    paginatedResults.forEach(result => {
         const newRow = `<tr>
                             <td>${result.ncrNumber}</td>
                             <td>${result.supplierName}</td>
@@ -410,9 +418,13 @@ function performSearch() {
                                 </div>
                             </td>
                         </tr>`;
-        tableBody.innerHTML += newRow;
+        tableBody.innerHTML += newRow; // Add new row to table
     });
+
+    // Setup pagination
+    setupPagination(totalResults, performSearch, "viewTableContent", "pagination");
 }
+
 
 //NCR MANAGEMENT FUNCTIONS - CREATE, SAVE, SUBMIT, CANCEL
 
@@ -819,7 +831,6 @@ async function fetchRecordsData() {
         console.error('Error fetching records data:', error);
     }
 }*/
-
 function populateReportsTable(data) {
     const tableContent = document.getElementById('tableContent');
     tableContent.innerHTML = ''; // Clear existing rows
