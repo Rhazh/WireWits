@@ -602,10 +602,6 @@ function saveNCR() {
     const itemDescription = document.getElementById('itemDescription')?.value || '';
     const defectDescription = document.getElementById('defectDescription')?.value || '';
 
-    console.log(quantityReceived, typeof (quantityReceived))
-
-
-
     // Find the NCR entry in the quality array based on ncrNumber
     const qualityEntry = quality.find(entry => entry.ncrNumber === ncrNumber);
 
@@ -686,9 +682,7 @@ function saveNCR() {
             window.history.back();
         } else {
             // If the user cancels, do nothing or add custom logic
-            alert("Save operation cancelled.");
-            populateEditPage(qualityEntry.ncrNumber)
-            window.history.back();
+           alert("Save operation cancelled.");
         }
 
     } else {
