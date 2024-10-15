@@ -110,11 +110,100 @@ document.addEventListener('DOMContentLoaded', async () => {
             performSearchReports();
         }
 
+         // Set up the supplierName dropdown
+         populateSupplierDropdown(ncrLog);
+         populateSupplierDropdownG(ncrLog)
+
     } catch (error) {
         console.error('Error fetching data:', error);
         if (loadingIndicator) loadingIndicator.style.display = 'none';
         alert("An error occurred while loading data. Please try again later.");
     }
+
+
+        // Function to populate the supplier dropdown with the top 3 suppliers first
+        async function populateSupplierDropdown(ncrLog) {
+            const supplierDropdown = document.getElementById('supplierName');
+    
+            // Count occurrences of each supplierName
+            const supplierCounts = {};
+            ncrLog.forEach(item => {
+                supplierCounts[item.supplierName] = (supplierCounts[item.supplierName] || 0) + 1;
+            });
+    
+            // Sort suppliers by count in descending order
+            const sortedSuppliers = Object.keys(supplierCounts).sort((a, b) => supplierCounts[b] - supplierCounts[a]);
+    
+            // Get top 3 suppliers
+            const topSuppliers = sortedSuppliers.slice(0, 3);
+    
+            // Get the remaining suppliers (excluding the top 3)
+            const allSuppliers = sortedSuppliers.sort();
+    
+            // Create a group for the top 3 suppliers
+            const topGroup = document.createElement('optgroup');
+            topGroup.label = 'Popular Suppliers';
+            topSuppliers.forEach(supplier => {
+                const option = document.createElement('option');
+                option.value = supplier;
+                option.textContent = `${supplier}`;
+                topGroup.appendChild(option);
+            });
+            supplierDropdown.appendChild(topGroup);
+    
+            // Create a group for the remaining suppliers
+            const allGroup = document.createElement('optgroup');
+            allGroup.label = 'All Suppliers';
+            allSuppliers.forEach(supplier => {
+                const option = document.createElement('option');
+                option.value = supplier;
+                option.textContent = supplier;
+                allGroup.appendChild(option);
+            });
+            supplierDropdown.appendChild(allGroup);
+        }
+
+         // Function to populate the supplier dropdown with the top 3 suppliers first
+         async function populateSupplierDropdownG(ncrLog) {
+            const supplierDropdown = document.getElementById('nsupplierName');
+    
+            // Count occurrences of each supplierName
+            const supplierCounts = {};
+            ncrLog.forEach(item => {
+                supplierCounts[item.supplierName] = (supplierCounts[item.supplierName] || 0) + 1;
+            });
+    
+            // Sort suppliers by count in descending order
+            const sortedSuppliers = Object.keys(supplierCounts).sort((a, b) => supplierCounts[b] - supplierCounts[a]);
+    
+            // Get top 3 suppliers
+            const topSuppliers = sortedSuppliers.slice(0, 3);
+    
+            // Get the remaining suppliers (excluding the top 3)
+            const allSuppliers = sortedSuppliers.sort();
+    
+            // Create a group for the top 3 suppliers
+            const topGroup = document.createElement('optgroup');
+            topGroup.label = 'Popular Suppliers';
+            topSuppliers.forEach(supplier => {
+                const option = document.createElement('option');
+                option.value = supplier;
+                option.textContent = `${supplier}`;
+                topGroup.appendChild(option);
+            });
+            supplierDropdown.appendChild(topGroup);
+    
+            // Create a group for the remaining suppliers
+            const allGroup = document.createElement('optgroup');
+            allGroup.label = 'All Suppliers';
+            allSuppliers.forEach(supplier => {
+                const option = document.createElement('option');
+                option.value = supplier;
+                option.textContent = supplier;
+                allGroup.appendChild(option);
+            });
+            supplierDropdown.appendChild(allGroup);
+        }
 
     // Set up navigation buttons on index.html
     function setupNavigationButtons() {
@@ -244,3 +333,4 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     });
 });
+

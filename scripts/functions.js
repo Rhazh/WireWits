@@ -185,7 +185,7 @@ function populateDetailsPage(ncrNumber) {
         document.getElementById('soNumber').textContent = entry.soNumber ?? "";
         document.getElementById('quantityReceived').textContent = entry.quantityReceived ?? "";
         document.getElementById('quantityDefect').textContent = entry.quantityDefect ?? "";
-        document.getElementById('itemDescription').textContent = entry.itemDescription ?? "";
+        document.getElementById('itemDescription').innerHTML = entry.itemDescription.replace(/\n/g, '<br/>') ?? "";
         document.getElementById('defectDescription').innerHTML = entry.defectDescription.replace(/\n/g, '<br/>') ?? "";
 
         // Assuming engineering is related to defect description, corrected as `engNeeded`
@@ -194,7 +194,7 @@ function populateDetailsPage(ncrNumber) {
         document.getElementById('itemConform').textContent = entry.itemConform ?? "No";
 
         const documentFilesList = document.getElementById('attachedDocument');
-        documentFilesList.innerHTML = ''; // Clear any existing content
+        documentFilesList.innerHTML = 'No uploaded files.'; // Clear any existing content
 
         if (entry.documentFiles.length > 0) {
             entry.documentFiles.forEach(file => {
