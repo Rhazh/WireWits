@@ -1051,7 +1051,7 @@ button {
         background-size: cover;
     }
 
-    nav {
+    #mainNav {
         display: none;
         position: absolute;
         top: 100%;
