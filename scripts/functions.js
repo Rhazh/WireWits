@@ -682,23 +682,15 @@ function saveNCR() {
             history.push(historyEntry);
             sessionStorage.setItem('history', JSON.stringify(history));
 
-<<<<<<< Updated upstream
-=======
-<<<<<<< HEAD
-        alert('Your changes have been saved. You can continue later.');
-        window.history.back();
-=======
->>>>>>> Stashed changes
             alert('Your changes have been saved. You can continue later.');
+            window.history.back();
         } else {
             // If the user cancels, do nothing or add custom logic
             alert("Save operation cancelled.");
             populateEditPage(qualityEntry.ncrNumber)
+            window.history.back();
         }
-<<<<<<< Updated upstream
-=======
->>>>>>> 3a7cb71047766d2477870b6a85fc34b862b1c032
->>>>>>> Stashed changes
+
     } else {
         alert('NCR not found. Please check the NCR number.');
     }
@@ -787,27 +779,16 @@ function submitNCR() {
 
             alert('NCR has been successfully submitted.');
             // Redirect or perform other actions as needed
-            window.location.href = 'index.html';
+            window.history.back();
         }
-<<<<<<< Updated upstream
     } else {
         // If the user cancels, do nothing or add custom logic
         alert("Submit operation cancelled.");
-=======
-<<<<<<< HEAD
+        // Redirect or perform other actions as needed
+        window.history.back();
 
         history.push(historyEntry);
         sessionStorage.setItem('history', JSON.stringify(history));
-
-        alert('NCR has been successfully submitted.');
-        // Redirect or perform other actions as needed
-        window.history.back();
-=======
-    } else {
-        // If the user cancels, do nothing or add custom logic
-        alert("Submit operation cancelled.");
->>>>>>> 3a7cb71047766d2477870b6a85fc34b862b1c032
->>>>>>> Stashed changes
     }
 }
 
