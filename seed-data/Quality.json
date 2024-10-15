@@ -8,17 +8,14 @@
         "poNumber": "0111559536",
         "soNumber": "1157674",
         "quantityReceived": 24,
-        "quantityDefective": 7,
+        "quantityDefect": 7,
         "engNeeded": "Yes",
         "itemConform": "Yes",
         "itemDescription": "Defective Paint Quality Control Report",
-        "defectDescription": [
-            "Color mismatch: The final paint color differs from the intended or specified shade.",
-            "Bubbling or blistering: Air bubbles form on the paint surface, affecting the finish."
-        ],
+        "defectDescription": "Color mismatch: The final paint color differs from the intended or specified shade.\nBubbling or blistering: Air bubbles form on the paint surface, affecting the finish.",
         "documentFiles": [
             "898971321_9882189.jpeg",
-            "918239_98391.docx"
+            "918239_98391.mp4"
         ],
         "ncrStatus": "Quality"
     },
@@ -31,17 +28,14 @@
         "poNumber": "0111559537",
         "soNumber": "1157675",
         "quantityReceived": 30,
-        "quantityDefective": 5,
+        "quantityDefect": 5,
         "engNeeded": "No",
         "itemConform": "No",
         "itemDescription": "Quality Control for Packaging",
-        "defectDescription": [
-            "Incorrect labeling: Labels do not match the contents.",
-            "Seal failure: Packaging seals are compromised."
-        ],
+        "defectDescription": "Incorrect labeling: Labels do not match the contents.\nSeal failure: Packaging seals are compromised.",
         "documentFiles": [
             "1029384756.jpeg",
-            "2938475612.docx"
+            "2938475612.jpeg"
         ],
         "ncrStatus": "Quality"
     },
@@ -54,17 +48,14 @@
         "poNumber": "0111559538",
         "soNumber": "1157676",
         "quantityReceived": 50,
-        "quantityDefective": 12,
+        "quantityDefect": 12,
         "engNeeded": "Yes",
         "itemConform": "Yes",
         "itemDescription": "Electronics Inspection Report",
-        "defectDescription": [
-            "Short circuit: Components are improperly configured.",
-            "Component failure: Certain parts do not function as expected."
-        ],
+        "defectDescription": "Short circuit: Components are improperly configured.\nComponent failure: Certain parts do not function as expected.",
         "documentFiles": [
             "8473625147.jpeg",
-            "5647382910.docx"
+            "5647382910.png"
         ],
         "ncrStatus": "Quality"
     },
@@ -77,17 +68,14 @@
         "poNumber": "0111559539",
         "soNumber": "1157677",
         "quantityReceived": 15,
-        "quantityDefective": 2,
+        "quantityDefect": 2,
         "engNeeded": "No",
         "itemConform": "No",
         "itemDescription": "Furniture Quality Inspection",
-        "defectDescription": [
-            "Scratches on surface: Visible damage on the wood finish.",
-            "Incorrect dimensions: Items do not match the specifications."
-        ],
+        "defectDescription": "Scratches on surface: Visible damage on the wood finish.\nIncorrect dimensions: Items do not match the specifications.",
         "documentFiles": [
             "1122334455.jpeg",
-            "9988776655.docx"
+            "9988776655.mp4"
         ],
         "ncrStatus": "Quality"
     },
@@ -100,17 +88,14 @@
         "poNumber": "0111559540",
         "soNumber": "1157678",
         "quantityReceived": 40,
-        "quantityDefective": 8,
+        "quantityDefect": 8,
         "engNeeded": "Yes",
         "itemConform": "Yes",
         "itemDescription": "Mechanical Parts Inspection",
-        "defectDescription": [
-            "Wear and tear: Parts show signs of aging.",
-            "Misalignment: Components do not fit together properly."
-        ],
+        "defectDescription": "Wear and tear: Parts show signs of aging.\nMisalignment: Components do not fit together properly.",
         "documentFiles": [
             "5647382910.jpeg",
-            "1234567890.docx"
+            "1234567890.jpg"
         ],
         "ncrStatus": "Quality"
     },
@@ -123,17 +108,14 @@
         "poNumber": "0111559541",
         "soNumber": "1157679",
         "quantityReceived": 60,
-        "quantityDefective": 10,
+        "quantityDefect": 10,
         "engNeeded": "No",
         "itemConform": "No",
         "itemDescription": "Food Safety Inspection Report",
-        "defectDescription": [
-            "Contamination: Signs of foreign materials present.",
-            "Temperature control failure: Items stored outside safe temperature ranges."
-        ],
+        "defectDescription": "Contamination: Signs of foreign materials present.\nTemperature control failure: Items stored outside safe temperature ranges.",
         "documentFiles": [
             "9876543210.jpeg",
-            "4567891230.docx"
+            "4567891230.png"
         ],
         "ncrStatus": "Quality"
     },
@@ -146,17 +128,14 @@
         "poNumber": "0111559542",
         "soNumber": "1157680",
         "quantityReceived": 22,
-        "quantityDefective": 4,
+        "quantityDefect": 4,
         "engNeeded": "Yes",
         "itemConform": "Yes",
         "itemDescription": "Fabric Quality Control Report",
-        "defectDescription": [
-            "Color fading: Fabric loses its original color.",
-            "Weak seams: Seams are not durable enough."
-        ],
+        "defectDescription": "Color fading: Fabric loses its original color.\nWeak seams: Seams are not durable enough.",
         "documentFiles": [
             "3216549870.jpeg",
-            "6543219870.docx"
+            "6543219870.mp4"
         ],
         "ncrStatus": "Quality"
     },
@@ -169,17 +148,14 @@
         "poNumber": "0111559543",
         "soNumber": "1157681",
         "quantityReceived": 35,
-        "quantityDefective": 6,
+        "quantityDefect": 6,
         "engNeeded": "No",
         "itemConform": "No",
         "itemDescription": "Construction Materials Inspection",
-        "defectDescription": [
-            "Inconsistent sizing: Materials do not match specified sizes.",
-            "Surface defects: Cracks or chips present."
-        ],
+        "defectDescription": "Inconsistent sizing: Materials do not match specified sizes.\nSurface defects: Cracks or chips present.",
         "documentFiles": [
             "1597534862.jpeg",
-            "7539518520.docx"
+            "7539518520.png"
         ],
         "ncrStatus": "Quality"
     },
@@ -192,17 +168,14 @@
         "poNumber": "0111559544",
         "soNumber": "1157682",
         "quantityReceived": 28,
-        "quantityDefective": 3,
+        "quantityDefect": 3,
         "engNeeded": "Yes",
         "itemConform": "Yes",
         "itemDescription": "Cosmetic Product Quality Report",
-        "defectDescription": [
-            "Packaging damage: Outer packaging is damaged.",
-            "Ingredient mismatch: Ingredients do not match the label."
-        ],
+        "defectDescription": "Packaging damage: Outer packaging is damaged.\nIngredient mismatch: Ingredients do not match the label.",
         "documentFiles": [
             "8523697410.jpeg",
-            "1472583690.docx"
+            "1472583690.mp4"
         ],
         "ncrStatus": "Quality"
     },
@@ -215,17 +188,14 @@
         "poNumber": "0111559545",
         "soNumber": "1157683",
         "quantityReceived": 45,
-        "quantityDefective": 1,
+        "quantityDefect": 1,
         "engNeeded": "No",
         "itemConform": "Yes",
         "itemDescription": "Medical Equipment Quality Inspection",
-        "defectDescription": [
-            "Calibration error: Equipment is not calibrated correctly.",
-            "Packaging concerns: Some items are not properly packaged."
-        ],
+        "defectDescription": "Calibration error: Equipment is not calibrated correctly.\nPackaging concerns: Some items are not properly packaged.",
         "documentFiles": [
             "4561237890.jpeg",
-            "2589631470.docx"
+            "2589631470.mp4"
         ],
         "ncrStatus": "Quality"
     }
