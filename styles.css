@@ -432,7 +432,7 @@ footer {
     align-items: center;
 }
 
-.div-table .div-container table {
+table {
     width: 100%;
     text-align: left;
     border-collapse: collapse;
@@ -446,32 +446,32 @@ table thead {
 }
 
 .table-title,
-.div-table .div-container table thead tr th:first-child,
-.div-table .div-container table tbody tr td:first-child {
+table thead tr th:first-child,
+table tbody tr td:first-child {
     padding-left: 30px;
 }
 
-.div-table .div-container table thead tr th,
-.div-table .div-container table tbody tr td {
+table thead tr th,
+table tbody tr td {
     padding-right: 20px;
 }
 
-.div-table .div-container table thead tr th {
+table thead tr th {
     align-items: center;
     justify-content: flex-start;
     height: 50px;
 }
 
-.div-table .div-container table tbody tr{
+table tbody tr{
     border-bottom: 2px solid #d3d3d3;
     height: 60px;
 }
 
-.div-table .div-container table tbody tr:last-child {
+table tbody tr:last-child {
     border-bottom: none;
 }
 
-.div-table .div-container table button {
+table button {
     display: inline-flex;
     align-items: center;
     padding: 5px 10px;
@@ -484,16 +484,16 @@ table thead {
     border-radius: 7px;
 }
 
-.div-table .div-container table button:hover {
+table button:hover {
     background-color: #00214d;
     color: #fdfdfd;
 }
 
-.div-table .div-container table button svg {
+table button svg {
     margin-right: 5px;
 }
 
-.div-table .div-container table tbody tr:hover {
+table tbody tr:hover {
     background-color: rgba(153, 202, 255, 0.1);
 }
 
@@ -517,18 +517,29 @@ table thead {
     align-items: center;
 }
 
-.modal-container {
-    width: 600px;
+.modal-container,
+.modal-container-report {
     height: auto;
     display: flex;
     background-color: #fdfdfd;
-    padding: 30px;
     border-radius: 10px;
     box-sizing: border-box;
     box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
     flex-direction: column;
-    margin: 150px auto auto auto;
+    margin: 15vh auto auto auto;
     position: relative;
+}
+
+.modal-container {
+    padding: 30px;
+    width: 600px;
+}
+
+.modal-container-report {
+    max-width: 1200px;
+    width: auto;
+    height: auto;
+    margin: 15vh 30px auto;
 }
 
 .modal-top {
@@ -538,7 +549,7 @@ table thead {
     margin-bottom: 20px;
 }
 
-.modal-container .btn-close {
+.btn-close {
     position: absolute;
     top: 20px;
     right: 20px;
@@ -548,7 +559,7 @@ table thead {
     height: auto;
 }
 
-.modal-container .btn-close svg:hover {
+.btn-close svg:hover {
     border-radius: 25px;
     color: #fdfdfd;
     transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out;
@@ -574,6 +585,14 @@ table thead {
 .modal-logo img{
     height: 50px;
     width: auto;
+}
+
+#reportsTable {
+    display: none;
+}
+
+.modal-container-report .modal-top {
+    margin: 0;
 }
 
 /* -------------------------------------------------------------- */
@@ -1081,46 +1100,48 @@ button {
         padding: 0 20px 20px;
     }
 
-    .div-table .div-container {
+    .div-table .div-container,
+    .modal-container-report {
         overflow-x: auto;
         overflow-y: hidden;
         scrollbar-color: #007bff #e3e7f2;
         position: relative;
     }
     
-    .div-table .div-container table {
+    table {
         width: 100%;
         table-layout: auto;
     }
 
     .table-title,
-    .div-table .div-container th:first-child,
-    .div-table .div-container td:first-child {
+    .modal-container-report .modal-top,
+    th:first-child,
+    td:first-child {
         position: sticky;
         left: 0;
         z-index: 3;
     }
 
-    .div-table .div-container th:first-child {
+    th:first-child {
         background-color: #e3e7f2;
     }
 
-    .div-table .div-container th:first-child,
-    .div-table .div-container td:first-child {
+    th:first-child,
+    td:first-child {
         padding-left: 10px;
     }
 
-    .div-table .div-container td:first-child {
+    td:first-child {
         background-color: #fdfdfd;
     }
 
-    .div-table .div-container th {
+    th {
         position: sticky;
         top: 0;
         z-index: 2;
     }
 
-    .div-table .div-container td {
+    td {
         white-space: nowrap;
     }
     
