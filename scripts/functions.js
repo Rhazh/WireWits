@@ -361,6 +361,9 @@ function performSearch() {
         resultsCountMessage.textContent = 'Start date must be earlier than or equal to end date.';
         resultsCountMessage.style.display = 'inline';
         return;
+    } else if (ncrNumber && /[a-zA-Z]/.test(ncrNumber)) {
+        resultsCountMessage.textContent = 'NCR Number must not contain alphabetic characters.';
+        resultsCountMessage.style.display = 'inline';
     } else {
         resultsCountMessage.style.display = 'none';
     }
