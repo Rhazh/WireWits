@@ -966,10 +966,10 @@ function performSearchReports() {
     });
 
     // Take the first 10 results after sorting
-    const tenResults = filteredReports.length > 10 ? filteredReports.slice(0, 10) : filteredReports;
+   // const tenResults = filteredReports.length > 10 ? filteredReports.slice(0, 10) : filteredReports;
 
     // Populate the table with filtered results
-    populateReportsTable(tenResults);
+    populateReportsTable(filteredReports);
 
     // Show or hide "no results" message
     const noResultsMessage = document.getElementById('noResultsMessage');
