@@ -178,7 +178,7 @@ function populateDetailsPage(ncrNumber) {
         document.getElementById('createdBy').textContent = entry.createdBy ?? "";
         document.getElementById('ncrStatus').textContent = entry.ncrStatus ?? "Quality";
         document.getElementById('applicableProcess').textContent = entry.applicableProcess ?? "";
-        document.getElementById('supplierName').textContent = entry.supplierName ?? "";
+        document.getElementById('supplierNameD').textContent = entry.supplierName ?? "";
 
         // Use nullish coalescing to handle missing or undefined values
         document.getElementById('poNumber').textContent = entry.poNumber ?? "";
@@ -194,7 +194,7 @@ function populateDetailsPage(ncrNumber) {
         document.getElementById('itemConform').textContent = entry.itemConform ?? "No";
 
         const documentFilesList = document.getElementById('attachedDocument');
-        documentFilesList.innerHTML = 'No uploaded files.'; // Clear any existing content
+        documentFilesList.innerHTML = ''; // Clear any existing content
 
         if (entry.documentFiles.length > 0) {
             entry.documentFiles.forEach(file => {
@@ -202,7 +202,7 @@ function populateDetailsPage(ncrNumber) {
                 li.textContent = file; // Just display the file name
                 documentFilesList.appendChild(li);
             });
-        }
+        } else{documentFilesList.innerHTML = 'No uploaded files.'}
 
         // Disable edit button if status is not "Quality"
         const editButton = document.getElementById('editButton'); // Assuming you have an edit button with this ID
@@ -261,6 +261,7 @@ function detailsEntry(ncrNumber) {
 // or immediately after creationg an NCR
 // ============================================================
 function populateEditPage(ncrNumber) {
+    document.getElementById('createEditNCR').innerHTML = 'Edit NCR';
     document.getElementById('create-edit')
     const entry = quality.find(item => item.ncrNumber === ncrNumber);
     if (entry) {
@@ -297,6 +298,7 @@ function populateEditPage(ncrNumber) {
 // Supporting Function - Redirection to Edit an NCR when Edit button is clicked
 function editEntry(ncrNumber) {
         window.location.href = `create.html?ncr=${ncrNumber}`; // Redirect to edit page
+        
 }
 
 // Supporting Function - Redirection to Edit an NCR when Edit button is clicked
@@ -524,7 +526,32 @@ function CreateNCR() {
 
 
     // Dynamically update elements with the new NCR data
-    populateEditPage(qualityEntry.ncrNumber)
+    //populateEditPage(qualityEntry.ncrNumber)
+    document.getElementById('ncrNumber').textContent = qualityEntry.ncrNumber;
+        document.getElementById('dateCreated').textContent = formatDate(qualityEntry.dateCreated);
+        document.getElementById('createdBy').textContent = qualityEntry.createdBy;
+        document.getElementById('ncrStatus').textContent = qualityEntry.ncrStatus;
+        document.getElementById('applicableProcess').value = qualityEntry.applicableProcess;
+        document.getElementById('supplierName').value = qualityEntry.supplierName;
+        document.getElementById('poNumber').value = qualityEntry.poNumber ? qualityEntry.poNumber : '';
+        document.getElementById('soNumber').value = qualityEntry.soNumber ? qualityEntry.soNumber : '';
+        document.getElementById('quantityReceived').value = qualityEntry.quantityReceived ? qualityEntry.quantityReceived : '';
+        document.getElementById('quantityDefect').value = qualityEntry.quantityDefect ? qualityEntry.quantityDefect : '';
+        document.getElementById('itemDescription').value = qualityEntry.itemDescription ? qualityEntry.itemDescription : '';
+        document.getElementById('defectDescription').value = qualityEntry.defectDescription ? qualityEntry.defectDescription : '';
+        document.getElementById('engNeeded').checked = qualityEntry.engNeeded === 'Yes';
+        document.getElementById('itemConform').checked = qualityEntry.itemConform === 'Yes';
+        // Handle previously uploaded files
+        const fileNamesDisplay = document.getElementById('fileNames');
+        if (qualityEntry.documentFiles && qualityEntry.documentFiles.length > 0) {
+            // Display previously uploaded files
+            fileNamesDisplay.innerHTML = `Previously Uploaded Files:<br>${qualityEntry.documentFiles.join('<br>')}`;
+        } else {
+            //fileNamesDisplay.textContent = 'No files uploaded yet.';
+        }
+
+        // Ensure that the global uploadedFiles array contains previously uploaded files
+        uploadedFiles = [...qualityEntry.documentFiles];
 
     alert(`NCR Number ${ncrNumber} successfully generated. You may continue to provide additional information now or later`);
 
