@@ -39,7 +39,8 @@ function populateNotifications() {
     }
 
     if (oldNotifications.length === 0) {
-        dropdown.innerHTML = "<p>No urgent notifications</p>";
+        dropdown.innerHTML = "<span>No urgent notifications</span>";
+        countLabel.style.opacity = "0%";
         return;
     }
 
