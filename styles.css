@@ -4,32 +4,6 @@
     padding: 0;
 }
 
-.pagination-container {
-    margin: 20px 0;
-    text-align: center;
-}
-
-.pagination-container button {
-    margin: 0 5px;
-    padding: 5px 10px;
-    border: 1px solid #007bff;
-    background-color: #ffffff;
-    color: #007bff;
-    cursor: pointer;
-}
-
-.pagination-container button.active {
-    background-color: #007bff;
-    color: #ffffff;
-}
-
-.pagination-container button:hover {
-    background-color: #007bff;
-    color: #ffffff;
-}
-
-
-
 body {
     font-family: "Instrument Sans", sans-serif;
     font-optical-sizing: auto;
@@ -565,7 +539,6 @@ table tbody tr:hover {
     max-width: 1200px;
     width: auto;
     height: auto;
-    margin: 15vh 30px auto;
 }
 
 .modal-top {
@@ -955,6 +928,40 @@ button {
     color: #0b1c33; /* No link for the last breadcrumb */
     pointer-events: none;
     cursor: default;
+}
+
+/* -------------------------------------------------------------- */
+/* -------------------------------------------------------------- */
+/* -------------------------------------------------------------- */
+
+/* Breadcrumb styling */
+.pagination-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 15px;
+}
+
+.pagination-container button {
+    margin: 0 5px;
+    width: 35px;
+    height: 35px;
+    cursor: pointer;
+    color: #00214d;
+    background-color: #e3e7f2;
+    font-size: 18px;
+    border-radius: 5px;
+    border: none;
+}
+
+.pagination-container button.active {
+    background-color: #00214d;
+    color: #fdfdfd;
+}
+
+.pagination-container button:hover {
+    background-color: #0056b3;
+    color: #fdfdfd;
 }
 
 /* -------------------------------------------------------------- */
