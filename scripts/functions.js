@@ -44,7 +44,7 @@ function populateNotifications() {
         return;
     }
 
-    dropdownDesc.innerHTML = "<p>Pending NCRs for Over 30 Days</p>"; // Text explaining urgency
+    dropdownDesc.innerHTML = "<p>Pending NCRs for Over 7 Days</p>"; // Text explaining urgency
 
     oldNotifications.forEach(ncrNumber => {
         const p = document.createElement('p');
