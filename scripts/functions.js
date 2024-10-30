@@ -66,7 +66,7 @@ function populateNotifications() {
 function getOldNotifications() {
     const today = new Date();
     const fourteenDaysAgo = new Date();
-    fourteenDaysAgo.setDate(today.getDate() - 30);
+    fourteenDaysAgo.setDate(today.getDate() - 7);
 
     return quality.filter(item => new Date(item.dateCreated) < fourteenDaysAgo && item.ncrStatus == "Quality")
         .map(item => item.ncrNumber);
