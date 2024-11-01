@@ -30,15 +30,20 @@ function populateNotifications() {
     }
     dropdown.innerHTML = ""; // Clear existing notifications
 
-    const oldNotifications = getOldNotifications();
+    const oldNotifications = getOldNotifications(); 
+    const closedNotifications = JSON.parse(sessionStorage.getItem('closedNotifications')) || []; 
+
+    // Filter out closed notifications
+    const visibleNotifications = oldNotifications.filter(ncr => !closedNotifications.includes(ncr));
+
     const countLabel = document.getElementById('spnCount');
     if (countLabel) {
-        countLabel.textContent = `${oldNotifications.length}`; // Update count label
+        countLabel.textContent = `${visibleNotifications.length}`; // Update count label
     } else {
         console.warn('Count label element not found.');
     }
 
-    if (oldNotifications.length === 0) {
+    if (visibleNotifications.length === 0) {
         dropdown.innerHTML = "<span>No urgent notifications</span>";
         countLabel.style.opacity = "0%";
         return;
@@ -46,8 +51,15 @@ function populateNotifications() {
 
     dropdownDesc.innerHTML = "<p>Pending NCRs for Over 7 Days</p>"; // Text explaining urgency
 
-    oldNotifications.forEach(ncrNumber => {
-        const p = document.createElement('p');
+    // Limit the number of notifications shown in the dropdown
+    const notificationsToShow = visibleNotifications; // Show all notifications in the dropdown
+
+    notificationsToShow.forEach(ncrNumber => {
+        const notificationItem = document.createElement('div');
+        notificationItem.style.display = 'flex';
+        notificationItem.style.justifyContent = 'space-between';
+        notificationItem.style.alignItems = 'center';
+
         const link = document.createElement('a');
         link.textContent = `NCR Number: ${ncrNumber}`;
         link.href = `create.html?ncr=${ncrNumber}`;
@@ -57,9 +69,45 @@ function populateNotifications() {
             editEntry(ncrNumber);
         };
 
-        p.appendChild(link);
-        dropdown.appendChild(p);
+        const closeButton = document.createElement('button');
+        closeButton.textContent = '×'; // Use a simple cross character
+        closeButton.style.background = 'transparent';
+        closeButton.style.border = 'none';
+        closeButton.style.cursor = 'pointer';
+        closeButton.style.marginLeft = '10px'; // Space between link and button
+        closeButton.style.fontSize = '20px'; // Adjust the font size
+        closeButton.style.width = '30px'; // Set a specific width
+        closeButton.style.height = '30px'; // Set a specific height
+        closeButton.style.lineHeight = '30px'; // Center the text vertically if needed
+        closeButton.style.padding = '0'; // Remove default padding
+        closeButton.onclick = (e) => {
+            e.preventDefault(); // Prevent default action
+            e.stopPropagation(); // Prevent click from propagating to parent elements
+
+            // Logic to close the notification
+            closedNotifications.push(ncrNumber); // Store the closed notification
+            sessionStorage.setItem('closedNotifications', JSON.stringify(closedNotifications)); // Save to sessionStorage
+            notificationItem.remove(); // Remove this notification item
+            updateNotificationCount(); // Update the notification count
+            // Dropdown remains open
+        };
+
+        notificationItem.appendChild(link);
+        notificationItem.appendChild(closeButton);
+        dropdown.appendChild(notificationItem);
     });
+
+    // Add a style to make the dropdown scrollable
+    dropdown.style.overflowY = 'auto';
+    dropdown.style.maxHeight = '200px'; // Set the height limit for scrolling
+}
+
+// Function to update notification count
+function updateNotificationCount() {
+    const dropdown = document.getElementById('notifList');
+    const countLabel = document.getElementById('spnCount');
+    const currentCount = dropdown.children.length;
+    countLabel.textContent = `${currentCount}`; // Update count label
 }
 
 // Supporting Function - Get Old Notifications
@@ -68,9 +116,11 @@ function getOldNotifications() {
     const fourteenDaysAgo = new Date();
     fourteenDaysAgo.setDate(today.getDate() - 7);
 
-    return quality.filter(item => new Date(item.dateCreated) < fourteenDaysAgo && item.ncrStatus == "Quality")
+    return quality.filter(item => new Date(item.dateCreated) < fourteenDaysAgo && item.ncrStatus === "Quality")
         .map(item => item.ncrNumber);
 }
+
+
 
 // Close dropdown if clicked outside (Notification)
 document.addEventListener('click', function (event) {
@@ -96,10 +146,14 @@ document.addEventListener('click', function (event) {
     }
 });
 
-// Supporoting functions for toggle down
+// Add this function to manage dropdown state
 function toggleDropdown() {
-    const dropdown = document.getElementById('notifDisplay');
-    dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+    const btnNotification = document.getElementById('btnNotification');
+    const notifDisplay = document.getElementById('notifDisplay');
+    
+    const isExpanded = btnNotification.getAttribute('aria-expanded') === 'true';
+    btnNotification.setAttribute('aria-expanded', !isExpanded);
+    notifDisplay.style.display = isExpanded ? 'none' : 'block'; // Toggle dropdown visibility
 }
 
 // Toggle Profile Dropdown
