@@ -84,7 +84,9 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (loadingIndicator) loadingIndicator.style.display = 'none';
 
         // Populate notifications or handle errors
+       
         populateNotifications();
+        NavBar();
 
         const urlParams = new URLSearchParams(window.location.search);
         const ncrNumber = urlParams.get('ncr');
@@ -240,7 +242,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     // Set up the Save and Submit NCR functions
-    function setupSaveNCR(fullNameElement) {
+    function setupSaveNCR() {
         document.getElementById('btnSave').addEventListener('click', () => {
             saveNCR();
         });
@@ -276,11 +278,12 @@ document.addEventListener('DOMContentLoaded', async () => {
         window.history.back();
     }
 
-    // Set up breadcrumbs
+    //breadcrumbs
     const breadcrumbMap = {
         'index.html': 'Dashboard',
         'view.html': 'View NCRs',
         'create.html': 'Create NCR',
+        'edit.html': 'Edit NCR',
         'details.html': 'NCR Details',
         'faqs.html': 'FAQs',
         'login.html': 'Login',
@@ -288,15 +291,24 @@ document.addEventListener('DOMContentLoaded', async () => {
         'settings.html': 'Settings',
         'underdevelopment.html': 'Under Development',
     };
-
+    
     // Get the current page path
     const currentPage = window.location.pathname.split('/').pop();
-
+    const urlParams = new URLSearchParams(window.location.search);
+    
+    // Determine if the page is in edit mode based on presence of 'ncr' parameter
+    const isEditMode = urlParams.has('ncr'); // If 'ncr' parameter exists, it's edit mode
+    
     const derivedPath = [];
     if (currentPage === 'details.html') {
         derivedPath.push('index.html', 'view.html', 'details.html');
     } else if (currentPage === 'create.html') {
-        derivedPath.push('index.html', 'create.html');
+        // Check if it's create or edit mode based on the 'ncr' parameter
+        if (isEditMode) {
+            derivedPath.push('index.html', 'edit.html'); // Show 'Edit NCR' when in edit mode
+        } else {
+            derivedPath.push('index.html', 'create.html'); // Show 'Create NCR' otherwise
+        }
     } else if (currentPage === 'view.html') {
         derivedPath.push('index.html', 'view.html');
     } else if (currentPage === 'reports.html') {
@@ -304,14 +316,14 @@ document.addEventListener('DOMContentLoaded', async () => {
     } else {
         derivedPath.push('index.html'); // Default case for the homepage
     }
-
+    
     // Get the breadcrumb list container
     const breadcrumbList = document.querySelector('.breadcrumb-list');
-
+    
     // Populate the breadcrumb based on the derived path
     derivedPath.forEach((page, index) => {
         const listItem = document.createElement('li');
-
+    
         if (index === derivedPath.length - 1) {
             listItem.textContent = breadcrumbMap[page];
         } else {
@@ -321,16 +333,17 @@ document.addEventListener('DOMContentLoaded', async () => {
             link.textContent = breadcrumbMap[page];
             listItem.appendChild(link);
         }
-
+    
         // Append the list item to the breadcrumb list
         breadcrumbList.appendChild(listItem);
-
+    
         // Add separator except for the last item
         if (index < derivedPath.length - 1) {
             const separator = document.createElement('span');
             separator.textContent = ' > ';
             breadcrumbList.appendChild(separator);
         }
+    
     });
 });
 

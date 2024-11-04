@@ -17,7 +17,8 @@
             "898971321_9882189.jpeg",
             "918239_98391.mp4"
         ],
-        "ncrStatus": "Quality"
+        "ncrStatus": "Quality",
+        "comment" : ""
     },
     {
         "ncrNumber": "2024-002",
@@ -37,7 +38,8 @@
             "1029384756.jpeg",
             "2938475612.jpeg"
         ],
-        "ncrStatus": "Quality"
+        "ncrStatus": "Quality",
+        "comment" : ""
     },
     {
         "ncrNumber": "2024-003",
@@ -57,7 +59,8 @@
             "8473625147.jpeg",
             "5647382910.png"
         ],
-        "ncrStatus": "Quality"
+        "ncrStatus": "Quality",
+        "comment" : ""
     },
     {
         "ncrNumber": "2024-004",
@@ -77,7 +80,8 @@
             "1122334455.jpeg",
             "9988776655.mp4"
         ],
-        "ncrStatus": "Quality"
+        "ncrStatus": "Quality",
+        "comment" : ""
     },
     {
         "ncrNumber": "2024-005",
@@ -97,7 +101,8 @@
             "5647382910.jpeg",
             "1234567890.jpg"
         ],
-        "ncrStatus": "Quality"
+        "ncrStatus": "Quality",
+        "comment" : ""
     },
     {
         "ncrNumber": "2024-006",
@@ -117,7 +122,8 @@
             "9876543210.jpeg",
             "4567891230.png"
         ],
-        "ncrStatus": "Quality"
+        "ncrStatus": "Quality",
+        "comment" : ""
     },
     {
         "ncrNumber": "2024-007",
@@ -137,7 +143,8 @@
             "3216549870.jpeg",
             "6543219870.mp4"
         ],
-        "ncrStatus": "Quality"
+        "ncrStatus": "Quality",
+        "comment" : ""
     },
     {
         "ncrNumber": "2024-008",
@@ -157,7 +164,8 @@
             "1597534862.jpeg",
             "7539518520.png"
         ],
-        "ncrStatus": "Quality"
+        "ncrStatus": "Quality",
+        "comment" : ""
     },
     {
         "ncrNumber": "2024-009",
@@ -177,7 +185,8 @@
             "8523697410.jpeg",
             "1472583690.mp4"
         ],
-        "ncrStatus": "Quality"
+        "ncrStatus": "Quality",
+        "comment" : ""
     },
     {
         "ncrNumber": "2024-010",
@@ -197,6 +206,217 @@
             "4561237890.jpeg",
             "2589631470.mp4"
         ],
-        "ncrStatus": "Quality"
+        "ncrStatus": "Quality",
+        "comment" : ""
+    },
+    {
+        "ncrNumber": "2024-011",
+        "dateCreated": "09/29/2024",
+        "createdBy": "Emma Clark",
+        "supplierName": "Green Solutions",
+        "applicableProcess": "Supplier or Rec-Insp",
+        "poNumber": "0111559546",
+        "soNumber": "1157684",
+        "quantityReceived": 50,
+        "quantityDefect": 4,
+        "engNeeded": "Yes",
+        "itemConform": "No",
+        "itemDescription": "Sustainable Materials Quality Control",
+        "defectDescription": "Material inconsistency: Variations in material quality.\nSupplier certification issues: Lack of required certifications.",
+        "documentFiles": [
+            "1234567890.jpeg",
+            "9876543210.mp4"
+        ],
+        "ncrStatus": "Quality",
+        "comment": ""
+    },
+    {
+        "ncrNumber": "2024-012",
+        "dateCreated": "09/30/2024",
+        "createdBy": "James Taylor",
+        "supplierName": "Electronics Hub",
+        "applicableProcess": "WIP (Production Order)",
+        "poNumber": "0111559547",
+        "soNumber": "1157685",
+        "quantityReceived": 20,
+        "quantityDefect": 2,
+        "engNeeded": "No",
+        "itemConform": "Yes",
+        "itemDescription": "Consumer Electronics Quality Report",
+        "defectDescription": "Battery issues: Inconsistent battery performance.\nCosmetic flaws: Scratches on devices.",
+        "documentFiles": [
+            "1112223333.jpeg",
+            "4445556666.mp4"
+        ],
+        "ncrStatus": "Quality",
+        "comment": ""
+    },
+    {
+        "ncrNumber": "2024-013",
+        "dateCreated": "10/01/2024",
+        "createdBy": "Olivia Wright",
+        "supplierName": "Gadget World",
+        "applicableProcess": "Supplier or Rec-Insp",
+        "poNumber": "0111559548",
+        "soNumber": "1157686",
+        "quantityReceived": 35,
+        "quantityDefect": 5,
+        "engNeeded": "Yes",
+        "itemConform": "No",
+        "itemDescription": "Gadget Quality Assurance Report",
+        "defectDescription": "Functionality issues: Devices do not operate as intended.\nPackaging integrity: Damage to packaging.",
+        "documentFiles": [
+            "7894561230.jpeg",
+            "3216549870.mp4"
+        ],
+        "ncrStatus": "Quality",
+        "comment": ""
+    },
+    {
+        "ncrNumber": "2024-014",
+        "dateCreated": "10/02/2024",
+        "createdBy": "Liam Johnson",
+        "supplierName": "Home Essentials",
+        "applicableProcess": "WIP (Production Order)",
+        "poNumber": "0111559549",
+        "soNumber": "1157687",
+        "quantityReceived": 60,
+        "quantityDefect": 3,
+        "engNeeded": "No",
+        "itemConform": "Yes",
+        "itemDescription": "Home Appliance Quality Check",
+        "defectDescription": "Noise issues: Appliances making excessive noise.\nEnergy efficiency concerns: Items not meeting standards.",
+        "documentFiles": [
+            "6543217890.jpeg",
+            "9871236540.mp4"
+        ],
+        "ncrStatus": "Quality",
+        "comment": ""
+    },
+    {
+        "ncrNumber": "2024-015",
+        "dateCreated": "10/03/2024",
+        "createdBy": "Sophia White",
+        "supplierName": "Sporting Goods Inc.",
+        "applicableProcess": "Supplier or Rec-Insp",
+        "poNumber": "0111559550",
+        "soNumber": "1157688",
+        "quantityReceived": 45,
+        "quantityDefect": 7,
+        "engNeeded": "Yes",
+        "itemConform": "No",
+        "itemDescription": "Sports Equipment Quality Control",
+        "defectDescription": "Structural issues: Items show signs of weakness.\nMaterial failure: Parts break during testing.",
+        "documentFiles": [
+            "3216547890.jpeg",
+            "6549873210.mp4"
+        ],
+        "ncrStatus": "Quality",
+        "comment": ""
+    },
+    {
+        "ncrNumber": "2024-016",
+        "dateCreated": "10/04/2024",
+        "createdBy": "Ethan Lee",
+        "supplierName": "Pet Supplies Co.",
+        "applicableProcess": "WIP (Production Order)",
+        "poNumber": "0111559551",
+        "soNumber": "1157689",
+        "quantityReceived": 20,
+        "quantityDefect": 2,
+        "engNeeded": "No",
+        "itemConform": "Yes",
+        "itemDescription": "Pet Food Quality Inspection",
+        "defectDescription": "Contamination risk: Potential foreign materials.\nIngredient discrepancies: Variations from label ingredients.",
+        "documentFiles": [
+            "9876543210.jpeg",
+            "1234567890.mp4"
+        ],
+        "ncrStatus": "Quality",
+        "comment": ""
+    },
+    {
+        "ncrNumber": "2024-017",
+        "dateCreated": "10/05/2024",
+        "createdBy": "Ava Taylor",
+        "supplierName": "Office Supplies Ltd.",
+        "applicableProcess": "Supplier or Rec-Insp",
+        "poNumber": "0111559552",
+        "soNumber": "1157690",
+        "quantityReceived": 55,
+        "quantityDefect": 4,
+        "engNeeded": "Yes",
+        "itemConform": "No",
+        "itemDescription": "Stationery Quality Check",
+        "defectDescription": "Incorrect specifications: Items do not meet order requirements.\nMaterial quality issues: Paper quality is subpar.",
+        "documentFiles": [
+            "6549871230.jpeg",
+            "7894561230.mp4"
+        ],
+        "ncrStatus": "Quality",
+        "comment": ""
+    },
+    {
+        "ncrNumber": "2024-018",
+        "dateCreated": "10/06/2024",
+        "createdBy": "Mason Harris",
+        "supplierName": "Construction Pros",
+        "applicableProcess": "WIP (Production Order)",
+        "poNumber": "0111559553",
+        "soNumber": "1157691",
+        "quantityReceived": 40,
+        "quantityDefect": 6,
+        "engNeeded": "No",
+        "itemConform": "Yes",
+        "itemDescription": "Building Material Quality Report",
+        "defectDescription": "Non-compliance with standards: Materials do not adhere to building codes.\nSurface defects: Materials have visible damage.",
+        "documentFiles": [
+            "1239874560.jpeg",
+            "7893216540.mp4"
+        ],
+        "ncrStatus": "Quality",
+        "comment": ""
+    },
+    {
+        "ncrNumber": "2024-019",
+        "dateCreated": "10/07/2024",
+        "createdBy": "Aiden Clark",
+        "supplierName": "Beverage Distributors",
+        "applicableProcess": "Supplier or Rec-Insp",
+        "poNumber": "0111559554",
+        "soNumber": "1157692",
+        "quantityReceived": 50,
+        "quantityDefect": 3,
+        "engNeeded": "Yes",
+        "itemConform": "No",
+        "itemDescription": "Beverage Quality Control Report",
+        "defectDescription": "Flavor inconsistencies: Taste does not match specifications.\nLabeling issues: Incorrect labels on packaging.",
+        "documentFiles": [
+            "4563217890.jpeg",
+            "6541237890.mp4"
+        ],
+        "ncrStatus": "Quality",
+        "comment": ""
+    },
+    {
+        "ncrNumber": "2024-020",
+        "dateCreated": "10/08/2024",
+        "createdBy": "Lily Scott",
+        "supplierName": "Textile Warehouse",
+        "applicableProcess": "WIP (Production Order)",
+        "poNumber": "0111559555",
+        "soNumber": "1157693",
+        "quantityReceived": 30,
+        "quantityDefect": 5,
+        "engNeeded": "No",
+        "itemConform": "Yes",
+        "itemDescription": "Textile Quality Assurance Report",
+        "defectDescription": "Weaving errors: Inconsistent patterns or weaves.\nColorfastness issues: Colors bleed or fade.",
+        "documentFiles": [
+            "7896543210.jpeg",
+            "1234567890.mp4"
+        ],
+        "ncrStatus": "Quality",
+        "comment": ""
     }
 ]

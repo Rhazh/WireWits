@@ -30,23 +30,36 @@ function populateNotifications() {
     }
     dropdown.innerHTML = ""; // Clear existing notifications
 
-    const oldNotifications = getOldNotifications();
+    const oldNotifications = getOldNotifications(); 
+    const closedNotifications = JSON.parse(sessionStorage.getItem('closedNotifications')) || []; 
+
+    // Filter out closed notifications
+    const visibleNotifications = oldNotifications.filter(ncr => !closedNotifications.includes(ncr));
+
     const countLabel = document.getElementById('spnCount');
     if (countLabel) {
-        countLabel.textContent = `${oldNotifications.length}`; // Update count label
+        countLabel.textContent = `${visibleNotifications.length}`; // Update count label
     } else {
         console.warn('Count label element not found.');
     }
 
-    if (oldNotifications.length === 0) {
-        dropdown.innerHTML = "<p>No urgent notifications</p>";
+    if (visibleNotifications.length === 0) {
+        dropdown.innerHTML = "<span>No urgent notifications</span>";
+        countLabel.style.opacity = "0%";
         return;
     }
 
-    dropdownDesc.innerHTML = "<p>Pending NCRs for Over 30 Days</p>"; // Text explaining urgency
+    dropdownDesc.innerHTML = "<p>Pending NCRs for Over 7 Days</p>"; // Text explaining urgency
 
-    oldNotifications.forEach(ncrNumber => {
-        const p = document.createElement('p');
+    // Limit the number of notifications shown in the dropdown
+    const notificationsToShow = visibleNotifications; // Show all notifications in the dropdown
+
+    notificationsToShow.forEach(ncrNumber => {
+        const notificationItem = document.createElement('div');
+        notificationItem.style.display = 'flex';
+        notificationItem.style.justifyContent = 'space-between';
+        notificationItem.style.alignItems = 'center';
+
         const link = document.createElement('a');
         link.textContent = `NCR Number: ${ncrNumber}`;
         link.href = `create.html?ncr=${ncrNumber}`;
@@ -56,20 +69,58 @@ function populateNotifications() {
             editEntry(ncrNumber);
         };
 
-        p.appendChild(link);
-        dropdown.appendChild(p);
+        const closeButton = document.createElement('button');
+        closeButton.textContent = '×'; // Use a simple cross character
+        closeButton.style.background = 'transparent';
+        closeButton.style.border = 'none';
+        closeButton.style.cursor = 'pointer';
+        closeButton.style.marginLeft = '10px'; // Space between link and button
+        closeButton.style.fontSize = '20px'; // Adjust the font size
+        closeButton.style.width = '30px'; // Set a specific width
+        closeButton.style.height = '30px'; // Set a specific height
+        closeButton.style.lineHeight = '30px'; // Center the text vertically if needed
+        closeButton.style.padding = '0'; // Remove default padding
+        closeButton.onclick = (e) => {
+            e.preventDefault(); // Prevent default action
+            e.stopPropagation(); // Prevent click from propagating to parent elements
+
+            // Logic to close the notification
+            closedNotifications.push(ncrNumber); // Store the closed notification
+            sessionStorage.setItem('closedNotifications', JSON.stringify(closedNotifications)); // Save to sessionStorage
+            notificationItem.remove(); // Remove this notification item
+            updateNotificationCount(); // Update the notification count
+            // Dropdown remains open
+        };
+
+        notificationItem.appendChild(link);
+        notificationItem.appendChild(closeButton);
+        dropdown.appendChild(notificationItem);
     });
+
+    // Add a style to make the dropdown scrollable
+    dropdown.style.overflowY = 'auto';
+    dropdown.style.maxHeight = '200px'; // Set the height limit for scrolling
+}
+
+// Function to update notification count
+function updateNotificationCount() {
+    const dropdown = document.getElementById('notifList');
+    const countLabel = document.getElementById('spnCount');
+    const currentCount = dropdown.children.length;
+    countLabel.textContent = `${currentCount}`; // Update count label
 }
 
 // Supporting Function - Get Old Notifications
 function getOldNotifications() {
     const today = new Date();
     const fourteenDaysAgo = new Date();
-    fourteenDaysAgo.setDate(today.getDate() - 30);
+    fourteenDaysAgo.setDate(today.getDate() - 7);
 
-    return quality.filter(item => new Date(item.dateCreated) < fourteenDaysAgo && item.ncrStatus == "Quality")
+    return quality.filter(item => new Date(item.dateCreated) < fourteenDaysAgo && item.ncrStatus === "Quality")
         .map(item => item.ncrNumber);
 }
+
+
 
 // Close dropdown if clicked outside (Notification)
 document.addEventListener('click', function (event) {
@@ -95,10 +146,14 @@ document.addEventListener('click', function (event) {
     }
 });
 
-// Supporoting functions for toggle down
+// Add this function to manage dropdown state
 function toggleDropdown() {
-    const dropdown = document.getElementById('notifDisplay');
-    dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+    const btnNotification = document.getElementById('btnNotification');
+    const notifDisplay = document.getElementById('notifDisplay');
+    
+    const isExpanded = btnNotification.getAttribute('aria-expanded') === 'true';
+    btnNotification.setAttribute('aria-expanded', !isExpanded);
+    notifDisplay.style.display = isExpanded ? 'none' : 'block'; // Toggle dropdown visibility
 }
 
 // Toggle Profile Dropdown
@@ -178,7 +233,7 @@ function populateDetailsPage(ncrNumber) {
         document.getElementById('createdBy').textContent = entry.createdBy ?? "";
         document.getElementById('ncrStatus').textContent = entry.ncrStatus ?? "Quality";
         document.getElementById('applicableProcess').textContent = entry.applicableProcess ?? "";
-        document.getElementById('supplierName').textContent = entry.supplierName ?? "";
+        document.getElementById('supplierNameD').textContent = entry.supplierName ?? "";
 
         // Use nullish coalescing to handle missing or undefined values
         document.getElementById('poNumber').textContent = entry.poNumber ?? "";
@@ -194,7 +249,7 @@ function populateDetailsPage(ncrNumber) {
         document.getElementById('itemConform').textContent = entry.itemConform ?? "No";
 
         const documentFilesList = document.getElementById('attachedDocument');
-        documentFilesList.innerHTML = 'No uploaded files.'; // Clear any existing content
+        documentFilesList.innerHTML = ''; // Clear any existing content
 
         if (entry.documentFiles.length > 0) {
             entry.documentFiles.forEach(file => {
@@ -202,7 +257,7 @@ function populateDetailsPage(ncrNumber) {
                 li.textContent = file; // Just display the file name
                 documentFilesList.appendChild(li);
             });
-        }
+        } else{documentFilesList.innerHTML = 'No uploaded files.'}
 
         // Disable edit button if status is not "Quality"
         const editButton = document.getElementById('editButton'); // Assuming you have an edit button with this ID
@@ -261,6 +316,7 @@ function detailsEntry(ncrNumber) {
 // or immediately after creationg an NCR
 // ============================================================
 function populateEditPage(ncrNumber) {
+    document.getElementById('createEditNCR').innerHTML = 'Edit NCR';
     document.getElementById('create-edit')
     const entry = quality.find(item => item.ncrNumber === ncrNumber);
     if (entry) {
@@ -297,6 +353,7 @@ function populateEditPage(ncrNumber) {
 // Supporting Function - Redirection to Edit an NCR when Edit button is clicked
 function editEntry(ncrNumber) {
         window.location.href = `create.html?ncr=${ncrNumber}`; // Redirect to edit page
+        
 }
 
 // Supporting Function - Redirection to Edit an NCR when Edit button is clicked
@@ -315,37 +372,76 @@ function handleEditEntry(ncrNumber, ncrStatus) {
 //     sets results to a table
 //     View NCRs page is initialized to show NCRS still with Quality
 // ====================================================================
-function performSearch() {
-    const ncrNumber = document.getElementById('ncrNumber')?.value.trim();
-    const supplierName = document.getElementById('supplierName')?.value;
-    const ncrStatus = document.getElementById('ncrStatus')?.value;
-    const fromDate = document.getElementById('fromDate')?.value;
-    const toDate = document.getElementById('toDate')?.value;
+let currentPage = 1; // Initialize the current page
+let resultsPerPage = 10; // Number of results to show per page
 
-    const resultsCountMessage = document.getElementById('noResultsMessage');
+function setupPagination(totalResults, displayResultsFunc, tableBodyId, paginationContainerId) {
+    const totalPages = Math.ceil(totalResults / resultsPerPage);
+    const paginationContainer = document.getElementById(paginationContainerId);
+    paginationContainer.innerHTML = ''; // Clear previous pagination
 
-    if (fromDate && toDate && new Date(fromDate) > new Date(toDate)) {
-        resultsCountMessage.textContent = 'Start date must be earlier than or equal to end date.';
-        resultsCountMessage.style.display = 'inline';
-        return;
-    } else {
-        resultsCountMessage.style.display = 'none'; // Hide error if date range is valid
+    for (let page = 1; page <= totalPages; page++) {
+        const pageButton = document.createElement('button');
+        pageButton.textContent = page;
+        pageButton.onclick = () => {
+            currentPage = page; // Set current page to the clicked page
+            displayResultsFunc(currentPage, resultsPerPage, tableBodyId); // Update results based on current page
+        };
+
+        // Highlight the active page
+        if (page === currentPage) {
+            pageButton.classList.add('active');
+        }
+
+        paginationContainer.appendChild(pageButton); // Add button to pagination
     }
+}
 
-    // Remove duplicates from quality based on ncrNumber
+function resetPagination() {
+    currentPage = 1; // Reset to the first page
+}
+
+function performSearch() {
+    const ncrNumber = document.getElementById('ncrNumber').value.trim();
+    const supplierName = document.getElementById('supplierName').value;
+    const ncrStatus = document.getElementById('ncrStatus').value;
+    const fromDate = document.getElementById('fromDate').value;
+    const toDate = document.getElementById('toDate').value;
+
+    //const resultsCountMessage = document.getElementById('noResultsMessage');
+
+    // Date validation
+    if (fromDate && toDate && new Date(fromDate) > new Date(toDate)) {
+        //resultsCountMessage.textContent = 'Start date must be earlier than or equal to end date.';
+        //resultsCountMessage.style.display = 'inline';
+        //return;
+
+        alert("Start date must be earlier than or equal to end date.")
+        location.reload();
+        return;
+    } 
+    if (ncrNumber && /[a-zA-Z]/.test(ncrNumber)) {
+        //resultsCountMessage.textContent = 'NCR Number must not contain alphabetic characters.';
+        //resultsCountMessage.style.display = 'inline';
+
+        alert("NCR Number must not contain alphabetic characters.")
+        location.reload();
+        return;
+    } /*else {
+        resultsCountMessage.style.display = 'none';
+    }*/
+
     const uniqueQuality = Array.from(new Map(quality.map(item => [item.ncrNumber, item])).values())
         .sort((a, b) => {
-            const numA = parseInt(a.ncrNumber.split('-')[1], 10); // Extract numeric part
-            const numB = parseInt(b.ncrNumber.split('-')[1], 10); // Extract numeric part
-            return numA - numB; // Sort numerically
-        })
+            const numA = parseInt(a.ncrNumber.split('-')[1], 10);
+            const numB = parseInt(b.ncrNumber.split('-')[1], 10);
+            return numB - numA;
+        });
 
+    const fromDateObj = fromDate ? new Date(fromDate + 'T00:00:00') : null;
+    const toDateObj = toDate ? new Date(toDate + 'T23:59:59') : null;
 
-    // Convert fromDate and toDate to Date objects
-    const fromDateObj = fromDate ? new Date(fromDate + 'T00:00:00') : null; // Start of the day
-    const toDateObj = toDate ? new Date(toDate + 'T23:59:59') : null; // End of the day
-
-    const viewNCRs = uniqueQuality.filter(item => {
+    const filteredResults = uniqueQuality.filter(item => {
         const isNcrNumberValid = ncrNumber ? item.ncrNumber.includes(ncrNumber) : true;
         const isSupplierNameValid = supplierName ? item.supplierName === supplierName : true;
         const isStatusValid = ncrStatus ? item.ncrStatus === ncrStatus : true;
@@ -359,34 +455,15 @@ function performSearch() {
         return isNcrNumberValid && isSupplierNameValid && isStatusValid && isDateCreatedValid;
     });
 
+    const totalResults = filteredResults.length;
+
+    // Display results based on current page
     const tableBody = document.getElementById("viewTableContent");
-    // Check if NCR number contains any alphabetic characters
-    if (ncrNumber && /[a-zA-Z]/.test(ncrNumber)) {
-        resultsCountMessage.textContent = 'NCR Number must not contain alphabetic characters.';
-        resultsCountMessage.style.display = 'inline';
-    }
-    // Show no results message if the filtered array is empty
-    else if (viewNCRs.length === 0) {
-        resultsCountMessage.textContent = 'No results found.';
-        resultsCountMessage.style.display = 'inline';
-    } else {
-        resultsCountMessage.style.display = 'none';
-        // Optionally, you can display the results here
-        console.log(viewNCRs); // Or update the UI to show results
-    }
+    const paginatedResults = filteredResults.slice((currentPage - 1) * resultsPerPage, currentPage * resultsPerPage);
+    
+    tableBody.innerHTML = ''; // Clear previous results
 
-    if (!tableBody) {
-        console.warn('Table body element not found.');
-        return;
-    }
-    tableBody.innerHTML = '';
-
-    //const tenResults = viewNCRs.slice(0, 10);
-    // Get the last 10 results if there are more than 10
-    const tenResults = viewNCRs.length > 10 ? viewNCRs.slice(-10) : viewNCRs;
-
-    tenResults.reverse().forEach(result => {
-        //const editButtonDisabled = result.ncrStatus !== "Quality" ? "disabled" : "";
+    paginatedResults.forEach(result => {
         const newRow = `<tr>
                             <td>${result.ncrNumber}</td>
                             <td>${result.supplierName}</td>
@@ -410,9 +487,13 @@ function performSearch() {
                                 </div>
                             </td>
                         </tr>`;
-        tableBody.innerHTML += newRow;
+        tableBody.innerHTML += newRow; // Add new row to table
     });
+
+    // Setup pagination
+    setupPagination(totalResults, performSearch, "viewTableContent", "pagination");
 }
+
 
 //NCR MANAGEMENT FUNCTIONS - CREATE, SAVE, SUBMIT, CANCEL
 
@@ -512,7 +593,32 @@ function CreateNCR() {
 
 
     // Dynamically update elements with the new NCR data
-    populateEditPage(qualityEntry.ncrNumber)
+    //populateEditPage(qualityEntry.ncrNumber)
+    document.getElementById('ncrNumber').textContent = qualityEntry.ncrNumber;
+        document.getElementById('dateCreated').textContent = formatDate(qualityEntry.dateCreated);
+        document.getElementById('createdBy').textContent = qualityEntry.createdBy;
+        document.getElementById('ncrStatus').textContent = qualityEntry.ncrStatus;
+        document.getElementById('applicableProcess').value = qualityEntry.applicableProcess;
+        document.getElementById('supplierName').value = qualityEntry.supplierName;
+        document.getElementById('poNumber').value = qualityEntry.poNumber ? qualityEntry.poNumber : '';
+        document.getElementById('soNumber').value = qualityEntry.soNumber ? qualityEntry.soNumber : '';
+        document.getElementById('quantityReceived').value = qualityEntry.quantityReceived ? qualityEntry.quantityReceived : '';
+        document.getElementById('quantityDefect').value = qualityEntry.quantityDefect ? qualityEntry.quantityDefect : '';
+        document.getElementById('itemDescription').value = qualityEntry.itemDescription ? qualityEntry.itemDescription : '';
+        document.getElementById('defectDescription').value = qualityEntry.defectDescription ? qualityEntry.defectDescription : '';
+        document.getElementById('engNeeded').checked = qualityEntry.engNeeded === 'Yes';
+        document.getElementById('itemConform').checked = qualityEntry.itemConform === 'Yes';
+        // Handle previously uploaded files
+        const fileNamesDisplay = document.getElementById('fileNames');
+        if (qualityEntry.documentFiles && qualityEntry.documentFiles.length > 0) {
+            // Display previously uploaded files
+            fileNamesDisplay.innerHTML = `Previously Uploaded Files:<br>${qualityEntry.documentFiles.join('<br>')}`;
+        } else {
+            //fileNamesDisplay.textContent = 'No files uploaded yet.';
+        }
+
+        // Ensure that the global uploadedFiles array contains previously uploaded files
+        uploadedFiles = [...qualityEntry.documentFiles];
 
     alert(`NCR Number ${ncrNumber} successfully generated. You may continue to provide additional information now or later`);
 
@@ -819,8 +925,7 @@ async function fetchRecordsData() {
         console.error('Error fetching records data:', error);
     }
 }*/
-
-function populateReportsTable(data) {
+/*function populateReportsTable(data) {
     const tableContent = document.getElementById('tableContent');
     tableContent.innerHTML = ''; // Clear existing rows
     data.forEach(report => {
@@ -842,7 +947,7 @@ function populateReportsTable(data) {
         `;
         tableContent.appendChild(row);
     });
-}
+}*/
 
 function populateRecordsTable(data) {
     const tableContent = document.getElementById('reportsTableContent');
@@ -894,13 +999,8 @@ function performSearchReports() {
 
     // Date validation
     if (fromDateValue && toDateValue && new Date(fromDateValue) > new Date(toDateValue)) {
-        const noResultsMessage = document.getElementById('noResultsMessage');
-        noResultsMessage.textContent = 'Start date must be earlier than or equal to end date.';
-        noResultsMessage.style.display = 'inline';
-        return; // Exit the function if validation fails
-    } else {
-        const noResultsMessage = document.getElementById('noResultsMessage');
-        noResultsMessage.style.display = 'none'; // Hide error if date range is valid
+        alert("Start date must be earlier than or equal to end date.");
+        return;
     }
 
     // Filter by Date Range
@@ -917,34 +1017,62 @@ function performSearchReports() {
     filteredReports.sort((a, b) => {
         const [yearA, seqA] = a.ncrNumber.split('-').map(Number);
         const [yearB, seqB] = b.ncrNumber.split('-').map(Number);
-
-        // Compare years in descending order
-        if (yearA !== yearB) {
-            return yearB - yearA; // Sort by year descending
-        }
-        // Compare sequence numbers in descending order
-        return seqB - seqA; // Sort by sequence number descending
+        return yearB - yearA || seqB - seqA;
     });
 
-    // Take the first 10 results after sorting
-    const tenResults = filteredReports.length > 10 ? filteredReports.slice(0, 10) : filteredReports;
+    const totalResults = filteredReports.length;
 
-    // Populate the table with filtered results
-    populateReportsTable(tenResults);
+    // Setup pagination
+    const startIndex = (currentPage - 1) * resultsPerPage;
+    const paginatedData = filteredReports.slice(startIndex, startIndex + resultsPerPage);
+
+    // Populate the table
+    const tableContent = document.getElementById('tableContent');
+    tableContent.innerHTML = ''; // Clear existing rows
+
+    paginatedData.forEach(report => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${report.ncrNumber}</td>
+            <td>${report.createdBy}</td>
+            <td>${formatDate(report.dateCreated)}</td>
+            <td>${report.status}</td>
+            <td>${formatDate(report.lastUpdated)}</td>
+            <td>
+                <button onclick="viewReport('${report.ncrNumber}')">
+                    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+                    </svg>
+                    View History
+                </button>
+            </td>
+        `;
+        tableContent.appendChild(row);
+    });
+
+    // Setup pagination controls
+    setupPagination(totalResults, performSearchReports, 'tableContent', 'paginationControls');
 
     // Show or hide "no results" message
     const noResultsMessage = document.getElementById('noResultsMessage');
     // Check if NCR number contains any alphabetic characters
     if (ncrNumber && /[a-zA-Z]/.test(ncrNumber)) {
-        noResultsMessage.textContent = 'NCR Number must not contain alphabetic characters.';
-        noResultsMessage.style.display = 'inline';
+        //noResultsMessage.textContent = 'NCR Number must not contain alphabetic characters.';
+        //noResultsMessage.style.display = 'inline';
+
+        alert("NCR Number must not contain alphabetic characters.")
+        location.reload();
+        return;
     }
     else if (filteredReports.length === 0) {
-        noResultsMessage.textContent = 'No results found.';
-        noResultsMessage.style.display = 'block';
-    } else {
+        //noResultsMessage.textContent = 'No results found.';
+        //noResultsMessage.style.display = 'block';
+
+        alert("No results found.")
+        location.reload();
+    } /*else {
         noResultsMessage.style.display = 'none';
-    }
+    }*/
 }
 
 
@@ -971,7 +1099,7 @@ document.addEventListener('DOMContentLoaded', () => {
     fetchRecordsData();
     document.querySelector('#reportTable').style.display = 'none';
 });*/
-
+/*
 document.addEventListener('DOMContentLoaded', function () {
     const toggleCheckbox = document.getElementById('mobList');
     const navMenu = document.getElementById('mainNav');
@@ -984,6 +1112,20 @@ document.addEventListener('DOMContentLoaded', function () {
             navMenu.style.display = 'none'; // Hide the nav
         }
     });
-});
+});*/
+
+function NavBar() {
+    const toggleCheckbox = document.getElementById('mobList');
+    const navMenu = document.getElementById('mainNav');
+
+    // Function to toggle the nav menu
+    toggleCheckbox.addEventListener('change', function () {
+        if (toggleCheckbox.checked) {
+            navMenu.style.display = 'block'; // Show the nav
+        } else {
+            navMenu.style.display = 'none'; // Hide the nav
+        }
+    });
+};
 
 
