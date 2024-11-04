@@ -925,7 +925,7 @@ async function fetchRecordsData() {
         console.error('Error fetching records data:', error);
     }
 }*/
-function populateReportsTable(data) {
+/*function populateReportsTable(data) {
     const tableContent = document.getElementById('tableContent');
     tableContent.innerHTML = ''; // Clear existing rows
     data.forEach(report => {
@@ -947,7 +947,7 @@ function populateReportsTable(data) {
         `;
         tableContent.appendChild(row);
     });
-}
+}*/
 
 function populateRecordsTable(data) {
     const tableContent = document.getElementById('reportsTableContent');
@@ -999,13 +999,7 @@ function performSearchReports() {
 
     // Date validation
     if (fromDateValue && toDateValue && new Date(fromDateValue) > new Date(toDateValue)) {
-        //const noResultsMessage = document.getElementById('noResultsMessage');
-        //noResultsMessage.textContent = 'Start date must be earlier than or equal to end date.';
-        //noResultsMessage.style.display = 'inline';
-        //return; // Exit the function if validation fails
-
-        alert("Start date must be earlier than or equal to end date.")
-        location.reload();
+        alert("Start date must be earlier than or equal to end date.");
         return;
     }
 
@@ -1023,20 +1017,41 @@ function performSearchReports() {
     filteredReports.sort((a, b) => {
         const [yearA, seqA] = a.ncrNumber.split('-').map(Number);
         const [yearB, seqB] = b.ncrNumber.split('-').map(Number);
-
-        // Compare years in descending order
-        if (yearA !== yearB) {
-            return yearB - yearA; // Sort by year descending
-        }
-        // Compare sequence numbers in descending order
-        return seqB - seqA; // Sort by sequence number descending
+        return yearB - yearA || seqB - seqA;
     });
 
-    // Take the first 10 results after sorting
-   // const tenResults = filteredReports.length > 10 ? filteredReports.slice(0, 10) : filteredReports;
+    const totalResults = filteredReports.length;
 
-    // Populate the table with filtered results
-    populateReportsTable(filteredReports);
+    // Setup pagination
+    const startIndex = (currentPage - 1) * resultsPerPage;
+    const paginatedData = filteredReports.slice(startIndex, startIndex + resultsPerPage);
+
+    // Populate the table
+    const tableContent = document.getElementById('tableContent');
+    tableContent.innerHTML = ''; // Clear existing rows
+
+    paginatedData.forEach(report => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${report.ncrNumber}</td>
+            <td>${report.createdBy}</td>
+            <td>${formatDate(report.dateCreated)}</td>
+            <td>${report.status}</td>
+            <td>${formatDate(report.lastUpdated)}</td>
+            <td>
+                <button onclick="viewReport('${report.ncrNumber}')">
+                    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+                    </svg>
+                    View History
+                </button>
+            </td>
+        `;
+        tableContent.appendChild(row);
+    });
+
+    // Setup pagination controls
+    setupPagination(totalResults, performSearchReports, 'tableContent', 'paginationControls');
 
     // Show or hide "no results" message
     const noResultsMessage = document.getElementById('noResultsMessage');
@@ -1045,7 +1060,7 @@ function performSearchReports() {
         //noResultsMessage.textContent = 'NCR Number must not contain alphabetic characters.';
         //noResultsMessage.style.display = 'inline';
 
-        alert("Start date must be earlier than or equal to end date.")
+        alert("NCR Number must not contain alphabetic characters.")
         location.reload();
         return;
     }

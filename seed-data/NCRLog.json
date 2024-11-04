@@ -108,5 +108,115 @@
         "status": "Open",
         "dateClosed": "",
         "closedBy": ""
+    },
+    {
+        "ncrNumber": "2024-011",
+        "dateCreated": "09/29/2024",
+        "lastUpdated": "09/29/2024",
+        "createdBy": "Emma Clark",
+        "supplierName": "Safety Gear Inc.",
+        "applicableProcess": "Supplier or Rec-Insp",
+        "status": "Open",
+        "dateClosed": "",
+        "closedBy": ""
+    },
+    {
+        "ncrNumber": "2024-012",
+        "dateCreated": "09/30/2024",
+        "lastUpdated": "09/30/2024",
+        "createdBy": "James Taylor",
+        "supplierName": "Office Supplies Ltd.",
+        "applicableProcess": "WIP (Production Order)",
+        "status": "Open",
+        "dateClosed": "",
+        "closedBy": ""
+    },
+    {
+        "ncrNumber": "2024-013",
+        "dateCreated": "10/01/2024",
+        "lastUpdated": "10/01/2024",
+        "createdBy": "Olivia Wright",
+        "supplierName": "Electrical Components Co.",
+        "applicableProcess": "Supplier or Rec-Insp",
+        "status": "Open",
+        "dateClosed": "",
+        "closedBy": ""
+    },
+    {
+        "ncrNumber": "2024-014",
+        "dateCreated": "10/02/2024",
+        "lastUpdated": "10/02/2024",
+        "createdBy": "Liam Johnson",
+        "supplierName": "Packaging Solutions Inc.",
+        "applicableProcess": "WIP (Production Order)",
+        "status": "Open",
+        "dateClosed": "",
+        "closedBy": ""
+    },
+    {
+        "ncrNumber": "2024-015",
+        "dateCreated": "10/03/2024",
+        "lastUpdated": "10/03/2024",
+        "createdBy": "Sophia White",
+        "supplierName": "Pharmaceuticals Ltd.",
+        "applicableProcess": "Supplier or Rec-Insp",
+        "status": "Open",
+        "dateClosed": "",
+        "closedBy": ""
+    },
+    {
+        "ncrNumber": "2024-016",
+        "dateCreated": "10/04/2024",
+        "lastUpdated": "10/04/2024",
+        "createdBy": "Ethan Lee",
+        "supplierName": "Beverage Suppliers Inc.",
+        "applicableProcess": "WIP (Production Order)",
+        "status": "Open",
+        "dateClosed": "",
+        "closedBy": ""
+    },
+    {
+        "ncrNumber": "2024-017",
+        "dateCreated": "10/05/2024",
+        "lastUpdated": "10/05/2024",
+        "createdBy": "Ava Taylor",
+        "supplierName": "Cleaning Products Co.",
+        "applicableProcess": "Supplier or Rec-Insp",
+        "status": "Open",
+        "dateClosed": "",
+        "closedBy": ""
+    },
+    {
+        "ncrNumber": "2024-018",
+        "dateCreated": "10/06/2024",
+        "lastUpdated": "10/06/2024",
+        "createdBy": "Mason Harris",
+        "supplierName": "Furniture Co.",
+        "applicableProcess": "WIP (Production Order)",
+        "status": "Open",
+        "dateClosed": "",
+        "closedBy": ""
+    },
+    {
+        "ncrNumber": "2024-019",
+        "dateCreated": "10/07/2024",
+        "lastUpdated": "10/07/2024",
+        "createdBy": "Aiden Clark",
+        "supplierName": "Jewelry Supplies Inc.",
+        "applicableProcess": "Supplier or Rec-Insp",
+        "status": "Open",
+        "dateClosed": "",
+        "closedBy": ""
+    },
+    {
+        "ncrNumber": "2024-020",
+        "dateCreated": "10/08/2024",
+        "lastUpdated": "10/08/2024",
+        "createdBy": "Lily Scott",
+        "supplierName": "Sporting Goods Ltd.",
+        "applicableProcess": "WIP (Production Order)",
+        "status": "Open",
+        "dateClosed": "",
+        "closedBy": ""
     }
 ]

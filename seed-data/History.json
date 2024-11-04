@@ -1,163 +1,322 @@
 [
-    {
+  {
       "ncrNumber": "2024-001",
       "actionType": "Generate",
       "status": "Open",
       "actionDescription": "New NCR generated",
       "changedBy": "Cassandra Washington",
       "changedOn": "08/30/2024"
-    },
-    {
+  },
+  {
       "ncrNumber": "2024-002",
       "actionType": "Generate",
       "status": "Open",
       "actionDescription": "New NCR generated",
       "changedBy": "Marcus Allen",
       "changedOn": "08/31/2024"
-    },
-    {
+  },
+  {
       "ncrNumber": "2024-003",
       "actionType": "Generate",
       "status": "Open",
       "actionDescription": "New NCR generated",
       "changedBy": "Sophia Lee",
       "changedOn": "09/21/2024"
-    },
-    {
+  },
+  {
       "ncrNumber": "2024-004",
       "actionType": "Generate",
       "status": "Open",
       "actionDescription": "New NCR generated",
       "changedBy": "James Smith",
       "changedOn": "09/22/2024"
-    },
-    {
+  },
+  {
       "ncrNumber": "2024-005",
       "actionType": "Generate",
       "status": "Open",
       "actionDescription": "New NCR generated",
       "changedBy": "Emily Davis",
       "changedOn": "09/23/2024"
-    },
-    {
+  },
+  {
       "ncrNumber": "2024-006",
       "actionType": "Generate",
       "status": "Open",
       "actionDescription": "New NCR generated",
       "changedBy": "Oliver Brown",
       "changedOn": "09/24/2024"
-    },
-    {
+  },
+  {
       "ncrNumber": "2024-007",
       "actionType": "Generate",
       "status": "Open",
       "actionDescription": "New NCR generated",
       "changedBy": "Isabella Johnson",
       "changedOn": "09/25/2024"
-    },
-    {
+  },
+  {
       "ncrNumber": "2024-008",
       "actionType": "Generate",
       "status": "Open",
       "actionDescription": "New NCR generated",
       "changedBy": "Liam Miller",
       "changedOn": "09/26/2024"
-    },
-    {
+  },
+  {
       "ncrNumber": "2024-009",
       "actionType": "Generate",
       "status": "Open",
       "actionDescription": "New NCR generated",
       "changedBy": "Mia Wilson",
       "changedOn": "09/27/2024"
-    },
-    {
+  },
+  {
       "ncrNumber": "2024-010",
       "actionType": "Generate",
       "status": "Open",
       "actionDescription": "New NCR generated",
       "changedBy": "Noah Martinez",
       "changedOn": "09/28/2024"
-    },
-    {
-        "ncrNumber": "2024-001",
-        "actionType": "Edit",
-        "status": "Open",
-        "actionDescription": "Edited the NCR",
-        "changedBy": "Cassandra Washington",
-        "changedOn": "08/30/2024"
-      },
-      {
-        "ncrNumber": "2024-002",
-        "actionType": "Edit",
-        "status": "Open",
-        "actionDescription": "Edited the NCR",
-        "changedBy": "Marcus Allen",
-        "changedOn": "08/31/2024"
-      },
-      {
-        "ncrNumber": "2024-003",
-        "actionType": "Edit",
-        "status": "Open",
-        "actionDescription": "Edited the NCR",
-        "changedBy": "Sophia Lee",
-        "changedOn": "09/21/2024"
-      },
-      {
-        "ncrNumber": "2024-004",
-        "actionType": "Edit",
-        "status": "Open",
-        "actionDescription": "Edited the NCR",
-        "changedBy": "James Smith",
-        "changedOn": "09/22/2024"
-      },
-      {
-        "ncrNumber": "2024-005",
-        "actionType": "Edit",
-        "status": "Open",
-        "actionDescription": "Edited the NCR",
-        "changedBy": "Emily Davis",
-        "changedOn": "09/23/2024"
-      },
-      {
-        "ncrNumber": "2024-006",
-        "actionType": "Edit",
-        "status": "Open",
-        "actionDescription": "Edited the NCR",
-        "changedBy": "Oliver Brown",
-        "changedOn": "09/24/2024"
-      },
-      {
-        "ncrNumber": "2024-007",
-        "actionType": "Edit",
-        "status": "Open",
-        "actionDescription": "Edited the NCR",
-        "changedBy": "Isabella Johnson",
-        "changedOn": "09/25/2024"
-      },
-      {
-        "ncrNumber": "2024-008",
-        "actionType": "Edit",
-        "status": "Open",
-        "actionDescription": "Edited the NCR",
-        "changedBy": "Liam Miller",
-        "changedOn": "09/26/2024"
-      },
-      {
-        "ncrNumber": "2024-009",
-        "actionType": "Edit",
-        "status": "Open",
-        "actionDescription": "Edited the NCR",
-        "changedBy": "Mia Wilson",
-        "changedOn": "09/27/2024"
-      },
-      {
-        "ncrNumber": "2024-010",
-        "actionType": "Edit",
-        "status": "Open",
-        "actionDescription": "Edited the NCR",
-        "changedBy": "Noah Martinez",
-        "changedOn": "09/28/2024"
-      }
-  ]
-  
+  },
+  {
+      "ncrNumber": "2024-011",
+      "actionType": "Generate",
+      "status": "Open",
+      "actionDescription": "New NCR generated",
+      "changedBy": "Emma Clark",
+      "changedOn": "09/29/2024"
+  },
+  {
+      "ncrNumber": "2024-012",
+      "actionType": "Generate",
+      "status": "Open",
+      "actionDescription": "New NCR generated",
+      "changedBy": "James Taylor",
+      "changedOn": "09/30/2024"
+  },
+  {
+      "ncrNumber": "2024-013",
+      "actionType": "Generate",
+      "status": "Open",
+      "actionDescription": "New NCR generated",
+      "changedBy": "Olivia Wright",
+      "changedOn": "10/01/2024"
+  },
+  {
+      "ncrNumber": "2024-014",
+      "actionType": "Generate",
+      "status": "Open",
+      "actionDescription": "New NCR generated",
+      "changedBy": "Liam Johnson",
+      "changedOn": "10/02/2024"
+  },
+  {
+      "ncrNumber": "2024-015",
+      "actionType": "Generate",
+      "status": "Open",
+      "actionDescription": "New NCR generated",
+      "changedBy": "Sophia White",
+      "changedOn": "10/03/2024"
+  },
+  {
+      "ncrNumber": "2024-016",
+      "actionType": "Generate",
+      "status": "Open",
+      "actionDescription": "New NCR generated",
+      "changedBy": "Ethan Lee",
+      "changedOn": "10/04/2024"
+  },
+  {
+      "ncrNumber": "2024-017",
+      "actionType": "Generate",
+      "status": "Open",
+      "actionDescription": "New NCR generated",
+      "changedBy": "Ava Taylor",
+      "changedOn": "10/05/2024"
+  },
+  {
+      "ncrNumber": "2024-018",
+      "actionType": "Generate",
+      "status": "Open",
+      "actionDescription": "New NCR generated",
+      "changedBy": "Mason Harris",
+      "changedOn": "10/06/2024"
+  },
+  {
+      "ncrNumber": "2024-019",
+      "actionType": "Generate",
+      "status": "Open",
+      "actionDescription": "New NCR generated",
+      "changedBy": "Aiden Clark",
+      "changedOn": "10/07/2024"
+  },
+  {
+      "ncrNumber": "2024-020",
+      "actionType": "Generate",
+      "status": "Open",
+      "actionDescription": "New NCR generated",
+      "changedBy": "Lily Scott",
+      "changedOn": "10/08/2024"
+  },
+  {
+      "ncrNumber": "2024-001",
+      "actionType": "Edit",
+      "status": "Open",
+      "actionDescription": "Edited the NCR",
+      "changedBy": "Cassandra Washington",
+      "changedOn": "08/30/2024"
+  },
+  {
+      "ncrNumber": "2024-002",
+      "actionType": "Edit",
+      "status": "Open",
+      "actionDescription": "Edited the NCR",
+      "changedBy": "Marcus Allen",
+      "changedOn": "08/31/2024"
+  },
+  {
+      "ncrNumber": "2024-003",
+      "actionType": "Edit",
+      "status": "Open",
+      "actionDescription": "Edited the NCR",
+      "changedBy": "Sophia Lee",
+      "changedOn": "09/21/2024"
+  },
+  {
+      "ncrNumber": "2024-004",
+      "actionType": "Edit",
+      "status": "Open",
+      "actionDescription": "Edited the NCR",
+      "changedBy": "James Smith",
+      "changedOn": "09/22/2024"
+  },
+  {
+      "ncrNumber": "2024-005",
+      "actionType": "Edit",
+      "status": "Open",
+      "actionDescription": "Edited the NCR",
+      "changedBy": "Emily Davis",
+      "changedOn": "09/23/2024"
+  },
+  {
+      "ncrNumber": "2024-006",
+      "actionType": "Edit",
+      "status": "Open",
+      "actionDescription": "Edited the NCR",
+      "changedBy": "Oliver Brown",
+      "changedOn": "09/24/2024"
+  },
+  {
+      "ncrNumber": "2024-007",
+      "actionType": "Edit",
+      "status": "Open",
+      "actionDescription": "Edited the NCR",
+      "changedBy": "Isabella Johnson",
+      "changedOn": "09/25/2024"
+  },
+  {
+      "ncrNumber": "2024-008",
+      "actionType": "Edit",
+      "status": "Open",
+      "actionDescription": "Edited the NCR",
+      "changedBy": "Liam Miller",
+      "changedOn": "09/26/2024"
+  },
+  {
+      "ncrNumber": "2024-009",
+      "actionType": "Edit",
+      "status": "Open",
+      "actionDescription": "Edited the NCR",
+      "changedBy": "Mia Wilson",
+      "changedOn": "09/27/2024"
+  },
+  {
+      "ncrNumber": "2024-010",
+      "actionType": "Edit",
+      "status": "Open",
+      "actionDescription": "Edited the NCR",
+      "changedBy": "Noah Martinez",
+      "changedOn": "09/28/2024"
+  },
+  {
+      "ncrNumber": "2024-011",
+      "actionType": "Edit",
+      "status": "Open",
+      "actionDescription": "Edited the NCR",
+      "changedBy": "Emma Clark",
+      "changedOn": "09/29/2024"
+  },
+  {
+      "ncrNumber": "2024-012",
+      "actionType": "Edit",
+      "status": "Open",
+      "actionDescription": "Edited the NCR",
+      "changedBy": "James Taylor",
+      "changedOn": "09/30/2024"
+  },
+  {
+      "ncrNumber": "2024-013",
+      "actionType": "Edit",
+      "status": "Open",
+      "actionDescription": "Edited the NCR",
+      "changedBy": "Olivia Wright",
+      "changedOn": "10/01/2024"
+  },
+  {
+      "ncrNumber": "2024-014",
+      "actionType": "Edit",
+      "status": "Open",
+      "actionDescription": "Edited the NCR",
+      "changedBy": "Liam Johnson",
+      "changedOn": "10/02/2024"
+  },
+  {
+      "ncrNumber": "2024-015",
+      "actionType": "Edit",
+      "status": "Open",
+      "actionDescription": "Edited the NCR",
+      "changedBy": "Sophia White",
+      "changedOn": "10/03/2024"
+  },
+  {
+      "ncrNumber": "2024-016",
+      "actionType": "Edit",
+      "status": "Open",
+      "actionDescription": "Edited the NCR",
+      "changedBy": "Ethan Lee",
+      "changedOn": "10/04/2024"
+  },
+  {
+      "ncrNumber": "2024-017",
+      "actionType": "Edit",
+      "status": "Open",
+      "actionDescription": "Edited the NCR",
+      "changedBy": "Ava Taylor",
+      "changedOn": "10/05/2024"
+  },
+  {
+      "ncrNumber": "2024-018",
+      "actionType": "Edit",
+      "status": "Open",
+      "actionDescription": "Edited the NCR",
+      "changedBy": "Mason Harris",
+      "changedOn": "10/06/2024"
+  },
+  {
+      "ncrNumber": "2024-019",
+      "actionType": "Edit",
+      "status": "Open",
+      "actionDescription": "Edited the NCR",
+      "changedBy": "Aiden Clark",
+      "changedOn": "10/07/2024"
+  },
+  {
+      "ncrNumber": "2024-020",
+      "actionType": "Edit",
+      "status": "Open",
+      "actionDescription": "Edited the NCR",
+      "changedBy": "Lily Scott",
+      "changedOn": "10/08/2024"
+  }
+]
