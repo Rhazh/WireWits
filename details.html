@@ -12,6 +12,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
     <link rel="icon" type="image/x-icon" href="images/favicon.png">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
 </head>
 
 
@@ -132,7 +133,7 @@
             <div class="page-title">
                 <h1 id="ncr-info">NCR Information</h1>
             </div>
-            <div class="form-ncr">
+            <div class="form-ncr" id="printSection">
                 <div class="div-container">
                     <div class="form-header">
                         <div class="form-ncr-details">
@@ -212,6 +213,9 @@
                         
                         <div class="form-ncr-buttons">
                             <button id="editButton" class="button-primary" tabindex="22" onclick="window.location.href='create.html?ncr=' + document.getElementById('ncrNumber').textContent;">Edit</button>
+                        </div>
+                        <div class="form-ncr-buttons">
+                            <button id="PrintButton" class="button-primary" tabindex="23" onclick="printPdf()">Download as PDF</button>
                         </div>
                     </div>
                 </div>
