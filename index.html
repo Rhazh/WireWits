@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
-
+ 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Create and manage NCR (Non-Conformance Reports) efficiently with our easy-to-use dashboard and reporting system.">
     <title>Home</title>
-
+ 
     <link href="styles.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
     <link rel="icon" type="image/x-icon" href="images/favicon.png">
 </head>
-
+ 
 <body>
     <header>
         <div class="header-col">
@@ -66,7 +66,7 @@
                     <div class="user-container">
                         <button id="btnProfile" aria-label="Click to view profile" aria-haspopup="true" tabindex="0" aria-expanded="false" aria-controls="profileDropdown" onclick="toggleProfileDropdown()">
                             <span class="user-avatar">
-                                <img id="profilePic" src="images/user-profile.png" alt="User profile image" title="User profile image" height="50" width="50"> 
+                                <img id="profilePic" src="images/user-profile.png" alt="User profile image" title="User profile image" height="50" width="50">
                             </span>
                             <span class="user-details">
                                 <span id="userFullname" class="user-fullname">Cassandra Washington</span>
@@ -173,6 +173,29 @@
                 </div>
             </section>
             <!--Removed popup modal for Create NCR, moved it to Create Page-->
+        </div>
+        <div class="Engineering">
+            <section id="secEngRcentNCR" aria-labelledby="recentNCRsTitleEng" tabindex="-1" class="div-table">
+                <div class="div-container">
+                    <div class="table-title">
+                        <h2 id="recentNCRsTitleEng">Recent NCRs</h2> <!--Heading may change-->
+                    </div>
+                    <table id="recentNCRs-table-Eng" tabindex="10">
+                        <thead>
+                            <tr>
+                                <th>NCR Number</th>
+                                <th>Item Description</th>
+                                <th>Date Received</th>
+                                <th>Department</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="indexTableContentEng">
+                            <!--Results will be populated here-->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
         </div>
     </main>
     <footer id="footer">

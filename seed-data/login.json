@@ -26,14 +26,14 @@
         },
         {
             "user_Id": "3",
-            "user_name": "engUser",
+            "user_name": "engineer",
             "user_Firstname": "Sophia",
             "user_Middlename": "C.",
             "user_Lastname": "Lee",
             "email": "alice.johnson@example.com",
-            "password": "Soph384",
+            "password": "Engineer1234",
             "created_on": "2024-03-05T14:30:00Z",
-            "Department_Name": "Quality",
+            "Department_Name": "Engineer",
             "gender":"female"
         },
         {
