@@ -1160,6 +1160,65 @@ function NavBar() {
     });
 };
 
+function printPdf() {
+    // Get the content of the print section
+    var printContent = document.getElementById("printSection");
+    var ncrNumber = document.getElementById("ncrNumber").textContent.trim(); // Get NCR number from the page
+
+
+    // Check if printContent exists
+    if (!printContent) {
+        console.error("Print section not found.");
+        return;
+    }
+
+    // Open a new window
+    var printWindow = window.open("", "_blank", "width=800,height=600");
+
+    // Write the content and styles to the new window
+    printWindow.document.open();
+    printWindow.document.write(`
+        <html>
+        <head>
+            <title>NCR - ${ncrNumber}</title>
+            <link href="styles.css" rel="stylesheet">
+
+            <style>
+                body 
+                {
+                    -webkit-print-color-adjust: exact;
+                     color-adjust: exact;
+                }
+                .form-header
+                {
+                    margin-top:5px;
+                }
+                #PrintButton, #editButton
+                {
+                    display:none;
+                }
+            </style>
+        </head>
+        <body>
+        <br>
+            ${printContent.outerHTML}
+        </body>
+        </html>
+    `);
+    printWindow.document.close();
+
+    // Wait for the new window to fully load, then print
+    printWindow.onload = function () {
+        setTimeout(() => {
+            printWindow.print();
+        }, 500); // Adjust delay as needed (500ms is usually sufficient)
+    };
+
+    // Close the print window only after printing is complete
+    printWindow.onafterprint = function () {
+        printWindow.close();
+    };
+}
 
 //***************************************************************************************** */
 function recentEngNCRs() {
