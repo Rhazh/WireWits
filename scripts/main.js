@@ -2,16 +2,18 @@
 let ncrLog = [];
 let quality = [];
 let history = [];
+let engineering = [];
 
 document.addEventListener('DOMContentLoaded', async () => {
     // Check if the user is logged in
     const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
     
     // Redirect to login if the user is not logged in
-    if (!loggedInUser) {
+    // Add later
+    /*if (!loggedInUser) {
         window.location.href = 'login.html';
         return;
-    }
+    }*/
 
     // Populate user profile details in the UI (e.g., for the header)
     const fullNameElement = document.getElementById('userFullname');
@@ -41,6 +43,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     ncrLog = JSON.parse(sessionStorage.getItem('ncrLog')) || [];
     quality = JSON.parse(sessionStorage.getItem('quality')) || [];
     history = JSON.parse(sessionStorage.getItem('history')) || [];
+    engineering = JSON.parse(sessionStorage.getItem('engineering')) || [];
 
     const path = window.location.pathname;
     const pageName = path.substring(path.lastIndexOf('/') + 1);
@@ -64,40 +67,50 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     try {
         // If session data is not available, fetch seed data and store it in sessionStorage
-        if (!ncrLog.length || !quality.length || !history.length) {
-            const [qualityData, ncrData, historyData] = await Promise.all([
+        if (!ncrLog.length || !quality.length || !history.length || !engineering.length) {
+            const [qualityData, ncrData, historyData, engineeringData] = await Promise.all([
                 fetchData('seed-data/Quality.json'),
                 fetchData('seed-data/NCRLog.json'),
-                fetchData('seed-data/History.json')
+                fetchData('seed-data/History.json'),
+                fetchData('seed-data/Engineering.json')
             ]);
 
             quality = qualityData;
             ncrLog = ncrData;
             history = historyData;
+            engineering = engineeringData;
 
             // Store seed data in sessionStorage for use in the current session
             sessionStorage.setItem('quality', JSON.stringify(quality));
             sessionStorage.setItem('ncrLog', JSON.stringify(ncrLog));
             sessionStorage.setItem('history', JSON.stringify(history));
+            sessionStorage.setItem('engineering', JSON.stringify(engineering));
         }
 
         if (loadingIndicator) loadingIndicator.style.display = 'none';
 
         // Populate notifications or handle errors
        
-        populateNotifications();
-        NavBar();
+        //populateNotifications();
+        //NavBar();
 
         const urlParams = new URLSearchParams(window.location.search);
         const ncrNumber = urlParams.get('ncr');
 
         // Handle different pages based on the current page name
         if (pageName === 'index.html') {
+            populateNotifications();
+            NavBar();
             recentNCRs();
             setupNavigationButtons();
+            recentEngNCRs();
         } else if (pageName === 'view.html') {
+            populateNotifications();
+            NavBar();
             performSearch();
         } else if (ncrNumber && pageName === 'create.html') {
+            populateNotifications();
+            NavBar();
             toggleCreateEditModal(ncrNumber, true);
             setupSaveNCR();
             setupSubmitNCR();
@@ -107,9 +120,16 @@ document.addEventListener('DOMContentLoaded', async () => {
             setupSaveNCR();
             setupSubmitNCR();
         } else if (ncrNumber && pageName === 'details.html') {
+            populateNotifications();
+            NavBar();
             populateDetailsPage(ncrNumber);
         } else if (pageName === 'reports.html') {
+            populateNotifications();
+            NavBar();
             performSearchReports();
+        } else if (pageName === 'engdash.html') {
+            recentEngNCRs();
+            //console.log("engineering");
         }
 
          // Set up the supplierName dropdown
