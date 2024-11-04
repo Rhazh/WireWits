@@ -30,8 +30,8 @@ function populateNotifications() {
     }
     dropdown.innerHTML = ""; // Clear existing notifications
 
-    const oldNotifications = getOldNotifications(); 
-    const closedNotifications = JSON.parse(sessionStorage.getItem('closedNotifications')) || []; 
+    const oldNotifications = getOldNotifications();
+    const closedNotifications = JSON.parse(sessionStorage.getItem('closedNotifications')) || [];
 
     // Filter out closed notifications
     const visibleNotifications = oldNotifications.filter(ncr => !closedNotifications.includes(ncr));
@@ -150,7 +150,7 @@ document.addEventListener('click', function (event) {
 function toggleDropdown() {
     const btnNotification = document.getElementById('btnNotification');
     const notifDisplay = document.getElementById('notifDisplay');
-    
+
     const isExpanded = btnNotification.getAttribute('aria-expanded') === 'true';
     btnNotification.setAttribute('aria-expanded', !isExpanded);
     notifDisplay.style.display = isExpanded ? 'none' : 'block'; // Toggle dropdown visibility
@@ -257,7 +257,7 @@ function populateDetailsPage(ncrNumber) {
                 li.textContent = file; // Just display the file name
                 documentFilesList.appendChild(li);
             });
-        } else{documentFilesList.innerHTML = 'No uploaded files.'}
+        } else { documentFilesList.innerHTML = 'No uploaded files.' }
 
         // Disable edit button if status is not "Quality"
         const editButton = document.getElementById('editButton'); // Assuming you have an edit button with this ID
@@ -308,6 +308,12 @@ function detailsEntry(ncrNumber) {
     console.log(ncr);
 }
 
+//working with
+function editEntryTrial(ncrNumber) {
+    window.location.href = `create.html?ncr=${ncrNumber}`; // Redirect to edit page
+    console.log(ncr);
+}
+
 //FUNCTION USED ON AN EDIT PAGE - HAPPENS AT THE CREATE PAGE
 
 // ============================================================
@@ -352,8 +358,8 @@ function populateEditPage(ncrNumber) {
 
 // Supporting Function - Redirection to Edit an NCR when Edit button is clicked
 function editEntry(ncrNumber) {
-        window.location.href = `create.html?ncr=${ncrNumber}`; // Redirect to edit page
-        
+    window.location.href = `create.html?ncr=${ncrNumber}`; // Redirect to edit page
+
 }
 
 // Supporting Function - Redirection to Edit an NCR when Edit button is clicked
@@ -419,7 +425,7 @@ function performSearch() {
         alert("Start date must be earlier than or equal to end date.")
         location.reload();
         return;
-    } 
+    }
     if (ncrNumber && /[a-zA-Z]/.test(ncrNumber)) {
         //resultsCountMessage.textContent = 'NCR Number must not contain alphabetic characters.';
         //resultsCountMessage.style.display = 'inline';
@@ -460,7 +466,7 @@ function performSearch() {
     // Display results based on current page
     const tableBody = document.getElementById("viewTableContent");
     const paginatedResults = filteredResults.slice((currentPage - 1) * resultsPerPage, currentPage * resultsPerPage);
-    
+
     tableBody.innerHTML = ''; // Clear previous results
 
     paginatedResults.forEach(result => {
@@ -595,30 +601,30 @@ function CreateNCR() {
     // Dynamically update elements with the new NCR data
     //populateEditPage(qualityEntry.ncrNumber)
     document.getElementById('ncrNumber').textContent = qualityEntry.ncrNumber;
-        document.getElementById('dateCreated').textContent = formatDate(qualityEntry.dateCreated);
-        document.getElementById('createdBy').textContent = qualityEntry.createdBy;
-        document.getElementById('ncrStatus').textContent = qualityEntry.ncrStatus;
-        document.getElementById('applicableProcess').value = qualityEntry.applicableProcess;
-        document.getElementById('supplierName').value = qualityEntry.supplierName;
-        document.getElementById('poNumber').value = qualityEntry.poNumber ? qualityEntry.poNumber : '';
-        document.getElementById('soNumber').value = qualityEntry.soNumber ? qualityEntry.soNumber : '';
-        document.getElementById('quantityReceived').value = qualityEntry.quantityReceived ? qualityEntry.quantityReceived : '';
-        document.getElementById('quantityDefect').value = qualityEntry.quantityDefect ? qualityEntry.quantityDefect : '';
-        document.getElementById('itemDescription').value = qualityEntry.itemDescription ? qualityEntry.itemDescription : '';
-        document.getElementById('defectDescription').value = qualityEntry.defectDescription ? qualityEntry.defectDescription : '';
-        document.getElementById('engNeeded').checked = qualityEntry.engNeeded === 'Yes';
-        document.getElementById('itemConform').checked = qualityEntry.itemConform === 'Yes';
-        // Handle previously uploaded files
-        const fileNamesDisplay = document.getElementById('fileNames');
-        if (qualityEntry.documentFiles && qualityEntry.documentFiles.length > 0) {
-            // Display previously uploaded files
-            fileNamesDisplay.innerHTML = `Previously Uploaded Files:<br>${qualityEntry.documentFiles.join('<br>')}`;
-        } else {
-            //fileNamesDisplay.textContent = 'No files uploaded yet.';
-        }
+    document.getElementById('dateCreated').textContent = formatDate(qualityEntry.dateCreated);
+    document.getElementById('createdBy').textContent = qualityEntry.createdBy;
+    document.getElementById('ncrStatus').textContent = qualityEntry.ncrStatus;
+    document.getElementById('applicableProcess').value = qualityEntry.applicableProcess;
+    document.getElementById('supplierName').value = qualityEntry.supplierName;
+    document.getElementById('poNumber').value = qualityEntry.poNumber ? qualityEntry.poNumber : '';
+    document.getElementById('soNumber').value = qualityEntry.soNumber ? qualityEntry.soNumber : '';
+    document.getElementById('quantityReceived').value = qualityEntry.quantityReceived ? qualityEntry.quantityReceived : '';
+    document.getElementById('quantityDefect').value = qualityEntry.quantityDefect ? qualityEntry.quantityDefect : '';
+    document.getElementById('itemDescription').value = qualityEntry.itemDescription ? qualityEntry.itemDescription : '';
+    document.getElementById('defectDescription').value = qualityEntry.defectDescription ? qualityEntry.defectDescription : '';
+    document.getElementById('engNeeded').checked = qualityEntry.engNeeded === 'Yes';
+    document.getElementById('itemConform').checked = qualityEntry.itemConform === 'Yes';
+    // Handle previously uploaded files
+    const fileNamesDisplay = document.getElementById('fileNames');
+    if (qualityEntry.documentFiles && qualityEntry.documentFiles.length > 0) {
+        // Display previously uploaded files
+        fileNamesDisplay.innerHTML = `Previously Uploaded Files:<br>${qualityEntry.documentFiles.join('<br>')}`;
+    } else {
+        //fileNamesDisplay.textContent = 'No files uploaded yet.';
+    }
 
-        // Ensure that the global uploadedFiles array contains previously uploaded files
-        uploadedFiles = [...qualityEntry.documentFiles];
+    // Ensure that the global uploadedFiles array contains previously uploaded files
+    uploadedFiles = [...qualityEntry.documentFiles];
 
     alert(`NCR Number ${ncrNumber} successfully generated. You may continue to provide additional information now or later`);
 
@@ -788,7 +794,7 @@ function saveNCR() {
             window.history.back();
         } else {
             // If the user cancels, do nothing or add custom logic
-           alert("Save operation cancelled.");
+            alert("Save operation cancelled.");
         }
 
     } else {
@@ -881,29 +887,29 @@ function submitNCR() {
             const engineeringEntry = {
                 ncrNumber: ncrNumber,
                 dateReceived: Timestamp(),
-                itemDescription : itemDescription,
+                itemDescription: itemDescription,
                 ncrStatus: qualityEntry.ncrStatus
             }
             engineering.push(engineeringEntry);
             sessionStorage.setItem('engineering', JSON.stringify(engineering));
 
             alert('NCR has been successfully submitted.');
-            
+
             // Redirect or perform other actions as needed
             window.history.back();
             /*window.location.href = `engineer.html?ncr=${ncrNumber}`; // Redirect to edit page
             ncrNumber = ncrNumber;
             populateDetailsPage(ncrNumber); */
         }
-/* data needed
-ncrNumber
-reviewByCfEngineering
-customerNotification
-disposition
-drawingUpdate
-originalEngineerName
-
- */
+        /* data needed
+        ncrNumber
+        reviewByCfEngineering
+        customerNotification
+        disposition
+        drawingUpdate
+        originalEngineerName
+        
+         */
 
 
 
@@ -1198,7 +1204,7 @@ function recentEngNCRs() {
                                         </svg>
                                         View
                                     </button>
-                                    <button onclick="handleEditEntry('${result.ncrNumber}', '${result.ncrStatus}')">
+                                    <button onclick="editEntryTrial('${result.ncrNumber}')">
                                         <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"/>
                                         </svg>
@@ -1211,3 +1217,57 @@ function recentEngNCRs() {
     });
 }
 
+function populateDetailsPageEng(ncrNumber) {
+    const entry = quality.find(item => item.ncrNumber === ncrNumber);
+    if (entry) {
+        document.getElementById('ncrNumberE').textContent = entry.ncrNumber ?? "";
+        document.getElementById('dateCreatedE').textContent = formatDate(entry.dateCreated) ?? "";
+        document.getElementById('createdByE').textContent = entry.createdBy ?? "";
+        document.getElementById('ncrStatusE').textContent = entry.ncrStatus ?? "Quality";
+        document.getElementById('applicableProcessE').textContent = entry.applicableProcess ?? "";
+        document.getElementById('supplierNameDE').textContent = entry.supplierName ?? "";
+
+        // Use nullish coalescing to handle missing or undefined values
+        document.getElementById('poNumberE').textContent = entry.poNumber ?? "";
+        document.getElementById('soNumberE').textContent = entry.soNumber ?? "";
+        document.getElementById('quantityReceivedE').textContent = entry.quantityReceived ?? "";
+        document.getElementById('quantityDefectE').textContent = entry.quantityDefect ?? "";
+        document.getElementById('itemDescriptionE').innerHTML = entry.itemDescription.replace(/\n/g, '<br/>') ?? "";
+        document.getElementById('defectDescriptionE').innerHTML = entry.defectDescription.replace(/\n/g, '<br/>') ?? "";
+
+        // Assuming engineering is related to defect description, corrected as `engNeeded`
+        document.getElementById('engNeededE').textContent = entry.engNeeded ?? "No";
+
+        document.getElementById('itemConformE').textContent = entry.itemConform ?? "No";
+
+        const documentFilesList = document.getElementById('attachedDocumentE');
+        documentFilesList.innerHTML = ''; // Clear any existing content
+
+        if (entry.documentFiles.length > 0) {
+            entry.documentFiles.forEach(file => {
+                const li = document.createElement('li');
+                li.textContent = file; // Just display the file name
+                documentFilesList.appendChild(li);
+            });
+        } else { documentFilesList.innerHTML = 'No uploaded files.' }
+
+        /*Disable edit button if status is not "Quality"
+        const editButton = document.getElementById('editButton'); // Assuming you have an edit button with this ID
+
+        if (editButton) {
+            editButton.onclick = () => {
+                const ncrStatus = entry.ncrStatus; // Get the NCR status from the entry object
+
+                if (ncrStatus !== "Quality") {
+                    alert(`This NCR is already submitted to ${ncrStatus}.`);
+                } else {
+                    // Proceed to edit the entry
+                    editEntry(entry.ncrNumber, ncrStatus);
+                }
+            };
+        }
+    } else {
+        console.error(`NCR with number ${ncrNumber} not found.`);
+    } */
+    }
+}

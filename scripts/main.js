@@ -114,6 +114,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             toggleCreateEditModal(ncrNumber, true);
             setupSaveNCR();
             setupSubmitNCR();
+            populateDetailsPageEng(ncrNumber)
         } else if (pageName === 'create.html') {
             toggleCreateEditModal(null, false);
             setupCreateNCRButton();
