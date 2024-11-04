@@ -1163,6 +1163,8 @@ function NavBar() {
 function printPdf() {
     // Get the content of the print section
     var printContent = document.getElementById("printSection");
+    var ncrNumber = document.getElementById("ncrNumber").textContent.trim(); // Get NCR number from the page
+
 
     // Check if printContent exists
     if (!printContent) {
@@ -1178,7 +1180,7 @@ function printPdf() {
     printWindow.document.write(`
         <html>
         <head>
-            <title>NCR</title>
+            <title>NCR - ${ncrNumber}</title>
             <link href="styles.css" rel="stylesheet">
 
             <style>
@@ -1187,6 +1189,10 @@ function printPdf() {
                     -webkit-print-color-adjust: exact;
                      color-adjust: exact;
                 }
+                .form-header
+                {
+                    margin-top:5px;
+                }
                 #PrintButton, #editButton
                 {
                     display:none;
@@ -1194,6 +1200,7 @@ function printPdf() {
             </style>
         </head>
         <body>
+        <br>
             ${printContent.outerHTML}
         </body>
         </html>
