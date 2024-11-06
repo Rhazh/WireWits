@@ -120,6 +120,8 @@ document.addEventListener('DOMContentLoaded', async () => {
             setupCreateNCRButton();
             setupSaveNCR();
             setupSubmitNCR();
+            populateNotifications();
+            NavBar();
         } else if (ncrNumber && pageName === 'details.html') {
             populateNotifications();
             NavBar();
