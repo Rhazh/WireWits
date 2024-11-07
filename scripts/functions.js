@@ -516,8 +516,9 @@ function CreateNCR() {
         quality = [];  // Initialize quality if undefined
     }
     if (!Array.isArray(history)) {
-        history = [];  // Initialize quality if undefined
+        history = [];  // Initialize history if undefined
     }
+   
 
     // Get form values
     const applicableProcess = document.getElementById('napplicableProcess')?.value;
@@ -593,7 +594,7 @@ function CreateNCR() {
     sessionStorage.setItem('history', JSON.stringify(history));
     sessionStorage.setItem('quality', JSON.stringify(quality));
 
-    // Display the newly created NCR data in the UI
+    /* Display the newly created NCR data in the UI
     document.getElementById('createNCRModal').style.visibility = 'hidden';
     document.getElementById('createEditModal').style.visibility = 'visible';
 
@@ -624,10 +625,12 @@ function CreateNCR() {
     }
 
     // Ensure that the global uploadedFiles array contains previously uploaded files
-    uploadedFiles = [...qualityEntry.documentFiles];
+    uploadedFiles = [...qualityEntry.documentFiles];*/
 
     alert(`NCR Number ${ncrNumber} successfully generated. You may continue to provide additional information now or later`);
-
+    
+    sessionStorage.setItem('ncrNumber', ncrNumber);
+    return ncrNumber
 }
 
 // Supporting Functions - Timestamp function - returns the current date
@@ -1309,24 +1312,153 @@ function populateDetailsPageEng(ncrNumber) {
                 documentFilesList.appendChild(li);
             });
         } else { documentFilesList.innerHTML = 'No uploaded files.' }
-
-        /*Disable edit button if status is not "Quality"
-        const editButton = document.getElementById('editButton'); // Assuming you have an edit button with this ID
-
-        if (editButton) {
-            editButton.onclick = () => {
-                const ncrStatus = entry.ncrStatus; // Get the NCR status from the entry object
-
-                if (ncrStatus !== "Quality") {
-                    alert(`This NCR is already submitted to ${ncrStatus}.`);
-                } else {
-                    // Proceed to edit the entry
-                    editEntry(entry.ncrNumber, ncrStatus);
-                }
-            };
-        }
-    } else {
-        console.error(`NCR with number ${ncrNumber} not found.`);
-    } */
     }
+}
+
+async function populateSupplierDropdownN() {
+    const supplierDropdown = document.getElementById('supplierName');
+    const storedSuppliers = JSON.parse(sessionStorage.getItem('suppliers')) || [];
+    const selectedSupplier = sessionStorage.getItem('selectedSupplier');  // Retrieve the previously selected supplier
+
+    // Count occurrences and sort suppliers
+    const supplierCounts = supplier.reduce((counts, item) => {
+        counts[item.supplierName] = (counts[item.supplierName] || 0) + 1;
+        return counts;
+    }, {});
+    const sortedSuppliers = Object.keys(supplierCounts).sort((a, b) => supplierCounts[b] - supplierCounts[a]);
+
+    // Group suppliers: top 3 and all others
+    const topSuppliers = sortedSuppliers.slice(0, 3);
+    const allSuppliers = [...new Set([...sortedSuppliers.slice(3), ...storedSuppliers])].sort();
+
+    // Helper to create an option group
+    const createOptionGroup = (label, suppliers) => {
+        const group = document.createElement('optgroup');
+        group.label = label;
+        suppliers.forEach(supplier => {
+            const option = document.createElement('option');
+            option.value = supplier;
+            option.textContent = supplier;
+            group.appendChild(option);
+        });
+        return group;
+    };
+
+    // Populate dropdown
+    supplierDropdown.innerHTML = ''; // Clear existing options
+    supplierDropdown.appendChild(createOptionGroup('Popular Suppliers', topSuppliers));
+    supplierDropdown.appendChild(createOptionGroup('All Suppliers', allSuppliers));
+
+    // Add "Other supplier" option
+    const customOption = document.createElement('option');
+    customOption.value = 'custom';
+    customOption.textContent = 'Other supplier...';
+    supplierDropdown.appendChild(customOption);
+
+    // Set the previously selected supplier (if any)
+    if (selectedSupplier) {
+        supplierDropdown.value = selectedSupplier;
+    }
+
+    // Handle supplier addition and saving the selected supplier
+    supplierDropdown.addEventListener('change', function(event) {
+        const supplierName = event.target.value;
+        if (supplierName === 'custom') {
+            const customSupplier = prompt('Please enter your supplier name:');
+            if (customSupplier && !storedSuppliers.includes(customSupplier)) {
+                storedSuppliers.push(customSupplier);
+                sessionStorage.setItem('suppliers', JSON.stringify(storedSuppliers));
+                populateSupplierDropdown(ncrLog);  // Refresh dropdown with new supplier
+                sessionStorage.setItem('selectedSupplier', customSupplier);  // Save the new selected supplier
+            }
+        } else {
+            sessionStorage.setItem('selectedSupplier', supplierName);  // Save the selected supplier
+        }
+    });
+}
+
+
+//
+function populateSupplierDropdown(elementID, ncrNumber = null) {
+    const supplierDropdown = document.getElementById(elementID);
+
+    // Retrieve supplier and quality data from sessionStorage
+    const supplier = JSON.parse(sessionStorage.getItem('supplier')) || [];
+    const quality = JSON.parse(sessionStorage.getItem('quality')) || [];
+
+    // Load or initialize stored suppliers
+    let storedSuppliers = JSON.parse(sessionStorage.getItem('suppliers')) || [];
+    if (storedSuppliers.length === 0) {
+        supplier.forEach(item => storedSuppliers.push(item.supplierName));
+        sessionStorage.setItem('suppliers', JSON.stringify(storedSuppliers)); // Save to session storage
+    }
+
+    // If `ncrNumber` is provided, retrieve the previously selected supplier
+    const selectedSupplier = ncrNumber ? quality.find(item => item.ncrNumber === ncrNumber)?.supplierName : null;
+
+    // Count occurrences and sort suppliers based on frequency in 'quality'
+    const supplierCounts = quality.reduce((counts, item) => {
+        counts[item.supplierName] = (counts[item.supplierName] || 0) + 1;
+        return counts;
+    }, {});
+    const sortedSuppliers = Object.keys(supplierCounts).sort((a, b) => supplierCounts[b] - supplierCounts[a]);
+
+    // Group suppliers: top 3 most frequent and all others
+    const topSuppliers = sortedSuppliers.slice(0, 3);
+    const allSuppliers = [...new Set([...sortedSuppliers.slice(3), ...storedSuppliers])].sort();
+
+    // Helper function to create option groups
+    const createOptionGroup = (label, suppliers) => {
+        const group = document.createElement('optgroup');
+        group.label = label;
+        suppliers.forEach(supplier => {
+            const option = document.createElement('option');
+            option.value = supplier;
+            option.textContent = supplier;
+            group.appendChild(option);
+        });
+        return group;
+    };
+
+    // Populate dropdown
+    //supplierDropdown.innerHTML = ''; // Clear existing options
+    supplierDropdown.appendChild(createOptionGroup('Popular Suppliers', topSuppliers));
+    supplierDropdown.appendChild(createOptionGroup('All Suppliers', allSuppliers));
+
+    // Add "Other supplier" option for custom entries only if no supplier is selected or it's not in use
+    const customOption = document.createElement('option');
+    customOption.value = 'custom';
+    customOption.textContent = 'Other supplier...';
+
+    // Only add "Other supplier..." if no custom selection exists and it's not the selected supplier
+    if (selectedSupplier !== 'custom') {
+        supplierDropdown.appendChild(customOption);
+    }
+
+    // If `ncrNumber` is provided and a selected supplier exists, set the dropdown's value to the selected supplier
+    if (selectedSupplier && selectedSupplier !== 'custom') {
+        supplierDropdown.value = selectedSupplier;
+    }
+
+    // Handle custom supplier input and saving selected supplier
+    supplierDropdown.addEventListener('change', function(event) {
+        const supplierName = event.target.value;
+        if (supplierName === 'custom') {
+            const customSupplier = prompt('Please enter your supplier name:');
+            if (customSupplier && !storedSuppliers.includes(customSupplier)) {
+                // Add new custom supplier to stored suppliers
+                storedSuppliers.push(customSupplier);
+                sessionStorage.setItem('suppliers', JSON.stringify(storedSuppliers)); // Save updated list
+
+                // Refresh dropdown with the updated list
+                populateSupplierDropdown(elementID, ncrNumber);
+
+                // Set the dropdown to the new supplier
+                supplierDropdown.value = customSupplier;
+                sessionStorage.setItem('selectedSupplier', customSupplier); // Save new selection
+            }
+        } else {
+            sessionStorage.setItem('selectedSupplier', supplierName); // Save selected supplier
+        }
+    });
 }

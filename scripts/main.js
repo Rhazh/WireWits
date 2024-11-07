@@ -3,6 +3,7 @@ let ncrLog = [];
 let quality = [];
 let history = [];
 let engineering = [];
+let supplier = [];
 
 document.addEventListener('DOMContentLoaded', async () => {
     // Check if the user is logged in
@@ -44,6 +45,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     quality = JSON.parse(sessionStorage.getItem('quality')) || [];
     history = JSON.parse(sessionStorage.getItem('history')) || [];
     engineering = JSON.parse(sessionStorage.getItem('engineering')) || [];
+    supplier = JSON.parse(sessionStorage.getItem('supplier')) || [];
 
     const path = window.location.pathname;
     const pageName = path.substring(path.lastIndexOf('/') + 1);
@@ -67,24 +69,27 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     try {
         // If session data is not available, fetch seed data and store it in sessionStorage
-        if (!ncrLog.length || !quality.length || !history.length || !engineering.length) {
-            const [qualityData, ncrData, historyData, engineeringData] = await Promise.all([
+        if (!ncrLog.length || !quality.length || !history.length || !engineering.length || !supplier.length) {
+            const [qualityData, ncrData, historyData, engineeringData, supplierData] = await Promise.all([
                 fetchData('seed-data/Quality.json'),
                 fetchData('seed-data/NCRLog.json'),
                 fetchData('seed-data/History.json'),
-                fetchData('seed-data/Engineering.json')
+                fetchData('seed-data/Engineering.json'),
+                fetchData('seed-data/Supplier.json')
             ]);
 
             quality = qualityData;
             ncrLog = ncrData;
             history = historyData;
             engineering = engineeringData;
+            supplier = supplierData;
 
             // Store seed data in sessionStorage for use in the current session
             sessionStorage.setItem('quality', JSON.stringify(quality));
             sessionStorage.setItem('ncrLog', JSON.stringify(ncrLog));
             sessionStorage.setItem('history', JSON.stringify(history));
             sessionStorage.setItem('engineering', JSON.stringify(engineering));
+            sessionStorage.setItem('supplier', JSON.stringify(supplier));
         }
 
         if (loadingIndicator) loadingIndicator.style.display = 'none';
@@ -117,6 +122,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             populateDetailsPageEng(ncrNumber)
         } else if (pageName === 'create.html') {
             toggleCreateEditModal(null, false);
+            populateSupplierDropdown('nsupplierName');
             setupCreateNCRButton();
             setupSaveNCR();
             setupSubmitNCR();
@@ -136,99 +142,14 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
 
          // Set up the supplierName dropdown
-         populateSupplierDropdown(ncrLog);
-         populateSupplierDropdownG(ncrLog)
+         //populateSupplierDropdown(ncrNumber);
+         //populateSupplierDropdownG(ncrLog)
 
     } catch (error) {
         console.error('Error fetching data:', error);
         if (loadingIndicator) loadingIndicator.style.display = 'none';
         alert("An error occurred while loading data. Please try again later.");
     }
-
-
-        // Function to populate the supplier dropdown with the top 3 suppliers first
-        async function populateSupplierDropdown(ncrLog) {
-            const supplierDropdown = document.getElementById('supplierName');
-    
-            // Count occurrences of each supplierName
-            const supplierCounts = {};
-            ncrLog.forEach(item => {
-                supplierCounts[item.supplierName] = (supplierCounts[item.supplierName] || 0) + 1;
-            });
-    
-            // Sort suppliers by count in descending order
-            const sortedSuppliers = Object.keys(supplierCounts).sort((a, b) => supplierCounts[b] - supplierCounts[a]);
-    
-            // Get top 3 suppliers
-            const topSuppliers = sortedSuppliers.slice(0, 3);
-    
-            // Get the remaining suppliers (excluding the top 3)
-            const allSuppliers = sortedSuppliers.sort();
-    
-            // Create a group for the top 3 suppliers
-            const topGroup = document.createElement('optgroup');
-            topGroup.label = 'Popular Suppliers';
-            topSuppliers.forEach(supplier => {
-                const option = document.createElement('option');
-                option.value = supplier;
-                option.textContent = `${supplier}`;
-                topGroup.appendChild(option);
-            });
-            supplierDropdown.appendChild(topGroup);
-    
-            // Create a group for the remaining suppliers
-            const allGroup = document.createElement('optgroup');
-            allGroup.label = 'All Suppliers';
-            allSuppliers.forEach(supplier => {
-                const option = document.createElement('option');
-                option.value = supplier;
-                option.textContent = supplier;
-                allGroup.appendChild(option);
-            });
-            supplierDropdown.appendChild(allGroup);
-        }
-
-         // Function to populate the supplier dropdown with the top 3 suppliers first
-         async function populateSupplierDropdownG(ncrLog) {
-            const supplierDropdown = document.getElementById('nsupplierName');
-    
-            // Count occurrences of each supplierName
-            const supplierCounts = {};
-            ncrLog.forEach(item => {
-                supplierCounts[item.supplierName] = (supplierCounts[item.supplierName] || 0) + 1;
-            });
-    
-            // Sort suppliers by count in descending order
-            const sortedSuppliers = Object.keys(supplierCounts).sort((a, b) => supplierCounts[b] - supplierCounts[a]);
-    
-            // Get top 3 suppliers
-            const topSuppliers = sortedSuppliers.slice(0, 3);
-    
-            // Get the remaining suppliers (excluding the top 3)
-            const allSuppliers = sortedSuppliers.sort();
-    
-            // Create a group for the top 3 suppliers
-            const topGroup = document.createElement('optgroup');
-            topGroup.label = 'Popular Suppliers';
-            topSuppliers.forEach(supplier => {
-                const option = document.createElement('option');
-                option.value = supplier;
-                option.textContent = `${supplier}`;
-                topGroup.appendChild(option);
-            });
-            supplierDropdown.appendChild(topGroup);
-    
-            // Create a group for the remaining suppliers
-            const allGroup = document.createElement('optgroup');
-            allGroup.label = 'All Suppliers';
-            allSuppliers.forEach(supplier => {
-                const option = document.createElement('option');
-                option.value = supplier;
-                option.textContent = supplier;
-                allGroup.appendChild(option);
-            });
-            supplierDropdown.appendChild(allGroup);
-        }
 
     // Set up navigation buttons on index.html
     function setupNavigationButtons() {
@@ -254,6 +175,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             createNCRModal.style.visibility = 'hidden';
             createEditModal.style.visibility = 'visible';
             populateEditPage(ncrNumber);
+            populateSupplierDropdown('supplierName', ncrNumber);
         }
     }
 
@@ -261,6 +183,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     function setupCreateNCRButton() {
         document.getElementById('btnCreateNCR').addEventListener('click', () => {
             CreateNCR();
+            const ncrNumber = sessionStorage.getItem('ncrNumber')
+            toggleCreateEditModal(ncrNumber, true);
         });
     }
 
@@ -370,3 +294,103 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
 });
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//MAY USE LATER
+/*
+        Function to populate the supplier dropdown with the top 3 suppliers first
+        async function populateSupplierDropdown(ncrLog) {
+            const supplierDropdown = document.getElementById('supplierName');
+    
+            // Count occurrences of each supplierName
+            const supplierCounts = {};
+            ncrLog.forEach(item => {
+                supplierCounts[item.supplierName] = (supplierCounts[item.supplierName] || 0) + 1;
+            });
+    
+            // Sort suppliers by count in descending order
+            const sortedSuppliers = Object.keys(supplierCounts).sort((a, b) => supplierCounts[b] - supplierCounts[a]);
+    
+            // Get top 3 suppliers
+            const topSuppliers = sortedSuppliers.slice(0, 3);
+    
+            // Get the remaining suppliers (excluding the top 3)
+            const allSuppliers = sortedSuppliers.sort();
+    
+            // Create a group for the top 3 suppliers
+            const topGroup = document.createElement('optgroup');
+            topGroup.label = 'Popular Suppliers';
+            topSuppliers.forEach(supplier => {
+                const option = document.createElement('option');
+                option.value = supplier;
+                option.textContent = `${supplier}`;
+                topGroup.appendChild(option);
+            });
+            supplierDropdown.appendChild(topGroup);
+    
+            // Create a group for the remaining suppliers
+            const allGroup = document.createElement('optgroup');
+            allGroup.label = 'All Suppliers';
+            allSuppliers.forEach(supplier => {
+                const option = document.createElement('option');
+                option.value = supplier;
+                option.textContent = supplier;
+                allGroup.appendChild(option);
+            });
+            supplierDropdown.appendChild(allGroup);
+        }
+
+         // Function to populate the supplier dropdown with the top 3 suppliers first
+         async function populateSupplierDropdownG(ncrLog) {
+            const supplierDropdown = document.getElementById('nsupplierName');
+    
+            // Count occurrences of each supplierName
+            const supplierCounts = {};
+            ncrLog.forEach(item => {
+                supplierCounts[item.supplierName] = (supplierCounts[item.supplierName] || 0) + 1;
+            });
+    
+            // Sort suppliers by count in descending order
+            const sortedSuppliers = Object.keys(supplierCounts).sort((a, b) => supplierCounts[b] - supplierCounts[a]);
+    
+            // Get top 3 suppliers
+            const topSuppliers = sortedSuppliers.slice(0, 3);
+    
+            // Get the remaining suppliers (excluding the top 3)
+            const allSuppliers = sortedSuppliers.sort();
+    
+            // Create a group for the top 3 suppliers
+            const topGroup = document.createElement('optgroup');
+            topGroup.label = 'Popular Suppliers';
+            topSuppliers.forEach(supplier => {
+                const option = document.createElement('option');
+                option.value = supplier;
+                option.textContent = `${supplier}`;
+                topGroup.appendChild(option);
+            });
+            supplierDropdown.appendChild(topGroup);
+    
+            // Create a group for the remaining suppliers
+            const allGroup = document.createElement('optgroup');
+            allGroup.label = 'All Suppliers';
+            allSuppliers.forEach(supplier => {
+                const option = document.createElement('option');
+                option.value = supplier;
+                option.textContent = supplier;
+                allGroup.appendChild(option);
+            });
+            supplierDropdown.appendChild(allGroup);
+        }*/
