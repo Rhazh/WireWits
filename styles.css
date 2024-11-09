@@ -35,7 +35,7 @@ header {
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
     height: 70px;
     position: sticky;
     top: 0;
@@ -174,7 +174,7 @@ nav ul li a:hover {
     width: 350px;
     z-index: 9;
     background-color: #fdfdfd;
-    box-shadow: 0 3px 5px -2px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 3px 8px -2px rgba(0, 0, 0, 0.5);
     border-radius: 10px;
     overflow: hidden;
 }
@@ -183,7 +183,7 @@ nav ul li a:hover {
     width: 100%;
     padding: 15px;
     box-sizing: border-box;
-    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
     text-align: center;
     color: #0b1c33;
     font-weight: 600;
@@ -278,7 +278,7 @@ nav ul li a:hover {
     width: 250px;
     z-index: 9;
     background-color: #fdfdfd;
-    box-shadow: 0 3px 5px -2px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 3px 8px -2px rgba(0, 0, 0, 0.5);
     border-radius: 10px;
     overflow: hidden;
 }
@@ -388,7 +388,7 @@ footer {
 .div-container,
 .dashboard .div-container button {
     background-color: #fdfdfd;
-    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
     border-radius: 10px;
     border: none;
 }
@@ -525,7 +525,7 @@ table tbody tr:hover {
     background-color: #fdfdfd;
     border-radius: 10px;
     box-sizing: border-box;
-    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
     flex-direction: column;
     margin: 15vh auto auto auto;
     position: relative;
@@ -1095,7 +1095,7 @@ button {
         height: auto;
         z-index: 9;
         background-color: #fdfdfd;
-        box-shadow: 0 3px 5px -2px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 3px 8px -2px rgba(0, 0, 0, 0.3);
         border-radius: 10px;
         overflow: hidden;
     }
