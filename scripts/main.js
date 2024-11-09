@@ -121,18 +121,22 @@ document.addEventListener('DOMContentLoaded', async () => {
             setupSaveNCR();
             setupSubmitNCR();
             populateDetailsPageEng(ncrNumber)
+            populateEngEditPage(ncrNumber)
+            setupEngSaveNCR();
+            setupEngSubmitNCR();
         } else if (pageName === 'create.html') {
             toggleCreateEditModal(null, false);
             populateSupplierDropdown('nsupplierName');
             setupCreateNCRButton();
-            //setupSaveNCR();
-            //setupSubmitNCR();
+            setupSaveNCR();
+            setupSubmitNCR();
             populateNotifications();
             NavBar();
         } else if (ncrNumber && pageName === 'details.html') {
             populateNotifications();
             NavBar();
             populateDetailsPage(ncrNumber);
+            populateEngDetailsPage(ncrNumber);
         } else if (pageName === 'reports.html') {
             populateNotifications();
             NavBar();
@@ -295,6 +299,22 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
 });
 
+
+//==========================
+//=========================
+
+ // Set up the Save and Submit NCR functions
+ function setupEngSaveNCR() {
+    document.getElementById('btnEngSave').addEventListener('click', () => {
+        saveEngNCR();
+    });
+}
+
+function setupEngSubmitNCR() {
+    document.getElementById('btnEngSubmit').addEventListener('click', () => {
+        submitEngNCR();
+    });
+}
 
 
 

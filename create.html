@@ -467,6 +467,10 @@
                             <h2 id="ncr-info">Engineering completes this section</h2>
                             <div>
                                 <div>
+                                    <strong>NCR Number:</strong>
+                                    <span id="ncrNumberEng"></span>
+                                </div>
+                                <div>
                                     <label for="reviewByCfEngineering">Review By CF Engineering:</label>
                                     <select name="CFEngineering" id="reviewByCfEngineering" required>
                                         <option value="" disabled selected>Select an option</option>
@@ -514,6 +518,19 @@
                                 <div>
                                     <label for="engineerName">Engineer Name:</label>
                                     <input type="text" id="engineerName">
+                                </div>
+                                <div class="form-ncr-buttons">
+                                    <div>
+                                        <button type="button" id="btnEngSave" class="button-primary">Save</button>
+                                    </div>
+                                    <div>
+                                        <button type="button" id="btnEngSubmit"
+                                            class="button-secondary btnDisable">Submit</button>
+                                    </div>
+                                    <div>
+                                        <button type="button" id="btnEngCancel" class="button-secondary"
+                                            onclick="goBack()">Cancel</button>
+                                    </div>
                                 </div>
                             </div>
                         </form>
