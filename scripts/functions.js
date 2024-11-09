@@ -235,7 +235,7 @@ function populateDetailsPage(ncrNumber) {
         document.getElementById('applicableProcess').textContent = entry.applicableProcess ?? "";
         document.getElementById('supplierNameD').textContent = entry.supplierName ?? "";
 
-        // Use nullish coalescing to handle missing or undefined values
+        // Handle missing values with nullish coalescing
         document.getElementById('poNumber').textContent = entry.poNumber ?? "";
         document.getElementById('soNumber').textContent = entry.soNumber ?? "";
         document.getElementById('quantityReceived').textContent = entry.quantityReceived ?? "";
@@ -243,22 +243,31 @@ function populateDetailsPage(ncrNumber) {
         document.getElementById('itemDescription').innerHTML = entry.itemDescription.replace(/\n/g, '<br/>') ?? "";
         document.getElementById('defectDescription').innerHTML = entry.defectDescription.replace(/\n/g, '<br/>') ?? "";
 
-        // Assuming engineering is related to defect description, corrected as `engNeeded`
+        // Assuming engineering is related to defect description
         document.getElementById('engNeeded').textContent = entry.engNeeded ?? "No";
-
         document.getElementById('itemConform').textContent = entry.itemConform ?? "No";
 
-        const documentFilesList = document.getElementById('attachedDocument');
+        const documentFilesList = document.getElementById('thumbnailsContainer');
         documentFilesList.innerHTML = ''; // Clear any existing content
 
-        if (entry.documentFiles.length > 0) {
+        // Check if documentFiles exists and has items
+        if (entry.documentFiles && entry.documentFiles.length > 0) {
             entry.documentFiles.forEach(file => {
-                const li = document.createElement('li');
-                li.textContent = file; // Just display the file name
-                documentFilesList.appendChild(li);
-            });
-        } else { documentFilesList.innerHTML = 'No uploaded files.' }
+                // Create elements for each thumbnail
+                const fileItem = document.createElement('div');
+                fileItem.classList.add('file-item');
 
+                const thumbnailImage = document.createElement('img');
+                thumbnailImage.src = file.thumbnail; // Assuming file.thumbnail contains the image data
+                thumbnailImage.classList.add('thumbnail');
+
+                // Append elements to the file item
+                fileItem.appendChild(thumbnailImage);
+                documentFilesList.appendChild(fileItem); // Append file item to the container
+            });
+        } else {
+            documentFilesList.innerHTML = 'No uploaded files.'; // Handle no files case
+        }
         // Disable edit button if status is not "Quality"
         const editButton = document.getElementById('editButton'); // Assuming you have an edit button with this ID
 
@@ -274,39 +283,18 @@ function populateDetailsPage(ncrNumber) {
                 }
             };
         }
-
-        /*Call to populate document files if they exist
-        if (entry.documentFiles) {
-            populateDocumentFiles(entry.documentFiles);
-        }*/
     } else {
-        console.error(`NCR with number ${ncrNumber} not found.`);
+        console.error('Entry not found for NCR number:', ncrNumber);
     }
 }
 
-// Supporting Function - Populate Document Files
-function populateDocumentFiles(documentFiles) {
-    const documentList = document.getElementById('attachedDocument');
-    documentList.innerHTML = ''; // Clear existing files
-
-    if (documentFiles && documentFiles.length > 0) {
-        documentFiles.forEach(doc => {
-            const listItem = document.createElement('li');
-            listItem.textContent = doc; // Assuming doc is a string representing the filename
-            documentList.appendChild(listItem);
-        });
-    } else {
-        const noDocsItem = documentFiles.createElement('li');
-        noDocsItem.textContent = 'No documents available.';
-        documentList.appendChild(noDocsItem);
-    }
-}
 
 // Supporting Function - Redirection to Details Page of NCR when View button is clicked
 function detailsEntry(ncrNumber) {
     window.location.href = `details.html?ncr=${ncrNumber}`; // Redirect to edit page
     console.log(ncr);
 }
+
 
 //working with
 function editEntryTrial(ncrNumber) {
@@ -321,6 +309,7 @@ function editEntryTrial(ncrNumber) {
 // Populate the Create Page of an NCR when a user clicks Edit
 // or immediately after creationg an NCR
 // ============================================================
+
 function populateEditPage(ncrNumber) {
     document.getElementById('createEditNCR').innerHTML = 'Edit NCR';
     document.getElementById('create-edit')
@@ -340,20 +329,21 @@ function populateEditPage(ncrNumber) {
         document.getElementById('defectDescription').value = entry.defectDescription ? entry.defectDescription : '';
         document.getElementById('engNeeded').checked = entry.engNeeded === 'Yes';
         document.getElementById('itemConform').checked = entry.itemConform === 'Yes';
-        // Handle previously uploaded files
-        const fileNamesDisplay = document.getElementById('fileNames');
-        if (entry.documentFiles && entry.documentFiles.length > 0) {
-            // Display previously uploaded files
-            fileNamesDisplay.innerHTML = `Previously Uploaded Files:<br>${entry.documentFiles.join('<br>')}`;
-        } else {
-            //fileNamesDisplay.textContent = 'No files uploaded yet.';
-        }
+        
 
-        // Ensure that the global uploadedFiles array contains previously uploaded files
-        uploadedFiles = [...entry.documentFiles];
-    }
-    document.getElementById('createNCRModal').style.visibility = 'hidden'; // Hide the modal
-    document.getElementById('createEditNCR').style.visibility = 'visible'; // Show the edit section
+       // Clear the existing thumbnails container
+       const thumbnailsContainer = document.getElementById('thumbnailsContainer');
+       thumbnailsContainer.innerHTML = "";
+       // Populate previously uploaded files into the global array and display them
+       uploadedFiles.length = 0; // Clear current files (if any)
+       if (entry.documentFiles && entry.documentFiles.length > 0) {
+           entry.documentFiles.forEach(file => {
+               const fileObject = { file, thumbnail: file.thumbnail };
+               uploadedFiles.push(fileObject);
+               displayThumbnail(fileObject);
+           });
+       } 
+   }
 }
 
 // Supporting Function - Redirection to Edit an NCR when Edit button is clicked
@@ -594,39 +584,6 @@ function CreateNCR() {
     sessionStorage.setItem('history', JSON.stringify(history));
     sessionStorage.setItem('quality', JSON.stringify(quality));
 
-    /* Display the newly created NCR data in the UI
-    document.getElementById('createNCRModal').style.visibility = 'hidden';
-    document.getElementById('createEditModal').style.visibility = 'visible';
-
-
-    // Dynamically update elements with the new NCR data
-    //populateEditPage(qualityEntry.ncrNumber)
-    document.getElementById('ncrNumber').textContent = qualityEntry.ncrNumber;
-    document.getElementById('dateCreated').textContent = formatDate(qualityEntry.dateCreated);
-    document.getElementById('createdBy').textContent = qualityEntry.createdBy;
-    document.getElementById('ncrStatus').textContent = qualityEntry.ncrStatus;
-    document.getElementById('applicableProcess').value = qualityEntry.applicableProcess;
-    document.getElementById('supplierName').value = qualityEntry.supplierName;
-    document.getElementById('poNumber').value = qualityEntry.poNumber ? qualityEntry.poNumber : '';
-    document.getElementById('soNumber').value = qualityEntry.soNumber ? qualityEntry.soNumber : '';
-    document.getElementById('quantityReceived').value = qualityEntry.quantityReceived ? qualityEntry.quantityReceived : '';
-    document.getElementById('quantityDefect').value = qualityEntry.quantityDefect ? qualityEntry.quantityDefect : '';
-    document.getElementById('itemDescription').value = qualityEntry.itemDescription ? qualityEntry.itemDescription : '';
-    document.getElementById('defectDescription').value = qualityEntry.defectDescription ? qualityEntry.defectDescription : '';
-    document.getElementById('engNeeded').checked = qualityEntry.engNeeded === 'Yes';
-    document.getElementById('itemConform').checked = qualityEntry.itemConform === 'Yes';
-    // Handle previously uploaded files
-    const fileNamesDisplay = document.getElementById('fileNames');
-    if (qualityEntry.documentFiles && qualityEntry.documentFiles.length > 0) {
-        // Display previously uploaded files
-        fileNamesDisplay.innerHTML = `Previously Uploaded Files:<br>${qualityEntry.documentFiles.join('<br>')}`;
-    } else {
-        //fileNamesDisplay.textContent = 'No files uploaded yet.';
-    }
-
-    // Ensure that the global uploadedFiles array contains previously uploaded files
-    uploadedFiles = [...qualityEntry.documentFiles];*/
-
     alert(`NCR Number ${ncrNumber} successfully generated. You may continue to provide additional information now or later`);
     
     sessionStorage.setItem('ncrNumber', ncrNumber);
@@ -649,55 +606,12 @@ function NCRNumberGenerator() {
 // 7. Function to Save the NCR temporarily (incomplete data)
 // =================================================================
 // Global array to hold all uploaded files
-let uploadedFiles = [];
+// =================================================================
+// 7. Function to Save the NCR temporarily (incomplete data)
+// =================================================================
 
-document.getElementById('attachedDocument').addEventListener('change', function () {
-    const fileInput = document.getElementById('attachedDocument');
-    const fileNamesDisplay = document.getElementById('fileNames');
-    const fileSummaryDisplay = document.getElementById('fileSummary');
 
-    // Get the selected files
-    const files = Array.from(fileInput.files);
-    const validExtensions = ['image/jpeg', 'image/png', 'image/gif', 'video/mp4', 'video/avi', 'video/mov'];
-
-    let validFiles = [];
-    let invalidFiles = [];
-
-    // Check the file type for each selected file
-    files.forEach(file => {
-        if (validExtensions.includes(file.type)) {
-            validFiles.push(file.name);
-        } else {
-            invalidFiles.push(file.name);
-        }
-    });
-
-    // Handle invalid files
-    if (invalidFiles.length > 0) {
-        alert(`These files are not allowed: ${invalidFiles.join(', ')}. Please upload only images or videos.`);
-        // Optionally, clear the invalid files and reset the input
-        fileInput.value = ''; // Clears the file input
-        return;
-    }
-
-    // Accumulate valid files
-    uploadedFiles = [...uploadedFiles, ...validFiles];
-
-    // Remove duplicates if needed (optional)
-    uploadedFiles = [...new Set(uploadedFiles)];
-
-    // Display the file names in the file-upload-details section
-    if (uploadedFiles.length > 0) {
-        fileSummaryDisplay.innerHTML = "Uploaded Files:"
-        fileNamesDisplay.innerHTML = `${uploadedFiles.join('<br>')}`;
-    } else {
-        //fileNamesDisplay.textContent = 'No files uploaded yet.';
-    }
-
-    // Clear the file input so the same file can be uploaded again if needed
-    fileInput.value = '';
-});
-
+// Function to save NCR
 function saveNCR() {
     const ncrNumber = document.getElementById('ncrNumber').textContent;
 
@@ -804,7 +718,6 @@ function saveNCR() {
         alert('NCR not found. Please check the NCR number.');
     }
 }
-
 
 // ===================================================================
 // 8. Function to Submit the NCR (all required fields must be filled)
@@ -1462,3 +1375,107 @@ function populateSupplierDropdown(elementID, ncrNumber = null) {
         }
     });
 }
+
+
+///FUNCTIONS FOR IMAGE UPLOADS
+// Function to display a thumbnail and add delete functionality
+function displayThumbnail(fileObject) {
+    const thumbnailsContainer = document.getElementById('thumbnailsContainer');
+ 
+    // Create elements for each thumbnail and delete button
+    const fileItem = document.createElement('div');
+    fileItem.classList.add('file-item');
+ 
+    const thumbnailImage = document.createElement('img');
+    thumbnailImage.src = fileObject.thumbnail;
+    thumbnailImage.classList.add('thumbnail');
+ 
+    const deleteButton = document.createElement('button');
+    deleteButton.textContent = 'Delete';
+    deleteButton.classList.add('delete-button');
+ 
+    // Delete function removes the file item from both array and display
+    deleteButton.addEventListener('click', () => {
+        deleteFile(fileObject, fileItem);
+    });
+ 
+    // Append elements to the file item
+    fileItem.appendChild(thumbnailImage);
+    fileItem.appendChild(deleteButton);
+ 
+    // Append file item to thumbnails container
+    thumbnailsContainer.appendChild(fileItem);
+    document.getElementById('fileNames').innerHTML = "";
+ }
+ 
+ // Function to delete an uploaded file
+ function deleteFile(fileObject, fileItem) {
+    // Remove fileObject from uploadedFiles array
+    uploadedFiles.splice(uploadedFiles.indexOf(fileObject), 1);
+ 
+    // Remove the file item from the display
+    fileItem.remove();
+ }
+ 
+ // Use the modified event listener for new file uploads
+ document.getElementById('attachedDocument').addEventListener('change', function () {
+    const fileInput = document.getElementById('attachedDocument');
+    const files = Array.from(fileInput.files);
+    const validExtensions = ['image/jpeg', 'image/png', 'image/gif'];
+    let validFiles = [];
+    let invalidFiles = [];
+ 
+    files.forEach(file => {
+        if (validExtensions.includes(file.type)) {
+            validFiles.push(file);
+        } else {
+            invalidFiles.push(file.name);
+        }
+    });
+ 
+    if (invalidFiles.length > 0) {
+        alert(`These files are not allowed: ${invalidFiles.join(', ')}. Please upload only images.`);
+        fileInput.value = '';
+        return;
+    }
+ 
+    // Process and display new valid files
+    validFiles.forEach(file => {
+        const reader = new FileReader();
+        reader.onload = function (event) {
+            const imageData = event.target.result;
+            const img = new Image();
+            img.src = imageData;
+            img.onload = () => {
+                const thumbnailData = compressImage(img, 200, 200);
+ 
+                const fileObject = { file, thumbnail: thumbnailData };
+                uploadedFiles.push(fileObject);
+ 
+                // Display the new thumbnail
+                displayThumbnail(fileObject);
+                
+            };
+        };
+        reader.readAsDataURL(file);
+    });
+ 
+    // Clear the file input for potential future uploads
+    fileInput.value = '';
+ });
+ 
+ // Function to compress the image and return thumbnail data
+ function compressImage(img, width, height) {
+     const canvas = document.createElement('canvas');
+     const ctx = canvas.getContext('2d');
+     canvas.width = width;
+     canvas.height = height;
+ 
+     // Draw the image scaled to fit the thumbnail dimensions
+     ctx.drawImage(img, 0, 0, width, height);
+ 
+     // Return the thumbnail data URL (compressed as JPEG, adjust quality as needed)
+     return canvas.toDataURL('image/jpeg', 0.6); // 0.7 is a good balance of quality and size
+ }
+ 
+ 

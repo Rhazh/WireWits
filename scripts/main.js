@@ -4,6 +4,7 @@ let quality = [];
 let history = [];
 let engineering = [];
 let supplier = [];
+let uploadedFiles = [];
 
 document.addEventListener('DOMContentLoaded', async () => {
     // Check if the user is logged in
@@ -124,8 +125,8 @@ document.addEventListener('DOMContentLoaded', async () => {
             toggleCreateEditModal(null, false);
             populateSupplierDropdown('nsupplierName');
             setupCreateNCRButton();
-            setupSaveNCR();
-            setupSubmitNCR();
+            //setupSaveNCR();
+            //setupSubmitNCR();
             populateNotifications();
             NavBar();
         } else if (ncrNumber && pageName === 'details.html') {
@@ -293,7 +294,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     
     });
 });
-
 
 
 

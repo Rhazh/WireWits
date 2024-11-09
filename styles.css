@@ -655,6 +655,44 @@ table tbody tr:hover {
     margin-bottom: 10px;
 }
 
+/*Added by Francis for Uploaded Images*/
+/* CSS for the thumbnail container */
+#thumbnailsContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.file-item {
+    width: 200px;
+    text-align: center;
+    margin-bottom: 10px;
+    position: relative;
+}
+
+/* Thumbnail image styling */
+.thumbnail {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+/* Styling for the delete button */
+.delete-button {
+    display: block;
+    width: 100%;
+    margin-top: 5px;
+    padding: 8px;
+    background-color: red;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    z-index: 1; /* Ensures it’s above other elements */
+    pointer-events: auto;
+}
+
 /* -------------------------------------------------------------- */
 /* -------------------------------------------------------------- */
 /* -------------------------------------------------------------- */
