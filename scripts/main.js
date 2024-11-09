@@ -112,6 +112,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             recentEngNCRs();
         } else if (pageName === 'view.html') {
             populateNotifications();
+            populateSupplierDropdownN('supplierName')
             NavBar();
             performSearch();
         } else if (ncrNumber && pageName === 'create.html') {

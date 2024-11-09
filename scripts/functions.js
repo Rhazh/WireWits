@@ -1136,70 +1136,10 @@ function printPdf() {
     };
 }
 
-async function populateSupplierDropdownN() {
-    const supplierDropdown = document.getElementById('supplierName');
-    const storedSuppliers = JSON.parse(sessionStorage.getItem('suppliers')) || [];
-    const selectedSupplier = sessionStorage.getItem('selectedSupplier');  // Retrieve the previously selected supplier
-
-    // Count occurrences and sort suppliers
-    const supplierCounts = supplier.reduce((counts, item) => {
-        counts[item.supplierName] = (counts[item.supplierName] || 0) + 1;
-        return counts;
-    }, {});
-    const sortedSuppliers = Object.keys(supplierCounts).sort((a, b) => supplierCounts[b] - supplierCounts[a]);
-
-    // Group suppliers: top 3 and all others
-    const topSuppliers = sortedSuppliers.slice(0, 3);
-    const allSuppliers = [...new Set([...sortedSuppliers.slice(3), ...storedSuppliers])].sort();
-
-    // Helper to create an option group
-    const createOptionGroup = (label, suppliers) => {
-        const group = document.createElement('optgroup');
-        group.label = label;
-        suppliers.forEach(supplier => {
-            const option = document.createElement('option');
-            option.value = supplier;
-            option.textContent = supplier;
-            group.appendChild(option);
-        });
-        return group;
-    };
-
-    // Populate dropdown
-    supplierDropdown.innerHTML = ''; // Clear existing options
-    supplierDropdown.appendChild(createOptionGroup('Popular Suppliers', topSuppliers));
-    supplierDropdown.appendChild(createOptionGroup('All Suppliers', allSuppliers));
-
-    // Add "Other supplier" option
-    const customOption = document.createElement('option');
-    customOption.value = 'custom';
-    customOption.textContent = 'Other supplier...';
-    supplierDropdown.appendChild(customOption);
-
-    // Set the previously selected supplier (if any)
-    if (selectedSupplier) {
-        supplierDropdown.value = selectedSupplier;
-    }
-
-    // Handle supplier addition and saving the selected supplier
-    supplierDropdown.addEventListener('change', function(event) {
-        const supplierName = event.target.value;
-        if (supplierName === 'custom') {
-            const customSupplier = prompt('Please enter your supplier name:');
-            if (customSupplier && !storedSuppliers.includes(customSupplier)) {
-                storedSuppliers.push(customSupplier);
-                sessionStorage.setItem('suppliers', JSON.stringify(storedSuppliers));
-                populateSupplierDropdown(ncrLog);  // Refresh dropdown with new supplier
-                sessionStorage.setItem('selectedSupplier', customSupplier);  // Save the new selected supplier
-            }
-        } else {
-            sessionStorage.setItem('selectedSupplier', supplierName);  // Save the selected supplier
-        }
-    });
-}
-
-
+//================================================================================================================
+///FUNCTIONS SUPPLIER DROPDOWN
 //
+//=================================================================================================================
 function populateSupplierDropdown(elementID, ncrNumber = null) {
     const supplierDropdown = document.getElementById(elementID);
 
@@ -1284,8 +1224,57 @@ function populateSupplierDropdown(elementID, ncrNumber = null) {
     });
 }
 
+function populateSupplierDropdownN(elementID) {
+    const supplierDropdown = document.getElementById(elementID);
 
+    // Retrieve supplier and quality data from sessionStorage
+    const supplier = JSON.parse(sessionStorage.getItem('supplier')) || [];
+    const quality = JSON.parse(sessionStorage.getItem('quality')) || [];
+
+    // Load or initialize stored suppliers
+    let storedSuppliers = JSON.parse(sessionStorage.getItem('suppliers')) || [];
+    if (storedSuppliers.length === 0) {
+        supplier.forEach(item => storedSuppliers.push(item.supplierName));
+        sessionStorage.setItem('suppliers', JSON.stringify(storedSuppliers)); // Save to session storage
+    }
+
+    // If `ncrNumber` is provided, retrieve the previously selected supplier
+    //const selectedSupplier = ncrNumber ? quality.find(item => item.ncrNumber === ncrNumber)?.supplierName : null;
+
+    // Count occurrences and sort suppliers based on frequency in 'quality'
+    const supplierCounts = quality.reduce((counts, item) => {
+        counts[item.supplierName] = (counts[item.supplierName] || 0) + 1;
+        return counts;
+    }, {});
+    const sortedSuppliers = Object.keys(supplierCounts).sort((a, b) => supplierCounts[b] - supplierCounts[a]);
+
+    // Group suppliers: top 3 most frequent and all others
+    const topSuppliers = sortedSuppliers.slice(0, 3);
+    const allSuppliers = [...new Set([...sortedSuppliers.slice(3), ...storedSuppliers])].sort();
+
+    // Helper function to create option groups
+    const createOptionGroup = (label, suppliers) => {
+        const group = document.createElement('optgroup');
+        group.label = label;
+        suppliers.forEach(supplier => {
+            const option = document.createElement('option');
+            option.value = supplier;
+            option.textContent = supplier;
+            group.appendChild(option);
+        });
+        return group;
+    };
+     // Populate dropdown
+    //supplierDropdown.innerHTML = ''; // Clear existing options
+    supplierDropdown.appendChild(createOptionGroup('Popular Suppliers', topSuppliers));
+    supplierDropdown.appendChild(createOptionGroup('All Suppliers', allSuppliers));
+}
+
+//================================================================================================================
 ///FUNCTIONS FOR IMAGE UPLOADS
+//
+//=================================================================================================================
+
 // Function to display a thumbnail and add delete functionality
 function displayThumbnail(fileObject) {
     const thumbnailsContainer = document.getElementById('thumbnailsContainer');
