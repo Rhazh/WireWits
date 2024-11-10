@@ -42,8 +42,7 @@
                         <li><a href="create.html" id="create" aria-label="Create new Non-Conformance Report"
                                 tabindex="0">Create <abbr title="Non-Conformance Report">NCR</abbr></a></li>
                         <li><a href="view.html" id="view" tabindex="0"
-                                aria-label="View existing Non-Conformance Reports">View <abbr
-                                    title="Non-Conformance Reports">NCRs</abbr> </a></li>
+                                aria-label="View existing Non-Conformance Reports"><abbr title="Non-Conformance Reports">NCR</abbr> Log </a></li>
                         <li><a href="reports.html" id="reports" aria-label="View Reports" tabindex="0">Reports</a></li>
                     </ul>
                 </nav>
@@ -234,9 +233,9 @@
                         </div>
                         <div class="form-ncr-details">
                             <strong>Uploaded Images/Videos:</strong>
-                            <span tabindex="21" id="attachedDocument">
-                                No Files Uploaded yet.
-                            </span>
+                            <div id="thumbnailsContainer" class="thumbnails-container">
+                                <!-- Thumbnails will be dynamically inserted here -->
+                            </div>
                         </div>
 
                         <div class="form-ncr-buttons">
@@ -261,14 +260,17 @@
                     <div id="createEditModal" class="container">
                         <div>
                             <div class="view-form-quality">
+                                <div>
+                                    <strong>NCR Number:</strong>
+                                    <span id="ncrNumberEng"></span>
+                                </div>
                                 <div class="form-ncr-details">
                                     <strong>Review By CF Engineering:</strong>
-                                    <span id="reviewEng"></span>
-
+                                    <span id="reviewByCfEngineering"></span>
                                 </div>
                                 <div class="form-ncr-details">
                                     <strong>Does Customer require notification of NCR?</strong>
-                                    <span id="customerNot"></span>
+                                    <span id="customerNotification"></span>
                                 </div>
                                 <div class="form-ncr-details">
                                     <strong for="disposition">Disposition:</strong>

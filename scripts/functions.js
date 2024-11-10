@@ -235,7 +235,7 @@ function populateDetailsPage(ncrNumber) {
         document.getElementById('applicableProcess').textContent = entry.applicableProcess ?? "";
         document.getElementById('supplierNameD').textContent = entry.supplierName ?? "";
 
-        // Use nullish coalescing to handle missing or undefined values
+        // Handle missing values with nullish coalescing
         document.getElementById('poNumber').textContent = entry.poNumber ?? "";
         document.getElementById('soNumber').textContent = entry.soNumber ?? "";
         document.getElementById('quantityReceived').textContent = entry.quantityReceived ?? "";
@@ -243,22 +243,31 @@ function populateDetailsPage(ncrNumber) {
         document.getElementById('itemDescription').innerHTML = entry.itemDescription.replace(/\n/g, '<br/>') ?? "";
         document.getElementById('defectDescription').innerHTML = entry.defectDescription.replace(/\n/g, '<br/>') ?? "";
 
-        // Assuming engineering is related to defect description, corrected as `engNeeded`
+        // Assuming engineering is related to defect description
         document.getElementById('engNeeded').textContent = entry.engNeeded ?? "No";
-
         document.getElementById('itemConform').textContent = entry.itemConform ?? "No";
 
-        const documentFilesList = document.getElementById('attachedDocument');
+        const documentFilesList = document.getElementById('thumbnailsContainer');
         documentFilesList.innerHTML = ''; // Clear any existing content
 
-        if (entry.documentFiles.length > 0) {
+        // Check if documentFiles exists and has items
+        if (entry.documentFiles && entry.documentFiles.length > 0) {
             entry.documentFiles.forEach(file => {
-                const li = document.createElement('li');
-                li.textContent = file; // Just display the file name
-                documentFilesList.appendChild(li);
-            });
-        } else { documentFilesList.innerHTML = 'No uploaded files.' }
+                // Create elements for each thumbnail
+                const fileItem = document.createElement('div');
+                fileItem.classList.add('file-item');
 
+                const thumbnailImage = document.createElement('img');
+                thumbnailImage.src = file.thumbnail; // Assuming file.thumbnail contains the image data
+                thumbnailImage.classList.add('thumbnail');
+
+                // Append elements to the file item
+                fileItem.appendChild(thumbnailImage);
+                documentFilesList.appendChild(fileItem); // Append file item to the container
+            });
+        } else {
+            documentFilesList.innerHTML = 'No uploaded files.'; // Handle no files case
+        }
         // Disable edit button if status is not "Quality"
         const editButton = document.getElementById('editButton'); // Assuming you have an edit button with this ID
 
@@ -274,39 +283,18 @@ function populateDetailsPage(ncrNumber) {
                 }
             };
         }
-
-        /*Call to populate document files if they exist
-        if (entry.documentFiles) {
-            populateDocumentFiles(entry.documentFiles);
-        }*/
     } else {
-        console.error(`NCR with number ${ncrNumber} not found.`);
+        console.error('Entry not found for NCR number:', ncrNumber);
     }
 }
 
-// Supporting Function - Populate Document Files
-function populateDocumentFiles(documentFiles) {
-    const documentList = document.getElementById('attachedDocument');
-    documentList.innerHTML = ''; // Clear existing files
-
-    if (documentFiles && documentFiles.length > 0) {
-        documentFiles.forEach(doc => {
-            const listItem = document.createElement('li');
-            listItem.textContent = doc; // Assuming doc is a string representing the filename
-            documentList.appendChild(listItem);
-        });
-    } else {
-        const noDocsItem = documentFiles.createElement('li');
-        noDocsItem.textContent = 'No documents available.';
-        documentList.appendChild(noDocsItem);
-    }
-}
 
 // Supporting Function - Redirection to Details Page of NCR when View button is clicked
 function detailsEntry(ncrNumber) {
     window.location.href = `details.html?ncr=${ncrNumber}`; // Redirect to edit page
     console.log(ncr);
 }
+
 
 //working with
 function editEntryTrial(ncrNumber) {
@@ -321,6 +309,7 @@ function editEntryTrial(ncrNumber) {
 // Populate the Create Page of an NCR when a user clicks Edit
 // or immediately after creationg an NCR
 // ============================================================
+
 function populateEditPage(ncrNumber) {
     document.getElementById('createEditNCR').innerHTML = 'Edit NCR';
     document.getElementById('create-edit')
@@ -340,20 +329,21 @@ function populateEditPage(ncrNumber) {
         document.getElementById('defectDescription').value = entry.defectDescription ? entry.defectDescription : '';
         document.getElementById('engNeeded').checked = entry.engNeeded === 'Yes';
         document.getElementById('itemConform').checked = entry.itemConform === 'Yes';
-        // Handle previously uploaded files
-        const fileNamesDisplay = document.getElementById('fileNames');
-        if (entry.documentFiles && entry.documentFiles.length > 0) {
-            // Display previously uploaded files
-            fileNamesDisplay.innerHTML = `Previously Uploaded Files:<br>${entry.documentFiles.join('<br>')}`;
-        } else {
-            //fileNamesDisplay.textContent = 'No files uploaded yet.';
-        }
+        
 
-        // Ensure that the global uploadedFiles array contains previously uploaded files
-        uploadedFiles = [...entry.documentFiles];
-    }
-    document.getElementById('createNCRModal').style.visibility = 'hidden'; // Hide the modal
-    document.getElementById('createEditNCR').style.visibility = 'visible'; // Show the edit section
+       // Clear the existing thumbnails container
+       const thumbnailsContainer = document.getElementById('thumbnailsContainer');
+       thumbnailsContainer.innerHTML = "";
+       // Populate previously uploaded files into the global array and display them
+       uploadedFiles.length = 0; // Clear current files (if any)
+       if (entry.documentFiles && entry.documentFiles.length > 0) {
+           entry.documentFiles.forEach(file => {
+               const fileObject = { file, thumbnail: file.thumbnail };
+               uploadedFiles.push(fileObject);
+               displayThumbnail(fileObject);
+           });
+       } 
+   }
 }
 
 // Supporting Function - Redirection to Edit an NCR when Edit button is clicked
@@ -516,8 +506,9 @@ function CreateNCR() {
         quality = [];  // Initialize quality if undefined
     }
     if (!Array.isArray(history)) {
-        history = [];  // Initialize quality if undefined
+        history = [];  // Initialize history if undefined
     }
+   
 
     // Get form values
     const applicableProcess = document.getElementById('napplicableProcess')?.value;
@@ -593,41 +584,10 @@ function CreateNCR() {
     sessionStorage.setItem('history', JSON.stringify(history));
     sessionStorage.setItem('quality', JSON.stringify(quality));
 
-    // Display the newly created NCR data in the UI
-    document.getElementById('createNCRModal').style.visibility = 'hidden';
-    document.getElementById('createEditModal').style.visibility = 'visible';
-
-
-    // Dynamically update elements with the new NCR data
-    //populateEditPage(qualityEntry.ncrNumber)
-    document.getElementById('ncrNumber').textContent = qualityEntry.ncrNumber;
-    document.getElementById('dateCreated').textContent = formatDate(qualityEntry.dateCreated);
-    document.getElementById('createdBy').textContent = qualityEntry.createdBy;
-    document.getElementById('ncrStatus').textContent = qualityEntry.ncrStatus;
-    document.getElementById('applicableProcess').value = qualityEntry.applicableProcess;
-    document.getElementById('supplierName').value = qualityEntry.supplierName;
-    document.getElementById('poNumber').value = qualityEntry.poNumber ? qualityEntry.poNumber : '';
-    document.getElementById('soNumber').value = qualityEntry.soNumber ? qualityEntry.soNumber : '';
-    document.getElementById('quantityReceived').value = qualityEntry.quantityReceived ? qualityEntry.quantityReceived : '';
-    document.getElementById('quantityDefect').value = qualityEntry.quantityDefect ? qualityEntry.quantityDefect : '';
-    document.getElementById('itemDescription').value = qualityEntry.itemDescription ? qualityEntry.itemDescription : '';
-    document.getElementById('defectDescription').value = qualityEntry.defectDescription ? qualityEntry.defectDescription : '';
-    document.getElementById('engNeeded').checked = qualityEntry.engNeeded === 'Yes';
-    document.getElementById('itemConform').checked = qualityEntry.itemConform === 'Yes';
-    // Handle previously uploaded files
-    const fileNamesDisplay = document.getElementById('fileNames');
-    if (qualityEntry.documentFiles && qualityEntry.documentFiles.length > 0) {
-        // Display previously uploaded files
-        fileNamesDisplay.innerHTML = `Previously Uploaded Files:<br>${qualityEntry.documentFiles.join('<br>')}`;
-    } else {
-        //fileNamesDisplay.textContent = 'No files uploaded yet.';
-    }
-
-    // Ensure that the global uploadedFiles array contains previously uploaded files
-    uploadedFiles = [...qualityEntry.documentFiles];
-
     alert(`NCR Number ${ncrNumber} successfully generated. You may continue to provide additional information now or later`);
-
+    
+    sessionStorage.setItem('ncrNumber', ncrNumber);
+    return ncrNumber
 }
 
 // Supporting Functions - Timestamp function - returns the current date
@@ -646,55 +606,12 @@ function NCRNumberGenerator() {
 // 7. Function to Save the NCR temporarily (incomplete data)
 // =================================================================
 // Global array to hold all uploaded files
-let uploadedFiles = [];
+// =================================================================
+// 7. Function to Save the NCR temporarily (incomplete data)
+// =================================================================
 
-document.getElementById('attachedDocument').addEventListener('change', function () {
-    const fileInput = document.getElementById('attachedDocument');
-    const fileNamesDisplay = document.getElementById('fileNames');
-    const fileSummaryDisplay = document.getElementById('fileSummary');
 
-    // Get the selected files
-    const files = Array.from(fileInput.files);
-    const validExtensions = ['image/jpeg', 'image/png', 'image/gif', 'video/mp4', 'video/avi', 'video/mov'];
-
-    let validFiles = [];
-    let invalidFiles = [];
-
-    // Check the file type for each selected file
-    files.forEach(file => {
-        if (validExtensions.includes(file.type)) {
-            validFiles.push(file.name);
-        } else {
-            invalidFiles.push(file.name);
-        }
-    });
-
-    // Handle invalid files
-    if (invalidFiles.length > 0) {
-        alert(`These files are not allowed: ${invalidFiles.join(', ')}. Please upload only images or videos.`);
-        // Optionally, clear the invalid files and reset the input
-        fileInput.value = ''; // Clears the file input
-        return;
-    }
-
-    // Accumulate valid files
-    uploadedFiles = [...uploadedFiles, ...validFiles];
-
-    // Remove duplicates if needed (optional)
-    uploadedFiles = [...new Set(uploadedFiles)];
-
-    // Display the file names in the file-upload-details section
-    if (uploadedFiles.length > 0) {
-        fileSummaryDisplay.innerHTML = "Uploaded Files:"
-        fileNamesDisplay.innerHTML = `${uploadedFiles.join('<br>')}`;
-    } else {
-        //fileNamesDisplay.textContent = 'No files uploaded yet.';
-    }
-
-    // Clear the file input so the same file can be uploaded again if needed
-    fileInput.value = '';
-});
-
+// Function to save NCR
 function saveNCR() {
     const ncrNumber = document.getElementById('ncrNumber').textContent;
 
@@ -802,7 +719,6 @@ function saveNCR() {
     }
 }
 
-
 // ===================================================================
 // 8. Function to Submit the NCR (all required fields must be filled)
 // ===================================================================
@@ -884,11 +800,22 @@ function submitNCR() {
             sessionStorage.setItem('history', JSON.stringify(history));
 
             //make engineering array and push to engineering json
-            const engineeringEntry = {
+             //make engineering array and push to engineering json
+             const engineeringEntry = {
                 ncrNumber: ncrNumber,
                 dateReceived: Timestamp(),
                 itemDescription: itemDescription,
-                ncrStatus: qualityEntry.ncrStatus
+                ncrStatus: qualityEntry.ncrStatus,
+                comment: "",
+                reviewByCfEngineering: "",
+                customerNotification: "",
+                disposition: "",
+                drawingUpdate: "",
+                originalRevNumber: "",
+                originalEngineerName: "",
+                updatedRevNumber: "",
+                revisionDate: "",
+                engineerName: ""
             }
             engineering.push(engineeringEntry);
             sessionStorage.setItem('engineering', JSON.stringify(engineering));
@@ -896,28 +823,11 @@ function submitNCR() {
             alert('NCR has been successfully submitted.');
 
             // Redirect or perform other actions as needed
-            window.history.back();
-            /*window.location.href = `engineer.html?ncr=${ncrNumber}`; // Redirect to edit page
-            ncrNumber = ncrNumber;
+            //window.history.back();
+            window.location.href = "index.html"; // Redirect to edit page
+            /*ncrNumber = ncrNumber;
             populateDetailsPage(ncrNumber); */
         }
-        /* data needed
-        ncrNumber
-        reviewByCfEngineering
-        customerNotification
-        disposition
-        drawingUpdate
-        originalEngineerName
-        
-         */
-
-
-
-
-
-
-
-
 
     } else {
         // If the user cancels, do nothing or add custom logic
@@ -1226,7 +1136,258 @@ function printPdf() {
     };
 }
 
-//***************************************************************************************** */
+//================================================================================================================
+///FUNCTIONS SUPPLIER DROPDOWN
+//
+//=================================================================================================================
+function populateSupplierDropdown(elementID, ncrNumber = null) {
+    const supplierDropdown = document.getElementById(elementID);
+
+    // Retrieve supplier and quality data from sessionStorage
+    const supplier = JSON.parse(sessionStorage.getItem('supplier')) || [];
+    const quality = JSON.parse(sessionStorage.getItem('quality')) || [];
+
+    // Load or initialize stored suppliers
+    let storedSuppliers = JSON.parse(sessionStorage.getItem('suppliers')) || [];
+    if (storedSuppliers.length === 0) {
+        supplier.forEach(item => storedSuppliers.push(item.supplierName));
+        sessionStorage.setItem('suppliers', JSON.stringify(storedSuppliers)); // Save to session storage
+    }
+
+    // If `ncrNumber` is provided, retrieve the previously selected supplier
+    const selectedSupplier = ncrNumber ? quality.find(item => item.ncrNumber === ncrNumber)?.supplierName : null;
+
+    // Count occurrences and sort suppliers based on frequency in 'quality'
+    const supplierCounts = quality.reduce((counts, item) => {
+        counts[item.supplierName] = (counts[item.supplierName] || 0) + 1;
+        return counts;
+    }, {});
+    const sortedSuppliers = Object.keys(supplierCounts).sort((a, b) => supplierCounts[b] - supplierCounts[a]);
+
+    // Group suppliers: top 3 most frequent and all others
+    const topSuppliers = sortedSuppliers.slice(0, 3);
+    const allSuppliers = [...new Set([...sortedSuppliers.slice(3), ...storedSuppliers])].sort();
+
+    // Helper function to create option groups
+    const createOptionGroup = (label, suppliers) => {
+        const group = document.createElement('optgroup');
+        group.label = label;
+        suppliers.forEach(supplier => {
+            const option = document.createElement('option');
+            option.value = supplier;
+            option.textContent = supplier;
+            group.appendChild(option);
+        });
+        return group;
+    };
+
+    // Populate dropdown
+    //supplierDropdown.innerHTML = ''; // Clear existing options
+    supplierDropdown.appendChild(createOptionGroup('Popular Suppliers', topSuppliers));
+    supplierDropdown.appendChild(createOptionGroup('All Suppliers', allSuppliers));
+
+    // Add "Other supplier" option for custom entries only if no supplier is selected or it's not in use
+    const customOption = document.createElement('option');
+    customOption.value = 'custom';
+    customOption.textContent = 'Other supplier...';
+
+    // Only add "Other supplier..." if no custom selection exists and it's not the selected supplier
+    if (selectedSupplier !== 'custom') {
+        supplierDropdown.appendChild(customOption);
+    }
+
+    // If `ncrNumber` is provided and a selected supplier exists, set the dropdown's value to the selected supplier
+    if (selectedSupplier && selectedSupplier !== 'custom') {
+        supplierDropdown.value = selectedSupplier;
+    }
+
+    // Handle custom supplier input and saving selected supplier
+    supplierDropdown.addEventListener('change', function(event) {
+        const supplierName = event.target.value;
+        if (supplierName === 'custom') {
+            const customSupplier = prompt('Please enter your supplier name:');
+            if (customSupplier && !storedSuppliers.includes(customSupplier)) {
+                // Add new custom supplier to stored suppliers
+                storedSuppliers.push(customSupplier);
+                sessionStorage.setItem('suppliers', JSON.stringify(storedSuppliers)); // Save updated list
+
+                // Refresh dropdown with the updated list
+                populateSupplierDropdown(elementID, ncrNumber);
+
+                // Set the dropdown to the new supplier
+                supplierDropdown.value = customSupplier;
+                sessionStorage.setItem('selectedSupplier', customSupplier); // Save new selection
+            }
+        } else {
+            sessionStorage.setItem('selectedSupplier', supplierName); // Save selected supplier
+        }
+    });
+}
+
+function populateSupplierDropdownN(elementID) {
+    const supplierDropdown = document.getElementById(elementID);
+
+    // Retrieve supplier and quality data from sessionStorage
+    const supplier = JSON.parse(sessionStorage.getItem('supplier')) || [];
+    const quality = JSON.parse(sessionStorage.getItem('quality')) || [];
+
+    // Load or initialize stored suppliers
+    let storedSuppliers = JSON.parse(sessionStorage.getItem('suppliers')) || [];
+    if (storedSuppliers.length === 0) {
+        supplier.forEach(item => storedSuppliers.push(item.supplierName));
+        sessionStorage.setItem('suppliers', JSON.stringify(storedSuppliers)); // Save to session storage
+    }
+
+    // If `ncrNumber` is provided, retrieve the previously selected supplier
+    //const selectedSupplier = ncrNumber ? quality.find(item => item.ncrNumber === ncrNumber)?.supplierName : null;
+
+    // Count occurrences and sort suppliers based on frequency in 'quality'
+    const supplierCounts = quality.reduce((counts, item) => {
+        counts[item.supplierName] = (counts[item.supplierName] || 0) + 1;
+        return counts;
+    }, {});
+    const sortedSuppliers = Object.keys(supplierCounts).sort((a, b) => supplierCounts[b] - supplierCounts[a]);
+
+    // Group suppliers: top 3 most frequent and all others
+    const topSuppliers = sortedSuppliers.slice(0, 3);
+    const allSuppliers = [...new Set([...sortedSuppliers.slice(3), ...storedSuppliers])].sort();
+
+    // Helper function to create option groups
+    const createOptionGroup = (label, suppliers) => {
+        const group = document.createElement('optgroup');
+        group.label = label;
+        suppliers.forEach(supplier => {
+            const option = document.createElement('option');
+            option.value = supplier;
+            option.textContent = supplier;
+            group.appendChild(option);
+        });
+        return group;
+    };
+     // Populate dropdown
+    //supplierDropdown.innerHTML = ''; // Clear existing options
+    supplierDropdown.appendChild(createOptionGroup('Popular Suppliers', topSuppliers));
+    supplierDropdown.appendChild(createOptionGroup('All Suppliers', allSuppliers));
+}
+
+//================================================================================================================
+///FUNCTIONS FOR IMAGE UPLOADS
+//
+//=================================================================================================================
+
+// Function to display a thumbnail and add delete functionality
+function displayThumbnail(fileObject) {
+    const thumbnailsContainer = document.getElementById('thumbnailsContainer');
+ 
+    // Create elements for each thumbnail and delete button
+    const fileItem = document.createElement('div');
+    fileItem.classList.add('file-item');
+ 
+    const thumbnailImage = document.createElement('img');
+    thumbnailImage.src = fileObject.thumbnail;
+    thumbnailImage.classList.add('thumbnail');
+ 
+    const deleteButton = document.createElement('button');
+    deleteButton.textContent = 'Delete';
+    deleteButton.classList.add('delete-button');
+ 
+    // Delete function removes the file item from both array and display
+    deleteButton.addEventListener('click', () => {
+        deleteFile(fileObject, fileItem);
+    });
+ 
+    // Append elements to the file item
+    fileItem.appendChild(thumbnailImage);
+    fileItem.appendChild(deleteButton);
+ 
+    // Append file item to thumbnails container
+    thumbnailsContainer.appendChild(fileItem);
+    document.getElementById('fileNames').innerHTML = "";
+ }
+ 
+ // Function to delete an uploaded file
+ function deleteFile(fileObject, fileItem) {
+    // Remove fileObject from uploadedFiles array
+    uploadedFiles.splice(uploadedFiles.indexOf(fileObject), 1);
+ 
+    // Remove the file item from the display
+    fileItem.remove();
+ }
+ 
+ // Use the modified event listener for new file uploads
+ document.getElementById('attachedDocument').addEventListener('change', function () {
+    const fileInput = document.getElementById('attachedDocument');
+    const files = Array.from(fileInput.files);
+    const validExtensions = ['image/jpeg', 'image/png', 'image/gif'];
+    let validFiles = [];
+    let invalidFiles = [];
+ 
+    files.forEach(file => {
+        if (validExtensions.includes(file.type)) {
+            validFiles.push(file);
+        } else {
+            invalidFiles.push(file.name);
+        }
+    });
+ 
+    if (invalidFiles.length > 0) {
+        alert(`These files are not allowed: ${invalidFiles.join(', ')}. Please upload only images.`);
+        fileInput.value = '';
+        return;
+    }
+ 
+    // Process and display new valid files
+    validFiles.forEach(file => {
+        const reader = new FileReader();
+        reader.onload = function (event) {
+            const imageData = event.target.result;
+            const img = new Image();
+            img.src = imageData;
+            img.onload = () => {
+                const thumbnailData = compressImage(img, 200, 200);
+ 
+                const fileObject = { file, thumbnail: thumbnailData };
+                uploadedFiles.push(fileObject);
+ 
+                // Display the new thumbnail
+                displayThumbnail(fileObject);
+                
+            };
+        };
+        reader.readAsDataURL(file);
+    });
+ 
+    // Clear the file input for potential future uploads
+    fileInput.value = '';
+ });
+ 
+ // Function to compress the image and return thumbnail data
+ function compressImage(img, width, height) {
+     const canvas = document.createElement('canvas');
+     const ctx = canvas.getContext('2d');
+     canvas.width = width;
+     canvas.height = height;
+ 
+     // Draw the image scaled to fit the thumbnail dimensions
+     ctx.drawImage(img, 0, 0, width, height);
+ 
+     // Return the thumbnail data URL (compressed as JPEG, adjust quality as needed)
+     return canvas.toDataURL('image/jpeg', 0.6); // 0.7 is a good balance of quality and size
+ }
+ 
+
+ //==========================================================================================================================
+//ENGINEER
+//
+//==============================================================================================================================
+ 
+
+
+
+//================================================================================================================
+//POPULATE RECENT NCRs FOR ENGINEER
+//
+//=================================================================================================================
 function recentEngNCRs() {
     console.log(engineering);
     if (!engineering.length) {
@@ -1276,6 +1437,10 @@ function recentEngNCRs() {
     });
 }
 
+//================================================================================================================
+//POPULATE NCR DETAILS FROM QUALITY FOR ENGINEER
+//
+//=================================================================================================================
 function populateDetailsPageEng(ncrNumber) {
     const entry = quality.find(item => item.ncrNumber === ncrNumber);
     if (entry) {
@@ -1309,24 +1474,270 @@ function populateDetailsPageEng(ncrNumber) {
                 documentFilesList.appendChild(li);
             });
         } else { documentFilesList.innerHTML = 'No uploaded files.' }
-
-        /*Disable edit button if status is not "Quality"
-        const editButton = document.getElementById('editButton'); // Assuming you have an edit button with this ID
-
-        if (editButton) {
-            editButton.onclick = () => {
-                const ncrStatus = entry.ncrStatus; // Get the NCR status from the entry object
-
-                if (ncrStatus !== "Quality") {
-                    alert(`This NCR is already submitted to ${ncrStatus}.`);
-                } else {
-                    // Proceed to edit the entry
-                    editEntry(entry.ncrNumber, ncrStatus);
-                }
-            };
-        }
-    } else {
-        console.error(`NCR with number ${ncrNumber} not found.`);
-    } */
     }
 }
+
+//================================================================================================================
+///POPULATE DETAILS PAGE OF ENGINEER'S PORTION OF NCR
+//
+//=================================================================================================================
+function populateEngDetailsPage(ncrNumber) {
+    const entry = engineering.find(item => item.ncrNumber === ncrNumber);
+    if (entry) {
+        document.getElementById('ncrNumberEng').textContent = entry.ncrNumber;
+        document.getElementById('reviewByCfEngineering').textContent = entry.reviewByCfEngineering ?? "";
+        document.getElementById('customerNotification').textContent = entry.customerNotification ?? "";
+        document.getElementById('disposition').innerHTML = entry.disposition.replace(/\n/g, '<br/>') ?? "";
+        document.getElementById('drawingUpdate').textContent = entry.drawingUpdate ?? "";
+        document.getElementById('originalEngineerName').textContent = entry.originalEngineerName ?? "";
+        document.getElementById('originalRevNumber').textContent = entry.originalRevNumber ?? "";
+        document.getElementById('updatedRevNumber').textContent = entry.updatedRevNumber ?? "";
+        document.getElementById('revisionDate').textContent = entry.revisionDate ? formatDate(entry.revisionDate) : "";
+        document.getElementById('engineerName').textContent = entry.engineerName ?? "";
+
+        /*if (entry.drawingUpdate === "Yes") {
+
+            document.getElementById('originalEngineerName').textContent = entry.originalEngineerName ?? "";
+            document.getElementById('originalRevNumber').textContent = entry.originalRevNumber ?? "";
+            document.getElementById('updatedRevNumber').textContent = entry.updatedRevNumber ?? "";
+            document.getElementById('revisionDate').textContent = entry.revisionDate ? formatDate(entry.revisionDate) : "";
+
+        } else {
+            document.getElementById('revisionDate').textContent = '';
+            document.getElementById('originalEngineerName').textContent = '';
+            document.getElementById('originalRevNumber').textContent = '';
+            document.getElementById('updatedRevNumber').textContent = '';
+        }*/
+    }
+}
+
+//================================================================================================================
+//POPULATE EDIT PAGE OF ENGINEER'S PORTION OF NCR
+//
+//=================================================================================================================
+function populateEngEditPage(ncrNumber) {
+    //document.getElementById('createEditNCR').innerHTML = 'Edit NCR';
+    //document.getElementById('create-edit')
+    const entry = engineering.find(item => item.ncrNumber === ncrNumber);
+    if (entry) {
+        document.getElementById('ncrNumberEng').textContent = entry.ncrNumber;
+        document.getElementById('reviewByCfEngineering').value = entry.reviewByCfEngineering;
+        document.getElementById('customerNotification').value = entry.customerNotification;
+        document.getElementById('disposition').textContent = entry.disposition;
+        document.getElementById('drawingUpdate').value = entry.drawingUpdate;
+
+        if (entry.drawingUpdate === "Yes") {
+
+            document.getElementById('originalEngineerName').value = entry.originalEngineerName;
+            document.getElementById('originalRevNumber').value = entry.originalRevNumber;
+            document.getElementById('updatedRevNumber').value = entry.updatedRevNumber;
+            document.getElementById('revisionDate').value = entry.revisionDate ? formatDate(entry.revisionDate) : "";
+
+        } else {
+            document.getElementById('revisionDate').value = '';
+            document.getElementById('originalEngineerName').value = '';
+            document.getElementById('originalRevNumber').value = '';
+            document.getElementById('updatedRevNumber').value = '';
+        }
+    }
+    console.log(entry);
+}
+
+//================================================================================================================
+//EVENT LISTENER FOR YES/NO TO UPDATE DRAWINGS - ENGINEER
+//
+//=================================================================================================================
+let prevOriginalRevNumber = "";
+let prevOriginalEngineerName = "";
+let prevUpdatedRevNumber = "";
+let prevRevisionDate = "";
+
+// Event listener for drawingUpdate
+document.getElementById('drawingUpdate').addEventListener('change', (event) => {
+    const drawingUpdate = event.target.value;
+
+    if (drawingUpdate === "No") {
+        // Store the current values before clearing them
+        prevOriginalRevNumber = document.getElementById('originalRevNumber').value;
+        prevOriginalEngineerName = document.getElementById('originalEngineerName').value;
+        prevUpdatedRevNumber = document.getElementById('updatedRevNumber').value;
+        prevRevisionDate = document.getElementById('revisionDate').value;
+
+        // Clear the fields
+        document.getElementById('originalRevNumber').value = "";
+        document.getElementById('originalEngineerName').value = "";
+        document.getElementById('updatedRevNumber').value = "";
+        document.getElementById('revisionDate').value = "";
+    } else if (drawingUpdate === "Yes") {
+        // Restore previous values if "Yes" is selected
+        document.getElementById('originalRevNumber').value = prevOriginalRevNumber;
+        document.getElementById('originalEngineerName').value = prevOriginalEngineerName;
+        document.getElementById('updatedRevNumber').value = prevUpdatedRevNumber;
+        document.getElementById('revisionDate').value = prevRevisionDate;
+    }
+});
+
+//================================================================================================================
+//SAVE ENGINEER'S PORTION OF NCR
+//
+//=================================================================================================================
+function saveEngNCR() {
+    const ncrNumber = document.getElementById('ncrNumberEng').textContent;
+    const changedBy = getUserName();
+    const reviewByCfEngineering = document.getElementById('reviewByCfEngineering').value;
+    const customerNotification = document.getElementById('customerNotification').value;
+    const disposition = document.getElementById('disposition').value;
+    const drawingUpdate = document.getElementById('drawingUpdate').value;
+    const originalRevNumber = document.getElementById('originalRevNumber').value;
+    const originalEngineerName = document.getElementById('originalEngineerName').value;
+    const updatedRevNumber = document.getElementById('updatedRevNumber').value;
+    
+    // Only set revisionDate if updatedRevNumber has a value
+    const revisionDate = updatedRevNumber ? Timestamp() : "";
+
+    const engineeringEntry = engineering.find(entry => entry.ncrNumber === ncrNumber);
+
+    if (engineeringEntry) {
+        // Check for changes in all relevant fields
+        const noChanges = (
+            engineeringEntry.reviewByCfEngineering === reviewByCfEngineering &&
+            engineeringEntry.customerNotification === customerNotification &&
+            engineeringEntry.disposition === disposition &&
+            engineeringEntry.drawingUpdate === drawingUpdate &&
+            engineeringEntry.originalRevNumber === originalRevNumber &&
+            engineeringEntry.updatedRevNumber === updatedRevNumber 
+            //still need more info about revision (ask Mark in class)
+            //&&
+            //engineeringEntry.revisionDate === revisionDate
+        );
+
+        if (noChanges) {
+            alert('No changes were made.');
+            return;
+        }
+
+        const confirmation = confirm("Are you sure you want to save the NCR?");
+        if (confirmation) {
+            engineeringEntry.reviewByCfEngineering = reviewByCfEngineering;
+            engineeringEntry.customerNotification = customerNotification;
+            engineeringEntry.disposition = disposition;
+            engineeringEntry.drawingUpdate = drawingUpdate;
+
+            if (drawingUpdate === "Yes") {
+                engineeringEntry.originalRevNumber = originalRevNumber;
+                engineeringEntry.originalEngineerName = originalEngineerName;
+                engineeringEntry.updatedRevNumber = updatedRevNumber;
+
+                // Only set the revision date if updatedRevNumber has a value
+                engineeringEntry.revisionDate = revisionDate;
+            } else {
+                engineeringEntry.originalRevNumber = "";
+                engineeringEntry.originalEngineerName = "";
+                engineeringEntry.updatedRevNumber = "";
+                engineeringEntry.revisionDate = "";
+            }
+            sessionStorage.setItem('engineering', JSON.stringify(engineering));
+
+            const historyEntry = {
+                ncrNumber: ncrNumber,
+                actionType: "Edit",
+                status: 'Open',
+                actionDescription: "Edited the NCR by Engineering",
+                changedBy: changedBy,
+                changedOn: Timestamp()
+            };
+
+            history.push(historyEntry);
+            sessionStorage.setItem('history', JSON.stringify(history));
+
+            alert('Your changes have been saved. You can continue later.');
+            window.history.back();
+        } else {
+            alert("Save operation cancelled.");
+        }
+    } else {
+        alert('NCR not found. Please check the NCR number.');
+    }
+    console.log(engineering);
+}
+
+//================================================================================================================
+//SUBMIT ENGINEER'S PORTION OF NCR
+//
+//=================================================================================================================
+function submitEngNCR() {
+    //const ncrNumber = document.getElementById('ncrNumber').textContent;
+
+    //changedBy = getUserName();
+
+    const ncrNumber = document.getElementById('ncrNumberEng').textContent;
+    const changedBy = getUserName();
+    const reviewByCfEngineering = document.getElementById('reviewByCfEngineering').value;
+    const customerNotification = document.getElementById('customerNotification').value;
+    const disposition = document.getElementById('disposition').value;
+    const drawingUpdate = document.getElementById('drawingUpdate').value;
+    const originalRevNumber = document.getElementById('originalRevNumber').value;
+    const originalEngineerName = document.getElementById('originalEngineerName').value;
+    const updatedRevNumber = document.getElementById('updatedRevNumber').value;
+
+    // Check if all required fields are filled
+    if (!reviewByCfEngineering || !disposition) {
+        alert('Please fill out all the required fields before submitting.');
+        return;
+    }
+
+    /*if ((drawingUpdate === "Yes") && (!originalRevNumber || updatedRevNumber)) {
+        alert('Please provide Original Revision Number and Updated Revision Number')
+        return;
+    }*/
+
+    const confirmation = confirm("Are you sure you want to submit the NCR?");
+    if (confirmation) {
+        // Update the corresponding NCR in the quality array
+        const engineeringEntry = engineering.find(entry => entry.ncrNumber === ncrNumber);
+
+        if (engineeringEntry) {
+            engineeringEntry.reviewByCfEngineering = reviewByCfEngineering;
+            engineeringEntry.customerNotification = customerNotification;
+            engineeringEntry.disposition = disposition;
+            engineeringEntry.drawingUpdate = drawingUpdate;
+            engineeringEntry.ncrStatus = "Operations";
+            engineeringEntry.engineerName = changedBy;
+
+            if (drawingUpdate === "Yes") {
+                engineeringEntry.originalRevNumber = originalRevNumber;
+                engineeringEntry.originalEngineerName = originalEngineerName;
+                engineeringEntry.updatedRevNumber = updatedRevNumber;
+
+                // Only set the revision date if updatedRevNumber has a value
+                //engineeringEntry.revisionDate = revisionDate;
+            } else {
+                engineeringEntry.originalRevNumber = "";
+                engineeringEntry.originalEngineerName = "";
+                engineeringEntry.updatedRevNumber = "";
+                engineeringEntry.revisionDate = "";
+            }
+            sessionStorage.setItem('engineering', JSON.stringify(engineering));
+            //make history array and push to history json
+            const historyEntry = {
+                ncrNumber: ncrNumber,
+                actionType: "Submit",
+                status: 'Open',
+                actionDescription: "Submission by Engineering",
+                changedBy: changedBy,
+                changedOn: Timestamp()
+            }
+            history.push(historyEntry);
+            sessionStorage.setItem('history', JSON.stringify(history));
+            alert('NCR has been successfully submitted.');
+            window.history.back();
+        }
+
+    } else {
+        // If the user cancels, do nothing or add custom logic
+        alert("Submit operation cancelled.");
+        // Redirect or perform other actions as needed
+        return;
+    }
+}
+
