@@ -18,6 +18,28 @@ function getUserName() {
     }
 }
 
+// Retrieve and return the logged-in user's name
+function getUserName() {
+    const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
+
+    if (loggedInUser) {
+        return `${loggedInUser.user_Firstname} ${loggedInUser.user_Lastname}`;
+    } else {
+        console.error("No logged-in user found.");
+        return 'Unknown User'; // Default to 'Unknown User' if no one is logged in
+    }
+}
+
+//get role permissions
+async function getRolePermissions(department) {
+    // Fetch roles from the Roles.json file (assuming it’s accessible in the same directory)
+    userRole = role.find(role => role.name === department);
+
+    // Return permissions if the role exists, otherwise return an empty object
+    return userRole ? userRole.permissions : {};
+}
+
+
 // ==========================================
 // 1. Populate Notifications - For all pages
 // ==========================================
@@ -840,62 +862,7 @@ function submitNCR() {
     }
 }
 
-// ===================================================================
-// 9. Function to Populate the Reports
-// ===================================================================
 
-//let allRecords = []; // Global variable to hold all records
-//let allReports = []; // Global variable to hold all reports
-
-/*async function fetchReportsData() {
-    try {
-        const response = await fetch('seed-data/NCRLog.json'); // Update with the correct path
-        if (!response.ok) {
-            throw new Error('Network response was not ok ' + response.statusText);
-        }
-        allReports = await response.json(); // Store all reports globally
-        populateReportsTable(allReports);
-    } catch (error) {
-        console.error('Error fetching reports data:', error);
-    }
-}
-
-
-async function fetchRecordsData() {
-    try {
-        const response = await fetch('seed-data/History.json'); // Update with the correct path
-        if (!response.ok) {
-            throw new Error('Network response was not ok ' + response.statusText);
-        }
-        allRecords = await response.json(); // Store all records globally
-        populateRecordsTable(allRecords);
-    } catch (error) {
-        console.error('Error fetching records data:', error);
-    }
-}*/
-/*function populateReportsTable(data) {
-    const tableContent = document.getElementById('tableContent');
-    tableContent.innerHTML = ''; // Clear existing rows
-    data.forEach(report => {
-        const row = document.createElement('tr');
-        row.innerHTML = `
-            <td>${report.ncrNumber}</td>
-            <td>${report.createdBy}</td>
-            <td>${formatDate(report.dateCreated)}</td>
-            <td>${report.status}</td>
-            <td>${formatDate(report.lastUpdated)}</td>
-            <td>
-                <button onclick="viewReport('${report.ncrNumber}')">
-                    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
-                    </svg>
-                    View History
-                </button>
-            </td>
-        `;
-        tableContent.appendChild(row);
-    });
-}*/
 
 function populateRecordsTable(data) {
     const tableContent = document.getElementById('reportsTableContent');
@@ -1025,42 +992,10 @@ function performSearchReports() {
 
 
 function clearSearch() {
-    /*
-    // Clear search inputs
-    document.getElementById('ncrNumber').value = '';
-    document.getElementById('ncrStatus').value = 'All';
-    document.getElementById('fromDate').value = '';
-    document.getElementById('toDate').value = '';
-
-    // Reset the table to show all reports
-    populateReportsTable(allReports);
-
-    // Hide "no results" message
-    document.getElementById('no-results-message').style.display = 'none';
-    */
+    
     location.reload();
 }
 
-/*
-document.addEventListener('DOMContentLoaded', () => {
-    fetchReportsData();
-    fetchRecordsData();
-    document.querySelector('#reportTable').style.display = 'none';
-});*/
-/*
-document.addEventListener('DOMContentLoaded', function () {
-    const toggleCheckbox = document.getElementById('mobList');
-    const navMenu = document.getElementById('mainNav');
-
-    // Function to toggle the nav menu
-    toggleCheckbox.addEventListener('change', function () {
-        if (toggleCheckbox.checked) {
-            navMenu.style.display = 'block'; // Show the nav
-        } else {
-            navMenu.style.display = 'none'; // Hide the nav
-        }
-    });
-});*/
 
 function NavBar() {
     const toggleCheckbox = document.getElementById('mobList');
@@ -1494,20 +1429,6 @@ function populateEngDetailsPage(ncrNumber) {
         document.getElementById('updatedRevNumber').textContent = entry.updatedRevNumber ?? "";
         document.getElementById('revisionDate').textContent = entry.revisionDate ? formatDate(entry.revisionDate) : "";
         document.getElementById('engineerName').textContent = entry.engineerName ?? "";
-
-        /*if (entry.drawingUpdate === "Yes") {
-
-            document.getElementById('originalEngineerName').textContent = entry.originalEngineerName ?? "";
-            document.getElementById('originalRevNumber').textContent = entry.originalRevNumber ?? "";
-            document.getElementById('updatedRevNumber').textContent = entry.updatedRevNumber ?? "";
-            document.getElementById('revisionDate').textContent = entry.revisionDate ? formatDate(entry.revisionDate) : "";
-
-        } else {
-            document.getElementById('revisionDate').textContent = '';
-            document.getElementById('originalEngineerName').textContent = '';
-            document.getElementById('originalRevNumber').textContent = '';
-            document.getElementById('updatedRevNumber').textContent = '';
-        }*/
     }
 }
 

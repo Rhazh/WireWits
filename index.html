@@ -81,7 +81,7 @@
                                     <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                                         <path stroke="currentColor" stroke-width="2" d="M7 17v1a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1a3 3 0 0 0-3-3h-4a3 3 0 0 0-3 3Zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
                                     </svg>
-                                    Account Settings
+                                    Profile/Settings
                                 </a>
                             </li>
                             <!-- <li>
@@ -123,8 +123,9 @@
         </div>
     </header>
     <main>
+        <section id="secQuality">
         <div class="container">
-            <section id="dashboardSection" aria-labelledby="dashboardTitle">
+            <div id="dashboardSection" aria-labelledby="dashboardTitle">
                 <div class="page-title">
                     <!--title may change depending on user actions-->
                     <h1 id="dashboardTitle">Dashboard</h1>
@@ -150,8 +151,8 @@
                         </button>
                     </div>
                 </div>
-            </section>
-            <section id="secRcentNCR" aria-labelledby="recentNCRsTitle" tabindex="0" class="div-table">
+            </div>
+            <div id="secRcentNCR" aria-labelledby="recentNCRsTitle" tabindex="0" class="div-table">
                 <div class="div-container">
                     <div class="table-title" aria-label="Recent NCRs">
                         <h2 id="recentNCRsTitle">Recent NCRs</h2> <!--Heading may change-->
@@ -171,10 +172,12 @@
                         </tbody>
                     </table>
                 </div>
-            </section>
+            </div>
             <!--Removed popup modal for Create NCR, moved it to Create Page-->
         </div>
     </section>
+
+    <!--Use this section only for Engineering Content-->
     <section id="secEngineer">
         <div class="Engineering">
             <div id="secEngRcentNCR" aria-labelledby="recentNCRsTitleEng" tabindex="-1" class="div-table">
@@ -197,8 +200,9 @@
                         </tbody>
                     </table>
                 </div>
-            </section>
+            </div>
         </div>
+    </section>
     </main>
     <footer id="footer">
         <p><small>&copy; 2024 Copyright. QCision - WireWits. All rights reserved.</small></p>
