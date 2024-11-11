@@ -178,16 +178,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         });
     }
 
-    function setupEngNavigationButtons() {
-        document.getElementById('btnEngView').addEventListener('click', () => {
-            window.location.href = 'view.html';
-        });
-
-        document.getElementById('btnEngReports').addEventListener('click', () => {
-            window.location.href = 'reports.html';
-        });
-    }
-
     // Toggle between create and edit modals
     function toggleCreateEditModal(ncrNumber, isEditMode) {
         const createNCRModal = document.getElementById('createNCRModal');
