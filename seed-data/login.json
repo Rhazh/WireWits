@@ -7,7 +7,6 @@
             "user_Middlename": "A.",
             "user_Lastname": "Allen",
             "email": "john.doe@example.com",
-            "password": "Quality1234",
             "created_on": "2024-01-15T10:00:00Z",
             "Department_Name": "Quality",
             "gender":"male"
