@@ -118,16 +118,19 @@ nav ul li a {
     height: 100%;
     margin: 5px 0 -5px;
     padding: 5px 1rem 5px;
+    transition: color 0.3s, box-shadow 0.3s;
+    box-shadow: inset 0 0 0 0 transparent; 
 }
 
 nav ul li a.nav-active {
     box-shadow: inset 0 -5px 0 0 #1a1a1a; 
+    transition: box-shadow 0.3s ease-in-out;
 }
 
 nav ul li a:hover {
     color: #00214d; 
     box-shadow: inset 0 -5px 0 0 #0056b3; 
-    transition: border 0.3s ease-in-out, color 0.3s ease-in-out;
+    transition: box-shadow 0.3s ease-in-out;
 }
 
 /* Default Branding Style */
@@ -163,6 +166,7 @@ nav ul li a:hover {
     position: relative;
     top: -20px;
     right: 18px;
+    cursor: pointer;
 }
 
 .notif-dropdown-container {
@@ -199,8 +203,8 @@ nav ul li a:hover {
 
 .notif-desc p {
     padding: 5px;
-    background-color: #eee;
-    color: #666;
+    background-color: #e3e7f2;
+    color: #1a1a1a;
 }
 
 .notif-list {
