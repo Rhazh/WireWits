@@ -19,7 +19,6 @@ fetch('seed-data/login.json')
             const user = userData.users.find(user => 
                 user.user_name === username &&
                 user.password === password
-                //user.Department_Name === department
             );
 
             if (user) {
