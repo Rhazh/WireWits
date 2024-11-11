@@ -114,7 +114,10 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
             else if (userRole == "Engineer") {
                 document.getElementById('secQuality').style.display = 'none';
+<<<<<<< HEAD
                 setupEngNavigationButtons();
+=======
+>>>>>>> parent of 3cc16d4 (Revert "Merge branch 'main' of https://github.com/Rhazh/WireWits")
                 recentEngNCRs();
             }
 
