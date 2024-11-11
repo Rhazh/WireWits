@@ -12,14 +12,14 @@ fetch('seed-data/login.json')
 
             const username = document.getElementById("username").value;
             const password = document.getElementById("password").value;
-            //const department = document.getElementById("department").value;
+            const department = document.getElementById("department").value;
             
 
             // Validate the user
             const user = userData.users.find(user => 
                 user.user_name === username &&
-                user.password === password
-                //user.Department_Name === department
+                user.password === password &&
+                user.Department_Name === department
             );
 
             if (user) {

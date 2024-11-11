@@ -170,55 +170,38 @@ nav ul li a:hover {
     position: absolute;
     top: 100%;
     right: 0;
-    margin: 0px 10px;
+    margin: 20px 10px;
     width: 350px;
     z-index: 9;
     background-color: #fdfdfd;
-    box-shadow: 1px 5px 12px -2px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 3px 8px -2px rgba(0, 0, 0, 0.5);
     border-radius: 10px;
     overflow: hidden;
 }
 
 .notif-label {
     width: 100%;
+    padding: 15px;
     box-sizing: border-box;
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
     text-align: center;
+    color: #0b1c33;
     font-weight: 600;
 }
 
 .notif-title {
     text-transform: uppercase;
-    width: 100%;
-    padding: 15px;
-    display: block;
-    box-sizing: border-box;
-    color: #0b1c33;
-    background-color: #fdfdfd;
 }
 
 .notif-desc p {
-    background-color: #eee;
+    margin-top: 20px;
+    margin-bottom: -5px;
     color: #666;
-    padding: 5px;
 }
 
 .notif-list {
     min-height: 100px;
     padding-bottom: 10px;
-}
-
-.notif-list::-webkit-scrollbar {
-    width: 10px;
-}
-
-.notif-list::-webkit-scrollbar-track {
-    background: #e3e7f2;
-}
-
-.notif-list::-webkit-scrollbar-thumb,
-.notif-list::-webkit-scrollbar-thumb:hover {
-    background-color: #007bff;
 }
 
 .notif-list a,
@@ -239,24 +222,6 @@ nav ul li a:hover {
 .notif-list p:hover a {
     color: #fdfdfd;
 }
-
-.notif-button-close {
-    width: 27px;
-    height: 27px;
-    padding: 3px;
-    margin: 3px;
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-    color: #666;
-}
-
-.notif-button-close:hover {
-    background-color: #007bff;
-    color: #fdfdfd;
-    border-radius: 50%;
-}
-
 
 .profile,
 .notification {
@@ -309,11 +274,11 @@ nav ul li a:hover {
     position: absolute;
     top: 100%;
     right: 0;
-    margin: 0;
+    margin: 20px 0;
     width: 250px;
     z-index: 9;
     background-color: #fdfdfd;
-    box-shadow: 0 5px 13px -2px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 3px 8px -2px rgba(0, 0, 0, 0.5);
     border-radius: 10px;
     overflow: hidden;
 }
@@ -340,7 +305,6 @@ nav ul li a:hover {
     font-size: 18px;
     color: inherit;
     text-decoration: none;
-    box-sizing: border-box;
 }
 
 .profile-dropdown ul li a:hover {
@@ -979,15 +943,20 @@ button {
     display: inline;
 }
 
+.breadcrumb-list span {
+    padding: 0 5px;
+}
+
 .breadcrumb-list li a {
     text-decoration: none;
     color: #00214d; /* Primary theme color for links */
-    padding: 5px;
-    transition: color 0.3s;
+    transition: box-shadow 0.3s, color 0.3s;
+    box-shadow: inset 0 -2px 0 0 transparent;
 }
 
 .breadcrumb-list li a:hover {
     color: #0056b3; /* Hover color */
+    box-shadow: inset 0 -2px 0 0 #0056b3;
 }
 
 .breadcrumb-list li:last-child::after {
@@ -1345,4 +1314,108 @@ button {
         margin: 0;
     }
 
+}
+
+/*Profile/Settings Page*/
+
+/* Main Profile Section Container */
+#Profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px 300px;
+    background-color: #fdfdfd;
+    border-radius: 10px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+    border: 2px solid #e3e7f2; /* Matches the NCR table styling */
+}
+
+#Profile h1 {
+    font-size: 24px;
+    color: #0b1c33;
+    margin-bottom: 20px;
+    font-family: "Instrument Sans", sans-serif;
+}
+
+/* Profile Content Wrapper */
+.profile-content {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-direction: column; /* Stacks the picture and text on smaller screens */
+}
+
+/* Profile Picture Container */
+.profile-picture-container {
+    position: relative;
+    width: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.profile-picture-container img {
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #00214d;;
+}
+
+
+/* Edit Icon */
+.edit-icon {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    font-size: 1.2rem;
+    color: #0056b3;
+    cursor: pointer;
+    background-color: #fdfdfd;
+    border-radius: 50%;
+    padding: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+#saveButton, #editButton, #cancelButton{
+    display: inline-flex;
+    padding: 12px 30px;
+}
+#roleMessage{
+    display: none;
+    color: #991111;
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.info-block {
+    text-align: center;
+    line-height: 1.6; /* Adjust spacing between label and value */
+    margin-bottom: 10px;
+}
+
+.profileHeadings {
+    display: block; /* Ensures 'Name :' and 'Role :' appear above the values */
+    font-weight: bold;
+}
+
+.user-fullname,
+.user-role {
+    display: block; /* Ensures values appear below the labels */
+}
+
+.buttons {
+    display: flex;
+    gap: 30px;
+}
+
+.buttons button {
+    padding: 12px 30px;
+    width: 170px;
+    text-align: center;
 }

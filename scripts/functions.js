@@ -18,19 +18,6 @@ function getUserName() {
     }
 }
 
-// Retrieve and return the department
-function getUserRole() {
-    const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
-
-    if (loggedInUser) {
-        return loggedInUser.Department_Name;
-    } else {
-        console.error("No logged-in user found.");
-        return 'Unknown User role'; // Default to 'Unknown User' if no one is logged in
-    }
-}
-
-
 // ==========================================
 // 1. Populate Notifications - For all pages
 // ==========================================
@@ -83,12 +70,16 @@ function populateNotifications() {
         };
 
         const closeButton = document.createElement('button');
-        closeButton.classList.add('notif-button-close');
-        closeButton.title = "Close Notification";
-        closeButton.innerHTML = `<svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="21" height="21" fill="none" viewBox="0 0 24 24">
-            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M6 18 17.94 6M18 18 6.06 6"/>
-        </svg>`
-
+        closeButton.textContent = '×'; // Use a simple cross character
+        closeButton.style.background = 'transparent';
+        closeButton.style.border = 'none';
+        closeButton.style.cursor = 'pointer';
+        closeButton.style.marginLeft = '10px'; // Space between link and button
+        closeButton.style.fontSize = '20px'; // Adjust the font size
+        closeButton.style.width = '30px'; // Set a specific width
+        closeButton.style.height = '30px'; // Set a specific height
+        closeButton.style.lineHeight = '30px'; // Center the text vertically if needed
+        closeButton.style.padding = '0'; // Remove default padding
         closeButton.onclick = (e) => {
             e.preventDefault(); // Prevent default action
             e.stopPropagation(); // Prevent click from propagating to parent elements
@@ -517,7 +508,7 @@ function CreateNCR() {
     if (!Array.isArray(history)) {
         history = [];  // Initialize history if undefined
     }
-
+   
 
     // Get form values
     const applicableProcess = document.getElementById('napplicableProcess')?.value;
@@ -594,7 +585,7 @@ function CreateNCR() {
     sessionStorage.setItem('quality', JSON.stringify(quality));
 
     alert(`NCR Number ${ncrNumber} successfully generated. You may continue to provide additional information now or later`);
-
+    
     sessionStorage.setItem('ncrNumber', ncrNumber);
     return ncrNumber
 }
@@ -849,7 +840,62 @@ function submitNCR() {
     }
 }
 
+// ===================================================================
+// 9. Function to Populate the Reports
+// ===================================================================
 
+//let allRecords = []; // Global variable to hold all records
+//let allReports = []; // Global variable to hold all reports
+
+/*async function fetchReportsData() {
+    try {
+        const response = await fetch('seed-data/NCRLog.json'); // Update with the correct path
+        if (!response.ok) {
+            throw new Error('Network response was not ok ' + response.statusText);
+        }
+        allReports = await response.json(); // Store all reports globally
+        populateReportsTable(allReports);
+    } catch (error) {
+        console.error('Error fetching reports data:', error);
+    }
+}
+
+
+async function fetchRecordsData() {
+    try {
+        const response = await fetch('seed-data/History.json'); // Update with the correct path
+        if (!response.ok) {
+            throw new Error('Network response was not ok ' + response.statusText);
+        }
+        allRecords = await response.json(); // Store all records globally
+        populateRecordsTable(allRecords);
+    } catch (error) {
+        console.error('Error fetching records data:', error);
+    }
+}*/
+/*function populateReportsTable(data) {
+    const tableContent = document.getElementById('tableContent');
+    tableContent.innerHTML = ''; // Clear existing rows
+    data.forEach(report => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${report.ncrNumber}</td>
+            <td>${report.createdBy}</td>
+            <td>${formatDate(report.dateCreated)}</td>
+            <td>${report.status}</td>
+            <td>${formatDate(report.lastUpdated)}</td>
+            <td>
+                <button onclick="viewReport('${report.ncrNumber}')">
+                    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+                    </svg>
+                    View History
+                </button>
+            </td>
+        `;
+        tableContent.appendChild(row);
+    });
+}*/
 
 function populateRecordsTable(data) {
     const tableContent = document.getElementById('reportsTableContent');
@@ -884,7 +930,6 @@ function viewReport(ncrNumber) {
 function performSearchReports() {
     const ncrNumber = document.getElementById('ncrNumber').value.trim().toLowerCase();
     const ncrStatus = document.getElementById('ncrStatus').value;
-    const ncrDepartment = document.getElementById('ncrDepartment').value;  // Get selected department
     const fromDateValue = document.getElementById('fromDate').value;
     const toDateValue = document.getElementById('toDate').value;
 
@@ -898,11 +943,6 @@ function performSearchReports() {
     // Filter by Status
     if (ncrStatus !== 'All') {
         filteredReports = filteredReports.filter(report => report.status === ncrStatus);
-    }
-
-    // Filter by Department (new filter based on department selection)
-    if (ncrDepartment && ncrDepartment !== 'All') {
-        filteredReports = filteredReports.filter(report => report.department === ncrDepartment);
     }
 
     // Date validation
@@ -938,22 +978,11 @@ function performSearchReports() {
     const tableContent = document.getElementById('tableContent');
     tableContent.innerHTML = ''; // Clear existing rows
 
-    let departmentMapping = {};
-    quality.forEach(report => {
-        departmentMapping[report.ncrNumber] = report.ncrStatus;  // Store ncrNumber -> department mapping
-    });
-
-    // Merge the department from quality.json into the ncrlog.json data based on ncrNumber
-    ncrLog.forEach(log => {
-        log.department = departmentMapping[log.ncrNumber] || "Unknown";  // Assign department or "Unknown" if not found
-    });
-
     paginatedData.forEach(report => {
         const row = document.createElement('tr');
         row.innerHTML = `
             <td>${report.ncrNumber}</td>
             <td>${report.createdBy}</td>
-            <td>${report.department}</td>
             <td>${formatDate(report.dateCreated)}</td>
             <td>${report.status}</td>
             <td>${formatDate(report.lastUpdated)}</td>
@@ -973,7 +1002,7 @@ function performSearchReports() {
     setupPagination(totalResults, performSearchReports, 'tableContent', 'paginationControls');
 
     // Show or hide "no results" message
-    //const noResultsMessage = document.getElementById('noResultsMessage');
+    const noResultsMessage = document.getElementById('noResultsMessage');
     // Check if NCR number contains any alphabetic characters
     if (ncrNumber && /[a-zA-Z]/.test(ncrNumber)) {
         //noResultsMessage.textContent = 'NCR Number must not contain alphabetic characters.';
@@ -994,11 +1023,44 @@ function performSearchReports() {
     }*/
 }
 
+
 function clearSearch() {
-    
+    /*
+    // Clear search inputs
+    document.getElementById('ncrNumber').value = '';
+    document.getElementById('ncrStatus').value = 'All';
+    document.getElementById('fromDate').value = '';
+    document.getElementById('toDate').value = '';
+
+    // Reset the table to show all reports
+    populateReportsTable(allReports);
+
+    // Hide "no results" message
+    document.getElementById('no-results-message').style.display = 'none';
+    */
     location.reload();
 }
 
+/*
+document.addEventListener('DOMContentLoaded', () => {
+    fetchReportsData();
+    fetchRecordsData();
+    document.querySelector('#reportTable').style.display = 'none';
+});*/
+/*
+document.addEventListener('DOMContentLoaded', function () {
+    const toggleCheckbox = document.getElementById('mobList');
+    const navMenu = document.getElementById('mainNav');
+
+    // Function to toggle the nav menu
+    toggleCheckbox.addEventListener('change', function () {
+        if (toggleCheckbox.checked) {
+            navMenu.style.display = 'block'; // Show the nav
+        } else {
+            navMenu.style.display = 'none'; // Hide the nav
+        }
+    });
+});*/
 
 function NavBar() {
     const toggleCheckbox = document.getElementById('mobList');
@@ -1432,6 +1494,20 @@ function populateEngDetailsPage(ncrNumber) {
         document.getElementById('updatedRevNumber').textContent = entry.updatedRevNumber ?? "";
         document.getElementById('revisionDate').textContent = entry.revisionDate ? formatDate(entry.revisionDate) : "";
         document.getElementById('engineerName').textContent = entry.engineerName ?? "";
+
+        /*if (entry.drawingUpdate === "Yes") {
+
+            document.getElementById('originalEngineerName').textContent = entry.originalEngineerName ?? "";
+            document.getElementById('originalRevNumber').textContent = entry.originalRevNumber ?? "";
+            document.getElementById('updatedRevNumber').textContent = entry.updatedRevNumber ?? "";
+            document.getElementById('revisionDate').textContent = entry.revisionDate ? formatDate(entry.revisionDate) : "";
+
+        } else {
+            document.getElementById('revisionDate').textContent = '';
+            document.getElementById('originalEngineerName').textContent = '';
+            document.getElementById('originalRevNumber').textContent = '';
+            document.getElementById('updatedRevNumber').textContent = '';
+        }*/
     }
 }
 
