@@ -9,7 +9,7 @@ let uploadedFiles = [];
 document.addEventListener('DOMContentLoaded', async () => {
     // Check if the user is logged in
     const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
-    
+
     // Redirect to login if the user is not logged in
     // Add later
     /*if (!loggedInUser) {
@@ -21,6 +21,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const fullNameElement = document.getElementById('userFullname');
     const roleElement = document.getElementById('userRole');
     const profilePicElement = document.getElementById('profilePic');
+    const userRole = loggedInUser.Department_Name;
 
     if (loggedInUser && fullNameElement && roleElement) {
         fullNameElement.textContent = `${loggedInUser.user_Firstname} ${loggedInUser.user_Lastname}`;
@@ -96,7 +97,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (loadingIndicator) loadingIndicator.style.display = 'none';
 
         // Populate notifications or handle errors
-       
+
         //populateNotifications();
         //NavBar();
 
@@ -105,11 +106,17 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         // Handle different pages based on the current page name
         if (pageName === 'index.html') {
-            populateNotifications();
-            NavBar();
-            recentNCRs();
-            setupNavigationButtons();
-            recentEngNCRs();
+            if (userRole == "Quality") {
+                populateNotifications();
+                NavBar();
+                recentNCRs();
+                setupNavigationButtons();
+            }
+            else if (userRole == "Engineer") {
+                document.getElementById('secQuality').style.display = 'none';
+                recentEngNCRs();
+            }
+
         } else if (pageName === 'view.html') {
             populateNotifications();
             populateSupplierDropdownN('supplierName')
@@ -147,9 +154,9 @@ document.addEventListener('DOMContentLoaded', async () => {
             //console.log("engineering");
         }
 
-         // Set up the supplierName dropdown
-         //populateSupplierDropdown(ncrNumber);
-         //populateSupplierDropdownG(ncrLog)
+        // Set up the supplierName dropdown
+        //populateSupplierDropdown(ncrNumber);
+        //populateSupplierDropdownG(ncrLog)
 
     } catch (error) {
         console.error('Error fetching data:', error);
@@ -224,7 +231,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (closeModalButton) {
         closeModalButton.addEventListener('click', goBack); // Reuse the goBack function
     }
-    
+
     // Function to go back to the previous page
     function goBack() {
         console.log("Going back...");
@@ -244,14 +251,14 @@ document.addEventListener('DOMContentLoaded', async () => {
         'settings.html': 'Settings',
         'underdevelopment.html': 'Under Development',
     };
-    
+
     // Get the current page path
     const currentPage = window.location.pathname.split('/').pop();
     const urlParams = new URLSearchParams(window.location.search);
-    
+
     // Determine if the page is in edit mode based on presence of 'ncr' parameter
     const isEditMode = urlParams.has('ncr'); // If 'ncr' parameter exists, it's edit mode
-    
+
     const derivedPath = [];
     if (currentPage === 'details.html') {
         derivedPath.push('index.html', 'view.html', 'details.html');
@@ -269,14 +276,14 @@ document.addEventListener('DOMContentLoaded', async () => {
     } else {
         derivedPath.push('index.html'); // Default case for the homepage
     }
-    
+
     // Get the breadcrumb list container
     const breadcrumbList = document.querySelector('.breadcrumb-list');
-    
+
     // Populate the breadcrumb based on the derived path
     derivedPath.forEach((page, index) => {
         const listItem = document.createElement('li');
-    
+
         if (index === derivedPath.length - 1) {
             listItem.textContent = breadcrumbMap[page];
         } else {
@@ -286,17 +293,17 @@ document.addEventListener('DOMContentLoaded', async () => {
             link.textContent = breadcrumbMap[page];
             listItem.appendChild(link);
         }
-    
+
         // Append the list item to the breadcrumb list
         breadcrumbList.appendChild(listItem);
-    
+
         // Add separator except for the last item
         if (index < derivedPath.length - 1) {
             const separator = document.createElement('span');
             separator.textContent = ' > ';
             breadcrumbList.appendChild(separator);
         }
-    
+
     });
 });
 
@@ -304,8 +311,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 //==========================
 //=========================
 
- // Set up the Save and Submit NCR functions
- function setupEngSaveNCR() {
+// Set up the Save and Submit NCR functions
+function setupEngSaveNCR() {
     document.getElementById('btnEngSave').addEventListener('click', () => {
         saveEngNCR();
     });
