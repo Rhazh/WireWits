@@ -114,6 +114,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
             else if (userRole == "Engineer") {
                 document.getElementById('secQuality').style.display = 'none';
+                setupEngNavigationButtons();
                 recentEngNCRs();
             }
 
