@@ -176,8 +176,31 @@
             <!--Removed popup modal for Create NCR, moved it to Create Page-->
         </div>
     </section>
+
+    <!--Use this section only for Engineering Content-->
     <section id="secEngineer">
-        <div class="Engineering">
+        <div class="container">
+            <div id="dashboardSection" aria-labelledby="dashboardTitle">
+                <div class="page-title">
+                    <!--title may change depending on user actions-->
+                    <h1 id="dashboardTitle">Dashboard</h1>
+                </div>
+                <!--dashboard buttons-->
+                <div class="dashboard">
+                    <div class="div-container">
+                        <button id="btnEngView" aria-label="Click to View existing NCRs" tabindex="0">
+                            <img src="images/icon-view-ncrs.svg" alt="View NCR icon" title="View NCR icon" width="95" height="95">
+                            NCR Log
+                        </button>
+                    </div>
+                    <div class="div-container">
+                        <button id="btnEngReports" aria-label="Click to view the reports" tabindex="0">
+                            <img src="images/icon-reports.svg" alt="Reports icon" title="Reports icon" width="95" height="95">
+                            Reports
+                        </button>
+                    </div>
+                </div>
+            </div>
             <div id="secEngRcentNCR" aria-labelledby="recentNCRsTitleEng" tabindex="-1" class="div-table">
                 <div class="div-container">
                     <div class="table-title">
