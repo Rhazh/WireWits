@@ -83,16 +83,12 @@ function populateNotifications() {
         };
 
         const closeButton = document.createElement('button');
-        closeButton.textContent = '×'; // Use a simple cross character
-        closeButton.style.background = 'transparent';
-        closeButton.style.border = 'none';
-        closeButton.style.cursor = 'pointer';
-        closeButton.style.marginLeft = '10px'; // Space between link and button
-        closeButton.style.fontSize = '20px'; // Adjust the font size
-        closeButton.style.width = '30px'; // Set a specific width
-        closeButton.style.height = '30px'; // Set a specific height
-        closeButton.style.lineHeight = '30px'; // Center the text vertically if needed
-        closeButton.style.padding = '0'; // Remove default padding
+        closeButton.classList.add('notif-button-close');
+        closeButton.title = "Close Notification";
+        closeButton.innerHTML = `<svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="21" height="21" fill="none" viewBox="0 0 24 24">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M6 18 17.94 6M18 18 6.06 6"/>
+        </svg>`
+
         closeButton.onclick = (e) => {
             e.preventDefault(); // Prevent default action
             e.stopPropagation(); // Prevent click from propagating to parent elements
@@ -521,7 +517,7 @@ function CreateNCR() {
     if (!Array.isArray(history)) {
         history = [];  // Initialize history if undefined
     }
-   
+
 
     // Get form values
     const applicableProcess = document.getElementById('napplicableProcess')?.value;
@@ -598,7 +594,7 @@ function CreateNCR() {
     sessionStorage.setItem('quality', JSON.stringify(quality));
 
     alert(`NCR Number ${ncrNumber} successfully generated. You may continue to provide additional information now or later`);
-    
+
     sessionStorage.setItem('ncrNumber', ncrNumber);
     return ncrNumber
 }
@@ -888,6 +884,7 @@ function viewReport(ncrNumber) {
 function performSearchReports() {
     const ncrNumber = document.getElementById('ncrNumber').value.trim().toLowerCase();
     const ncrStatus = document.getElementById('ncrStatus').value;
+    const ncrDepartment = document.getElementById('ncrDepartment').value;  // Get selected department
     const fromDateValue = document.getElementById('fromDate').value;
     const toDateValue = document.getElementById('toDate').value;
 
@@ -901,6 +898,11 @@ function performSearchReports() {
     // Filter by Status
     if (ncrStatus !== 'All') {
         filteredReports = filteredReports.filter(report => report.status === ncrStatus);
+    }
+
+    // Filter by Department (new filter based on department selection)
+    if (ncrDepartment && ncrDepartment !== 'All') {
+        filteredReports = filteredReports.filter(report => report.department === ncrDepartment);
     }
 
     // Date validation
@@ -936,11 +938,22 @@ function performSearchReports() {
     const tableContent = document.getElementById('tableContent');
     tableContent.innerHTML = ''; // Clear existing rows
 
+    let departmentMapping = {};
+    quality.forEach(report => {
+        departmentMapping[report.ncrNumber] = report.ncrStatus;  // Store ncrNumber -> department mapping
+    });
+
+    // Merge the department from quality.json into the ncrlog.json data based on ncrNumber
+    ncrLog.forEach(log => {
+        log.department = departmentMapping[log.ncrNumber] || "Unknown";  // Assign department or "Unknown" if not found
+    });
+
     paginatedData.forEach(report => {
         const row = document.createElement('tr');
         row.innerHTML = `
             <td>${report.ncrNumber}</td>
             <td>${report.createdBy}</td>
+            <td>${report.department}</td>
             <td>${formatDate(report.dateCreated)}</td>
             <td>${report.status}</td>
             <td>${formatDate(report.lastUpdated)}</td>
@@ -960,7 +973,7 @@ function performSearchReports() {
     setupPagination(totalResults, performSearchReports, 'tableContent', 'paginationControls');
 
     // Show or hide "no results" message
-    const noResultsMessage = document.getElementById('noResultsMessage');
+    //const noResultsMessage = document.getElementById('noResultsMessage');
     // Check if NCR number contains any alphabetic characters
     if (ncrNumber && /[a-zA-Z]/.test(ncrNumber)) {
         //noResultsMessage.textContent = 'NCR Number must not contain alphabetic characters.';
@@ -980,7 +993,6 @@ function performSearchReports() {
         noResultsMessage.style.display = 'none';
     }*/
 }
-
 
 function clearSearch() {
     
