@@ -83,7 +83,7 @@
                                     <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                                         <path stroke="currentColor" stroke-width="2" d="M7 17v1a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1a3 3 0 0 0-3-3h-4a3 3 0 0 0-3 3Zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
                                     </svg>
-                                    Account Settings
+                                    Profile/Settings
                                 </a>
                             </li>
                             <!-- <li>
@@ -139,7 +139,7 @@
                 <!--filter by NCR Number, the status, Date Range, Supplier-->
                 <div class="div-container">
                     <div class="div-section" aria-label="Filter by inputs">
-                        <div class="three-cols">
+                        <div class="four-cols">
                             <div>
                                 <label for="ncrNumber" >Filter By NCR Number:</label>
                                 <input type="text" id="ncrNumber" aria-label="Filter by NCR Number" placeholder="2024-001" oninput="performSearchReports()">
@@ -153,7 +153,16 @@
                                     <option value="Closed">Closed</option>
                                     <option value="Archived">Archived</option>
                                 </select>
-                            </div>    
+                            </div>
+                            <div>
+                                <label for="ncrDepartment">Department:</label>
+                                <select id="ncrDepartment" tabindex="0" aria-label="Filter by Department">
+                                    <option value="All">All</option>  <!-- Option to show all departments -->
+                                    <option value="Quality">Quality</option>
+                                    <option value="Engineering">Engineering</option>
+                                    <option value="Operations">Operations</option>
+                                </select>
+                            </div>  
                             <div>
                                 <label for="fromDate" >From:</label>
                                 <input type="date" aria-label="Filter From a Start Date" id="fromDate">
@@ -188,6 +197,7 @@
                             <tr>
                                 <th>NCR Number</th>
                                 <th>Created By</th>
+                                <th>Department</th>
                                 <th>Date Created</th>
                                 <th>Status</th>
                                 <th>Last Updated</th>
@@ -222,7 +232,7 @@
                                 <th>NCR Number</th>
                                 <th>Date</th>
                                 <th>Action Type</th>
-                                <th>Department</th>
+                                <th>Status</th>
                                 <th>Action Description</th>
                                 <th>Changed By</th>
                             </tr>
