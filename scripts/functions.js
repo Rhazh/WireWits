@@ -83,12 +83,16 @@ function populateNotifications() {
         };
 
         const closeButton = document.createElement('button');
-        closeButton.classList.add('notif-button-close');
-        closeButton.title = "Close Notification";
-        closeButton.innerHTML = `<svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="21" height="21" fill="none" viewBox="0 0 24 24">
-            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M6 18 17.94 6M18 18 6.06 6"/>
-        </svg>`
-
+        closeButton.textContent = '×'; // Use a simple cross character
+        closeButton.style.background = 'transparent';
+        closeButton.style.border = 'none';
+        closeButton.style.cursor = 'pointer';
+        closeButton.style.marginLeft = '10px'; // Space between link and button
+        closeButton.style.fontSize = '20px'; // Adjust the font size
+        closeButton.style.width = '30px'; // Set a specific width
+        closeButton.style.height = '30px'; // Set a specific height
+        closeButton.style.lineHeight = '30px'; // Center the text vertically if needed
+        closeButton.style.padding = '0'; // Remove default padding
         closeButton.onclick = (e) => {
             e.preventDefault(); // Prevent default action
             e.stopPropagation(); // Prevent click from propagating to parent elements
