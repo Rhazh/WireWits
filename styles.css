@@ -198,8 +198,6 @@ nav ul li a:hover {
 }
 
 .notif-desc p {
-    margin-top: 20px;
-    margin-bottom: -5px;
     padding: 5px;
     background-color: #eee;
     color: #666;
@@ -970,6 +968,10 @@ button {
     margin: 20px 0 0;
 }
 
+.breadcrumb-list span {
+    padding: 0 5px;
+}
+
 .breadcrumb-list {
     list-style: none;
     display: flex;
@@ -984,11 +986,13 @@ button {
     text-decoration: none;
     color: #00214d; /* Primary theme color for links */
     padding: 5px;
-    transition: color 0.3s;
+    transition: box-shadow 0.3s, color 0.3s;
+    box-shadow: inset 0 -3px 0 0 transparent;
 }
 
 .breadcrumb-list li a:hover {
     color: #0056b3; /* Hover color */
+    box-shadow: inset 0 -3px 0 0 #0056b3;
 }
 
 .breadcrumb-list li:last-child::after {
