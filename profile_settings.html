@@ -114,20 +114,47 @@
         </div>
     </header>
     <main>
-        <div id="Profile">
-            <h1>Profile</h1>
-            <div id="profile-img">
-                <img src="images/user-profile_v1.jpg" height="100px" width="100px">
+        <div class="container">
+            <div class="breadcrumb-container">
+                <div>
+                    <ol class="breadcrumb-list" tabindex="-1"></ol>
+                    <!-- Breadcrumbs will be dynamically populated here -->
+                </div>
             </div>
-            <div class="info-name">
-                <strong>Name :</strong>
-                <span id="username"></span>
+            <div id="Profile" class="profile-container">
+                <h1>Profile Settings</h1>
+        <div class="profile-picture-container">
+            <img id="profilePagePic" src="images/user-profile.png" alt="User profile image" title="User profile image" height="100" width="100">
+            <span class="edit-icon" id="editIcon" style="display: none;">✏️</span>
+            <input type="file" id="imageUpload" style="display: none;" accept="image/*">
+        </div>
+        <div class="user-info">
+            <div class="info-block">
+                <strong class="profileHeadings">Name :</strong>
+                <span id="userFullnameProfilePage" class="user-fullname">Cassandra Washington</span>
+                <input type="text" id="nameInput" class="editable-field" style="display: none;" value="Cassandra Washington">
             </div>
-            <div class="info-role">
-                <strong>Role :</strong>
-                <span id="userrole"></span>
+            <div class="info-block">
+                <strong class="profileHeadings">Role :</strong>
+                <span id="userRoleProfilePage" class="user-role">ADMINISTRATOR</span>
+                <input type="text" id="roleInput" class="editable-field" style="display: none;" value="Administrator" disabled>
+                <span id="roleMessage">*Cannot change role without Administrator permissions</span>
             </div>
         </div>
+
+        <div class="buttons">
+        <button id="editButton" class="button-primary">Edit</button>
+
+        </div>
+        <div class="buttons">
+                    <button id="saveButton" class="button-primary" style="display: none;">Save</button>
+
+        </div>
+        <div class="buttons">
+                    <button id="cancelButton" class="button-secondary" style="display: none;">Cancel</button>
+
+        </div>
+            </div>        
     </main>
     <footer id="footer">
         <p><small>&copy; 2024 Copyright. QCision - WireWits. All rights reserved.</small></p>
