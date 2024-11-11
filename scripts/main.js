@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const userRole = loggedInUser.Department_Name;
 
     if (loggedInUser && fullNameElement && roleElement) {
-        fullNameElement.textContent = `${loggedInUser.user_Firstname} ${loggedInUser.user_Lastname}`;
+        fullNameElement.textContent = `${loggedInUser.user_Firstname.substring(0,1)}. ${loggedInUser.user_Lastname}`;
         roleElement.textContent = loggedInUser.Department_Name;
 
         // Set profile picture based on gender
