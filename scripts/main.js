@@ -105,6 +105,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         const urlParams = new URLSearchParams(window.location.search);
         const ncrNumber = urlParams.get('ncr');
+        
 
         // Handle different pages based on the current page name
         if (pageName === 'index.html') {
@@ -121,7 +122,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 recentEngNCRs();
             }
 
-        } else if (pageName === 'vieyw.html') {
+        } else if (pageName === 'view.html') {
             populateNotifications();
             populateSupplierDropdownN('supplierName')
             NavBar();
@@ -142,8 +143,6 @@ document.addEventListener('DOMContentLoaded', async () => {
                 setupEngSaveNCR();
                 setupEngSubmitNCR();
             }
-
-
         } else if (pageName === 'create.html') {
             toggleCreateEditModal(null, false);
             populateSupplierDropdown('nsupplierName');
@@ -154,7 +153,21 @@ document.addEventListener('DOMContentLoaded', async () => {
             NavBar();
         } else if (ncrNumber && pageName === 'details.html') {
             populateDetailsPage(ncrNumber);
-            populateEngDetailsPage(ncrNumber);
+            document.getElementById('printButton').style.display = 'none';
+            if (userRole == "Quality") {
+                document.getElementById('secEngineer').style.display = 'none';
+                document.getElementById('revertButton').style.display = 'none';
+                populateNotifications();
+                NavBar();
+                //populateDetailsPage(ncrNumber);
+            }
+            else if (userRole == "Engineer") {
+                document.getElementById('editButton').style.display = 'none';
+                //populateDetailsPage(ncrNumber);
+                populateEngDetailsPage(ncrNumber);
+            }
+
+
         }
         else if (pageName === 'profile_settings.html') {
             populateNotifications();
@@ -303,7 +316,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
     else if (currentPage === 'profile_settings.html') {
         derivedPath.push('index.html', 'profile_settings.html');
-    } 
+    }
     else {
         derivedPath.push('index.html'); // Default case for the homepage
     }
@@ -622,146 +635,145 @@ function popupComment(){
         }*/
 
 
-        document.addEventListener('DOMContentLoaded', () => {
-            const editButton = document.getElementById('editButton');
-            const saveButton = document.getElementById('saveButton');
-            const nameDisplay = document.getElementById('userFullname');
-            const roleDisplay = document.getElementById('userRole');
-            const nameInput = document.getElementById('nameInput');
-            const roleInput = document.getElementById('roleInput');
-            const editIcon = document.getElementById('editIcon');
-            const profilePic = document.getElementById('profilePic');
-            const profilePagePic = document.getElementById('profilePagePic');
-            const imageUpload = document.getElementById('imageUpload');
-            const message = document.getElementById('roleMessage');
-        
+document.addEventListener('DOMContentLoaded', () => {
+    const editButton = document.getElementById('editButton');
+    const saveButton = document.getElementById('saveButton');
+    const nameDisplay = document.getElementById('userFullname');
+    const roleDisplay = document.getElementById('userRole');
+    const nameInput = document.getElementById('nameInput');
+    const roleInput = document.getElementById('roleInput');
+    const editIcon = document.getElementById('editIcon');
+    const profilePic = document.getElementById('profilePic');
+    const profilePagePic = document.getElementById('profilePagePic');
+    const imageUpload = document.getElementById('imageUpload');
+    const message = document.getElementById('roleMessage');
 
-            
-            // Load user data from localStorage if it exists
-            const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
-            if (loggedInUser) {
-                userFullnameProfilePage.textContent = `${loggedInUser.user_Firstname} ${loggedInUser.user_Lastname}`;
-                userRoleProfilePage.textContent = loggedInUser.Department_Name;
-                nameInput.value = `${loggedInUser.user_Firstname} ${loggedInUser.user_Lastname}`;
-                roleInput.value = loggedInUser.Department_Name;
 
-                // Load profile picture from localStorage or set default
-                const profilePictureSrc = loggedInUser.profilePicture || (loggedInUser.gender === 'male' ? 'images/user-profile_v1.png' : 'images/user-profile.png');
-                profilePagePic.src = profilePictureSrc;
-                profilePic.src = profilePictureSrc; // Initial header picture
-            }
 
-            // Save initial values to restore them on cancel
-            let initialName = nameInput.value;
-            let initialRole = roleInput.value;
-            let initialProfilePicture = profilePagePic.src;
-            let tempProfilePicture = initialProfilePicture;
-            let changedPic = null;
-        
-            // Toggle to edit mode
-            editButton.addEventListener('click', () => {
-                // Hide display text and show input fields
-                userFullnameProfilePage.style.display = 'none';
-                userRoleProfilePage.style.display = 'none';
-                nameInput.style.display = 'block';
-                roleInput.style.display = 'block';
-                roleMessage.style.display = 'block';
-        
-                // Show the edit icon
-                editIcon.style.display = 'block';
-                editButton.style.display = 'none';
-                saveButton.style.display = 'block';
-                cancelButton.style.display = 'block';
-            });
-        
-            // Save changes and exit edit mode
-            saveButton.addEventListener('click', () => {
-                // Update display with new values from input fields
-                userFullnameProfilePage.textContent = nameInput.value;
-                userRoleProfilePage.textContent = roleInput.value;
-        
-                // Save the updated information to localStorage
-                const [firstName, ...lastNameParts] = nameInput.value.split(" ");
-                const lastName = lastNameParts.join(" ");
+    // Load user data from localStorage if it exists
+    const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
+    if (loggedInUser) {
+        userFullnameProfilePage.textContent = `${loggedInUser.user_Firstname} ${loggedInUser.user_Lastname}`;
+        userRoleProfilePage.textContent = loggedInUser.Department_Name;
+        nameInput.value = `${loggedInUser.user_Firstname} ${loggedInUser.user_Lastname}`;
+        roleInput.value = loggedInUser.Department_Name;
+
+        // Load profile picture from localStorage or set default
+        const profilePictureSrc = loggedInUser.profilePicture || (loggedInUser.gender === 'male' ? 'images/user-profile_v1.png' : 'images/user-profile.png');
+        profilePagePic.src = profilePictureSrc;
+        profilePic.src = profilePictureSrc; // Initial header picture
+    }
+
+    // Save initial values to restore them on cancel
+    let initialName = nameInput.value;
+    let initialRole = roleInput.value;
+    let initialProfilePicture = profilePagePic.src;
+    let tempProfilePicture = initialProfilePicture;
+    let changedPic = null;
+
+    // Toggle to edit mode
+    editButton.addEventListener('click', () => {
+        // Hide display text and show input fields
+        userFullnameProfilePage.style.display = 'none';
+        userRoleProfilePage.style.display = 'none';
+        nameInput.style.display = 'block';
+        roleInput.style.display = 'block';
+        roleMessage.style.display = 'block';
+
+        // Show the edit icon
+        editIcon.style.display = 'block';
+        editButton.style.display = 'none';
+        saveButton.style.display = 'block';
+        cancelButton.style.display = 'block';
+    });
+
+    // Save changes and exit edit mode
+    saveButton.addEventListener('click', () => {
+        // Update display with new values from input fields
+        userFullnameProfilePage.textContent = nameInput.value;
+        userRoleProfilePage.textContent = roleInput.value;
+
+        // Save the updated information to localStorage
+        const [firstName, ...lastNameParts] = nameInput.value.split(" ");
+        const lastName = lastNameParts.join(" ");
+        const updatedUser = {
+            ...loggedInUser,
+            user_Firstname: firstName,
+            user_Lastname: lastName,
+            Department_Name: roleInput.value,
+            profilePicture: tempProfilePicture // Save temporary picture as final picture
+
+        };
+        localStorage.setItem('loggedInUser', JSON.stringify(updatedUser));
+
+        profilePic.src = tempProfilePicture;
+
+
+        // Show display text and hide input fields
+        userFullnameProfilePage.style.display = 'block';
+        userRoleProfilePage.style.display = 'block';
+        nameInput.style.display = 'none';
+        roleInput.style.display = 'none';
+        message.style.display = 'none';
+
+        // Hide the edit icon
+        editIcon.style.display = 'none';
+        editButton.style.display = 'block';
+        saveButton.style.display = 'none';
+        cancelButton.style.display = 'none';
+
+
+        // Update header display (assuming header elements have the same IDs as nameDisplay and roleDisplay)
+        document.getElementById('headerName').textContent = nameInput.value;
+        document.getElementById('headerRole').textContent = roleInput.value;
+
+        initialName = nameInput.value;
+        initialRole = roleInput.value;
+        initialProfilePicture = tempProfilePicture;
+    });
+
+    cancelButton.addEventListener('click', () => {
+
+        userFullnameProfilePage.style.display = 'block';
+        userRoleProfilePage.style.display = 'block';
+        nameInput.style.display = 'none';
+        roleInput.style.display = 'none';
+        roleMessage.style.display = 'none';
+        nameInput.value = initialName;
+        roleInput.value = initialRole;
+        profilePagePic.src = initialProfilePicture;
+        tempProfilePicture = initialProfilePicture;
+        profilePic.src = initialProfilePicture;
+
+        // Show the edit icon
+        editIcon.style.display = 'none';
+        editButton.style.display = 'block';
+        saveButton.style.display = 'none';
+        cancelButton.style.display = 'none';
+
+
+    });
+    // Profile picture change handler
+    editIcon.addEventListener('click', () => {
+        imageUpload.click(); // Open file input dialog
+    });
+
+    imageUpload.addEventListener('change', (event) => {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                tempProfilePicture = e.target.result; // Store temporarily, only saved on Save button click
+                profilePagePic.src = e.target.result;
+
+                // Optional: Save updated picture URL in localStorage if required for persistence
                 const updatedUser = {
                     ...loggedInUser,
-                    user_Firstname: firstName,
-                    user_Lastname: lastName,
-                    Department_Name: roleInput.value,
-                    profilePicture: tempProfilePicture // Save temporary picture as final picture
-
+                    profilePicture: e.target.result
                 };
                 localStorage.setItem('loggedInUser', JSON.stringify(updatedUser));
-
-                profilePic.src = tempProfilePicture;
-
-        
-                // Show display text and hide input fields
-                userFullnameProfilePage.style.display = 'block';
-                userRoleProfilePage.style.display = 'block';
-                nameInput.style.display = 'none';
-                roleInput.style.display = 'none';
-                message.style.display = 'none';
-        
-                // Hide the edit icon
-                editIcon.style.display = 'none';
-                editButton.style.display = 'block';
-                saveButton.style.display = 'none';
-                cancelButton.style.display = 'none';
-
-        
-                // Update header display (assuming header elements have the same IDs as nameDisplay and roleDisplay)
-                document.getElementById('headerName').textContent = nameInput.value;
-                document.getElementById('headerRole').textContent = roleInput.value;
-
-                initialName = nameInput.value;
-                initialRole = roleInput.value;
-                initialProfilePicture = tempProfilePicture;
-            });
-        
-            cancelButton.addEventListener('click', () =>{
-
-                userFullnameProfilePage.style.display = 'block';
-                userRoleProfilePage.style.display = 'block';
-                nameInput.style.display = 'none';
-                roleInput.style.display = 'none';
-                roleMessage.style.display = 'none';
-                nameInput.value = initialName;
-                roleInput.value = initialRole;
-                profilePagePic.src = initialProfilePicture;
-                tempProfilePicture = initialProfilePicture;
-                profilePic.src = initialProfilePicture;
-        
-                // Show the edit icon
-                editIcon.style.display = 'none';
-                editButton.style.display = 'block';
-                saveButton.style.display = 'none';
-                cancelButton.style.display = 'none';
-
-
-            });
-            // Profile picture change handler
-            editIcon.addEventListener('click', () => {
-                imageUpload.click(); // Open file input dialog
-            });
-        
-            imageUpload.addEventListener('change', (event) => {
-                const file = event.target.files[0];
-                if (file) {
-                    const reader = new FileReader();
-                    reader.onload = (e) => {
-                        tempProfilePicture = e.target.result; // Store temporarily, only saved on Save button click
-                        profilePagePic.src = e.target.result;
-        
-                        // Optional: Save updated picture URL in localStorage if required for persistence
-                        const updatedUser = {
-                            ...loggedInUser,
-                            profilePicture: e.target.result
-                        };
-                        localStorage.setItem('loggedInUser', JSON.stringify(updatedUser));
-                    };
-                    reader.readAsDataURL(file);
-                }
-            });
-        });
-        
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+});
