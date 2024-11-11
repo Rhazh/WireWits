@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 
     if (loggedInUser && fullNameElement && roleElement) {
-        fullNameElement.textContent = `${loggedInUser.user_Firstname.substring(0,1)}. ${loggedInUser.user_Lastname}`;
+        fullNameElement.textContent = `${loggedInUser.user_Firstname.substring(0, 1)}. ${loggedInUser.user_Lastname}`;
         roleElement.textContent = loggedInUser.Department_Name;
 
         // Set profile picture based on gender
@@ -109,6 +109,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         // Handle different pages based on the current page name
         if (pageName === 'index.html') {
             if (userRole == "Quality") {
+                document.getElementById('secEngineer').style.display = 'none';
                 populateNotifications();
                 NavBar();
                 recentNCRs();
@@ -120,21 +121,29 @@ document.addEventListener('DOMContentLoaded', async () => {
                 recentEngNCRs();
             }
 
-        } else if (pageName === 'view.html') {
+        } else if (pageName === 'vieyw.html') {
             populateNotifications();
             populateSupplierDropdownN('supplierName')
             NavBar();
             performSearch();
         } else if (ncrNumber && pageName === 'create.html') {
-            populateNotifications();
-            NavBar();
-            toggleCreateEditModal(ncrNumber, true);
-            setupSaveNCR();
-            setupSubmitNCR();
-            populateDetailsPageEng(ncrNumber)
-            populateEngEditPage(ncrNumber)
-            setupEngSaveNCR();
-            setupEngSubmitNCR();
+            if (userRole == "Quality") {
+                document.getElementById('secEngineer').style.display = 'none';
+                populateNotifications();
+                NavBar();
+                toggleCreateEditModal(ncrNumber, true);
+                setupSaveNCR();
+                setupSubmitNCR();
+            }
+            else if (userRole == "Engineer") {
+                document.getElementById('secQuality').style.display = 'none';
+                populateDetailsPageEng(ncrNumber)
+                populateEngEditPage(ncrNumber)
+                setupEngSaveNCR();
+                setupEngSubmitNCR();
+            }
+
+
         } else if (pageName === 'create.html') {
             toggleCreateEditModal(null, false);
             populateSupplierDropdown('nsupplierName');
@@ -144,8 +153,6 @@ document.addEventListener('DOMContentLoaded', async () => {
             populateNotifications();
             NavBar();
         } else if (ncrNumber && pageName === 'details.html') {
-            populateNotifications();
-            NavBar();
             populateDetailsPage(ncrNumber);
             populateEngDetailsPage(ncrNumber);
         }
@@ -186,8 +193,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         });
     }
 
-     // Set up navigation buttons on index.html
-     function setupEngNavigationButtons() {
+    // Set up navigation buttons on index.html
+    function setupEngNavigationButtons() {
         document.getElementById('btnEngView').addEventListener('click', () => {
             window.location.href = 'view.html';
         });
@@ -259,7 +266,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     //breadcrumbs
     const breadcrumbMap = {
         'index.html': 'Dashboard',
-        'view.html': 'View NCRs',
+        'view.html': 'NCR Log',
         'create.html': 'Create NCR',
         'edit.html': 'Edit NCR',
         'details.html': 'NCR Details',
