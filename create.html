@@ -43,7 +43,8 @@
                                 aria-label="Create new Non-Conformance Report" tabindex="0">Create <abbr
                                     title="Non-Conformance Report">NCR</abbr></a></li>
                         <li><a href="view.html" id="view" tabindex="0"
-                                aria-label="View existing Non-Conformance Reports"><abbr title="Non-Conformance Reports">NCR</abbr> Log </abbr> </a></li>
+                                aria-label="View existing Non-Conformance Reports"><abbr
+                                    title="Non-Conformance Reports">NCR</abbr> Log </abbr> </a></li>
                         <li><a href="reports.html" id="reports" aria-label="View Reports" tabindex="0">Reports</a></li>
                     </ul>
                 </nav>
@@ -60,8 +61,8 @@
                                     stroke-width="1.75"
                                     d="M12 5.365V3m0 2.365a5.338 5.338 0 0 1 5.133 5.368v1.8c0 2.386 1.867 2.982 1.867 4.175 0 .593 0 1.292-.538 1.292H5.538C5 18 5 17.301 5 16.708c0-1.193 1.867-1.789 1.867-4.175v-1.8A5.338 5.338 0 0 1 12 5.365ZM8.733 18c.094.852.306 1.54.944 2.112a3.48 3.48 0 0 0 4.646 0c.638-.572 1.236-1.26 1.33-2.112h-6.92Z" />
                             </svg>
+                            <span id="spnCount" class="notif-count" aria-live="polite">0</span>
                         </button>
-                        <span id="spnCount" class="notif-count" aria-live="polite">0</span>
                     </div>
                     <div class="notif-dropdown-container" id="notifDisplay">
                         <div class="notif-label">
@@ -158,388 +159,395 @@
         </div>
     </header>
     <main>
-        <div class="container">
-            <div class="breadcrumb-container">
-                <div>
-                    <ol class="breadcrumb-list" tabindex="-1"></ol>
-                    <!-- Breadcrumbs will be dynamically populated here -->
+        <section id="secQuality">
+            <div class="container">
+                <div class="breadcrumb-container">
+                    <div>
+                        <ol class="breadcrumb-list" tabindex="-1"></ol>
+                        <!-- Breadcrumbs will be dynamically populated here -->
+                    </div>
                 </div>
-            </div>
-            <div class="page-title">
-                <h1 id="createEditNCR">Create NCR</h1> <!--title may change depending on user actions-->
-            </div>
-            <div id="createNCRModal" class="modal" role="dialog" aria-labelledby="create-edit-NCR">
-                <div class="modal-container">
-                    <div class="modal-top">
-                        <span id="btnCloseModal" tabindex="1" class="btn-close" onclick="goBack()">
-                            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
-                                xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="none"
-                                viewBox="0 0 24 24">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                    stroke-width="2.5" d="M6 18 17.94 6M18 18 6.06 6" />
-                            </svg>
-                        </span>
-                        <div class="modal-header">
-                            <h2 id="create-edit-NCR">Create NCR</h2> <!--Heading may change-->
-                        </div>
-                    </div>
-                    <form id="createNCRForm" class="modal-form">
-                        <div>
-                            <label for="napplicableProcess">Applicable Process:
-                                <span aria-hidden="true">*</span> <!-- Hide asterisk from screen readers -->
-                            </label>
-                            <select id="napplicableProcess" name="napplicableProcess" aria-label="required field">
-                                <option value="" disabled selected>Select a process</option>
-                                <!-- Added value="" and selected attribute -->
-                                <option value="Supplier or Rec-Insp">Supplier or Rec-Insp</option>
-                                <option value="WIP (Production Order)">WIP (Production Order)</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label for="nsupplierName">Supplier Name:
-                                <span aria-hidden="true">*</span> <!-- Hide asterisk from screen readers -->
-                            </label>
-                            <select id="nsupplierName" name="nsupplierName" aria-label="required field">
-                                <option value="" disabled selected>Select a Supplier</option>
-                                <!-- Added value="" and selected attribute -->
-                            </select>
-                        </div>
-                        <div class="two-cols">
-                            <button type="button" id="btnCreateNCR" class="button-primary" tabindex="4">Create</button>
-                            <button type="button" id="btnCancelNCR" tabindex="5" class="button-secondary"
-                                onclick="goBack()">Cancel</button>
-                        </div>
-                    </form>
+                <div class="page-title">
+                    <h1 id="createEditNCR">Create NCR</h1> <!--title may change depending on user actions-->
                 </div>
-            </div>
-            <!--Form Field-->
-            <div id="createEditModal">
-                <form class="form-ncr">
-                    <div class="div-container">
-                        <div class="form-header">
-                            <div class="form-ncr-details">
-                                <strong>NCR Number:</strong>
-                                <span id="ncrNumber"></span>
-                            </div>
-                            <div class="form-ncr-details">
-                                <strong>Date Created:</strong>
-                                <span id="dateCreated"></span>
-                            </div>
-                            <div class="form-ncr-details">
-                                <strong>Created By:</strong>
-                                <span id="createdBy"></span>
-                            </div>
-                            <div class="form-ncr-details">
-                                <strong>Status:</strong>
-                                <span id="ncrStatus"></span>
+                <div id="createNCRModal" class="modal" role="dialog" aria-labelledby="create-edit-NCR">
+                    <div class="modal-container">
+                        <div class="modal-top">
+                            <span id="btnCloseModal" tabindex="1" class="btn-close" onclick="goBack()">
+                                <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
+                                    xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="none"
+                                    viewBox="0 0 24 24">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="2.5" d="M6 18 17.94 6M18 18 6.06 6" />
+                                </svg>
+                            </span>
+                            <div class="modal-header">
+                                <h2 id="create-edit-NCR">Create NCR</h2> <!--Heading may change-->
                             </div>
                         </div>
-                    </div>
-
-                    <div class="div-container">
-                        <div class="form-section">
-                            <div class="two-cols">
-                                <div>
-                                    <label for="applicableProcess" aria-label="Applicable Process, required">Applicable
-                                        Process:<span class="required">*</span></label>
-                                    <select id="applicableProcess" required>
-                                        <option value="" disabled selected>Select a process</option>
-                                        <option value="Supplier or Rec-Insp">Supplier or Rec-Insp</option>
-                                        <option value="WIP (Production Order)">WIP (Production Order)</option>
-                                    </select>
-                                </div>
-                                <div>
-                                    <label for="supplierName" aria-label="Supplier Name, required">Supplier Name:<span
-                                            class="required">*</span></label>
-                                    <select id="supplierName" required>
-                                        <option value="" disabled selected>Select a Supplier</option>
-                                    </select>
-                                </div>
+                        <form id="createNCRForm" class="modal-form">
+                            <div>
+                                <label for="napplicableProcess">Applicable Process:
+                                    <span aria-hidden="true">*</span> <!-- Hide asterisk from screen readers -->
+                                </label>
+                                <select id="napplicableProcess" name="napplicableProcess" aria-label="required field">
+                                    <option value="" disabled selected>Select a process</option>
+                                    <!-- Added value="" and selected attribute -->
+                                    <option value="Supplier or Rec-Insp">Supplier or Rec-Insp</option>
+                                    <option value="WIP (Production Order)">WIP (Production Order)</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label for="nsupplierName">Supplier Name:
+                                    <span aria-hidden="true">*</span> <!-- Hide asterisk from screen readers -->
+                                </label>
+                                <select id="nsupplierName" name="nsupplierName" aria-label="required field">
+                                    <option value="" disabled selected>Select a Supplier</option>
+                                    <!-- Added value="" and selected attribute -->
+                                </select>
                             </div>
                             <div class="two-cols">
-                                <div>
-                                    <label for="poNumber" aria-label="Production Number">Prod. Number:</label>
-                                    <input id="poNumber" name="poNumber" type="text"
-                                        placeholder="Enter Production Number">
-                                    <!--include regex for pattern: digits-->
-                                </div>
-                                <div>
-                                    <label for="soNumber" aria-label="Sales Order Number, required">Sales Order
-                                        Number:<span class="required">*</span></label>
-                                    <input id="soNumber" name="soNumber" type="text"
-                                        placeholder="Enter Sales Order Number" required>
-                                    <!--include regex for pattern: digits-->
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <div class="div-container">
-                        <!--include validation against negatives and ensure that defective is not more received-->
-                        <div class="form-section">
-                            <div class="two-cols">
-                                <div>
-                                    <label for="quantityReceived" aria-label="Quantity Received, required">Quantity
-                                        Received:<span class="required">*</span></label>
-                                    <input id="quantityReceived" name="quantityReceived" type="number"
-                                        placeholder="Enter Quantity Received" required min="1">
-                                </div>
-                                <div>
-                                    <label for="quantityDefect" aria-label="Quantity Defective, required">Quantity
-                                        Defective:<span class="required">*</span></label>
-                                    <input id="quantityDefect" name="quantityDefect" type="number"
-                                        placeholder="Enter Quantity Defective" required min="1">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="div-container">
-                        <div class="form-section">
-                            <div>
-                                <label for="itemDescription" aria-label="Item Description, required">Item
-                                    Description:<span class="required">*</span></label>
-                                <textarea id="itemDescription" name="itemDescription" rows="2"
-                                    placeholder="Describe the item" required></textarea>
-                            </div>
-                            <div>
-                                <label for="defectDescription" aria-label="Description of Defect, required">Description
-                                    of Defect:<span class="required">*</span></label>
-                                <textarea id="defectDescription" name="defectDescription" rows="5"
-                                    placeholder="Describe the defect in as much detail as possible" required></textarea>
-                            </div>
-                            <div>
-                                <label for="attachedDocument">Upload image(s)/video(s):</label>
-                                <div class="file-upload">
-                                    <input id="attachedDocument" name="attachedDocument" type="file" multiple
-                                        accept="image/*,video/*">
-                                    <div class="file-upload-details">
-                                        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
-                                            xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="none"
-                                            viewBox="0 0 24 24">
-                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                                stroke-width="2"
-                                                d="M12 5v9m-5 0H5a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1h-2M8 9l4-5 4 5m1 8h.01" />
-                                        </svg>
-                                        <p>Drop a file here to upload, or<br>click here to browse</p>
-                                    </div>
-                                </div>
-                                <div class="file-upload-details">
-                                    <p id="fileSummary">Uploaded Files:</p>
-                                    <div id="thumbnailsContainer" class="thumbnails-container">
-                                        <!-- Thumbnails will be dynamically inserted here -->
-                                    </div>
-                                    <p id="fileNames">No files uploaded yet!</p>
-                                </div>
-                            </div>
-                            <div class="form-checkbox-container">
-                                <div class="form-checkbox">
-                                    <input id="itemConform" name="itemConform" type="checkbox">
-                                    <label for="itemConform">Item marked conforming?</label>
-                                </div>
-                                <div class="form-checkbox">
-                                    <input id="engNeeded" name="engNeeded" type="checkbox">
-                                    <label for="engNeeded">Forward to Engineering?</label>
-                                </div>
-                            </div>
-
-                            <div class="form-ncr-buttons">
-                                <div>
-                                    <button type="button" id="btnSave" class="button-primary">Save</button>
-                                </div>
-                                <div>
-                                    <button type="button" id="btnSubmit"
-                                        class="button-secondary btnDisable">Submit</button>
-                                </div>
-                                <div>
-                                    <button type="button" id="btnCancel" class="button-secondary"
-                                        onclick="goBack()">Cancel</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-
-                <!--Engineering-->
-                <div class="eng-Edit-Modal">
-                    <div class="view-from-quality">
-                        <div class="container">
-                            <div class="breadcrumb-container">
-                                <div aria-label="Breadcrumb">
-                                    <ol class="breadcrumb-list" tabindex="6"></ol>
-                                    <!-- Breadcrumbs will be dynamically populated here -->
-                                </div>
-                            </div>
-                            <div class="page-title">
-                                <h1 id="ncr-info">NCR Information</h1>
-                            </div>
-                            <div class="form-ncr">
-                                <div class="div-container">
-                                    <div class="form-header">
-                                        <div class="form-ncr-details">
-                                            <strong>NCR Number:</strong>
-                                            <span tabindex="7" id="ncrNumberE"></span>
-                                        </div>
-                                        <div class="form-ncr-details">
-                                            <strong>Date Created:</strong>
-                                            <span tabindex="8" id="dateCreatedE"></span>
-                                        </div>
-                                        <div class="form-ncr-details">
-                                            <strong>Created By:</strong>
-                                            <span tabindex="9" id="createdByE"></span>
-                                        </div>
-                                        <div class="form-ncr-details">
-                                            <strong>Status:</strong>
-                                            <span tabindex="10" id="ncrStatusE"></span>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="div-container">
-                                    <div class="form-section">
-                                        <div class="four-cols">
-                                            <div class="form-ncr-details">
-                                                <strong>Supplier Name:</strong>
-                                                <span tabindex="11" id="supplierNameDE"></span>
-                                            </div>
-                                            <div class="form-ncr-details">
-                                                <strong>Production Number:</strong>
-                                                <span tabindex="12" id="poNumberE"></span>
-                                            </div>
-                                            <div class="form-ncr-details">
-                                                <strong>Quantity Received:</strong>
-                                                <span tabindex="13" id="quantityReceivedE"></span>
-                                            </div>
-                                            <div class="form-ncr-details">
-                                                <strong>Forward to Engineering:</strong>
-                                                <span tabindex="14" id="engNeededE"></span>
-                                            </div>
-                                            <div class="form-ncr-details">
-                                                <strong>Applicable Process:</strong>
-                                                <span tabindex="15" id="applicableProcessE"></span>
-                                            </div>
-                                            <div class="form-ncr-details">
-                                                <strong>Sales Order Number:</strong>
-                                                <span tabindex="16" id="soNumberE"></span>
-                                            </div>
-                                            <div class="form-ncr-details">
-                                                <strong>Quantity Defective:</strong>
-                                                <span tabindex="17" id="quantityDefectE"></span>
-                                            </div>
-                                            <div class="form-ncr-details">
-                                                <strong>Item marked conforming:</strong>
-                                                <span tabindex="18" id="itemConformE"></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="div-container">
-                                    <div class="form-section">
-                                        <div class="form-ncr-details">
-                                            <strong>Item Description:</strong>
-                                            <span tabindex="19" id="itemDescriptionE"></span>
-                                        </div>
-                                        <div class="form-ncr-details">
-                                            <strong>Description of Defect:</strong>
-                                            <ul tabindex="20" id="defectDescriptionE"></ul>
-                                        </div>
-                                        <div class="form-ncr-details">
-                                            <strong>Uploaded Images/Videos:</strong>
-                                            <span tabindex="21" id="attachedDocumentE">
-                                                No Files Uploaded yet.
-                                            </span>
-                                        </div>
-
-                                        <div class="form-ncr-buttons">
-                                            <button id="editButton" class="button-primary" tabindex="22"
-                                                onclick="window.location.href='create.html?ncr=' + document.getElementById('ncrNumber').textContent;">Edit</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!--Edit Modal for Engineering-->
-                    <div id="createEditModal">
-                        <form class="form-ncr">
-                            <h2 id="ncr-info">Engineering completes this section</h2>
-                            <div>
-                                <div>
-                                    <strong>NCR Number:</strong>
-                                    <span id="ncrNumberEng"></span>
-                                </div>
-                                <div>
-                                    <label for="reviewByCfEngineering">Review By CF Engineering:</label>
-                                    <select name="CFEngineering" id="reviewByCfEngineering" required>
-                                        <option value="" disabled selected>Select an option</option>
-                                        <option value="Use As Is">Use As Is</option>
-                                        <option value="Repair">Repair</option>
-                                        <option value="Rework">Rework</option>
-                                        <option value="Scrap">Scrap</option>
-                                    </select>
-                                </div>
-                                <div>
-                                    <label for="customerNotification">Does Customer require notification of NCR?</label>
-                                    <select name="customerNot" id="customerNotification">
-                                        <option value="">Select an option</option>
-                                        <option value="Yes">Yes</option>
-                                        <option value="No">No</option>
-                                    </select>
-                                </div>
-                                <div>
-                                    <label for="disposition">Disposition:</label>
-                                    <textarea name="disposition" id="disposition"></textarea>
-                                </div>
-                                <div>
-                                    <label for="drawingUpdate">Does the drawing require updating?</label>
-                                    <select name="drawingUpdate" id="drawingUpdate">
-                                        <option value="">Select an option</option>
-                                        <option value="Yes">Yes</option>
-                                        <option value="No">No</option>
-                                    </select>
-                                </div>
-                                <div>
-
-                                    <label for="originalRevNumber">Original Revision Number:</label>
-                                    <input type="text" id="originalRevNumber">
-                                </div>
-                                <label for="originalEngineerName">Original Engineering Name:</label>
-                                <input type="text" id="originalEngineerName">
-                                <div>
-                                    <label for="updatedRevNumber">Updated Revision Number:</label>
-                                    <input type="text" id="updatedRevNumber">
-                                </div>
-                                <div>
-                                    <label for="revisionDate">Revision Date:</label>
-                                    <input type="datetime" id="revisionDate">
-                                </div>
-                                <div>
-                                    <label for="engineerName">Engineer Name:</label>
-                                    <input type="text" id="engineerName">
-                                </div>
-                                <div class="form-ncr-buttons">
-                                    <div>
-                                        <button type="button" id="btnEngSave" class="button-primary">Save</button>
-                                    </div>
-                                    <div>
-                                        <button type="button" id="btnEngSubmit"
-                                            class="button-secondary btnDisable">Submit</button>
-                                    </div>
-                                    <div>
-                                        <button type="button" id="btnEngCancel" class="button-secondary"
-                                            onclick="goBack()">Cancel</button>
-                                    </div>
-                                </div>
+                                <button type="button" id="btnCreateNCR" class="button-primary"
+                                    tabindex="4">Create</button>
+                                <button type="button" id="btnCancelNCR" tabindex="5" class="button-secondary"
+                                    onclick="goBack()">Cancel</button>
                             </div>
                         </form>
                     </div>
                 </div>
-            </div>
-        </div>
-    </main>
+                <!--Form Field-->
+                <div id="createEditModal">
+                    <form class="form-ncr">
+                        <div class="div-container">
+                            <div class="form-header">
+                                <div class="form-ncr-details">
+                                    <strong>NCR Number:</strong>
+                                    <span id="ncrNumber"></span>
+                                </div>
+                                <div class="form-ncr-details">
+                                    <strong>Date Created:</strong>
+                                    <span id="dateCreated"></span>
+                                </div>
+                                <div class="form-ncr-details">
+                                    <strong>Created By:</strong>
+                                    <span id="createdBy"></span>
+                                </div>
+                                <div class="form-ncr-details">
+                                    <strong>Status:</strong>
+                                    <span id="ncrStatus"></span>
+                                </div>
+                            </div>
+                        </div>
 
+                        <div class="div-container">
+                            <div class="form-section">
+                                <div class="two-cols">
+                                    <div>
+                                        <label for="applicableProcess"
+                                            aria-label="Applicable Process, required">Applicable
+                                            Process:<span class="required">*</span></label>
+                                        <select id="applicableProcess" required>
+                                            <option value="" disabled selected>Select a process</option>
+                                            <option value="Supplier or Rec-Insp">Supplier or Rec-Insp</option>
+                                            <option value="WIP (Production Order)">WIP (Production Order)</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label for="supplierName" aria-label="Supplier Name, required">Supplier
+                                            Name:<span class="required">*</span></label>
+                                        <select id="supplierName" required>
+                                            <option value="" disabled selected>Select a Supplier</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="two-cols">
+                                    <div>
+                                        <label for="poNumber" aria-label="Production Number">Prod. Number:</label>
+                                        <input id="poNumber" name="poNumber" type="text"
+                                            placeholder="Enter Production Number">
+                                        <!--include regex for pattern: digits-->
+                                    </div>
+                                    <div>
+                                        <label for="soNumber" aria-label="Sales Order Number, required">Sales Order
+                                            Number:<span class="required">*</span></label>
+                                        <input id="soNumber" name="soNumber" type="text"
+                                            placeholder="Enter Sales Order Number" required>
+                                        <!--include regex for pattern: digits-->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="div-container">
+                            <!--include validation against negatives and ensure that defective is not more received-->
+                            <div class="form-section">
+                                <div class="two-cols">
+                                    <div>
+                                        <label for="quantityReceived" aria-label="Quantity Received, required">Quantity
+                                            Received:<span class="required">*</span></label>
+                                        <input id="quantityReceived" name="quantityReceived" type="number"
+                                            placeholder="Enter Quantity Received" required min="1">
+                                    </div>
+                                    <div>
+                                        <label for="quantityDefect" aria-label="Quantity Defective, required">Quantity
+                                            Defective:<span class="required">*</span></label>
+                                        <input id="quantityDefect" name="quantityDefect" type="number"
+                                            placeholder="Enter Quantity Defective" required min="1">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="div-container">
+                            <div class="form-section">
+                                <div>
+                                    <label for="itemDescription" aria-label="Item Description, required">Item
+                                        Description:<span class="required">*</span></label>
+                                    <textarea id="itemDescription" name="itemDescription" rows="2"
+                                        placeholder="Describe the item" required></textarea>
+                                </div>
+                                <div>
+                                    <label for="defectDescription"
+                                        aria-label="Description of Defect, required">Description
+                                        of Defect:<span class="required">*</span></label>
+                                    <textarea id="defectDescription" name="defectDescription" rows="5"
+                                        placeholder="Describe the defect in as much detail as possible"
+                                        required></textarea>
+                                </div>
+                                <div>
+                                    <label for="attachedDocument">Upload image(s)/video(s):</label>
+                                    <div class="file-upload">
+                                        <input id="attachedDocument" name="attachedDocument" type="file" multiple
+                                            accept="image/*,video/*">
+                                        <div class="file-upload-details">
+                                            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
+                                                xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="none"
+                                                viewBox="0 0 24 24">
+                                                <path stroke="currentColor" stroke-linecap="round"
+                                                    stroke-linejoin="round" stroke-width="2"
+                                                    d="M12 5v9m-5 0H5a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1h-2M8 9l4-5 4 5m1 8h.01" />
+                                            </svg>
+                                            <p>Drop a file here to upload, or<br>click here to browse</p>
+                                        </div>
+                                    </div>
+                                    <div class="file-upload-details">
+                                        <p id="fileSummary">Uploaded Files:</p>
+                                        <div id="thumbnailsContainer" class="thumbnails-container">
+                                            <!-- Thumbnails will be dynamically inserted here -->
+                                        </div>
+                                        <p id="fileNames">No files uploaded yet!</p>
+                                    </div>
+                                </div>
+                                <div class="form-checkbox-container">
+                                    <div class="form-checkbox">
+                                        <input id="itemConform" name="itemConform" type="checkbox">
+                                        <label for="itemConform">Item marked conforming?</label>
+                                    </div>
+                                    <div class="form-checkbox">
+                                        <input id="engNeeded" name="engNeeded" type="checkbox">
+                                        <label for="engNeeded">Forward to Engineering?</label>
+                                    </div>
+                                </div>
+
+                                <div class="form-ncr-buttons">
+                                    <div>
+                                        <button type="button" id="btnSave" class="button-primary">Save</button>
+                                    </div>
+                                    <div>
+                                        <button type="button" id="btnSubmit"
+                                            class="button-secondary btnDisable">Submit</button>
+                                    </div>
+                                    <div>
+                                        <button type="button" id="btnCancel" class="button-secondary"
+                                            onclick="goBack()">Cancel</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+        </section>
+
+        <!--Engineering-->
+        <section id="secEngineer">
+            <div class="eng-Edit-Modal">
+                <div class="view-from-quality">
+                    <div class="container">
+                        <div class="breadcrumb-container">
+                            <div aria-label="Breadcrumb">
+                                <ol class="breadcrumb-list" tabindex="6"></ol>
+                                <!-- Breadcrumbs will be dynamically populated here -->
+                            </div>
+                        </div>
+                        <div class="page-title">
+                            <h1 id="ncr-info">NCR Information</h1>
+                        </div>
+                        <div class="form-ncr">
+                            <div class="div-container">
+                                <div class="form-header">
+                                    <div class="form-ncr-details">
+                                        <strong>NCR Number:</strong>
+                                        <span tabindex="7" id="ncrNumberE"></span>
+                                    </div>
+                                    <div class="form-ncr-details">
+                                        <strong>Date Created:</strong>
+                                        <span tabindex="8" id="dateCreatedE"></span>
+                                    </div>
+                                    <div class="form-ncr-details">
+                                        <strong>Created By:</strong>
+                                        <span tabindex="9" id="createdByE"></span>
+                                    </div>
+                                    <div class="form-ncr-details">
+                                        <strong>Status:</strong>
+                                        <span tabindex="10" id="ncrStatusE"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="div-container">
+                                <div class="form-section">
+                                    <div class="four-cols">
+                                        <div class="form-ncr-details">
+                                            <strong>Supplier Name:</strong>
+                                            <span tabindex="11" id="supplierNameDE"></span>
+                                        </div>
+                                        <div class="form-ncr-details">
+                                            <strong>Production Number:</strong>
+                                            <span tabindex="12" id="poNumberE"></span>
+                                        </div>
+                                        <div class="form-ncr-details">
+                                            <strong>Quantity Received:</strong>
+                                            <span tabindex="13" id="quantityReceivedE"></span>
+                                        </div>
+                                        <div class="form-ncr-details">
+                                            <strong>Forward to Engineering:</strong>
+                                            <span tabindex="14" id="engNeededE"></span>
+                                        </div>
+                                        <div class="form-ncr-details">
+                                            <strong>Applicable Process:</strong>
+                                            <span tabindex="15" id="applicableProcessE"></span>
+                                        </div>
+                                        <div class="form-ncr-details">
+                                            <strong>Sales Order Number:</strong>
+                                            <span tabindex="16" id="soNumberE"></span>
+                                        </div>
+                                        <div class="form-ncr-details">
+                                            <strong>Quantity Defective:</strong>
+                                            <span tabindex="17" id="quantityDefectE"></span>
+                                        </div>
+                                        <div class="form-ncr-details">
+                                            <strong>Item marked conforming:</strong>
+                                            <span tabindex="18" id="itemConformE"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="div-container">
+                                <div class="form-section">
+                                    <div class="form-ncr-details">
+                                        <strong>Item Description:</strong>
+                                        <span tabindex="19" id="itemDescriptionE"></span>
+                                    </div>
+                                    <div class="form-ncr-details">
+                                        <strong>Description of Defect:</strong>
+                                        <ul tabindex="20" id="defectDescriptionE"></ul>
+                                    </div>
+                                    <div class="form-ncr-details">
+                                        <strong>Uploaded Images/Videos:</strong>
+                                        <span tabindex="21" id="attachedDocumentE">
+                                            No Files Uploaded yet.
+                                        </span>
+                                    </div>
+
+                                    <div class="form-ncr-buttons">
+                                        <button id="editButton" class="button-primary" tabindex="22"
+                                            onclick="window.location.href='create.html?ncr=' + document.getElementById('ncrNumber').textContent;">Edit</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--Edit Modal for Engineering-->
+                <div id="createEditModal">
+                    <form class="form-ncr">
+                        <h2 id="ncr-info">Engineering completes this section</h2>
+                        <div>
+                            <div>
+                                <strong>NCR Number:</strong>
+                                <span id="ncrNumberEng"></span>
+                            </div>
+                            <div>
+                                <label for="reviewByCfEngineering">Review By CF Engineering:</label>
+                                <select name="CFEngineering" id="reviewByCfEngineering" required>
+                                    <option value="" disabled selected>Select an option</option>
+                                    <option value="Use As Is">Use As Is</option>
+                                    <option value="Repair">Repair</option>
+                                    <option value="Rework">Rework</option>
+                                    <option value="Scrap">Scrap</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label for="customerNotification">Does Customer require notification of NCR?</label>
+                                <select name="customerNot" id="customerNotification">
+                                    <option value="">Select an option</option>
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label for="disposition">Disposition:</label>
+                                <textarea name="disposition" id="disposition"></textarea>
+                            </div>
+                            <div>
+                                <label for="drawingUpdate">Does the drawing require updating?</label>
+                                <select name="drawingUpdate" id="drawingUpdate">
+                                    <option value="">Select an option</option>
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                </select>
+                            </div>
+                            <div>
+
+                                <label for="originalRevNumber">Original Revision Number:</label>
+                                <input type="text" id="originalRevNumber">
+                            </div>
+                            <label for="originalEngineerName">Original Engineering Name:</label>
+                            <input type="text" id="originalEngineerName">
+                            <div>
+                                <label for="updatedRevNumber">Updated Revision Number:</label>
+                                <input type="text" id="updatedRevNumber">
+                            </div>
+                            <div>
+                                <label for="revisionDate">Revision Date:</label>
+                                <input type="datetime" id="revisionDate">
+                            </div>
+                            <div>
+                                <label for="engineerName">Engineer Name:</label>
+                                <input type="text" id="engineerName">
+                            </div>
+                            <div class="form-ncr-buttons">
+                                <div>
+                                    <button type="button" id="btnEngSave" class="button-primary">Save</button>
+                                </div>
+                                <div>
+                                    <button type="button" id="btnEngSubmit"
+                                        class="button-secondary btnDisable">Submit</button>
+                                </div>
+                                <div>
+                                    <button type="button" id="btnEngCancel" class="button-secondary"
+                                        onclick="goBack()">Cancel</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            </div>
+            </div>
+        </section>
+    </main>
     <footer id="footer">
         <p><small>&copy; 2024 Copyright. QCision - WireWits. All rights reserved.</small></p>
     </footer>
@@ -548,4 +556,5 @@
     <script src="scripts/functions.js"></script>
     <script src="scripts/main.js"></script>
 </body>
+
 </html>

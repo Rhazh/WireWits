@@ -22,9 +22,11 @@ document.addEventListener('DOMContentLoaded', async () => {
     const roleElement = document.getElementById('userRole');
     const profilePicElement = document.getElementById('profilePic');
     const userRole = loggedInUser.Department_Name;
+    const profilePagePicture = document.getElementById('profilePagePic')
+
 
     if (loggedInUser && fullNameElement && roleElement) {
-        fullNameElement.textContent = `${loggedInUser.user_Firstname} ${loggedInUser.user_Lastname}`;
+        fullNameElement.textContent = `${loggedInUser.user_Firstname.substring(0, 1)}. ${loggedInUser.user_Lastname}`;
         roleElement.textContent = loggedInUser.Department_Name;
 
         // Set profile picture based on gender
@@ -107,6 +109,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         // Handle different pages based on the current page name
         if (pageName === 'index.html') {
             if (userRole == "Quality") {
+                document.getElementById('secEngineer').style.display = 'none';
                 populateNotifications();
                 NavBar();
                 recentNCRs();
@@ -114,25 +117,33 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
             else if (userRole == "Engineer") {
                 document.getElementById('secQuality').style.display = 'none';
-                setupNavigationButtons();
+                setupEngNavigationButtons();
                 recentEngNCRs();
             }
 
-        } else if (pageName === 'view.html') {
+        } else if (pageName === 'vieyw.html') {
             populateNotifications();
             populateSupplierDropdownN('supplierName')
             NavBar();
             performSearch();
         } else if (ncrNumber && pageName === 'create.html') {
-            populateNotifications();
-            NavBar();
-            toggleCreateEditModal(ncrNumber, true);
-            setupSaveNCR();
-            setupSubmitNCR();
-            populateDetailsPageEng(ncrNumber)
-            populateEngEditPage(ncrNumber)
-            setupEngSaveNCR();
-            setupEngSubmitNCR();
+            if (userRole == "Quality") {
+                document.getElementById('secEngineer').style.display = 'none';
+                populateNotifications();
+                NavBar();
+                toggleCreateEditModal(ncrNumber, true);
+                setupSaveNCR();
+                setupSubmitNCR();
+            }
+            else if (userRole == "Engineer") {
+                document.getElementById('secQuality').style.display = 'none';
+                populateDetailsPageEng(ncrNumber)
+                populateEngEditPage(ncrNumber)
+                setupEngSaveNCR();
+                setupEngSubmitNCR();
+            }
+
+
         } else if (pageName === 'create.html') {
             toggleCreateEditModal(null, false);
             populateSupplierDropdown('nsupplierName');
@@ -142,10 +153,12 @@ document.addEventListener('DOMContentLoaded', async () => {
             populateNotifications();
             NavBar();
         } else if (ncrNumber && pageName === 'details.html') {
-            populateNotifications();
-            NavBar();
             populateDetailsPage(ncrNumber);
             populateEngDetailsPage(ncrNumber);
+        }
+        else if (pageName === 'profile_settings.html') {
+            populateNotifications();
+            NavBar();
         } else if (pageName === 'reports.html') {
             populateNotifications();
             NavBar();
@@ -176,6 +189,17 @@ document.addEventListener('DOMContentLoaded', async () => {
         });
 
         document.getElementById('btnReports').addEventListener('click', () => {
+            window.location.href = 'reports.html';
+        });
+    }
+
+    // Set up navigation buttons on index.html
+    function setupEngNavigationButtons() {
+        document.getElementById('btnEngView').addEventListener('click', () => {
+            window.location.href = 'view.html';
+        });
+
+        document.getElementById('btnEngReports').addEventListener('click', () => {
             window.location.href = 'reports.html';
         });
     }
@@ -242,7 +266,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     //breadcrumbs
     const breadcrumbMap = {
         'index.html': 'Dashboard',
-        'view.html': 'View NCRs',
+        'view.html': 'NCR Log',
         'create.html': 'Create NCR',
         'edit.html': 'Edit NCR',
         'details.html': 'NCR Details',
@@ -251,6 +275,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         'reports.html': 'Reports',
         'settings.html': 'Settings',
         'underdevelopment.html': 'Under Development',
+        'profile_settings.html': 'Profile & Settings',
+
     };
 
     // Get the current page path
@@ -274,7 +300,11 @@ document.addEventListener('DOMContentLoaded', async () => {
         derivedPath.push('index.html', 'view.html');
     } else if (currentPage === 'reports.html') {
         derivedPath.push('index.html', 'reports.html');
-    } else {
+    }
+    else if (currentPage === 'profile_settings.html') {
+        derivedPath.push('index.html', 'profile_settings.html');
+    } 
+    else {
         derivedPath.push('index.html'); // Default case for the homepage
     }
 
@@ -590,3 +620,148 @@ function popupComment(){
             });
             supplierDropdown.appendChild(allGroup);
         }*/
+
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const editButton = document.getElementById('editButton');
+            const saveButton = document.getElementById('saveButton');
+            const nameDisplay = document.getElementById('userFullname');
+            const roleDisplay = document.getElementById('userRole');
+            const nameInput = document.getElementById('nameInput');
+            const roleInput = document.getElementById('roleInput');
+            const editIcon = document.getElementById('editIcon');
+            const profilePic = document.getElementById('profilePic');
+            const profilePagePic = document.getElementById('profilePagePic');
+            const imageUpload = document.getElementById('imageUpload');
+            const message = document.getElementById('roleMessage');
+        
+
+            
+            // Load user data from localStorage if it exists
+            const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
+            if (loggedInUser) {
+                userFullnameProfilePage.textContent = `${loggedInUser.user_Firstname} ${loggedInUser.user_Lastname}`;
+                userRoleProfilePage.textContent = loggedInUser.Department_Name;
+                nameInput.value = `${loggedInUser.user_Firstname} ${loggedInUser.user_Lastname}`;
+                roleInput.value = loggedInUser.Department_Name;
+
+                // Load profile picture from localStorage or set default
+                const profilePictureSrc = loggedInUser.profilePicture || (loggedInUser.gender === 'male' ? 'images/user-profile_v1.png' : 'images/user-profile.png');
+                profilePagePic.src = profilePictureSrc;
+                profilePic.src = profilePictureSrc; // Initial header picture
+            }
+
+            // Save initial values to restore them on cancel
+            let initialName = nameInput.value;
+            let initialRole = roleInput.value;
+            let initialProfilePicture = profilePagePic.src;
+            let tempProfilePicture = initialProfilePicture;
+            let changedPic = null;
+        
+            // Toggle to edit mode
+            editButton.addEventListener('click', () => {
+                // Hide display text and show input fields
+                userFullnameProfilePage.style.display = 'none';
+                userRoleProfilePage.style.display = 'none';
+                nameInput.style.display = 'block';
+                roleInput.style.display = 'block';
+                roleMessage.style.display = 'block';
+        
+                // Show the edit icon
+                editIcon.style.display = 'block';
+                editButton.style.display = 'none';
+                saveButton.style.display = 'block';
+                cancelButton.style.display = 'block';
+            });
+        
+            // Save changes and exit edit mode
+            saveButton.addEventListener('click', () => {
+                // Update display with new values from input fields
+                userFullnameProfilePage.textContent = nameInput.value;
+                userRoleProfilePage.textContent = roleInput.value;
+        
+                // Save the updated information to localStorage
+                const [firstName, ...lastNameParts] = nameInput.value.split(" ");
+                const lastName = lastNameParts.join(" ");
+                const updatedUser = {
+                    ...loggedInUser,
+                    user_Firstname: firstName,
+                    user_Lastname: lastName,
+                    Department_Name: roleInput.value,
+                    profilePicture: tempProfilePicture // Save temporary picture as final picture
+
+                };
+                localStorage.setItem('loggedInUser', JSON.stringify(updatedUser));
+
+                profilePic.src = tempProfilePicture;
+
+        
+                // Show display text and hide input fields
+                userFullnameProfilePage.style.display = 'block';
+                userRoleProfilePage.style.display = 'block';
+                nameInput.style.display = 'none';
+                roleInput.style.display = 'none';
+                message.style.display = 'none';
+        
+                // Hide the edit icon
+                editIcon.style.display = 'none';
+                editButton.style.display = 'block';
+                saveButton.style.display = 'none';
+                cancelButton.style.display = 'none';
+
+        
+                // Update header display (assuming header elements have the same IDs as nameDisplay and roleDisplay)
+                document.getElementById('headerName').textContent = nameInput.value;
+                document.getElementById('headerRole').textContent = roleInput.value;
+
+                initialName = nameInput.value;
+                initialRole = roleInput.value;
+                initialProfilePicture = tempProfilePicture;
+            });
+        
+            cancelButton.addEventListener('click', () =>{
+
+                userFullnameProfilePage.style.display = 'block';
+                userRoleProfilePage.style.display = 'block';
+                nameInput.style.display = 'none';
+                roleInput.style.display = 'none';
+                roleMessage.style.display = 'none';
+                nameInput.value = initialName;
+                roleInput.value = initialRole;
+                profilePagePic.src = initialProfilePicture;
+                tempProfilePicture = initialProfilePicture;
+                profilePic.src = initialProfilePicture;
+        
+                // Show the edit icon
+                editIcon.style.display = 'none';
+                editButton.style.display = 'block';
+                saveButton.style.display = 'none';
+                cancelButton.style.display = 'none';
+
+
+            });
+            // Profile picture change handler
+            editIcon.addEventListener('click', () => {
+                imageUpload.click(); // Open file input dialog
+            });
+        
+            imageUpload.addEventListener('change', (event) => {
+                const file = event.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        tempProfilePicture = e.target.result; // Store temporarily, only saved on Save button click
+                        profilePagePic.src = e.target.result;
+        
+                        // Optional: Save updated picture URL in localStorage if required for persistence
+                        const updatedUser = {
+                            ...loggedInUser,
+                            profilePicture: e.target.result
+                        };
+                        localStorage.setItem('loggedInUser', JSON.stringify(updatedUser));
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+        });
+        
