@@ -114,7 +114,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
             else if (userRole == "Engineer") {
                 document.getElementById('secQuality').style.display = 'none';
-                setupNavigationButtons();
+                setupEngNavigationButtons();
                 recentEngNCRs();
             }
 
@@ -176,6 +176,17 @@ document.addEventListener('DOMContentLoaded', async () => {
         });
 
         document.getElementById('btnReports').addEventListener('click', () => {
+            window.location.href = 'reports.html';
+        });
+    }
+
+     // Set up navigation buttons on index.html
+     function setupEngNavigationButtons() {
+        document.getElementById('btnEngView').addEventListener('click', () => {
+            window.location.href = 'view.html';
+        });
+
+        document.getElementById('btnEngReports').addEventListener('click', () => {
             window.location.href = 'reports.html';
         });
     }
