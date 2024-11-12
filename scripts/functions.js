@@ -517,16 +517,15 @@ function CreateNCR() {
     if (!Array.isArray(history)) {
         history = [];  // Initialize history if undefined
     }
-
-
     // Get form values
     const applicableProcess = document.getElementById('napplicableProcess')?.value;
     const supplierName = document.getElementById('nsupplierName')?.value;
 
-    if (applicableProcess == "" || supplierName == "") {
-        alert("Please select both Applicable Process and Supplier")
-        return;
-    }
+   // Check for empty or undefined applicableProcess and supplierName
+   if (!applicableProcess || !supplierName) {
+    alert("Please select both Applicable Process and Supplier");
+    return;
+}
 
     // Generate NCR Number and Timestamp
     const ncrNumber = NCRNumberGenerator();
@@ -594,6 +593,11 @@ function CreateNCR() {
     sessionStorage.setItem('quality', JSON.stringify(quality));
 
     alert(`NCR Number ${ncrNumber} successfully generated. You may continue to provide additional information now or later`);
+    const createNCRModal = document.getElementById('createNCRModal');
+    const createEditModal = document.getElementById('createEditModal');
+
+    createNCRModal.style.visibility = 'hidden';
+    createEditModal.style.visibility = 'visible';
 
     sessionStorage.setItem('ncrNumber', ncrNumber);
     return ncrNumber
@@ -1081,15 +1085,26 @@ function printPdf() {
 function populateSupplierDropdown(elementID, ncrNumber = null) {
     const supplierDropdown = document.getElementById(elementID);
 
+    // Clear existing options to avoid duplication
+    supplierDropdown.innerHTML = '';
+
+    // Add a disabled "Select a Supplier" placeholder at the top
+    const placeholderOption = document.createElement('option');
+    placeholderOption.value = '';
+    placeholderOption.textContent = 'Select a Supplier';
+    placeholderOption.disabled = true;
+    placeholderOption.selected = true;
+    supplierDropdown.appendChild(placeholderOption);
+
     // Retrieve supplier and quality data from sessionStorage
     const supplier = JSON.parse(sessionStorage.getItem('supplier')) || [];
     const quality = JSON.parse(sessionStorage.getItem('quality')) || [];
 
-    // Load or initialize stored suppliers
-    let storedSuppliers = JSON.parse(sessionStorage.getItem('suppliers')) || [];
-    if (storedSuppliers.length === 0) {
-        supplier.forEach(item => storedSuppliers.push(item.supplierName));
-        sessionStorage.setItem('suppliers', JSON.stringify(storedSuppliers)); // Save to session storage
+    // Load or initialize stored suppliers with a Set to avoid duplicates
+    let storedSuppliers = new Set(JSON.parse(sessionStorage.getItem('suppliers')) || []);
+    if (storedSuppliers.size === 0) {
+        supplier.forEach(item => storedSuppliers.add(item.supplierName));
+        sessionStorage.setItem('suppliers', JSON.stringify([...storedSuppliers])); // Save to session storage
     }
 
     // If `ncrNumber` is provided, retrieve the previously selected supplier
@@ -1119,22 +1134,19 @@ function populateSupplierDropdown(elementID, ncrNumber = null) {
         return group;
     };
 
-    // Populate dropdown
-    //supplierDropdown.innerHTML = ''; // Clear existing options
+    // Populate dropdown with grouped suppliers
     supplierDropdown.appendChild(createOptionGroup('Popular Suppliers', topSuppliers));
     supplierDropdown.appendChild(createOptionGroup('All Suppliers', allSuppliers));
 
-    // Add "Other supplier" option for custom entries only if no supplier is selected or it's not in use
-    const customOption = document.createElement('option');
-    customOption.value = 'custom';
-    customOption.textContent = 'Other supplier...';
-
-    // Only add "Other supplier..." if no custom selection exists and it's not the selected supplier
+    // Add "Other supplier" option for custom entries only if no custom selection exists
     if (selectedSupplier !== 'custom') {
+        const customOption = document.createElement('option');
+        customOption.value = 'custom';
+        customOption.textContent = 'Other supplier...';
         supplierDropdown.appendChild(customOption);
     }
 
-    // If `ncrNumber` is provided and a selected supplier exists, set the dropdown's value to the selected supplier
+    // Set dropdown to the selected supplier if it exists
     if (selectedSupplier && selectedSupplier !== 'custom') {
         supplierDropdown.value = selectedSupplier;
     }
@@ -1144,10 +1156,10 @@ function populateSupplierDropdown(elementID, ncrNumber = null) {
         const supplierName = event.target.value;
         if (supplierName === 'custom') {
             const customSupplier = prompt('Please enter your supplier name:');
-            if (customSupplier && !storedSuppliers.includes(customSupplier)) {
+            if (customSupplier && !storedSuppliers.has(customSupplier)) {
                 // Add new custom supplier to stored suppliers
-                storedSuppliers.push(customSupplier);
-                sessionStorage.setItem('suppliers', JSON.stringify(storedSuppliers)); // Save updated list
+                storedSuppliers.add(customSupplier);
+                sessionStorage.setItem('suppliers', JSON.stringify([...storedSuppliers])); // Save updated list
 
                 // Refresh dropdown with the updated list
                 populateSupplierDropdown(elementID, ncrNumber);
@@ -1161,6 +1173,7 @@ function populateSupplierDropdown(elementID, ncrNumber = null) {
         }
     });
 }
+
 
 function populateSupplierDropdownN(elementID) {
     const supplierDropdown = document.getElementById(elementID);
@@ -1665,3 +1678,24 @@ function submitEngNCR() {
     }
 }
 
+//FUNCTION TO CHANGE NAVIGATION LINKS BASED ON USER
+function updateNavLinks(userRole) {
+    const homeLink = document.getElementById('home');
+    const createLink = document.getElementById('create');
+    const viewLink = document.getElementById('view');
+    const reportsLink = document.getElementById('reports');
+
+    // Hide link if the user is not an admin
+    if (userRole == "Quality") {
+        homeLink.style.display = 'block';
+        createLink.style.display = 'block';
+        viewLink.style.display = 'block';
+        reportsLink.style.display = 'block';
+    }
+    else if(userRole == "Engineer"){
+        homeLink.style.display = 'block';
+        createLink.style.display = 'none';
+        viewLink.style.display = 'block';
+        reportsLink.style.display = 'block';
+    }
+}

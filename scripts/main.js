@@ -102,6 +102,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         //populateNotifications();
         //NavBar();
+        updateNavLinks(userRole);
 
         const urlParams = new URLSearchParams(window.location.search);
         const ncrNumber = urlParams.get('ncr');
@@ -159,15 +160,11 @@ document.addEventListener('DOMContentLoaded', async () => {
                 document.getElementById('revertButton').style.display = 'none';
                 populateNotifications();
                 NavBar();
-                //populateDetailsPage(ncrNumber);
             }
             else if (userRole == "Engineer") {
                 document.getElementById('editButton').style.display = 'none';
-                //populateDetailsPage(ncrNumber);
                 populateEngDetailsPage(ncrNumber);
             }
-
-
         }
         else if (pageName === 'profile_settings.html') {
             populateNotifications();
@@ -426,6 +423,7 @@ function popupComment(){
         }
     }
 }
+
         
     
 
@@ -539,100 +537,6 @@ function popupComment(){
     
 
 
-
-
-
-
-
-
-
-
-
-//MAY USE LATER
-/*
-        Function to populate the supplier dropdown with the top 3 suppliers first
-        async function populateSupplierDropdown(ncrLog) {
-            const supplierDropdown = document.getElementById('supplierName');
-    
-            // Count occurrences of each supplierName
-            const supplierCounts = {};
-            ncrLog.forEach(item => {
-                supplierCounts[item.supplierName] = (supplierCounts[item.supplierName] || 0) + 1;
-            });
-    
-            // Sort suppliers by count in descending order
-            const sortedSuppliers = Object.keys(supplierCounts).sort((a, b) => supplierCounts[b] - supplierCounts[a]);
-    
-            // Get top 3 suppliers
-            const topSuppliers = sortedSuppliers.slice(0, 3);
-    
-            // Get the remaining suppliers (excluding the top 3)
-            const allSuppliers = sortedSuppliers.sort();
-    
-            // Create a group for the top 3 suppliers
-            const topGroup = document.createElement('optgroup');
-            topGroup.label = 'Popular Suppliers';
-            topSuppliers.forEach(supplier => {
-                const option = document.createElement('option');
-                option.value = supplier;
-                option.textContent = `${supplier}`;
-                topGroup.appendChild(option);
-            });
-            supplierDropdown.appendChild(topGroup);
-    
-            // Create a group for the remaining suppliers
-            const allGroup = document.createElement('optgroup');
-            allGroup.label = 'All Suppliers';
-            allSuppliers.forEach(supplier => {
-                const option = document.createElement('option');
-                option.value = supplier;
-                option.textContent = supplier;
-                allGroup.appendChild(option);
-            });
-            supplierDropdown.appendChild(allGroup);
-        }
-
-         // Function to populate the supplier dropdown with the top 3 suppliers first
-         async function populateSupplierDropdownG(ncrLog) {
-            const supplierDropdown = document.getElementById('nsupplierName');
-    
-            // Count occurrences of each supplierName
-            const supplierCounts = {};
-            ncrLog.forEach(item => {
-                supplierCounts[item.supplierName] = (supplierCounts[item.supplierName] || 0) + 1;
-            });
-    
-            // Sort suppliers by count in descending order
-            const sortedSuppliers = Object.keys(supplierCounts).sort((a, b) => supplierCounts[b] - supplierCounts[a]);
-    
-            // Get top 3 suppliers
-            const topSuppliers = sortedSuppliers.slice(0, 3);
-    
-            // Get the remaining suppliers (excluding the top 3)
-            const allSuppliers = sortedSuppliers.sort();
-    
-            // Create a group for the top 3 suppliers
-            const topGroup = document.createElement('optgroup');
-            topGroup.label = 'Popular Suppliers';
-            topSuppliers.forEach(supplier => {
-                const option = document.createElement('option');
-                option.value = supplier;
-                option.textContent = `${supplier}`;
-                topGroup.appendChild(option);
-            });
-            supplierDropdown.appendChild(topGroup);
-    
-            // Create a group for the remaining suppliers
-            const allGroup = document.createElement('optgroup');
-            allGroup.label = 'All Suppliers';
-            allSuppliers.forEach(supplier => {
-                const option = document.createElement('option');
-                option.value = supplier;
-                option.textContent = supplier;
-                allGroup.appendChild(option);
-            });
-            supplierDropdown.appendChild(allGroup);
-        }*/
 
 
 document.addEventListener('DOMContentLoaded', () => {
