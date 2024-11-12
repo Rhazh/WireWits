@@ -1731,3 +1731,75 @@ function updateNavLinks(userRole) {
         reportsLink.style.display = 'block';
     }
 }
+
+
+
+
+//Function for the modal in Detail page
+function popupComment() {
+
+    const modal = document.getElementById("modal");
+    modal.style.visibility = "visible";
+    modal.style.display = "block";
+    const btn = document.getElementById("revertButton");
+
+}
+
+
+    
+function sendComment() {
+    const reason = document.getElementById("reason").value;
+    const ncrNumber = document.getElementById("ncrNumber").textContent;
+    console.log(ncrNumber)
+
+    if (!reason) {
+        alert("Enter a reason before submitting")
+        return;
+    }
+
+
+    const engineeringEntry = engineering.find(entry => entry.ncrNumber === ncrNumber);
+
+    if (engineeringEntry) {
+        engineeringEntry.comment = reason;
+        engineeringEntry.ncrStaus = "Quality";
+
+
+        sessionStorage.setItem('engineeing', JSON.stringify(engineering));
+
+        const qualityEntry = quality.find(entry => entry.ncrNumber === ncrNumber);
+
+        if (qualityEntry) {
+
+            qualityEntry.returnReason = reason;
+            qualityEntry.ncrStatus = "Quality";
+
+            sessionStorage.setItem('quality', JSON.stringify(quality));
+
+            const historyEntry = {
+                ncrNumber: ncrNumber,
+                actionType: "Return to Quality",
+                status: 'Open',
+                actionDescription: `Returned to Quality by Engineering with reason: ${reason}`,
+                changedBy: getUserName(),
+                changedOn: Timestamp()
+            };
+            history.push(historyEntry);
+            sessionStorage.setItem('history', JSON.stringify(history));
+
+            alert(`Sent back to the Quality Department`);
+
+            //loadQualityTable();
+        } else {
+            alert("Quality entry not found for the specified NCR number.");
+        }
+    } else {
+        alert("Engineering entry not found for the specified NCR number.");
+    }
+}
+
+function closeModal() {
+    const modal = document.getElementById("modal");
+    modal.style.visibility = "hidden";
+    modal.style.display = "none";
+}
