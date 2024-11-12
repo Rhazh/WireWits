@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         fullNameElement.textContent = `${loggedInUser.user_Firstname.substring(0, 1)}. ${loggedInUser.user_Lastname}`;
         roleElement.textContent = loggedInUser.Department_Name;
 
-        profilePicElement.src = loggedInUser.profilePicture  || (loggedInUser.gender === 'male' ? 'images/user-profile_v1.png' : 'images/user-profile.png');;
+        profilePicElement.src = loggedInUser.profilePicture || (loggedInUser.gender === 'male' ? 'images/user-profile_v1.png' : 'images/user-profile.png');;
         // Set profile picture based on gender
         //profilePicElement.src = loggedInUser.gender === 'male' ? 'images/user-profile_v1.png' : 'images/user-profile.png';
 
@@ -107,7 +107,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         const urlParams = new URLSearchParams(window.location.search);
         const ncrNumber = urlParams.get('ncr');
-        
+
 
         // Handle different pages based on the current page name
         if (pageName === 'index.html') {
@@ -125,10 +125,19 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
 
         } else if (pageName === 'view.html') {
-            populateNotifications();
-            populateSupplierDropdownN('supplierName')
-            NavBar();
-            performSearch();
+            if (userRole == "Quality") {
+                document.getElementById('secEngineer').style.display = 'none';
+                populateNotifications();
+                populateSupplierDropdownN('supplierName')
+                NavBar();
+                performSearch();
+
+            }
+            else if (userRole == "Engineer") {
+                document.getElementById('secQuality').style.display = 'none';
+                performSearchEng();
+            }
+
         } else if (ncrNumber && pageName === 'create.html') {
             if (userRole == "Quality") {
                 document.getElementById('secEngineer').style.display = 'none';
@@ -165,7 +174,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             else if (userRole == "Engineer") {
                 document.getElementById('editButton').style.display = 'none';
                 populateEngDetailsPage(ncrNumber);
-                popupComment(); 
+                popupComment();
                 closeModal();
                 ;
             }
@@ -177,9 +186,6 @@ document.addEventListener('DOMContentLoaded', async () => {
             populateNotifications();
             NavBar();
             performSearchReports();
-        } else if (pageName === 'engdash.html') {
-            recentEngNCRs();
-            //console.log("engineering");
         }
 
         // Set up the supplierName dropdown
@@ -385,7 +391,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Load user data from localStorage if it exists
     if (loggedInUser) {
-        nameDisplay.textContent= `${loggedInUser.user_Firstname} ${loggedInUser.user_Middlename} ${loggedInUser.user_Lastname}`;  //`${loggedInUser.user_Firstname} ${loggedInUser.user_Lastname}`;
+        nameDisplay.textContent = `${loggedInUser.user_Firstname} ${loggedInUser.user_Middlename} ${loggedInUser.user_Lastname}`;  //`${loggedInUser.user_Firstname} ${loggedInUser.user_Lastname}`;
         roleDisplay.textContent = loggedInUser.Department_Name;
         usernameDisplay.textContent = loggedInUser.user_name;
         firstNameDisplay.textContent = loggedInUser.user_Firstname;
@@ -472,21 +478,21 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         // Save the updated information to localStorage
 
-        if(userName.value.trim() === ""){
+        if (userName.value.trim() === "") {
             errormsg.style.display = 'block';
             errormsg.textContent = "*Username is required";
             errormsg.scrollIntoView({ behavior: 'smooth' });
             return;
 
         }
-        if(firstName.value.trim() === ""){
+        if (firstName.value.trim() === "") {
             errormsg.style.display = 'block';
             errormsg.textContent = "*First Name is required";
             errormsg.scrollIntoView({ behavior: 'smooth' });
             return;
 
         }
-        if(lastName.value.trim() === ""){
+        if (lastName.value.trim() === "") {
             errormsg.style.display = 'block';
             errormsg.textContent = "*Last Name is required";
             errormsg.scrollIntoView({ behavior: 'smooth' });
@@ -495,14 +501,14 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
         const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
-        if(!emailPattern.test(email.value.trim())){
+        if (!emailPattern.test(email.value.trim())) {
             errormsg.style.display = 'block';
             errormsg.textContent = "*Email should of xyz@email.com";
             errormsg.scrollIntoView({ behavior: 'smooth' });
             return;
 
         }
-        if(password.value.trim() === ""){
+        if (password.value.trim() === "") {
             errormsg.style.display = 'block';
             errormsg.textContent = "*Password is required";
             errormsg.scrollIntoView({ behavior: 'smooth' });
@@ -510,18 +516,18 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         }
 
-    
+
         const updatedUser = {
             ...loggedInUser,
             user_name: userName.value,
             user_Firstname: firstName.value,
-            user_Middlename:middleName.value || '-',
+            user_Middlename: middleName.value || '-',
             user_Lastname: lastName.value,
             Department_Name: roleInput.value || '-',
             profilePicture: tempProfilePicture, // Save temporary picture as final picture
-             email: email.value || '-',
-             password: password.value,
-             gender: gender.value || '-'
+            email: email.value || '-',
+            password: password.value,
+            gender: gender.value || '-'
 
         };
         localStorage.setItem('loggedInUser', JSON.stringify(updatedUser));
@@ -636,7 +642,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         const passwordInput = document.getElementById('passwordInput');
         const type = passwordInput.type === 'password' ? 'text' : 'password';
         passwordInput.type = type;
-    
+
         // Optionally, change the icon
         this.textContent = type === 'password' ? '👁️' : '🙈';
     });
@@ -657,7 +663,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 profilePic.src = newProfilePicture;
                 profilePicElement.src = newProfilePicture; // Update header pic immediately
 
-                
+
                 // Optional: Save updated picture URL in localStorage if required for persistence
 
             };
@@ -683,11 +689,11 @@ function setupEngSubmitNCR() {
     });
 }
 
-   
-    
-    
-    
-    
+
+
+
+
+
 
 
 
