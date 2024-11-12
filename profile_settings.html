@@ -114,15 +114,15 @@
         </div>
     </header>
     <main>
-        <div class="container">
+    <div class="container">
             <div class="breadcrumb-container">
                 <div>
                     <ol class="breadcrumb-list" tabindex="-1"></ol>
                     <!-- Breadcrumbs will be dynamically populated here -->
                 </div>
             </div>
-            <div id="Profile" class="profile-container">
-                <h1>Account Settings</h1>
+    <div id="Profile" class="profile-container">
+                <h1>Profile Settings</h1>
         <div class="profile-picture-container">
             <img id="profilePagePic" src="images/user-profile.png" alt="User profile image" title="User profile image" height="100" width="100">
             <span class="edit-icon" id="editIcon" style="display: none;">✏️</span>
@@ -132,9 +132,9 @@
         <span id="errormsg" style="display: none; color: red;"></span>
         <div class="user-info">
             <div class="info-block">
-                <strong class="profileHeadings">Full Name :</strong>
+                <strong class="profileHeadings" id="fullnameHeading">Full Name :</strong>
                 <span id="userFullnameProfilePage" class="user-fullname">Marcus A. Allen</span>
-                <input type="text" id="nameInput" class="editable-field" style="display: none;" value="Marcus A. Allen" disabled>
+                <input type="text" id="nameInput" class="editable-field" style="display: none;" value="Marcus A. Allen" >
             </div>
             <div class="info-block">
                 <strong class="profileHeadings">Username :</strong>
@@ -196,8 +196,20 @@
         <div class="buttons">
                     <button id="cancelButton" class="button-secondary" style="display: none;">Cancel</button>
 
+     </div>
+     
+    </div>  
+    <div id="settings" class=".settings-container">
+        <div class="settings-section">
+            <h3>Settings</h3>
+
+            <span id="notifs">Enable Notifications</span>
+              <label class="switch">
+                <input type="checkbox" id="toggleSwitch"  checked>
+                <span class="slider round"></span>
+              </label>
         </div>
-            </div>        
+     </div>      
     </main>
     <footer id="footer">
         <p><small>&copy; 2024 Copyright. QCision - WireWits. All rights reserved.</small></p>
