@@ -79,7 +79,7 @@
                                     <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                                         <path stroke="currentColor" stroke-width="2" d="M7 17v1a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1a3 3 0 0 0-3-3h-4a3 3 0 0 0-3 3Zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
                                     </svg>
-                                    Profile/Settings
+                                    Account Settings
                                 </a>
                             </li>
                             <!-- <li>
@@ -128,17 +128,60 @@
             <span class="edit-icon" id="editIcon" style="display: none;">✏️</span>
             <input type="file" id="imageUpload" style="display: none;" accept="image/*">
         </div>
+        
+        <span id="errormsg" style="display: none; color: red;"></span>
         <div class="user-info">
             <div class="info-block">
-                <strong class="profileHeadings">Name :</strong>
-                <span id="userFullnameProfilePage" class="user-fullname">Cassandra Washington</span>
-                <input type="text" id="nameInput" class="editable-field" style="display: none;" value="Cassandra Washington">
+                <strong class="profileHeadings">Full Name :</strong>
+                <span id="userFullnameProfilePage" class="user-fullname">Marcus A. Allen</span>
+                <input type="text" id="nameInput" class="editable-field" style="display: none;" value="Marcus A. Allen" disabled>
+            </div>
+            <div class="info-block">
+                <strong class="profileHeadings">Username :</strong>
+                <span id="username" class="user-fullname">mallen</span>
+                <input type="text" id="usernameInput" class="editable-field" style="display: none;" value="mallen">
+            </div>
+            <div class="info-block">
+                <strong class="profileHeadings">First Name :</strong>
+                <span id="userFirstnameProfilePage" class="user-fullname">Marcus</span>
+                <input type="text" id="firstnameInput" class="editable-field" style="display: none;" value="Marcus">
+            </div>
+            <div class="info-block">
+                <strong class="profileHeadings">Middle Name :</strong>
+                <span id="userMiddlenameProfilePage" class="user-fullname">A</span>
+                <input type="text" id="middlenameInput" class="editable-field" style="display: none;" value="A">
+            </div>
+            <div class="info-block">
+                <strong class="profileHeadings">Last Name :</strong>
+                <span id="userLastnameProfilePage" class="user-fullname">Allen</span>
+                <input type="text" id="lastnameInput" class="editable-field" style="display: none;" value="Allen">
+            </div>
+            <div class="info-block">
+                <strong class="profileHeadings">Email :</strong>
+                <span id="userEmailProfilePage" class="user-fullname">john.doe@example.com</span>
+                <input type="email" id="emailInput" class="editable-field" style="display: none;" value="john.doe@example.com">
+            </div>
+            <div class="info-block">
+                <strong class="profileHeadings">Password :</strong>
+                <span id="userPasswordProfilePage" class="user-fullname">Quality1234</span>
+                <input type="password" id="passwordInput" class="editable-field" style="display: none;" value="Quality1234">
+                <span id="togglePassword" class="toggle-password-icon" style="display: none;">👁️</span>
+
             </div>
             <div class="info-block">
                 <strong class="profileHeadings">Role :</strong>
                 <span id="userRoleProfilePage" class="user-role">ADMINISTRATOR</span>
                 <input type="text" id="roleInput" class="editable-field" style="display: none;" value="Administrator" disabled>
                 <span id="roleMessage">*Cannot change role without Administrator permissions</span>
+            </div>
+            <div class="info-block">
+                <strong class="profileHeadings">Gender :</strong>
+                <span id="userGenderProfilePage" class="user-fullname">Male</span>
+                <select id="genderInput" style="display: none;">
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="other">Other</option>
+                </select>
             </div>
         </div>
 

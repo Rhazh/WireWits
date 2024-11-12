@@ -101,7 +101,7 @@
                                         <path stroke="currentColor" stroke-width="2"
                                             d="M7 17v1a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1a3 3 0 0 0-3-3h-4a3 3 0 0 0-3 3Zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
                                     </svg>
-                                    Profile/Settings
+                                    Account Settings
                                 </a>
                             </li>
                             <!-- <li>
@@ -187,9 +187,16 @@
                         </div>
                         <form id="createNCRForm" class="modal-form">
                             <div>
-                                <label for="napplicableProcess">Applicable Process:
-                                    <span aria-hidden="true">*</span> <!-- Hide asterisk from screen readers -->
-                                </label>
+                                <div class="two-cols">
+                                    <label for="napplicableProcess">Applicable Process:
+                                        <span aria-hidden="true" class="required">*</span> <!-- Hide asterisk from screen readers -->
+                                    </label>
+                                    <div class="info-icon">
+                                        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+                                      </svg>
+                                    </div>
+                                </div>
                                 <select id="napplicableProcess" name="napplicableProcess" aria-label="required field">
                                     <option value="" disabled selected>Select a process</option>
                                     <!-- Added value="" and selected attribute -->
@@ -198,9 +205,16 @@
                                 </select>
                             </div>
                             <div>
-                                <label for="nsupplierName">Supplier Name:
-                                    <span aria-hidden="true">*</span> <!-- Hide asterisk from screen readers -->
-                                </label>
+                                <div class="two-cols">
+                                    <label for="nsupplierName">Supplier Name:
+                                        <span aria-hidden="true" class="required">*</span> <!-- Hide asterisk from screen readers -->
+                                    </label>
+                                    <div class="info-icon">
+                                        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+                                      </svg>
+                                    </div>
+                                </div>
                                 <select id="nsupplierName" name="nsupplierName" aria-label="required field">
                                     <option value="" disabled selected>Select a Supplier</option>
                                     <!-- Added value="" and selected attribute -->
@@ -460,91 +474,113 @@
                                         </span>
                                     </div>
 
+                                    <!--modal button-->
                                     <div class="form-ncr-buttons">
-                                        <button id="editButton" class="button-primary" tabindex="22"
-                                            onclick="window.location.href='create.html?ncr=' + document.getElementById('ncrNumber').textContent;">Edit</button>
+                                        <button id="revertButton" class="button-primary" tabindex="22"
+                                            onclick="popupComment()">Revert to Quality</button>
+                                    </div>
+
+                                    <!--modal for the text box-->
+                                    <div>
+                                        <div id="modal" class="modal-container"
+                                            style="visibility: hidden; display: none">
+                                            <span onclick="closeModal()" class="close"></span>
+                                            <span tabindex="1" class="btn-close" onclick="closeModal()">
+                                                <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
+                                                    xmlns="http://www.w3.org/2000/svg" width="32" height="32"
+                                                    fill="none" viewBox="0 0 24 24">
+                                                    <path stroke="currentColor" stroke-linecap="round"
+                                                        stroke-linejoin="round" stroke-width="2.5"
+                                                        d="M6 18 17.94 6M18 18 6.06 6" />
+                                                </svg>
+                                            </span>
+                                            <label for="reason" aria-label="Reason, required">Reason:
+                                                <span class="required">*</span></label>
+                                            <textarea id="reason" name="reason" rows="2"
+                                                placeholder="Reason for reverting" required></textarea>
+
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        <!--Edit Modal for Engineering-->
+                        <div id="createEditModal">
+                            <form class="form-ncr">
+                                <h2 id="ncr-info">Engineering completes this section</h2>
+                                <div>
+                                    <div>
+                                        <strong>NCR Number:</strong>
+                                        <span id="ncrNumberEng"></span>
+                                    </div>
+                                    <div>
+                                        <label for="reviewByCfEngineering">Review By CF Engineering:</label>
+                                        <select name="CFEngineering" id="reviewByCfEngineering" required>
+                                            <option value="" disabled selected>Select an option</option>
+                                            <option value="Use As Is">Use As Is</option>
+                                            <option value="Repair">Repair</option>
+                                            <option value="Rework">Rework</option>
+                                            <option value="Scrap">Scrap</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label for="customerNotification">Does Customer require notification of
+                                            NCR?</label>
+                                        <select name="customerNot" id="customerNotification">
+                                            <option value="">Select an option</option>
+                                            <option value="Yes">Yes</option>
+                                            <option value="No">No</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label for="disposition">Disposition:</label>
+                                        <textarea name="disposition" id="disposition"></textarea>
+                                    </div>
+                                    <div>
+                                        <label for="drawingUpdate">Does the drawing require updating?</label>
+                                        <select name="drawingUpdate" id="drawingUpdate">
+                                            <option value="">Select an option</option>
+                                            <option value="Yes">Yes</option>
+                                            <option value="No">No</option>
+                                        </select>
+                                    </div>
+                                    <div>
+
+                                        <label for="originalRevNumber">Original Revision Number:</label>
+                                        <input type="text" id="originalRevNumber">
+                                    </div>
+                                    <label for="originalEngineerName">Original Engineering Name:</label>
+                                    <input type="text" id="originalEngineerName">
+                                    <div>
+                                        <label for="updatedRevNumber">Updated Revision Number:</label>
+                                        <input type="text" id="updatedRevNumber">
+                                    </div>
+                                    <div>
+                                        <label for="revisionDate">Revision Date:</label>
+                                        <input type="datetime" id="revisionDate">
+                                    </div>
+                                    <div>
+                                        <label for="engineerName">Engineer Name:</label>
+                                        <input type="text" id="engineerName">
+                                    </div>
+                                    <div class="form-ncr-buttons">
+                                        <div>
+                                            <button type="button" id="btnEngSave" class="button-primary">Save</button>
+                                        </div>
+                                        <div>
+                                            <button type="button" id="btnEngSubmit"
+                                                class="button-secondary btnDisable">Submit</button>
+                                        </div>
+                                        <div>
+                                            <button type="button" id="btnEngCancel" class="button-secondary"
+                                                onclick="goBack()">Cancel</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
-                <!--Edit Modal for Engineering-->
-                <div id="createEditModal">
-                    <form class="form-ncr">
-                        <h2 id="ncr-info">Engineering completes this section</h2>
-                        <div>
-                            <div>
-                                <strong>NCR Number:</strong>
-                                <span id="ncrNumberEng"></span>
-                            </div>
-                            <div>
-                                <label for="reviewByCfEngineering">Review By CF Engineering:</label>
-                                <select name="CFEngineering" id="reviewByCfEngineering" required>
-                                    <option value="" disabled selected>Select an option</option>
-                                    <option value="Use As Is">Use As Is</option>
-                                    <option value="Repair">Repair</option>
-                                    <option value="Rework">Rework</option>
-                                    <option value="Scrap">Scrap</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label for="customerNotification">Does Customer require notification of NCR?</label>
-                                <select name="customerNot" id="customerNotification">
-                                    <option value="">Select an option</option>
-                                    <option value="Yes">Yes</option>
-                                    <option value="No">No</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label for="disposition">Disposition:</label>
-                                <textarea name="disposition" id="disposition"></textarea>
-                            </div>
-                            <div>
-                                <label for="drawingUpdate">Does the drawing require updating?</label>
-                                <select name="drawingUpdate" id="drawingUpdate">
-                                    <option value="">Select an option</option>
-                                    <option value="Yes">Yes</option>
-                                    <option value="No">No</option>
-                                </select>
-                            </div>
-                            <div>
-
-                                <label for="originalRevNumber">Original Revision Number:</label>
-                                <input type="text" id="originalRevNumber">
-                            </div>
-                            <label for="originalEngineerName">Original Engineering Name:</label>
-                            <input type="text" id="originalEngineerName">
-                            <div>
-                                <label for="updatedRevNumber">Updated Revision Number:</label>
-                                <input type="text" id="updatedRevNumber">
-                            </div>
-                            <div>
-                                <label for="revisionDate">Revision Date:</label>
-                                <input type="datetime" id="revisionDate">
-                            </div>
-                            <div>
-                                <label for="engineerName">Engineer Name:</label>
-                                <input type="text" id="engineerName">
-                            </div>
-                            <div class="form-ncr-buttons">
-                                <div>
-                                    <button type="button" id="btnEngSave" class="button-primary">Save</button>
-                                </div>
-                                <div>
-                                    <button type="button" id="btnEngSubmit"
-                                        class="button-secondary btnDisable">Submit</button>
-                                </div>
-                                <div>
-                                    <button type="button" id="btnEngCancel" class="button-secondary"
-                                        onclick="goBack()">Cancel</button>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-            </div>
             </div>
         </section>
     </main>

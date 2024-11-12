@@ -170,7 +170,10 @@ nav ul li a:hover {
 }
 
 .notif-dropdown-container {
-    display: none;
+    max-height: 0;
+    opacity: 0;
+    transition: max-height 0.3s ease-in-out, opacity 0.5s ease-in-out;
+
     position: absolute;
     top: 100%;
     right: 0;
@@ -199,12 +202,14 @@ nav ul li a:hover {
     box-sizing: border-box;
     color: #0b1c33;
     background-color: #fdfdfd;
+    cursor: default;
 }
 
 .notif-desc p {
     padding: 5px;
     background-color: #e3e7f2;
     color: #1a1a1a;
+    cursor: default;
 }
 
 .notif-list {
@@ -225,6 +230,13 @@ nav ul li a:hover {
     background-color: #007bff;
 }
 
+.notif-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background-color 0.2s ease-in-out;
+}
+
 .notif-list a,
 .notif-list span {
     display: block;
@@ -235,13 +247,10 @@ nav ul li a:hover {
     color: #00214d;
 }
 
-.notif-list p:hover {
-    background-color: #00214d;
+.notif-item:hover {
+    background-color: #eee;
     color: #fdfdfd;
-}
-
-.notif-list p:hover a {
-    color: #fdfdfd;
+    transition: 0.2s ease-in-out;
 }
 
 .notif-button-close {
@@ -253,17 +262,26 @@ nav ul li a:hover {
     border: none;
     cursor: pointer;
     color: #666;
+    border-radius: 50%;
+    transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
 }
 
 .notif-button-close:hover {
     background-color: #007bff;
     color: #fdfdfd;
-    border-radius: 50%;
+    transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
 }
 
 .profile,
 .notification {
     margin-left: 20px;
+}
+
+.notif-dropdown-container.active,
+.profile-dropdown.active {
+    max-height: 300px;
+    opacity: 1;
+    transition: max-height 0.3s ease-in-out;
 }
 
 /* Default Branding Style */
@@ -308,7 +326,10 @@ nav ul li a:hover {
 }
 
 .profile-dropdown {
-    display: none;
+    max-height: 0;
+    opacity: 0;
+    transition: max-height 0.3s ease-in-out, opacity 0.5s ease-in-out;
+
     position: absolute;
     top: 100%;
     right: 0;
@@ -344,11 +365,12 @@ nav ul li a:hover {
     color: inherit;
     text-decoration: none;
     box-sizing: border-box;
+    transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
 }
 
 .profile-dropdown ul li a:hover {
-    background-color: #00214d;
-    color: #fdfdfd;
+    background-color: #eee;
+    transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
 }
 
 /* Default Branding Style */
@@ -378,6 +400,10 @@ h1 { font-size: 24px;}
 h2 { font-size: 21px; }
 
 p, span { font-size: 18px }
+
+h1, h2, p, span, table { cursor: default; }
+
+.required { color:#B22222; }
 
 /* Default Branding Style */
 /* ------ Footer -------- */
@@ -447,6 +473,7 @@ footer {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    transition: border 0.3s ease-in-out;
 }
 
 .dashboard .div-container button img {
@@ -457,7 +484,7 @@ footer {
 
 .dashboard .div-container button:hover {
     border: 5px solid #00214d;
-    transition: border 0.3s ease-in-out, color 0.3s ease-in-out;
+    transition: border 0.3s ease-in-out;
 }
 
 /* --- Dashboard Page --- */
@@ -505,6 +532,8 @@ table thead tr th {
 table tbody tr{
     border-bottom: 2px solid #d3d3d3;
     height: 60px;
+    background-color: transparent;
+    transition: background-color 0.2s ease-in-out;
 }
 
 table tbody tr:last-child {
@@ -522,11 +551,13 @@ table button {
     cursor: pointer;
     font-size: 18px;
     border-radius: 7px;
+    transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
 }
 
 table button:hover {
     background-color: #00214d;
     color: #fdfdfd;
+    transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
 }
 
 table button svg {
@@ -535,6 +566,7 @@ table button svg {
 
 table tbody tr:hover {
     background-color: rgba(153, 202, 255, 0.1);
+    transition: background-color 0.2s ease-in-out;
 }
 
 /* -------------------------------------------------------------- */
@@ -598,11 +630,18 @@ table tbody tr:hover {
     height: auto;
 }
 
-.btn-close svg:hover {
+.btn-close svg {
     border-radius: 25px;
+    width: 26px;
+    height: 26px;
+    padding: 3px;
+    transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out;
+}
+
+.btn-close svg:hover {
     color: #fdfdfd;
     transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out;
-    background-color: #00214d;
+    background-color: #007bff;
 }
 
 .modal-form {
@@ -640,6 +679,17 @@ table tbody tr:hover {
 
 /* ----- Create Page ----- */
 /* --------- Form -------- */
+.info-icon {
+    width: 21px;
+    height: 21px;
+    display: flex;
+    margin-left: auto;
+    margin-right: 2px;
+    align-items: center;
+    cursor: pointer;
+    color: #666;
+}
+
 .div-container .form-header {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
@@ -1355,3 +1405,109 @@ button {
     }
 
 }
+
+
+/*Profile/Settings Page*/
+
+/* Main Profile Section Container */
+#Profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px 300px;
+    background-color: #fdfdfd;
+    border-radius: 10px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+    border: 2px solid #e3e7f2; /* Matches the NCR table styling */
+}
+
+#Profile h1 {
+    font-size: 24px;
+    color: #0b1c33;
+    margin-bottom: 20px;
+    font-family: "Instrument Sans", sans-serif;
+}
+
+/* Profile Content Wrapper */
+.profile-content {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-direction: column; /* Stacks the picture and text on smaller screens */
+}
+
+/* Profile Picture Container */
+.profile-picture-container {
+    position: relative;
+    width: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.profile-picture-container img {
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #00214d;;
+}
+
+
+/* Edit Icon */
+.edit-icon {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    font-size: 1.2rem;
+    color: #0056b3;
+    cursor: pointer;
+    background-color: #fdfdfd;
+    border-radius: 50%;
+    padding: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+#saveButton, #editButton, #cancelButton{
+    display: inline-flex;
+    padding: 12px 30px;
+}
+#roleMessage{
+    display: none;
+    color: #991111;
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.info-block {
+    text-align: center;
+    line-height: 1.6; /* Adjust spacing between label and value */
+    margin-bottom: 10px;
+}
+
+.profileHeadings {
+    display: block; /* Ensures 'Name :' and 'Role :' appear above the values */
+    font-weight: bold;
+}
+
+.user-fullname,
+.user-role {
+    display: block; /* Ensures values appear below the labels */
+}
+
+.buttons {
+    display: flex;
+    gap: 30px;
+}
+
+.buttons button {
+    padding: 12px 30px;
+    width: 170px;
+    text-align: center;
+}
+

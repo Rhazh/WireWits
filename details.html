@@ -100,7 +100,7 @@
                                         <path stroke="currentColor" stroke-width="2"
                                             d="M7 17v1a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1a3 3 0 0 0-3-3h-4a3 3 0 0 0-3 3Zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
                                     </svg>
-                                    Profile/Settings
+                                    Account Settings
                                 </a>
                             </li>
                             <!-- <li>
@@ -154,6 +154,7 @@
     </header>
 
     <main>
+        <section id="secQuality">
         <div class="container">
             <div class="breadcrumb-container">
                 <div aria-label="Breadcrumb">
@@ -224,6 +225,7 @@
                         </div>
                     </div>
                 </div>
+            
 
                 <div class="div-container">
                     <div class="form-section">
@@ -247,7 +249,7 @@
                                 onclick="window.location.href='create.html?ncr=' + document.getElementById('ncrNumber').textContent;">Edit</button>
                         </div>
                         <div class="form-ncr-buttons">
-                            <button id="PrintButton" class="button-primary" tabindex="23" onclick="printPdf()">Download
+                            <button id="printButton" class="button-primary" tabindex="23" onclick="printPdf()">Download
                                 as PDF</button>
                         </div>
                         
@@ -286,12 +288,14 @@
                 </div>
             </div>
         </div>
-
+    </section>
+        
+        <section id="secEngineer">
         <!--Engineering-->
         <div class="eng-Edit-Moddal">
             <div class="container">
                 <div class="page-title">
-                    <h2 id="ncr-info">Engineering completes this section</h1>
+                    <h1 id="ncr-info">NCR Information by Engineering</h1>
                 </div>
                 <div class="div-container">
                     <div id="createEditModal" class="container">
@@ -343,6 +347,7 @@
                 </div>
             </div>
         </div>
+    </section>
     </main>
     <footer id="footer">
         <p><small>&copy; 2024 Copyright. QCision - WireWits. All rights reserved.</small></p>
