@@ -1364,6 +1364,99 @@ function displayThumbnail(fileObject) {
 //
 //==============================================================================================================================
  
+// ==========================================
+// Engineer Populate Notifications - For all pages
+// ==========================================
+function populateNotificationsEng() {
+    const dropdown = document.getElementById('notifList');
+    const dropdownDesc = document.getElementById('notifDesc');
+    if (!dropdown) {
+        console.warn('Dropdown menu element not found.');
+        return;
+    }
+    dropdown.innerHTML = ""; // Clear existing notifications
+
+    const oldNotifications = getOldNotificationsEng();
+    const closedNotifications = JSON.parse(sessionStorage.getItem('closedNotifications')) || [];
+
+    // Filter out closed notifications
+    const visibleNotifications = oldNotifications.filter(ncr => !closedNotifications.includes(ncr));
+
+    const countLabel = document.getElementById('spnCount');
+    if (countLabel) {
+        countLabel.textContent = `${visibleNotifications.length}`; // Update count label
+    } else {
+        console.warn('Count label element not found.');
+    }
+
+    if (visibleNotifications.length === 0) {
+        dropdown.innerHTML = "<span>No urgent notifications</span>";
+        countLabel.style.opacity = "0%";
+        return;
+    }
+
+    dropdownDesc.innerHTML = "<p>Pending NCRs from Quality</p>"; // Text explaining urgency
+
+    // Limit the number of notifications shown in the dropdown
+    const notificationsToShow = visibleNotifications; // Show all notifications in the dropdown
+
+    notificationsToShow.forEach(ncrNumber => {
+        const notificationItem = document.createElement('div');
+        notificationItem.classList = 'notif-item'
+
+        const link = document.createElement('a');
+        link.textContent = `NCR Number: ${ncrNumber}`;
+        link.href = `create.html?ncr=${ncrNumber}`;
+        link.style.cursor = 'pointer'; // Change cursor to pointer
+        link.onclick = (e) => {
+            e.preventDefault();
+            editEntry(ncrNumber);
+        };
+
+        const closeButton = document.createElement('button');
+        closeButton.classList.add('notif-button-close');
+        closeButton.title = "Close Notification";
+        closeButton.innerHTML = `<svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="21" height="21" fill="none" viewBox="0 0 24 24">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M6 18 17.94 6M18 18 6.06 6"/>
+        </svg>`
+        
+        closeButton.onclick = (e) => {
+            e.preventDefault(); // Prevent default action
+            e.stopPropagation(); // Prevent click from propagating to parent elements
+
+            // Logic to close the notification
+            closedNotifications.push(ncrNumber); // Store the closed notification
+            sessionStorage.setItem('closedNotifications', JSON.stringify(closedNotifications)); // Save to sessionStorage
+            notificationItem.remove(); // Remove this notification item
+            updateNotificationCountEng(); // Update the notification count
+            // Dropdown remains open
+        };
+
+        notificationItem.appendChild(link);
+        notificationItem.appendChild(closeButton);
+        dropdown.appendChild(notificationItem);
+    });
+
+    // Add a style to make the dropdown scrollable
+    dropdown.style.overflowY = 'auto';
+    dropdown.style.maxHeight = '200px'; // Set the height limit for scrolling
+}
+
+// Function to update notification count
+function updateNotificationCountEng() {
+    const dropdown = document.getElementById('notifList');
+    const countLabel = document.getElementById('spnCount');
+    const currentCount = dropdown.children.length;
+    countLabel.textContent = `${currentCount}`; // Update count label
+}
+
+// Supporting Function - Get Old Notifications
+function getOldNotificationsEng() {
+
+    return engineering.filter(item => item.ncrStatus === "Engineering")
+                      .map(item => item.ncrNumber);
+
+}
 
 
 
@@ -1820,5 +1913,5 @@ function performSearchEng() {
     });
 
     // Setup pagination
-    setupPagination(totalResults, performSearch, "viewTableContentEng", "paginationEng");
+    setupPagination(totalResults, performSearchEng, "viewTableContentEng", "paginationEng");
 }

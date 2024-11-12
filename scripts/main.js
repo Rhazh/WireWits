@@ -120,6 +120,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
             else if (userRole == "Engineer") {
                 document.getElementById('secQuality').style.display = 'none';
+                populateNotificationsEng()
                 setupEngNavigationButtons();
                 recentEngNCRs();
             }
@@ -135,6 +136,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
             else if (userRole == "Engineer") {
                 document.getElementById('secQuality').style.display = 'none';
+                populateNotificationsEng()
                 performSearchEng();
             }
 
@@ -149,6 +151,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
             else if (userRole == "Engineer") {
                 document.getElementById('secQuality').style.display = 'none';
+                populateNotificationsEng()
                 populateDetailsPageEng(ncrNumber)
                 populateEngEditPage(ncrNumber)
                 setupEngSaveNCR();
@@ -173,6 +176,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
             else if (userRole == "Engineer") {
                 document.getElementById('editButton').style.display = 'none';
+                populateNotificationsEng()
                 populateEngDetailsPage(ncrNumber);
                 popupComment();
                 closeModal();
@@ -180,12 +184,23 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
         }
         else if (pageName === 'profile_settings.html') {
-            populateNotifications();
-            NavBar();
+            if (userRole == "Quality") {
+                populateNotifications();
+                NavBar();
+            }
+            else if (userRole == "Engineer") {
+                populateNotificationsEng()
+            }
+            
         } else if (pageName === 'reports.html') {
-            populateNotifications();
-            NavBar();
             performSearchReports();
+            if (userRole == "Quality") {
+                populateNotifications();
+                NavBar();
+            }
+            else if (userRole == "Engineer") {
+                populateNotificationsEng()
+            }  
         }
 
         // Set up the supplierName dropdown
