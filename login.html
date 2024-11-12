@@ -9,6 +9,26 @@
 
     <link href="styles.css" rel="stylesheet">
     <link rel="icon" type="image/x-icon" href="images/favicon.png">
+<style>
+     /* Style for password container */
+     .password-container {
+            position: relative;
+            width: 100%;
+        }
+
+        .password-container input {
+            padding-right: 40px; /* Space for the icon */
+        }
+
+        .password-container svg {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: gray;
+        }
+</style>
 </head>
 
 <body>
@@ -25,7 +45,14 @@
                     </div>
                     <div>
                         <label for="password">Password:</label>
-                        <input id="password" tabindex="2" name="password" type="password" placeholder="Password" required>
+                        <div class="password-container">
+                            <input id="password" tabindex="2" name="password" type="password" placeholder="Password" required>
+                            <svg id="togglePassword" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                                viewBox="0 0 24 24">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 5c-5.25 0-9.568 3.832-11 7 1.432 3.168 5.75 7 11 7s9.568-3.832 11-7c-1.432-3.168-5.75-7-11-7zm0 4a3 3 0 1 1 0 6 3 3 0 0 1 0-6z" />
+                            </svg>
+                        </div>
                     </div>
                     <div>
                         <label for="department" style="display: none">Department:</label>

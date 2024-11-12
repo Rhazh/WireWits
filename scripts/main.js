@@ -369,11 +369,13 @@ function popupComment(){
     
     function sendComment(){
         const reason = document.getElementById("reason").value;
+        const ncrNumber = document.getElementById("ncrNumber").textContent;
+
         if(!reason){
             alert("Enter a reason before submitting")
-            
+            return;
         }
-        else{
+        
 
         const engineeringEntry = engineering.find(entry.ncrnumber === ncrNumber);
 
@@ -383,7 +385,9 @@ function popupComment(){
 
 
             sessionStorage.setItem('engineeing', JSON.stringify(engineering));
+
             const qualityEntry = quality.find(entry => entry.ncrNumber === ncrNumber);
+
             if (qualityEntry) {
 
                 qualityEntry.returnReason = reason;
@@ -402,7 +406,7 @@ function popupComment(){
                 history.push(historyEntry);
                 sessionStorage.setItem('history', JSON.stringify(history));
 
-                alert(`NCR ${ncrNumber} has been returned to Quality with reason: ${reason}.`);
+                alert(`Sent bsck to the Quality Department`);
 
                 //loadQualityTable();
             } else {
@@ -412,7 +416,7 @@ function popupComment(){
             alert("Engineering entry not found for the specified NCR number.");
         }
     }
-}
+
         
     
 
