@@ -10,7 +10,8 @@
             "password": "Quality1234",
             "created_on": "2024-01-15T10:00:00Z",
             "Department_Name": "Quality",
-            "gender":"male"
+            "gender":"male",
+            "profilePicture": "images/user-profile_v1.png"
         },
         {
             "user_Id": "2",
@@ -22,7 +23,8 @@
             "password": "Quality1234",
             "created_on": "2024-02-10T12:00:00Z",
             "Department_Name": "Quality",
-            "gender": "female"
+            "gender": "female",
+            "profilePicture": "images/user-profile.png"
         },
         {
             "user_Id": "3",
@@ -34,7 +36,8 @@
             "password": "Engineer1234",
             "created_on": "2024-03-05T14:30:00Z",
             "Department_Name": "Engineer",
-            "gender":"female"
+            "gender":"female",
+            "profilePicture": "images/user-profile.png"
         },
         {
             "user_Id": "4",
@@ -46,7 +49,8 @@
             "password": "James456",
             "created_on": "2024-04-01T09:00:00Z",
             "Department_Name": "Engineer",
-            "gender":"male"
+            "gender":"male",
+            "profilePicture": "images/user-profile_v1.png"
         },
         {
             "user_Id": "5",
@@ -58,7 +62,8 @@
             "password": "Engineer1234",
             "created_on": "2024-03-05T14:30:00Z",
             "Department_Name": "Engineer",
-            "gender":"female"
+            "gender":"female",
+            "profilePicture": "images/user-profile.png"
         }
     ]
 }
