@@ -618,6 +618,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         profilePagePic.src = initialProfilePicture;
         tempProfilePicture = initialProfilePicture;
         profilePic.src = initialProfilePicture;
+        profilePicElement.src = initialProfilePicture;
+
 
         // Show the edit icon
         editIcon.style.display = 'none';
@@ -657,11 +659,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
                 
                 // Optional: Save updated picture URL in localStorage if required for persistence
-                const updatedUser = {
-                    ...loggedInUser,
-                    profilePicture: newProfilePicture
-                };
-                localStorage.setItem('loggedInUser', JSON.stringify(updatedUser));
+
             };
             reader.readAsDataURL(file);
         }
