@@ -101,7 +101,7 @@
                                         <path stroke="currentColor" stroke-width="2"
                                             d="M7 17v1a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1a3 3 0 0 0-3-3h-4a3 3 0 0 0-3 3Zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
                                     </svg>
-                                    Profile/Settings
+                                    Account Settings
                                 </a>
                             </li>
                             <!-- <li>
@@ -187,9 +187,16 @@
                         </div>
                         <form id="createNCRForm" class="modal-form">
                             <div>
-                                <label for="napplicableProcess">Applicable Process:
-                                    <span aria-hidden="true">*</span> <!-- Hide asterisk from screen readers -->
-                                </label>
+                                <div class="two-cols">
+                                    <label for="napplicableProcess">Applicable Process:
+                                        <span aria-hidden="true" class="required">*</span> <!-- Hide asterisk from screen readers -->
+                                    </label>
+                                    <div class="info-icon">
+                                        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+                                      </svg>
+                                    </div>
+                                </div>
                                 <select id="napplicableProcess" name="napplicableProcess" aria-label="required field">
                                     <option value="" disabled selected>Select a process</option>
                                     <!-- Added value="" and selected attribute -->
@@ -198,9 +205,16 @@
                                 </select>
                             </div>
                             <div>
-                                <label for="nsupplierName">Supplier Name:
-                                    <span aria-hidden="true">*</span> <!-- Hide asterisk from screen readers -->
-                                </label>
+                                <div class="two-cols">
+                                    <label for="nsupplierName">Supplier Name:
+                                        <span aria-hidden="true" class="required">*</span> <!-- Hide asterisk from screen readers -->
+                                    </label>
+                                    <div class="info-icon">
+                                        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+                                      </svg>
+                                    </div>
+                                </div>
                                 <select id="nsupplierName" name="nsupplierName" aria-label="required field">
                                     <option value="" disabled selected>Select a Supplier</option>
                                     <!-- Added value="" and selected attribute -->

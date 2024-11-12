@@ -69,9 +69,7 @@ function populateNotifications() {
 
     notificationsToShow.forEach(ncrNumber => {
         const notificationItem = document.createElement('div');
-        notificationItem.style.display = 'flex';
-        notificationItem.style.justifyContent = 'space-between';
-        notificationItem.style.alignItems = 'center';
+        notificationItem.classList = 'notif-item'
 
         const link = document.createElement('a');
         link.textContent = `NCR Number: ${ncrNumber}`;
@@ -131,45 +129,79 @@ function getOldNotifications() {
 
 
 
-// Close dropdown if clicked outside (Notification)
-document.addEventListener('click', function (event) {
-    const notifDisplay = document.getElementById('notifDisplay');
-    const btnNotification = document.getElementById('btnNotification');
+// // Close dropdown if clicked outside (Notification)
+// document.addEventListener('click', function (event) {
+//     const notifDisplay = document.getElementById('notifDisplay');
+//     const btnNotification = document.getElementById('btnNotification');
 
-    // Check if the click was outside the notification display and the button
-    if (!notifDisplay.contains(event.target) &&
-        !btnNotification.contains(event.target)) {
-        notifDisplay.style.display = 'none'; // Hide the dropdown
+//     // Check if the click was outside the notification display and the button
+//     if (!notifDisplay.contains(event.target) &&
+//         !btnNotification.contains(event.target)) {
+//         notifDisplay.style.display = 'none'; // Hide the dropdown
+//     }
+// });
+
+// // Close dropdown if clicked outside (Profile)
+// document.addEventListener('click', function (event) {
+//     const profileDisplay = document.getElementById('profileDropdown');
+//     const btnProfile = document.getElementById('btnProfile');
+
+//     // Check if the click was outside the notification display and the button
+//     if (!profileDisplay.contains(event.target) &&
+//         !btnProfile.contains(event.target)) {
+//         profileDisplay.style.display = 'none'; // Hide the dropdown
+//     }
+// });
+
+// // Add this function to manage dropdown state
+// function toggleDropdown() {
+//     const btnNotification = document.getElementById('btnNotification');
+//     const notifDisplay = document.getElementById('notifDisplay');
+
+//     const isExpanded = btnNotification.getAttribute('aria-expanded') === 'true';
+//     btnNotification.setAttribute('aria-expanded', !isExpanded);
+//     notifDisplay.style.display = isExpanded ? 'none' : 'block'; // Toggle dropdown visibility
+// }
+
+// // Toggle Profile Dropdown
+// function toggleProfileDropdown() {
+//     const dropdown = document.getElementById('profileDropdown');
+//     dropdown.style.display = dropdown.style.display === 'none' ? 'block' : 'none';
+// }
+
+// Function to toggle dropdown visibility and ensure only one is open at a time
+function toggleDropdown(dropdownId) {
+    const profileDropdown = document.getElementById('profileDropdown');
+    const notifDropdown = document.getElementById('notifDisplay');
+    const targetDropdown = document.getElementById(dropdownId);
+
+    // Close the other dropdown if it's open
+    if (dropdownId === 'profileDropdown' && notifDropdown.classList.contains('active')) {
+        notifDropdown.classList.remove('active');
+    } else if (dropdownId === 'notifDisplay' && profileDropdown.classList.contains('active')) {
+        profileDropdown.classList.remove('active');
     }
-});
 
-// Close dropdown if clicked outside (Profile)
-document.addEventListener('click', function (event) {
-    const profileDisplay = document.getElementById('profileDropdown');
-    const btnProfile = document.getElementById('btnProfile');
-
-    // Check if the click was outside the notification display and the button
-    if (!profileDisplay.contains(event.target) &&
-        !btnProfile.contains(event.target)) {
-        profileDisplay.style.display = 'none'; // Hide the dropdown
-    }
-});
-
-// Add this function to manage dropdown state
-function toggleDropdown() {
-    const btnNotification = document.getElementById('btnNotification');
-    const notifDisplay = document.getElementById('notifDisplay');
-
-    const isExpanded = btnNotification.getAttribute('aria-expanded') === 'true';
-    btnNotification.setAttribute('aria-expanded', !isExpanded);
-    notifDisplay.style.display = isExpanded ? 'none' : 'block'; // Toggle dropdown visibility
+    // Toggle the target dropdown
+    targetDropdown.classList.toggle('active');
 }
 
-// Toggle Profile Dropdown
-function toggleProfileDropdown() {
-    const dropdown = document.getElementById('profileDropdown');
-    dropdown.style.display = dropdown.style.display === 'none' ? 'block' : 'none';
-}
+// Event listeners for profile and notification buttons
+document.getElementById('btnProfile').addEventListener('click', function (event) {
+    event.stopPropagation(); // Prevents event from reaching document level
+    toggleDropdown('profileDropdown');
+});
+
+document.getElementById('btnNotification').addEventListener('click', function (event) {
+    event.stopPropagation(); // Prevents event from reaching document level
+    toggleDropdown('notifDisplay');
+});
+
+// Close dropdowns if clicked outside
+document.addEventListener('click', function (event) {
+    document.getElementById('profileDropdown').classList.remove('active');
+    document.getElementById('notifDisplay').classList.remove('active');
+});
 
 // ==============================================================
 // 2. Recent NCRs on Dashboard/Home Page
