@@ -1731,3 +1731,94 @@ function updateNavLinks(userRole) {
         reportsLink.style.display = 'block';
     }
 }
+
+function performSearchEng() {
+    const ncrNumber = document.getElementById('ncrNumberEng').value.trim();
+    const ncrStatus = document.getElementById('ncrStatusEng').value;
+    const fromDate = document.getElementById('fromDateEng').value;
+    const toDate = document.getElementById('toDateEng').value;
+
+    //const resultsCountMessage = document.getElementById('noResultsMessage');
+
+    // Date validation
+    if (fromDate && toDate && new Date(fromDate) > new Date(toDate)) {
+        //resultsCountMessage.textContent = 'Start date must be earlier than or equal to end date.';
+        //resultsCountMessage.style.display = 'inline';
+        //return;
+
+        alert("Start date must be earlier than or equal to end date.")
+        location.reload();
+        return;
+    }
+    if (ncrNumber && /[a-zA-Z]/.test(ncrNumber)) {
+        //resultsCountMessage.textContent = 'NCR Number must not contain alphabetic characters.';
+        //resultsCountMessage.style.display = 'inline';
+
+        alert("NCR Number must not contain alphabetic characters.")
+        location.reload();
+        return;
+    } /*else {
+        resultsCountMessage.style.display = 'none';
+    }*/
+
+    
+    const uniqueEngineering = Array.from(new Map(ncrLog.map(item => [item.ncrNumber, item])).values())
+        .sort((a, b) => {
+            const numA = parseInt(a.ncrNumber.split('-')[1], 10);
+            const numB = parseInt(b.ncrNumber.split('-')[1], 10);
+            return numB - numA;
+        });
+
+    const fromDateObj = fromDate ? new Date(fromDate + 'T00:00:00') : null;
+    const toDateObj = toDate ? new Date(toDate + 'T23:59:59') : null;
+
+    const filteredResults = uniqueEngineering.filter(item => {
+        const isNcrNumberValid = ncrNumber ? item.ncrNumber.includes(ncrNumber) : true;
+        const qualityItem = quality.find(qItem => qItem.ncrNumber === item.ncrNumber);
+        const isStatusValid = ncrStatus ? (qualityItem && qualityItem.ncrStatus === ncrStatus) : true;
+        const itemDateCreated = new Date(item.dateCreated);
+        const isDateCreatedValid = (
+            (fromDateObj ? itemDateCreated >= fromDateObj : true) &&
+            (toDateObj ? itemDateCreated <= toDateObj : true)
+        );
+
+        return isNcrNumberValid && isStatusValid && isDateCreatedValid;
+    });
+
+    const totalResults = filteredResults.length;
+
+    // Display results based on current page
+    const tableBody = document.getElementById("viewTableContentEng");
+    const paginatedResults = filteredResults.slice((currentPage - 1) * resultsPerPage, currentPage * resultsPerPage);
+
+    tableBody.innerHTML = ''; // Clear previous results
+
+    paginatedResults.forEach(result => {
+        const newRow = `<tr>
+                            <td>${result.ncrNumber}</td>
+                            <td>${engineering.find(q => q.ncrNumber === result.ncrNumber)?.dateReceived ? formatDate(engineering.find(q => q.ncrNumber === result.ncrNumber).dateReceived) : 'N/A'}</td>
+                            <td>${((quality.find(q => q.ncrNumber === result.ncrNumber)?.ncrStatus)) || ''}</td>
+                            <td>
+                                <div>
+                                    <button onclick="detailsEntry('${result.ncrNumber}')">
+                                        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                            <path stroke="currentColor" stroke-width="2" d="M21 12c0 1.2-4.03 6-9 6s-9-4.8-9-6c0-1.2 4.03-6 9-6s9 4.8 9 6Z"/>
+                                            <path stroke="currentColor" stroke-width="2" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
+                                        </svg>
+                                        View
+                                    </button>
+                                    <button onclick="editEntryTrial('${result.ncrNumber}')">
+                                        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"/>
+                                        </svg>
+                                        Edit
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>`;
+        tableBody.innerHTML += newRow; // Add new row to table
+    });
+
+    // Setup pagination
+    setupPagination(totalResults, performSearch, "viewTableContentEng", "paginationEng");
+}

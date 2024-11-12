@@ -227,7 +227,7 @@
             </div>
             <div class="page-title">
                 <!--title may change depending on user actions-->
-                <h1 id="search">Search</h1>
+                <h1 id="searchEng">Search</h1>
             </div>
             <!--filter by NCR Number, the status, Date Range, Supplier-->
             <div class="search-section">
@@ -235,30 +235,21 @@
                     <div class="div-section" aria-label="Filter by inputs">
                         <div class="three-cols">
                             <div>
-                                <label for="ncrNumber" >Filter By NCR Number:</label>
-                                <input type="text"  aria-label="Filter by NCR Number" id="ncrNumber" placeholder="2024-001">
+                                <label for="ncrNumberEng" >Filter By NCR Number:</label>
+                                <input type="text"  aria-label="Filter by NCR Number" id="ncrNumberEng" placeholder="2024-001">
                             </div>
                             <div>
-                                <label for="fromDate" >From:</label>
-                                <input type="date" aria-label="Filter from a Start Date" id="fromDate" tabindex="0">
+                                <label for="fromDateEng" >From:</label>
+                                <input type="date" aria-label="Filter from a Start Date" id="fromDateEng" tabindex="0">
                             </div>
                             <div>
-                                <label for="toDate" >To:</label>
-                                <input type="date" aria-label="Filter from an End Date"  id="toDate" tabindex="0">
+                                <label for="toDateEng" >To:</label>
+                                <input type="date" aria-label="Filter from an End Date"  id="toDateEng" tabindex="0">
                             </div>
-                            
                             <div>
-                                <label for="supplierName" >Supplier Name:</label>
+                                <label for="ncrStatusEng" >Department:</label>
                                 <!--performSearch may not work in this case so change-->
-                                <select id="supplierName" tabindex="0" aria-label="Filter By Supplier Name">
-                                    <option value="" disabled selected>Select Supplier</option>
-                                    <!-- Options will be populated dynamically -->
-                                </select>
-                            </div>
-                            <div>
-                                <label for="ncrStatus" >Department:</label>
-                                <!--performSearch may not work in this case so change-->
-                                <select id="ncrStatus" tabindex="0" aria-label="Filter by Department">
+                                <select id="ncrStatusEng" tabindex="0" aria-label="Filter by Department">
                                     <option value="Quality">Quality</option>
                                     <option value="Engineering">Engineering</option>
                                     <option value="Operations">Operations</option>
@@ -267,13 +258,13 @@
                         </div>             
                         <div class="search-section-button">
                             <div>
-                                <button type="button" onclick="performSearch()" tabindex="0" class="button-primary">Search</button>
+                                <button type="button" onclick="performSearchEng()" tabindex="0" class="button-primary">Search</button>
                             </div>
                             <div>
                                 <button type="button" onclick="clearSearch()" tabindex="0" class="button-secondary">Clear</button>
                             </div>
                             <div>
-                                <span id="noResultsMessage" class="search-error-message" tabindex="0"></span>
+                                <span id="noResultsMessageEng" class="search-error-message" tabindex="0"></span>
                             </div>
                         </div>
                     </div>
@@ -290,21 +281,20 @@
                             </div>
                         </div>
                     </div>
-                    <table id="resultsTable" tabindex="0">
+                    <table id="resultsTableEng" tabindex="0">
                         <thead>
                             <tr>
                                 <th>NCR Number</th>
-                                <th>Supplier</th>
-                                <th>Date Created</th>
+                                <th>Date Received</th>
                                 <th>Department</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
-                        <tbody id="viewTableContent">
+                        <tbody id="viewTableContentEng">
                             <!-- Results will be populated here -->
                         </tbody>
                     </table>
-                    <div id="pagination" class="pagination-container">
+                    <div id="paginationEng" class="pagination-container">
                         <!-- Pagination buttons will be populated here -->
                     </div>
                 </div>
