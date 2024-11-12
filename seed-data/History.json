@@ -318,5 +318,85 @@
       "actionDescription": "Edited the NCR",
       "changedBy": "Lily Scott",
       "changedOn": "10/08/2024"
-  }
+  },
+  {
+    "ncrNumber": "2024-001",
+    "actionType": "Submit",
+    "status": "Open",
+    "actionDescription": "Submitted from Quality to Engineering",
+    "changedBy": "Cassandra Washington",
+    "changedOn": "11/01/2024"
+},
+{
+    "ncrNumber": "2024-002",
+    "actionType": "Submit",
+    "status": "Open",
+    "actionDescription": "Submitted from Quality to Engineering",
+    "changedBy": "Marcus Allen",
+    "changedOn": "11/01/2024"
+},
+{
+    "ncrNumber": "2024-003",
+    "actionType": "Submit",
+    "status": "Open",
+    "actionDescription": "Submitted from Quality to Engineering",
+    "changedBy": "Sophia Lee",
+    "changedOn": "11/02/2024"
+},
+{
+    "ncrNumber": "2024-004",
+    "actionType": "Submit",
+    "status": "Open",
+    "actionDescription": "Submitted from Quality to Engineering",
+    "changedBy": "James Smith",
+    "changedOn": "11/02/2024"
+},
+{
+    "ncrNumber": "2024-005",
+    "actionType": "Submit",
+    "status": "Open",
+    "actionDescription": "Submitted from Quality to Engineering",
+    "changedBy": "Emily Davis",
+    "changedOn": "11/02/2024"
+},
+{
+    "ncrNumber": "2024-006",
+    "actionType": "Submit",
+    "status": "Open",
+    "actionDescription": "Submitted from Quality to Engineering",
+    "changedBy": "Oliver Brown",
+    "changedOn": "11/03/2024"
+},
+{
+    "ncrNumber": "2024-007",
+    "actionType": "Submit",
+    "status": "Open",
+    "actionDescription": "Submitted from Quality to Engineering",
+    "changedBy": "Isabella Johnson",
+    "changedOn": "11/03/2024"
+},
+{
+    "ncrNumber": "2024-008",
+    "actionType": "Submit",
+    "status": "Open",
+    "actionDescription": "Submitted from Quality to Engineering",
+    "changedBy": "Liam Miller",
+    "changedOn": "11/03/2024"
+},
+{
+    "ncrNumber": "2024-009",
+    "actionType": "Submit",
+    "status": "Open",
+    "actionDescription": "Submitted from Quality to Engineering",
+    "changedBy": "Mia Wilson",
+    "changedOn": "11/04/2024"
+},
+{
+    "ncrNumber": "2024-010",
+    "actionType": "Submit",
+    "status": "Open",
+    "actionDescription": "Submitted from Quality to Engineering",
+    "changedBy": "Noah Martinez",
+    "changedOn": "11/04/2024"
+}
 ]
