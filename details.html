@@ -155,199 +155,206 @@
 
     <main>
         <section id="secQuality">
-        <div class="container">
-            <div class="breadcrumb-container">
-                <div aria-label="Breadcrumb">
-                    <ol class="breadcrumb-list" tabindex="6"></ol>
-                    <!-- Breadcrumbs will be dynamically populated here -->
-                </div>
-            </div>
-            <div class="page-title">
-                <h1 id="ncr-info">NCR Information</h1>
-            </div>
-            <div class="form-ncr" id="printSection">
-                <div class="div-container">
-                    <div class="form-header">
-                        <div class="form-ncr-details">
-                            <strong>NCR Number:</strong>
-                            <span tabindex="7" id="ncrNumber"></span>
-                        </div>
-                        <div class="form-ncr-details">
-                            <strong>Date Created:</strong>
-                            <span tabindex="8" id="dateCreated"></span>
-                        </div>
-                        <div class="form-ncr-details">
-                            <strong>Created By:</strong>
-                            <spant tabindex="9" id="createdBy"></span>
-                        </div>
-                        <div class="form-ncr-details">
-                            <strong>Status:</strong>
-                            <span tabindex="10" id="ncrStatus"></span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="div-container">
-                    <div class="form-section">
-                        <div class="four-cols">
-                            <div class="form-ncr-details">
-                                <strong>Supplier Name:</strong>
-                                <span tabindex="11" id="supplierNameD"></span>
-                            </div>
-                            <div class="form-ncr-details">
-                                <strong>Production Number:</strong>
-                                <span tabindex="12" id="poNumber"></span>
-                            </div>
-                            <div class="form-ncr-details">
-                                <strong>Quantity Received:</strong>
-                                <span tabindex="13" id="quantityReceived"></span>
-                            </div>
-                            <div class="form-ncr-details">
-                                <strong>Forward to Engineering:</strong>
-                                <span tabindex="14" id="engNeeded"></span>
-                            </div>
-                            <div class="form-ncr-details">
-                                <strong>Applicable Process:</strong>
-                                <span tabindex="15" id="applicableProcess"></span>
-                            </div>
-                            <div class="form-ncr-details">
-                                <strong>Sales Order Number:</strong>
-                                <span tabindex="16" id="soNumber"></span>
-                            </div>
-                            <div class="form-ncr-details">
-                                <strong>Quantity Defective:</strong>
-                                <span tabindex="17" id="quantityDefect"></span>
-                            </div>
-                            <div class="form-ncr-details">
-                                <strong>Item marked conforming:</strong>
-                                <span tabindex="18" id="itemConform"></span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            
-
-                <div class="div-container">
-                    <div class="form-section">
-                        <div class="form-ncr-details">
-                            <strong>Item Description:</strong>
-                            <span tabindex="19" id="itemDescription"></span>
-                        </div>
-                        <div class="form-ncr-details">
-                            <strong>Description of Defect:</strong>
-                            <ul tabindex="20" id="defectDescription"></ul>
-                        </div>
-                        <div class="form-ncr-details">
-                            <strong>Uploaded Images/Videos:</strong>
-                            <div id="thumbnailsContainer" class="thumbnails-container">
-                                <!-- Thumbnails will be dynamically inserted here -->
-                            </div>
-                        </div>
-
-                        <div class="form-ncr-buttons">
-                            <button id="editButton" class="button-primary" tabindex="22"
-                                onclick="window.location.href='create.html?ncr=' + document.getElementById('ncrNumber').textContent;">Edit</button>
-                        </div>
-                        <div class="form-ncr-buttons">
-                            <button id="printButton" class="button-primary" tabindex="23" onclick="printPdf()">Download
-                                as PDF</button>
-                        </div>
-                        
-                        <!--modal button-->
-                        <div class="form-ncr-buttons">
-                            <button id="revertButton" class="button-primary" tabindex="22"
-                                onclick="popupComment()">Revert to Quality</button>
-                        </div>
-
-                        <!--modal for the text box-->
-                        <div>
-                            <div id="modal" class="modal-container" style="visibility: hidden; display: none">
-                                <span onclick="closeModal()" class="close"></span>
-                                <span tabindex="1" class="btn-close" onclick="closeModal()">
-                                    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
-                                        xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="none"
-                                        viewBox="0 0 24 24">
-                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                            stroke-width="2.5" d="M6 18 17.94 6M18 18 6.06 6" />
-                                    </svg>
-                                </span>
-                                <label for="reason" aria-label="Reason, required">Reason:
-                                    <span class="required">*</span></label>
-                                <textarea id="reason" name="reason" rows="2" placeholder="Reason for reverting" required></textarea>
-
-                                <div class="form-ncr-buttons">
-                                    <button type="button"  class="button-primary" tabindex="0"
-                                        onclick="sendComment()">Send</button>
-                                    <button type="button" id="editButton" tabindex="0" class="button-secondary"
-                                        onclick="closeModal()">Cancel</button>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-        
-        <section id="secEngineer">
-        <!--Engineering-->
-        <div class="eng-Edit-Moddal">
             <div class="container">
-                <div class="page-title">
-                    <h1 id="ncr-info">NCR Information by Engineering</h1>
+                <div class="breadcrumb-container">
+                    <div aria-label="Breadcrumb">
+                        <ol class="breadcrumb-list" tabindex="6"></ol>
+                        <!-- Breadcrumbs will be dynamically populated here -->
+                    </div>
                 </div>
-                <div class="div-container">
-                    <div id="createEditModal" class="container">
-                        <div>
-                            <div class="view-form-quality">
-                                <div>
-                                    <strong>NCR Number:</strong>
-                                    <span id="ncrNumberEng"></span>
+                <div class="page-title">
+                    <h1 id="ncr-info">NCR Information</h1>
+                </div>
+                <div class="form-ncr" id="printSection">
+                    <div class="div-container">
+                        <div class="form-header">
+                            <div class="form-ncr-details">
+                                <strong>NCR Number:</strong>
+                                <span tabindex="7" id="ncrNumber"></span>
+                            </div>
+                            <div class="form-ncr-details">
+                                <strong>Date Created:</strong>
+                                <span tabindex="8" id="dateCreated"></span>
+                            </div>
+                            <div class="form-ncr-details">
+                                <strong>Created By:</strong>
+                                <spant tabindex="9" id="createdBy"></span>
+                            </div>
+                            <div class="form-ncr-details">
+                                <strong>Status:</strong>
+                                <span tabindex="10" id="ncrStatus"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="div-container">
+                        <div class="form-section">
+                            <div class="four-cols">
+                                <div class="form-ncr-details">
+                                    <strong>Supplier Name:</strong>
+                                    <span tabindex="11" id="supplierNameD"></span>
                                 </div>
                                 <div class="form-ncr-details">
-                                    <strong>Review By CF Engineering:</strong>
-                                    <span id="reviewByCfEngineering"></span>
+                                    <strong>Production Number:</strong>
+                                    <span tabindex="12" id="poNumber"></span>
                                 </div>
                                 <div class="form-ncr-details">
-                                    <strong>Does Customer require notification of NCR?</strong>
-                                    <span id="customerNotification"></span>
+                                    <strong>Quantity Received:</strong>
+                                    <span tabindex="13" id="quantityReceived"></span>
                                 </div>
                                 <div class="form-ncr-details">
-                                    <strong for="disposition">Disposition:</strong>
-                                    <span id="disposition"></span>
+                                    <strong>Forward to Engineering:</strong>
+                                    <span tabindex="14" id="engNeeded"></span>
                                 </div>
                                 <div class="form-ncr-details">
-                                    <strong for="drawingUpdate">Does the drawing require updating?</strong>
-                                    <span id="drawingUpdate"></span>
+                                    <strong>Applicable Process:</strong>
+                                    <span tabindex="15" id="applicableProcess"></span>
                                 </div>
                                 <div class="form-ncr-details">
-                                    <strong>Original Revision Number:</strong>
-                                    <span id="originalRevNumber"></span>
+                                    <strong>Sales Order Number:</strong>
+                                    <span tabindex="16" id="soNumber"></span>
                                 </div>
                                 <div class="form-ncr-details">
-                                    <strong for="originalEngineerName">Original Engineering Name:</strong>
-                                    <span id="originalEngineerName"></span>
+                                    <strong>Quantity Defective:</strong>
+                                    <span tabindex="17" id="quantityDefect"></span>
                                 </div>
                                 <div class="form-ncr-details">
-                                    <strong>Updated Revision Number:</strong>
-                                    <span id="updatedRevNumber"></span>
+                                    <strong>Item marked conforming:</strong>
+                                    <span tabindex="18" id="itemConform"></span>
                                 </div>
-                                <div class="form-ncr-details">
-                                    <strong>Revision Date:</strong>
-                                    <span id="revisionDate"></span>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="div-container">
+                        <div class="form-section">
+                            <div class="form-ncr-details">
+                                <strong>Item Description:</strong>
+                                <span tabindex="19" id="itemDescription"></span>
+                            </div>
+                            <div class="form-ncr-details">
+                                <strong>Description of Defect:</strong>
+                                <ul tabindex="20" id="defectDescription"></ul>
+                            </div>
+                            <div class="form-ncr-details">
+                                <strong>Uploaded Images/Videos:</strong>
+                                <div id="thumbnailsContainer" class="thumbnails-container">
+                                    <!-- Thumbnails will be dynamically inserted here -->
                                 </div>
-                                <div class="form-ncr-details">
-                                    <strong>Engineer Name:</label>
-                                        <span id="engineerName"></span>
+                            </div>
+
+                            <div class="form-ncr-buttons">
+                                <button id="editButton" class="button-primary" tabindex="22"
+                                    onclick="window.location.href='create.html?ncr=' + document.getElementById('ncrNumber').textContent;">Edit</button>
+                            </div>
+                            <div class="form-ncr-buttons">
+                                <button id="printButton" class="button-primary" tabindex="23"
+                                    onclick="printPdf()">Download
+                                    as PDF</button>
+                            </div>
+
+                            <!--modal button-->
+                            <div class="form-ncr-buttons">
+                                <button id="revertButton" class="button-primary" tabindex="22"
+                                    onclick="popupComment()">Revert to Quality</button>
+                            </div>
+
+                            <!--modal for the text box-->
+                            <div>
+                                <div id="modal" class="modal-container" style="visibility: hidden; display: none">
+                                    <span onclick="closeModal()" class="close"></span>
+                                    <span tabindex="1" class="btn-close" onclick="closeModal()">
+                                        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
+                                            xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="none"
+                                            viewBox="0 0 24 24">
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                                stroke-width="2.5" d="M6 18 17.94 6M18 18 6.06 6" />
+                                        </svg>
+                                    </span>
+                                    <label for="reason" aria-label="Reason, required">Reason:
+                                        <span class="required">*</span></label>
+                                    <textarea id="reason" name="reason" rows="2" placeholder="Reason for reverting"
+                                        required></textarea>
+
+                                    <div class="form-ncr-buttons">
+                                        <button type="button" class="button-primary" tabindex="0"
+                                            onclick="sendComment()">Send</button>
+                                        <button type="button" id="editButton" tabindex="0" class="button-secondary"
+                                            onclick="closeModal()">Cancel</button>
+                                    </div>
+
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+
+        <section id="secEngineer">
+            <!--Engineering-->
+            <div class="eng-Edit-Moddal">
+                <div class="container">
+                    <div class="page-title">
+                        <h1 id="ncr-info">NCR Information by Engineering</h1>
+                    </div>
+                    <div class="div-container">
+                        <div id="createEditModal" class="container">
+                            <div>
+                                <div class="view-form-quality">
+                                    <div>
+                                        <strong>NCR Number:</strong>
+                                        <span id="ncrNumberEng"></span>
+                                    </div>
+                                    <div class="form-ncr-details">
+                                        <strong>Review By CF Engineering:</strong>
+                                        <span id="reviewByCfEngineering"></span>
+                                    </div>
+                                    <div class="form-ncr-details">
+                                        <strong>Does Customer require notification of NCR?</strong>
+                                        <span id="customerNotification"></span>
+                                    </div>
+                                    <div class="form-ncr-details">
+                                        <strong for="disposition">Disposition:</strong>
+                                        <span id="disposition"></span>
+                                    </div>
+                                    <div class="form-ncr-details">
+                                        <strong for="drawingUpdate">Does the drawing require updating?</strong>
+                                        <span id="drawingUpdate"></span>
+                                    </div>
+                                    <div class="form-ncr-details">
+                                        <strong>Original Revision Number:</strong>
+                                        <span id="originalRevNumber"></span>
+                                    </div>
+                                    <div class="form-ncr-details">
+                                        <strong for="originalEngineerName">Original Engineering Name:</strong>
+                                        <span id="originalEngineerName"></span>
+                                    </div>
+                                    <div class="form-ncr-details">
+                                        <strong>Updated Revision Number:</strong>
+                                        <span id="updatedRevNumber"></span>
+                                    </div>
+                                    <div class="form-ncr-details">
+                                        <strong>Revision Date:</strong>
+                                        <span id="revisionDate"></span>
+                                    </div>
+                                    <div class="form-ncr-details">
+                                        <strong>Engineer Name:</label>
+                                            <span id="engineerName"></span>
+                                    </div>
+
+                                    <div class="form-ncr-buttons">
+                                        <button id="editButton" class="button-primary" tabindex="22"
+                                            onclick="window.location.href='create.html?ncr=' + document.getElementById('ncrNumber').textContent;">Edit</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
     </main>
     <footer id="footer">
         <p><small>&copy; 2024 Copyright. QCision - WireWits. All rights reserved.</small></p>
