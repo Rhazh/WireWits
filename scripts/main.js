@@ -706,23 +706,23 @@ const profileButton = document.getElementById("btnNotification");
 // Toggle visibility on change
 const savedState = localStorage.getItem("toggleState");
 
-if (savedState !== null) {
+  if (savedState !== null) {
     // Convert savedState to boolean and set the checkbox and button visibility
     toggleSwitch.checked = savedState === "true";
     profileButton.style.display = toggleSwitch.checked ? "block" : "none";
-} else {
+  } else {
     // If no state is saved, use the default HTML state of the checkbox
     profileButton.style.display = toggleSwitch.checked ? "block" : "none";
-}
+  }
 
-// Add event listener to toggle switch
-toggleSwitch.addEventListener("change", function () {
+  // Add event listener to toggle switch
+  toggleSwitch.addEventListener("change", function () {
     // Save the current state of the toggle switch in localStorage
     localStorage.setItem("toggleState", toggleSwitch.checked); // Save "true" or "false"
-
+    
     // Update the display of the notification button
     profileButton.style.display = toggleSwitch.checked ? "block" : "none";
-});
+  });
 
 
 
