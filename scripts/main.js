@@ -700,29 +700,41 @@ document.addEventListener('DOMContentLoaded', async () => {
 const toggleSwitch = document.getElementById("toggleSwitch");
 const profileButton = document.getElementById("btnNotification");
 
-// Set initial visibility based on the checkbox state
+if (toggleSwitch) {
+    // Load saved state from localStorage
+    const savedState = localStorage.getItem("toggleState");
+  
+    if (savedState !== null) {
+      toggleSwitch.checked = savedState === "true";
+    }
+  
+    // Add event listener to save state on toggle
+    toggleSwitch.addEventListener("change", function () {
+      localStorage.setItem("toggleState", toggleSwitch.checked); // Save state to localStorage
+      window.location.reload();
 
-
-// Toggle visibility on change
-const savedState = localStorage.getItem("toggleState");
-
-  if (savedState !== null) {
-    // Convert savedState to boolean and set the checkbox and button visibility
-    toggleSwitch.checked = savedState === "true";
-    profileButton.style.display = toggleSwitch.checked ? "block" : "none";
-  } else {
-    // If no state is saved, use the default HTML state of the checkbox
-    profileButton.style.display = toggleSwitch.checked ? "block" : "none";
+    });
   }
-
-  // Add event listener to toggle switch
-  toggleSwitch.addEventListener("change", function () {
-    // Save the current state of the toggle switch in localStorage
-    localStorage.setItem("toggleState", toggleSwitch.checked); // Save "true" or "false"
-    
-    // Update the display of the notification button
-    profileButton.style.display = toggleSwitch.checked ? "block" : "none";
-  });
+  
+  // Function to update notification visibility based on toggle state
+  function updateNotificationVisibility() {
+    if (profileButton) {
+      const savedState = localStorage.getItem("toggleState");
+      profileButton.style.display = savedState === "true" ? "block" : "none";
+    }
+  }
+  
+  // Handle the notification button on all pages
+  if (profileButton) {
+    updateNotificationVisibility(); // Initial check
+  
+    // Listen for changes in localStorage
+    window.addEventListener("storage", function (event) {
+      if (event.key === "toggleState") {
+        updateNotificationVisibility(); // Update visibility when toggleState changes
+      }
+    });
+  }
 
 
 
