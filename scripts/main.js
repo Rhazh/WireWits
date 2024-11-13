@@ -169,8 +169,8 @@ document.addEventListener('DOMContentLoaded', async () => {
                 document.getElementById('editButton').style.display = 'none';
                 populateNotificationsEng()
                 populateEngDetailsPage(ncrNumber);
-                popupComment();
-                closeModal();
+                //popupComment();
+                //closeModal();
                 ;
             }
         }
@@ -297,6 +297,19 @@ document.addEventListener('DOMContentLoaded', async () => {
         console.log("Going back...");
         window.history.back();
     }
+
+    // Set up the Save and Submit NCR functions
+function setupEngSaveNCR() {
+    document.getElementById('btnEngSave').addEventListener('click', () => {
+        saveEngNCR();
+    });
+}
+
+function setupEngSubmitNCR() {
+    document.getElementById('btnEngSubmit').addEventListener('click', () => {
+        submitEngNCR();
+    });
+}
 
     //breadcrumbs
     const breadcrumbMap = {
@@ -729,16 +742,5 @@ const savedState = localStorage.getItem("toggleState");
 //==========================
 //=========================
 
-// Set up the Save and Submit NCR functions
-function setupEngSaveNCR() {
-    document.getElementById('btnEngSave').addEventListener('click', () => {
-        saveEngNCR();
-    });
-}
 
-function setupEngSubmitNCR() {
-    document.getElementById('btnEngSubmit').addEventListener('click', () => {
-        submitEngNCR();
-    });
-}
 
