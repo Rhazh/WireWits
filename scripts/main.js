@@ -161,6 +161,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             populateDetailsPage(ncrNumber);
             if (userRole == "Quality") {
                 document.getElementById('secEngineer').style.display = 'none';
+                document.getElementById('sectionEngineerlabel').style.display = 'none';
                 document.getElementById('revertButton').style.display = 'none';
                 populateNotifications();
                 NavBar();
