@@ -441,7 +441,7 @@ function resetPagination() {
 function performSearch() {
     const ncrNumber = document.getElementById('ncrNumber').value.trim();
     const supplierName = document.getElementById('supplierName').value;
-    const ncrStatus = document.getElementById('ncrStatus').value;
+    const ncrStatus = document.getElementById("ncrStatus").value || "Quality";
     const fromDate = document.getElementById('fromDate').value;
     const toDate = document.getElementById('toDate').value;
 
@@ -479,18 +479,26 @@ function performSearch() {
     const toDateObj = toDate ? new Date(toDate + 'T23:59:59') : null;
 
     const filteredResults = uniqueQuality.filter(item => {
+        // Validate NCR number if provided
         const isNcrNumberValid = ncrNumber ? item.ncrNumber.includes(ncrNumber) : true;
+        
+        // Validate supplier name if provided
         const isSupplierNameValid = supplierName ? item.supplierName === supplierName : true;
-        const isStatusValid = ncrStatus ? item.ncrStatus === ncrStatus : true;
-
+        
+        // Validate status: if ncrStatus is "All", ignore the status filter, else match it
+        const isStatusValid = (ncrStatus === "All" || item.ncrStatus === ncrStatus);
+    
+        // Validate date range if provided
         const itemDateCreated = new Date(item.dateCreated);
         const isDateCreatedValid = (
             (fromDateObj ? itemDateCreated >= fromDateObj : true) &&
             (toDateObj ? itemDateCreated <= toDateObj : true)
         );
-
+    
+        // Return the result only if all filters are satisfied
         return isNcrNumberValid && isSupplierNameValid && isStatusValid && isDateCreatedValid;
     });
+    
 
     const totalResults = filteredResults.length;
 
@@ -1035,6 +1043,11 @@ function clearSearch() {
     location.reload();
 }
 
+function closeModal() {
+    // Find the modal container and set its display to 'none' to hide it
+    const modal = document.getElementById('reportsTable');
+    modal.style.display = 'none';
+}
 
 function NavBar() {
     const toggleCheckbox = document.getElementById('mobList');
@@ -1827,7 +1840,7 @@ function updateNavLinks(userRole) {
 
 function performSearchEng() {
     const ncrNumber = document.getElementById('ncrNumberEng').value.trim();
-    const ncrStatus = document.getElementById('ncrStatusEng').value;
+    const ncrStatus = document.getElementById("ncrStatusEng").value || "Engineering";
     const fromDate = document.getElementById('fromDateEng').value;
     const toDate = document.getElementById('toDateEng').value;
 
@@ -1865,16 +1878,21 @@ function performSearchEng() {
     const fromDateObj = fromDate ? new Date(fromDate + 'T00:00:00') : null;
     const toDateObj = toDate ? new Date(toDate + 'T23:59:59') : null;
 
+    // Define your filtered results with the updated logic
     const filteredResults = uniqueEngineering.filter(item => {
         const isNcrNumberValid = ncrNumber ? item.ncrNumber.includes(ncrNumber) : true;
         const qualityItem = quality.find(qItem => qItem.ncrNumber === item.ncrNumber);
-        const isStatusValid = ncrStatus ? (qualityItem && qualityItem.ncrStatus === ncrStatus) : true;
+        
+        // If ncrStatus is "All", don't filter by status, else filter by the selected ncrStatus
+        const isStatusValid = (ncrStatus === "All" || qualityItem && qualityItem.ncrStatus === ncrStatus);
+
         const itemDateCreated = new Date(item.dateCreated);
         const isDateCreatedValid = (
             (fromDateObj ? itemDateCreated >= fromDateObj : true) &&
             (toDateObj ? itemDateCreated <= toDateObj : true)
         );
 
+        // Return true if all conditions are valid
         return isNcrNumberValid && isStatusValid && isDateCreatedValid;
     });
 
