@@ -99,10 +99,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         if (loadingIndicator) loadingIndicator.style.display = 'none';
 
-        // Populate notifications or handle errors
-
-        //populateNotifications();
-        //NavBar();
         updateNavLinks(userRole);
 
         const urlParams = new URLSearchParams(window.location.search);
@@ -143,11 +139,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         } else if (ncrNumber && pageName === 'create.html') {
             if (userRole == "Quality") {
                 document.getElementById('secEngineer').style.display = 'none';
-                populateNotifications();
-                NavBar();
                 toggleCreateEditModal(ncrNumber, true);
-                setupSaveNCR();
-                setupSubmitNCR();
             }
             else if (userRole == "Engineer") {
                 document.getElementById('secQuality').style.display = 'none';
@@ -158,16 +150,15 @@ document.addEventListener('DOMContentLoaded', async () => {
                 setupEngSubmitNCR();
             }
         } else if (pageName === 'create.html') {
-            toggleCreateEditModal(null, false);
-            populateSupplierDropdown('nsupplierName');
-            setupCreateNCRButton();
-            setupSaveNCR();
-            setupSubmitNCR();
-            populateNotifications();
-            NavBar();
+            if(userRole == 'Quality'){
+                document.getElementById('secEngineer').style.display = 'none';
+                toggleCreateEditModal(null, false);
+                setupCreateNCRButton();
+            }else if(userRole == 'Engineer'){
+                document.getElementById('secQuality').style.display = 'none';
+            }
         } else if (ncrNumber && pageName === 'details.html') {
             populateDetailsPage(ncrNumber);
-            document.getElementById('printButton').style.display = 'none';
             if (userRole == "Quality") {
                 document.getElementById('secEngineer').style.display = 'none';
                 document.getElementById('revertButton').style.display = 'none';
@@ -191,7 +182,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             else if (userRole == "Engineer") {
                 populateNotificationsEng()
             }
-            
+
         } else if (pageName === 'reports.html') {
             performSearchReports();
             if (userRole == "Quality") {
@@ -200,7 +191,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
             else if (userRole == "Engineer") {
                 populateNotificationsEng()
-            }  
+            }
         }
 
         // Set up the supplierName dropdown
@@ -247,17 +238,26 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (isEditMode) {
             createNCRModal.style.visibility = 'hidden';
             createEditModal.style.visibility = 'visible';
+            populateNotifications();
+            NavBar();
             populateEditPage(ncrNumber);
             populateSupplierDropdown('supplierName', ncrNumber);
+            setupSaveNCR();
+            setupSubmitNCR();
+        } else {
+            createNCRModal.style.visibility = 'visible';
+            createEditModal.style.visibility = 'hidden';
+            populateSupplierDropdown('nsupplierName');
         }
     }
 
     // Setup button to create a new NCR
     function setupCreateNCRButton() {
         document.getElementById('btnCreateNCR').addEventListener('click', () => {
-            CreateNCR();
-            // const ncrNumber = sessionStorage.getItem('ncrNumber')
-            // toggleCreateEditModal(ncrNumber, true);
+            const ncrNumber = CreateNCR();
+            if (ncrNumber) {
+                toggleCreateEditModal(ncrNumber, true);
+            }
         });
     }
 
@@ -376,7 +376,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     //=============================
     //Account Settings Page
     //=============================
-    const editButton = document.getElementById('editButton');
+    const editButton = document.getElementById('editButtonAcc');
     const saveButton = document.getElementById('saveButton');
     const cancelProfileButton = document.getElementById('cancelButton');
     const nameDisplay = document.getElementById('userFullnameProfilePage');
@@ -706,23 +706,23 @@ const profileButton = document.getElementById("btnNotification");
 // Toggle visibility on change
 const savedState = localStorage.getItem("toggleState");
 
-  if (savedState !== null) {
+if (savedState !== null) {
     // Convert savedState to boolean and set the checkbox and button visibility
     toggleSwitch.checked = savedState === "true";
     profileButton.style.display = toggleSwitch.checked ? "block" : "none";
-  } else {
+} else {
     // If no state is saved, use the default HTML state of the checkbox
     profileButton.style.display = toggleSwitch.checked ? "block" : "none";
-  }
+}
 
-  // Add event listener to toggle switch
-  toggleSwitch.addEventListener("change", function () {
+// Add event listener to toggle switch
+toggleSwitch.addEventListener("change", function () {
     // Save the current state of the toggle switch in localStorage
     localStorage.setItem("toggleState", toggleSwitch.checked); // Save "true" or "false"
-    
+
     // Update the display of the notification button
     profileButton.style.display = toggleSwitch.checked ? "block" : "none";
-  });
+});
 
 
 
@@ -742,97 +742,3 @@ function setupEngSubmitNCR() {
     });
 }
 
-
-
-
-
-
-
-
-
-
-//MAY USE LATER
-/*
-        Function to populate the supplier dropdown with the top 3 suppliers first
-        async function populateSupplierDropdown(ncrLog) {
-            const supplierDropdown = document.getElementById('supplierName');
-    
-            // Count occurrences of each supplierName
-            const supplierCounts = {};
-            ncrLog.forEach(item => {
-                supplierCounts[item.supplierName] = (supplierCounts[item.supplierName] || 0) + 1;
-            });
-    
-            // Sort suppliers by count in descending order
-            const sortedSuppliers = Object.keys(supplierCounts).sort((a, b) => supplierCounts[b] - supplierCounts[a]);
-    
-            // Get top 3 suppliers
-            const topSuppliers = sortedSuppliers.slice(0, 3);
-    
-            // Get the remaining suppliers (excluding the top 3)
-            const allSuppliers = sortedSuppliers.sort();
-    
-            // Create a group for the top 3 suppliers
-            const topGroup = document.createElement('optgroup');
-            topGroup.label = 'Popular Suppliers';
-            topSuppliers.forEach(supplier => {
-                const option = document.createElement('option');
-                option.value = supplier;
-                option.textContent = `${supplier}`;
-                topGroup.appendChild(option);
-            });
-            supplierDropdown.appendChild(topGroup);
-    
-            // Create a group for the remaining suppliers
-            const allGroup = document.createElement('optgroup');
-            allGroup.label = 'All Suppliers';
-            allSuppliers.forEach(supplier => {
-                const option = document.createElement('option');
-                option.value = supplier;
-                option.textContent = supplier;
-                allGroup.appendChild(option);
-            });
-            supplierDropdown.appendChild(allGroup);
-        }
-
-         // Function to populate the supplier dropdown with the top 3 suppliers first
-         async function populateSupplierDropdownG(ncrLog) {
-            const supplierDropdown = document.getElementById('nsupplierName');
-    
-            // Count occurrences of each supplierName
-            const supplierCounts = {};
-            ncrLog.forEach(item => {
-                supplierCounts[item.supplierName] = (supplierCounts[item.supplierName] || 0) + 1;
-            });
-    
-            // Sort suppliers by count in descending order
-            const sortedSuppliers = Object.keys(supplierCounts).sort((a, b) => supplierCounts[b] - supplierCounts[a]);
-    
-            // Get top 3 suppliers
-            const topSuppliers = sortedSuppliers.slice(0, 3);
-    
-            // Get the remaining suppliers (excluding the top 3)
-            const allSuppliers = sortedSuppliers.sort();
-    
-            // Create a group for the top 3 suppliers
-            const topGroup = document.createElement('optgroup');
-            topGroup.label = 'Popular Suppliers';
-            topSuppliers.forEach(supplier => {
-                const option = document.createElement('option');
-                option.value = supplier;
-                option.textContent = `${supplier}`;
-                topGroup.appendChild(option);
-            });
-            supplierDropdown.appendChild(topGroup);
-    
-            // Create a group for the remaining suppliers
-            const allGroup = document.createElement('optgroup');
-            allGroup.label = 'All Suppliers';
-            allSuppliers.forEach(supplier => {
-                const option = document.createElement('option');
-                option.value = supplier;
-                option.textContent = supplier;
-                allGroup.appendChild(option);
-            });
-            supplierDropdown.appendChild(allGroup);
-        }*/

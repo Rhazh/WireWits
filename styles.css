@@ -1467,7 +1467,7 @@ button {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-#saveButton, #editButton, #cancelButton{
+#saveButton, #editButtonAcc, #cancelButton{
     display: inline-flex;
     padding: 12px 30px;
 }

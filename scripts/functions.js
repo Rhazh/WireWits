@@ -625,11 +625,11 @@ function CreateNCR() {
     sessionStorage.setItem('quality', JSON.stringify(quality));
 
     alert(`NCR Number ${ncrNumber} successfully generated. You may continue to provide additional information now or later`);
-    const createNCRModal = document.getElementById('createNCRModal');
-    const createEditModal = document.getElementById('createEditModal');
+    //const createNCRModal = document.getElementById('createNCRModal');
+    //const createEditModal = document.getElementById('createEditModal');
 
-    createNCRModal.style.visibility = 'hidden';
-    createEditModal.style.visibility = 'visible';
+    //createNCRModal.style.visibility = 'hidden';
+    //createEditModal.style.visibility = 'visible';
 
     sessionStorage.setItem('ncrNumber', ncrNumber);
     return ncrNumber
