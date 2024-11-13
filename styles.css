@@ -29,6 +29,62 @@ body {
 }
 
 /* Default Branding Style */
+/* -------- Main -------- */
+main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.container {
+    width: 1200px;
+    padding: 0 20px 30px;
+    margin: 0 auto;
+}
+
+.page-title { margin: 30px 0; }
+
+button { cursor: pointer; }
+
+h1, h2 { color: #0b1c33; }
+
+h1 { font-size: 24px;}
+
+h2 { font-size: 21px; }
+
+p, span { font-size: 18px }
+
+a, a.active{ 
+    text-decoration: none;
+    color: #0b1c33; 
+}
+
+h1, h2, p, table, li { cursor: default; }
+
+.required { color:#B22222; }
+
+/* Default Branding Style */
+/* ------ Footer -------- */
+footer {
+    position: relative;
+    padding: 10px;
+    text-align: center;
+    background-color: #0b1c33;
+    color: #fdfdfd;
+    bottom: 0;
+    width: 100%;
+    margin-top: auto;
+    font-weight: normal;
+    box-sizing: border-box;
+}
+
+.required {
+    color: #991111;
+}
+
+/* Default Branding Style */
 /* ------- Header ------- */
 header {
     background-color: #fdfdfd;
@@ -136,6 +192,20 @@ nav ul li a:hover {
 /* Default Branding Style */
 /* ------- Header ------- */
 /* --- Notifications ---- */
+.faqs-button-container {
+    display: flex;
+    justify-items: center;
+    align-items: center;
+    margin-top: 5.5px;
+    height: 100%;
+}
+
+.faqs-button-container a svg {
+    color: #00214d;
+    width: 30px;
+    height: 30px;
+}
+
 #btnProfile, 
 #btnNotification {
     background: none;
@@ -373,57 +443,6 @@ nav ul li a:hover {
     transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
 }
 
-/* Default Branding Style */
-/* -------- Main -------- */
-main {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    box-sizing: border-box;
-    width: 100%;
-}
-
-.container {
-    width: 1200px;
-    padding: 0 20px 30px;
-    margin: 0 auto;
-}
-
-.page-title {
-    margin: 30px 0;
-}
-
-h1, h2 { color: #0b1c33; }
-
-h1 { font-size: 24px;}
-
-h2 { font-size: 21px; }
-
-p, span { font-size: 18px }
-
-h1, h2, p, span, table { cursor: default; }
-
-.required { color:#B22222; }
-
-/* Default Branding Style */
-/* ------ Footer -------- */
-footer {
-    position: relative;
-    padding: 10px;
-    text-align: center;
-    background-color: #0b1c33;
-    color: #fdfdfd;
-    bottom: 0;
-    width: 100%;
-    margin-top: auto;
-    font-weight: normal;
-    box-sizing: border-box;
-}
-
-.required {
-    color: #991111;
-}
-
 /* -------------------------------------------------------------- */
 /* -------------------------------------------------------------- */
 /* -------------------------------------------------------------- */
@@ -443,6 +462,8 @@ footer {
 .div-container {
     width: 100%;
     border: none;
+    box-sizing: border-box;
+    overflow: hidden;
 }
 
 .dashboard .div-container {
@@ -726,12 +747,12 @@ table tbody tr:hover {
 
 .form-ncr-buttons {
     display: flex;
-    gap: 30px;
+    gap: 20px;
 }
 
 .form-ncr-buttons button {
     padding: 12px 30px;
-    width: 170px;
+    min-width: 150px;
 }
 
 #fileSummary,
@@ -771,15 +792,68 @@ table tbody tr:hover {
 .delete-button {
     display: block;
     width: 100%;
+    font-size: 16px;
     margin-top: 5px;
     padding: 8px;
-    background-color: red;
-    color: white;
+    background-color: #B22222;
+    color: #fafafa;
     border: none;
     cursor: pointer;
     border-radius: 5px;
-    z-index: 1; /* Ensures it’s above other elements */
     pointer-events: auto;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.delete-button:hover {
+    background-color:#991111;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.tab-cards {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.tab-head label {
+    cursor: pointer;
+    padding: 25px 40px 10px;
+    margin: 0 3px 0 0;
+    display: inline-block;
+    background-color: #00214d;
+    color: #fdfdfd;
+    box-sizing: border-box;
+    transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out;
+}
+
+.tab-head label:hover,
+.tab-cards #sectionQuality:checked ~ .tab-head label[for="sectionQuality"]:hover,
+.tab-cards #sectionEngineer:checked ~ .tab-head label[for="sectionEngineer"]:hover {
+    background-color: #0056b3;
+    color: #fdfdfd;
+    transition: 0.2s ease-in-out;
+    box-sizing: border-box;
+}
+
+.tab-cards input[type="radio"], 
+.tab-content {
+    display: none;
+}
+
+.tab-cards #sectionQuality:checked ~ .tab-head label[for="sectionQuality"],
+.tab-cards #sectionEngineer:checked ~ .tab-head label[for="sectionEngineer"]  {
+    color: #00214d;
+    background-color: #fafafa;
+}
+
+.tab-cards #sectionQuality:checked ~ #secQuality,
+.tab-cards #sectionEngineer:checked ~ #secEngineer {
+    display: block;
+}
+
+.tab-head {
+    width: 100%;
+    background: #d3d3d3;
+    box-sizing: border-box;
 }
 
 /* -------------------------------------------------------------- */
@@ -815,6 +889,52 @@ table tbody tr:hover {
 .search-error-message {
     color: #991111;
     margin-left: 20px;
+}
+
+
+/* -------------------------------------------------------------- */
+/* -------------------------------------------------------------- */
+/* -------------------------------------------------------------- */
+
+/* ----- info icon ----- */
+.form-info {
+    position: relative;
+    display: inline-block;
+}
+
+.info-icon {
+    cursor: pointer;
+}
+
+.info-desc {
+    display: none;
+    position: absolute;
+    bottom: 37px;
+    right: -4.5px;
+    background-color: #666;
+    color: #fafafa;
+    padding: 15px;
+    border-radius: 5px;
+    width: 500px;
+    text-align: left;
+    font-size: 16px;
+    z-index: 10;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.info-desc::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    right: 10px;
+    border-width: 8px;
+    border-style: solid;
+    border-color: #666 transparent transparent transparent;
+}
+
+/* Show tooltip on hover */
+.info-icon:hover + .info-desc {
+    display: block;
 }
 
 /* -------------------------------------------------------------- */
@@ -963,6 +1083,7 @@ label {
     display: block;
 }
 
+.one-col,
 .two-cols,
 .three-cols,
 .four-cols {
@@ -993,6 +1114,7 @@ button {
     border: none;
     font-size: 18px;
     cursor: pointer;
+    transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
 }
 
 .button-primary {
@@ -1002,15 +1124,15 @@ button {
 
 .button-primary:hover,
 .button-secondary:hover {
-    background-color: #00214d;
+    background-color: #0056b3;
     color: #fdfdfd;
+    transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
 }
 
 .button-secondary {
     color: #0b1c33;
     background-color: #e3e7f2;
 }
-
 
 /* -------------------------------------------------------------- */
 /* -------------------------------------------------------------- */
@@ -1097,6 +1219,82 @@ button {
     background-color: #0056b3;
     color: #fdfdfd;
 }
+
+/* -------------------------------------------------------------- */
+/* -------------------------------------------------------------- */
+/* -------------------------------------------------------------- */
+
+/* -- FAQs Page -- */
+.faq-item {
+    margin-bottom: 10px;
+    position: relative;
+}
+
+.faq-question {
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: #00214d;
+    cursor: pointer;
+    padding: 15px;
+    background: #fafafa;
+    border-radius: 5px;
+    transition: border 0.3s ease-in-out;
+    font-weight: bold;
+    border: 3px solid transparent;
+}
+
+.faq-question:hover {
+    border: 3px solid #0056b3;
+    transition: border 0.3s ease-in-out;
+}
+
+.faq-icon {
+    margin-right: 10px;
+    font-size: 30px;
+    transition: transform 0.3s;
+}
+
+.faq-checkbox {
+    display: none;
+}
+
+.faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-in-out, padding 0.3s ease-in-out;
+    background: #fafafa;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    color: #333;
+    font-size: 16px;
+    padding: 0 15px 0;
+}
+
+.faq-item input[type="checkbox"]:checked ~ .faq-answer {
+    max-height: 200px;
+    padding: 20px 15px 30px;
+}
+
+.faq-item input[type="checkbox"]:checked + .faq-question .faq-icon {
+    transform: rotate(45deg);
+    color: #0056b3;
+}
+
+.faq-item input[type="checkbox"]:checked + .faq-question {
+    background: #e8f1ff;
+    border: 3px solid #0056b3;
+}
+
+
+/* -------------------------------------------------------------- */
+/* -------------------------------------------------------------- */
+/* -------------------------------------------------------------- */
+
+/* Account Page */
+
+
 
 /* -------------------------------------------------------------- */
 /* -------------------------------------------------------------- */
@@ -1405,170 +1603,3 @@ button {
     }
 
 }
-
-
-/*Profile/Settings Page*/
-
-/* Main Profile Section Container */
-#Profile, #settings {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    max-width: 400px;
-    margin: 50px auto;
-    padding: 20px 300px;
-    background-color: #fdfdfd;
-    border-radius: 10px;
-    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
-    border: 2px solid #e3e7f2; /* Matches the NCR table styling */
-}
-
-#Profile h1 {
-    font-size: 24px;
-    color: #0b1c33;
-    margin-bottom: 20px;
-    font-family: "Instrument Sans", sans-serif;
-}
-
-/* Profile Content Wrapper */
-.profile-content {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    flex-direction: column; /* Stacks the picture and text on smaller screens */
-}
-
-/* Profile Picture Container */
-.profile-picture-container , .settings-container{
-    position: relative;
-    width: 200px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.profile-picture-container img {
-    border-radius: 50%;
-    object-fit: cover;
-    border: 3px solid #00214d;;
-}
-
-
-/* Edit Icon */
-.edit-icon {
-    position: absolute;
-    bottom: 5px;
-    right: 5px;
-    font-size: 1.2rem;
-    color: #0056b3;
-    cursor: pointer;
-    background-color: #fdfdfd;
-    border-radius: 50%;
-    padding: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-}
-
-#saveButton, #editButtonAcc, #cancelButton{
-    display: inline-flex;
-    padding: 12px 30px;
-}
-#roleMessage{
-    display: none;
-    color: #991111;
-}
-
-.user-info {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-    margin-top: 10px;
-}
-
-.info-block {
-    text-align: center;
-    line-height: 1.6; /* Adjust spacing between label and value */
-    margin-bottom: 10px;
-}
-
-.profileHeadings {
-    display: block; /* Ensures 'Name :' and 'Role :' appear above the values */
-    font-weight: bold;
-}
-
-.user-fullname,
-.user-role {
-    display: block; /* Ensures values appear below the labels */
-}
-
-.buttons {
-    display: flex;
-    gap: 30px;
-}
-
-.buttons button {
-    padding: 12px 30px;
-    width: 170px;
-    text-align: center;
-}
-
-
-/*Toggl switch for profile-settings page*/
-.switch {
-    position: relative;
-    display: inline-block;
-    width: 60px;
-    height: 34px;
-  }
-  
-  .switch input { 
-    opacity: 0;
-    width: 0;
-    height: 0;
-  }
-  
-  .slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: #ccc;
-    -webkit-transition: .4s;
-    transition: .4s;
-  }
-  
-  .slider:before {
-    position: absolute;
-    content: "";
-    height: 26px;
-    width: 26px;
-    left: 4px;
-    bottom: 4px;
-    background-color: white;
-    -webkit-transition: .4s;
-    transition: .4s;
-  }
-  
-  input:checked + .slider {
-    background-color: #2196F3;
-  }
-  
-  input:focus + .slider {
-    box-shadow: 0 0 1px #2196F3;
-  }
-  
-  input:checked + .slider:before {
-    -webkit-transform: translateX(26px);
-    -ms-transform: translateX(26px);
-    transform: translateX(26px);
-  }
-  
-  /* Rounded sliders */
-  .slider.round {
-    border-radius: 34px;
-  }
-  
-  .slider.round:before {
-    border-radius: 50%;
-  }

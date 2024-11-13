@@ -17,7 +17,7 @@
         <div class="header-col">
             <div class="header-col-left">
                 <!--mobile navigation menu-->
-                <div class="mob-nav" id="mobNav" >
+                <div class="mob-nav" id="mobNav">
                     <label class="mob-nav-icon">
                         <input type="checkbox" id="mobList">
                     </label>
@@ -31,40 +31,64 @@
                 <!--navigation menu-->
                 <nav aria-label="Main Navigation" id="mainNav">
                     <ul>
-                        <li><a href="index.html" id="home" aria-current="page" aria-label="Dashboard page" tabindex="0">Dashboard</a></li>
-                        <li><a href="create.html" id="create"  aria-label="Create new Non-Conformance Report" tabindex="0">Create <abbr title="Non-Conformance Report">NCR</abbr></a></li>
-                        <li><a href="view.html" id="view" tabindex="0" aria-label="View existing Non-Conformance Reports" ><abbr title="Non-Conformance Reports">NCR</abbr> Log  </a></li>
+                        <li><a href="index.html" class="nav-active" id="home" aria-current="page"
+                                aria-label="Dashboard page" tabindex="0">Dashboard</a></li>
+                        <li><a href="create.html" id="create" aria-label="Create new Non-Conformance Report"
+                                tabindex="0">Create <abbr title="Non-Conformance Report">NCR</abbr></a></li>
+                        <li><a href="view.html" id="view" tabindex="0"
+                                aria-label="View existing Non-Conformance Reports"><abbr
+                                    title="Non-Conformance Reports">NCR</abbr> Log </a></li>
                         <li><a href="reports.html" id="reports" aria-label="View Reports" tabindex="0">Reports</a></li>
                     </ul>
                 </nav>
             </div>
             <div class="header-col-right">
-                <div class="notification">
-                    <div class="notif-button-container">
-                        <button id="btnNotification" title="Notifications" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-controls="notifDisplay" onclick="toggleDropdown()">
-                            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="none" viewBox="0 0 24 24">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M12 5.365V3m0 2.365a5.338 5.338 0 0 1 5.133 5.368v1.8c0 2.386 1.867 2.982 1.867 4.175 0 .593 0 1.292-.538 1.292H5.538C5 18 5 17.301 5 16.708c0-1.193 1.867-1.789 1.867-4.175v-1.8A5.338 5.338 0 0 1 12 5.365ZM8.733 18c.094.852.306 1.54.944 2.112a3.48 3.48 0 0 0 4.646 0c.638-.572 1.236-1.26 1.33-2.112h-6.92Z"/>
-                            </svg>                       
-                            <span id="spnCount" class="notif-count" aria-live="polite">0</span>       
-                        </button>
+                <div class="header-col-right">
+                    <div class="faqs-button-container">
+                        <a href="faqs.html" aria-label="Navigate to FAQs Page" tabindex="0">
+                            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                                viewBox="0 0 24 24">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="2"
+                                    d="M9.529 9.988a2.502 2.502 0 1 1 5 .191A2.441 2.441 0 0 1 12 12.582V14m-.01 3.008H12M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                            </svg>
+                        </a>
                     </div>
-                    <div class="notif-dropdown-container" id="notifDisplay">
-                        <div class="notif-label">
-                            <span class="notif-title">Notifications</span>
-                            <div class="notif-desc" id="notifDesc">
-                                <!-- Notifications description -->
-                            </div>
+                    <div class="notification">
+                        <div class="notif-button-container">
+                            <button id="btnNotification" title="Notifications" aria-haspopup="true" aria-expanded="false"
+                                tabindex="0" aria-controls="notifDisplay" onclick="toggleDropdown()">
+                                <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
+                                    xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="none"
+                                    viewBox="0 0 24 24">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="1.75"
+                                        d="M12 5.365V3m0 2.365a5.338 5.338 0 0 1 5.133 5.368v1.8c0 2.386 1.867 2.982 1.867 4.175 0 .593 0 1.292-.538 1.292H5.538C5 18 5 17.301 5 16.708c0-1.193 1.867-1.789 1.867-4.175v-1.8A5.338 5.338 0 0 1 12 5.365ZM8.733 18c.094.852.306 1.54.944 2.112a3.48 3.48 0 0 0 4.646 0c.638-.572 1.236-1.26 1.33-2.112h-6.92Z" />
+                                </svg>
+                                <span id="spnCount" class="notif-count" aria-live="polite">0</span>
+                            </button>
                         </div>
-                        <div class="notif-list" id="notifList" tabindex="0">
-                            <!-- Notifications will be populated here -->
+                        <div class="notif-dropdown-container" id="notifDisplay">
+                            <div class="notif-label">
+                                <span class="notif-title">Notifications</span>
+                                <div class="notif-desc" id="notifDesc">
+                                    <!-- Notifications description -->
+                                </div>
+                            </div>
+                            <div class="notif-list" id="notifList" tabindex="0">
+                                <!-- Notifications will be populated here -->
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="profile">
                     <div class="user-container">
-                        <button id="btnProfile" aria-label="Click to view profile" aria-haspopup="true" tabindex="0" aria-expanded="false" aria-controls="profileDropdown" onclick="toggleProfileDropdown()">
+                        <button id="btnProfile" aria-label="Click to view profile" aria-haspopup="true" tabindex="0"
+                            aria-expanded="false" aria-controls="profileDropdown" onclick="toggleProfileDropdown()">
                             <span class="user-avatar">
-                                <img id="profilePic" src="images/user-profile.png" alt="User profile image" title="User profile image" height="50" width="50">
+                                <img id="profilePic" src="images/user-profile.png" alt="User profile image"
+                                    title="User profile image" height="50" width="50">
                             </span>
                             <span class="user-details">
                                 <span id="userFullname" class="user-fullname">Cassandra Washington</span>
@@ -72,12 +96,16 @@
                             </span>
                         </button>
                     </div>
-                    <div id="profileDropdown" class="profile-dropdown" tabindex="0" role="region" aria-labelledby="btnProfile">
+                    <div id="profileDropdown" class="profile-dropdown" tabindex="0" role="region"
+                        aria-labelledby="btnProfile">
                         <ul>
                             <li>
                                 <a href="profile_settings.html" aria-label="Navigate to Profile Page" tabindex="0">
-                                    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                        <path stroke="currentColor" stroke-width="2" d="M7 17v1a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1a3 3 0 0 0-3-3h-4a3 3 0 0 0-3 3Zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
+                                    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
+                                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                                        viewBox="0 0 24 24">
+                                        <path stroke="currentColor" stroke-width="2"
+                                            d="M7 17v1a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1a3 3 0 0 0-3-3h-4a3 3 0 0 0-3 3Zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
                                     </svg>
                                     Account Settings
                                 </a>
@@ -91,18 +119,26 @@
                                     Settings
                                 </a>
                             </li> -->
-                            <li>
+                            <!-- <li>
                                 <a href="faqs.html" aria-label="Navigate to FAQs Page" tabindex="0">
-                                    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.529 9.988a2.502 2.502 0 1 1 5 .191A2.441 2.441 0 0 1 12 12.582V14m-.01 3.008H12M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+                                    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
+                                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                                        viewBox="0 0 24 24">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                            stroke-width="2"
+                                            d="M9.529 9.988a2.502 2.502 0 1 1 5 .191A2.441 2.441 0 0 1 12 12.582V14m-.01 3.008H12M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                                     </svg>
                                     FAQs
                                 </a>
-                            </li>
+                            </li> -->
                             <li>
                                 <a id="logout" href="login.html" aria-label="Navigate to Logout Page" tabindex="0">
-                                    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H8m12 0-4 4m4-4-4-4M9 4H7a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h2"/>
+                                    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
+                                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                                        viewBox="0 0 24 24">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                            stroke-width="2"
+                                            d="M20 12H8m12 0-4 4m4-4-4-4M9 4H7a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h2" />
                                     </svg>
                                     Logout
                                 </a>
@@ -112,104 +148,61 @@
                 </div>
             </div>
         </div>
+        <div class="skip-links-div">
+            <a href="#btnCreate" class="skip-link" aria-label="Skip to Create NCR content">Skip to Create NCR</a>
+            <a href="#btnView" class="skip-link" aria-label="Skip to View NCR  content">Skip to View NCR</a>
+            <a href="#btnReports" class="skip-link" aria-label="Skip to NCR Reports content">Skip to Reports</a>
+            <a href="#recentNCRs-table" class="skip-link" aria-label="Skip to Recent NCR content">Skip to Recent
+                NCRs</a>
+            <a href="#footer" class="skip-link" aria-label="Skip to Footer">Skip to Footer</a>
+        </div>
     </header>
     <main>
-    <div class="container">
+        <div class="container">
             <div class="breadcrumb-container">
                 <div>
                     <ol class="breadcrumb-list" tabindex="-1"></ol>
                     <!-- Breadcrumbs will be dynamically populated here -->
                 </div>
             </div>
-    <div id="Profile" class="profile-container">
-                <h1>Profile Settings</h1>
-        <div class="profile-picture-container">
-            <img id="profilePagePic" src="images/user-profile.png" alt="User profile image" title="User profile image" height="100" width="100">
-            <span class="edit-icon" id="editIcon" style="display: none;">✏️</span>
-            <input type="file" id="imageUpload" style="display: none;" accept="image/*">
-        </div>
-        
-        <span id="errormsg" style="display: none; color: red;"></span>
-        <div class="user-info">
-            <div class="info-block">
-                <strong class="profileHeadings" id="fullnameHeading">Full Name :</strong>
-                <span id="userFullnameProfilePage" class="user-fullname">Marcus A. Allen</span>
-                <input type="text" id="nameInput" class="editable-field" style="display: none;" value="Marcus A. Allen" >
+            
+            <div class="page-title">
+                <h1>Account Settings</h1>
             </div>
-            <div class="info-block">
-                <strong class="profileHeadings">Username :</strong>
-                <span id="username" class="user-fullname">mallen</span>
-                <input type="text" id="usernameInput" class="editable-field" style="display: none;" value="mallen">
-            </div>
-            <div class="info-block">
-                <strong class="profileHeadings">First Name :</strong>
-                <span id="userFirstnameProfilePage" class="user-fullname">Marcus</span>
-                <input type="text" id="firstnameInput" class="editable-field" style="display: none;" value="Marcus">
-            </div>
-            <div class="info-block">
-                <strong class="profileHeadings">Middle Name :</strong>
-                <span id="userMiddlenameProfilePage" class="user-fullname">A</span>
-                <input type="text" id="middlenameInput" class="editable-field" style="display: none;" value="A">
-            </div>
-            <div class="info-block">
-                <strong class="profileHeadings">Last Name :</strong>
-                <span id="userLastnameProfilePage" class="user-fullname">Allen</span>
-                <input type="text" id="lastnameInput" class="editable-field" style="display: none;" value="Allen">
-            </div>
-            <div class="info-block">
-                <strong class="profileHeadings">Email :</strong>
-                <span id="userEmailProfilePage" class="user-fullname">john.doe@example.com</span>
-                <input type="email" id="emailInput" class="editable-field" style="display: none;" value="john.doe@example.com">
-            </div>
-            <div class="info-block">
-                <strong class="profileHeadings">Password :</strong>
-                <span id="userPasswordProfilePage" class="user-fullname">Quality1234</span>
-                <input type="password" id="passwordInput" class="editable-field" style="display: none;" value="Quality1234">
-                <span id="togglePassword" class="toggle-password-icon" style="display: none;">👁️</span>
 
+            <div id="Profile" class="div-container">
+                <div class="profile-picture-container">
+                    <img id="profilePagePic" src="images/user-profile.png" alt="User profile image" title="User profile image" height="100" width="100">
+                    <span class="edit-icon" id="editIcon" style="display: none;">✏️</span>
+                    <input type="file" id="imageUpload" style="display: none;" accept="image/*">
+                </div>
+            <div class="user-info">
+                <div class="info-block">
+                    <strong class="profileHeadings">Name :</strong>
+                    <span id="userFullnameProfilePage" class="user-fullname">Cassandra Washington</span>
+                    <input type="text" id="nameInput" class="editable-field" style="display: none;" value="Cassandra Washington">
+                </div>
+                <div class="info-block">
+                    <strong class="profileHeadings">Role :</strong>
+                    <span id="userRoleProfilePage" class="user-role">ADMINISTRATOR</span>
+                    <input type="text" id="roleInput" class="editable-field" style="display: none;" value="Administrator" disabled>
+                    <span id="roleMessage">*Cannot change role without Administrator permissions</span>
+                </div>
             </div>
-            <div class="info-block">
-                <strong class="profileHeadings">Role :</strong>
-                <span id="userRoleProfilePage" class="user-role">ADMINISTRATOR</span>
-                <input type="text" id="roleInput" class="editable-field" style="display: none;" value="Administrator" disabled>
-                <span id="roleMessage">*Cannot change role without Administrator permissions</span>
-            </div>
-            <div class="info-block">
-                <strong class="profileHeadings">Gender :</strong>
-                <span id="userGenderProfilePage" class="user-fullname">Male</span>
-                <select id="genderInput" style="display: none;">
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
-                    <option value="other">Other</option>
-                </select>
-            </div>
-        </div>
 
         <div class="buttons">
         <button id="editButtonAcc" class="button-primary">Edit</button>
 
-        </div>
-        <div class="buttons">
-                    <button id="saveButton" class="button-primary" style="display: none;">Save</button>
+            </div>
+            <div class="buttons">
+                <button id="saveButton" class="button-primary" style="display: none;">Save</button>
 
-        </div>
-        <div class="buttons">
-                    <button id="cancelButton" class="button-secondary" style="display: none;">Cancel</button>
+            </div>
+            <div class="buttons">
+                <button id="cancelButton" class="button-secondary" style="display: none;">Cancel</button>
 
-     </div>
-     
-    </div>  
-    <div id="settings" class=".settings-container">
-        <div class="settings-section">
-            <h3>Settings</h3>
-
-            <span id="notifs">Enable Notifications</span>
-              <label class="switch">
-                <input type="checkbox" id="toggleSwitch"  checked>
-                <span class="slider round"></span>
-              </label>
-        </div>
-     </div>      
+            </div>
+        </div>        
     </main>
     <footer id="footer">
         <p><small>&copy; 2024 Copyright. QCision - WireWits. All rights reserved.</small></p>

@@ -37,11 +37,11 @@
                 <!--navigation menu-->
                 <nav aria-label="Main Navigation" id="mainNav">
                     <ul>
-                        <li><a href="index.html" class="nav-active" id="home" aria-current="page"
+                        <li><a href="index.html" id="home" aria-current="page"
                                 aria-label="Dashboard page" tabindex="0">Dashboard</a></li>
                         <li><a href="create.html" id="create" aria-label="Create new Non-Conformance Report"
                                 tabindex="0">Create <abbr title="Non-Conformance Report">NCR</abbr></a></li>
-                        <li><a href="view.html" id="view" tabindex="0"
+                        <li><a href="view.html" class="nav-active" id="view" tabindex="0"
                                 aria-label="View existing Non-Conformance Reports"><abbr
                                     title="Non-Conformance Reports">NCR</abbr> Log </a></li>
                         <li><a href="reports.html" id="reports" aria-label="View Reports" tabindex="0">Reports</a></li>
@@ -49,35 +49,48 @@
                 </nav>
             </div>
             <div class="header-col-right">
-                <div class="notification">
-                    <div class="notif-button-container">
-                        <button id="btnNotification" title="Notifications" aria-haspopup="true" aria-expanded="false"
-                            tabindex="5" aria-controls="notifDisplay" onclick="toggleDropdown()">
+                <div class="header-col-right">
+                    <div class="faqs-button-container">
+                        <a href="faqs.html" aria-label="Navigate to FAQs Page" tabindex="0">
                             <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
-                                xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="none"
+                                xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
                                 viewBox="0 0 24 24">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                    stroke-width="1.75"
-                                    d="M12 5.365V3m0 2.365a5.338 5.338 0 0 1 5.133 5.368v1.8c0 2.386 1.867 2.982 1.867 4.175 0 .593 0 1.292-.538 1.292H5.538C5 18 5 17.301 5 16.708c0-1.193 1.867-1.789 1.867-4.175v-1.8A5.338 5.338 0 0 1 12 5.365ZM8.733 18c.094.852.306 1.54.944 2.112a3.48 3.48 0 0 0 4.646 0c.638-.572 1.236-1.26 1.33-2.112h-6.92Z" />
+                                    stroke-width="2"
+                                    d="M9.529 9.988a2.502 2.502 0 1 1 5 .191A2.441 2.441 0 0 1 12 12.582V14m-.01 3.008H12M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                             </svg>
-                            <span id="spnCount" class="notif-count" aria-live="polite">0</span>
-                        </button>
+                        </a>
                     </div>
-                    <div class="notif-dropdown-container" id="notifDisplay">
-                        <div class="notif-label">
-                            <span class="notif-title">Notifications</span>
-                            <div class="notif-desc" id="notifDesc">
-                                <!-- Notifications description -->
-                            </div>
+                    <div class="notification">
+                        <div class="notif-button-container">
+                            <button id="btnNotification" title="Notifications" aria-haspopup="true" aria-expanded="false"
+                                tabindex="0" aria-controls="notifDisplay" onclick="toggleDropdown()">
+                                <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
+                                    xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="none"
+                                    viewBox="0 0 24 24">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="1.75"
+                                        d="M12 5.365V3m0 2.365a5.338 5.338 0 0 1 5.133 5.368v1.8c0 2.386 1.867 2.982 1.867 4.175 0 .593 0 1.292-.538 1.292H5.538C5 18 5 17.301 5 16.708c0-1.193 1.867-1.789 1.867-4.175v-1.8A5.338 5.338 0 0 1 12 5.365ZM8.733 18c.094.852.306 1.54.944 2.112a3.48 3.48 0 0 0 4.646 0c.638-.572 1.236-1.26 1.33-2.112h-6.92Z" />
+                                </svg>
+                                <span id="spnCount" class="notif-count" aria-live="polite">0</span>
+                            </button>
                         </div>
-                        <div class="notif-list" id="notifList" tabindex="0">
-                            <!-- Notifications will be populated here -->
+                        <div class="notif-dropdown-container" id="notifDisplay">
+                            <div class="notif-label">
+                                <span class="notif-title">Notifications</span>
+                                <div class="notif-desc" id="notifDesc">
+                                    <!-- Notifications description -->
+                                </div>
+                            </div>
+                            <div class="notif-list" id="notifList" tabindex="0">
+                                <!-- Notifications will be populated here -->
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="profile">
                     <div class="user-container">
-                        <button id="btnProfile" title="Click to view profile" aria-haspopup="true" tabindex="0"
+                        <button id="btnProfile" aria-label="Click to view profile" aria-haspopup="true" tabindex="0"
                             aria-expanded="false" aria-controls="profileDropdown" onclick="toggleProfileDropdown()">
                             <span class="user-avatar">
                                 <img id="profilePic" src="images/user-profile.png" alt="User profile image"
@@ -89,7 +102,7 @@
                             </span>
                         </button>
                     </div>
-                    <div id="profileDropdown" class="profile-dropdown" tabindex="-1" role="region"
+                    <div id="profileDropdown" class="profile-dropdown" tabindex="0" role="region"
                         aria-labelledby="btnProfile">
                         <ul>
                             <li>
@@ -104,21 +117,16 @@
                                 </a>
                             </li>
                             <!-- <li>
-                                <a href="underdevelopment.html" title="Settings" tabindex="0">
-                                    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
-                                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
-                                        viewBox="0 0 24 24">
-                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                            stroke-width="2"
-                                            d="M21 13v-2a1 1 0 0 0-1-1h-.757l-.707-1.707.535-.536a1 1 0 0 0 0-1.414l-1.414-1.414a1 1 0 0 0-1.414 0l-.536.535L14 4.757V4a1 1 0 0 0-1-1h-2a1 1 0 0 0-1 1v.757l-1.707.707-.536-.535a1 1 0 0 0-1.414 0L4.929 6.343a1 1 0 0 0 0 1.414l.536.536L4.757 10H4a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h.757l.707 1.707-.535.536a1 1 0 0 0 0 1.414l1.414 1.414a1 1 0 0 0 1.414 0l.536-.535 1.707.707V20a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-.757l1.707-.708.536.536a1 1 0 0 0 1.414 0l1.414-1.414a1 1 0 0 0 0-1.414l-.535-.536.707-1.707H20a1 1 0 0 0 1-1Z" />
-                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                            stroke-width="2" d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
+                                <a href="underdevelopment.html" aria-label="Navigate to Settings Page" tabindex="0">
+                                    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13v-2a1 1 0 0 0-1-1h-.757l-.707-1.707.535-.536a1 1 0 0 0 0-1.414l-1.414-1.414a1 1 0 0 0-1.414 0l-.536.535L14 4.757V4a1 1 0 0 0-1-1h-2a1 1 0 0 0-1 1v.757l-1.707.707-.536-.535a1 1 0 0 0-1.414 0L4.929 6.343a1 1 0 0 0 0 1.414l.536.536L4.757 10H4a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h.757l.707 1.707-.535.536a1 1 0 0 0 0 1.414l1.414 1.414a1 1 0 0 0 1.414 0l.536-.535 1.707.707V20a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-.757l1.707-.708.536.536a1 1 0 0 0 1.414 0l1.414-1.414a1 1 0 0 0 0-1.414l-.535-.536.707-1.707H20a1 1 0 0 0 1-1Z"/>
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/>
                                     </svg>
                                     Settings
                                 </a>
                             </li> -->
-                            <li>
-                                <a href="faqs.html" title="FAQs" tabindex="0">
+                            <!-- <li>
+                                <a href="faqs.html" aria-label="Navigate to FAQs Page" tabindex="0">
                                     <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
                                         xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
                                         viewBox="0 0 24 24">
@@ -128,9 +136,9 @@
                                     </svg>
                                     FAQs
                                 </a>
-                            </li>
+                            </li> -->
                             <li>
-                                <a id="logout" href="login.html" title="Logout" tabindex="0">
+                                <a id="logout" href="login.html" aria-label="Navigate to Logout Page" tabindex="0">
                                     <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
                                         xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
                                         viewBox="0 0 24 24">
@@ -154,18 +162,19 @@
     </header>
 
     <main>
-        <section id="secQuality">
-            <div class="container">
-                <div class="breadcrumb-container">
-                    <div aria-label="Breadcrumb">
-                        <ol class="breadcrumb-list" tabindex="6"></ol>
-                        <!-- Breadcrumbs will be dynamically populated here -->
-                    </div>
+        <div class="container">
+            <div class="breadcrumb-container">
+                <div aria-label="Breadcrumb">
+                    <ol class="breadcrumb-list" tabindex="6"></ol>
+                    <!-- Breadcrumbs will be dynamically populated here -->
                 </div>
-                <div class="page-title">
-                    <h1 id="ncr-info">NCR Information</h1>
-                </div>
-                <div class="form-ncr" id="printSection">
+            </div>
+            <div class="page-title">
+                <h1 id="ncr-info">NCR Information</h1>
+            </div>
+                
+            <div id="printSection">
+                <div id="ncrInfo" class="form-ncr">
                     <div class="div-container">
                         <div class="form-header">
                             <div class="form-ncr-details">
@@ -186,7 +195,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="div-container">
                         <div class="form-section">
                             <div class="four-cols">
@@ -226,129 +234,121 @@
                         </div>
                     </div>
 
-
                     <div class="div-container">
-                        <div class="form-section">
-                            <div class="form-ncr-details">
-                                <strong>Item Description:</strong>
-                                <span tabindex="19" id="itemDescription"></span>
+                        <div class="tab-cards">
+                            <input id="sectionQuality" type="radio" class="tab-selector" name="tabs" checked />
+                            <input id="sectionEngineer" type="radio" class="tab-selector" name="tabs" />
+                            
+                            <div class="tab-head">
+                                <label for="sectionQuality">Quality</label>
+                                <label for="sectionEngineer">Engineer</label>
                             </div>
-                            <div class="form-ncr-details">
-                                <strong>Description of Defect:</strong>
-                                <ul tabindex="20" id="defectDescription"></ul>
-                            </div>
-                            <div class="form-ncr-details">
-                                <strong>Uploaded Images/Videos:</strong>
-                                <div id="thumbnailsContainer" class="thumbnails-container">
-                                    <!-- Thumbnails will be dynamically inserted here -->
-                                </div>
-                            </div>
-
-                            <div class="form-ncr-buttons">
-                                <button id="editButton" class="button-primary" tabindex="22"
-                                    onclick="window.location.href='create.html?ncr=' + document.getElementById('ncrNumber').textContent;">Edit</button>
-                            </div>
-
-                            <!--modal button-->
-                            <div class="form-ncr-buttons">
-                                <button id="revertButton" class="button-primary" tabindex="22">Revert to Quality</button>
-                            </div>
-
-                            <!--modal for the text box-->
-                            <div>
-                                <div id="modal" class="modal-container" style="visibility: hidden; display: none">
-                                    <span onclick="closeModal()" class="close"></span>
-                                    <span tabindex="1" class="btn-close" onclick="closeModal()">
-                                        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
-                                            xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="none"
-                                            viewBox="0 0 24 24">
-                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                                stroke-width="2.5" d="M6 18 17.94 6M18 18 6.06 6" />
-                                        </svg>
-                                    </span>
-                                    <label for="reason" aria-label="Reason, required">Reason:
-                                        <span class="required">*</span></label>
-                                    <textarea id="reason" name="reason" rows="2" placeholder="Reason for reverting"
-                                        required></textarea>
-
+        
+                            <div id="secQuality" class="tab-content">
+                                <div class="form-section">
+                                    <div class="form-ncr-details">
+                                        <strong>Item Description:</strong>
+                                        <span tabindex="19" id="itemDescription"></span>
+                                    </div>
+                                    <div class="form-ncr-details">
+                                        <strong>Description of Defect:</strong>
+                                        <ul tabindex="20" id="defectDescription"></ul>
+                                    </div>
+                                    <div class="form-ncr-details">
+                                        <strong>Uploaded Images/Videos:</strong>
+                                        <div id="thumbnailsContainer" class="thumbnails-container">
+                                            <!-- Thumbnails will be dynamically inserted here -->
+                                        </div>
+                                    </div>
+                                    
                                     <div class="form-ncr-buttons">
-                                        <button type="button" class="button-primary" tabindex="0"
-                                            onclick="sendComment()">Send</button>
-                                        <button type="button" id="editButton" tabindex="0" class="button-secondary"
-                                            onclick="closeModal()">Cancel</button>
+                                        <button id="editButton" class="button-primary" tabindex="22" onclick="window.location.href='create.html?ncr=' + document.getElementById('ncrNumber').textContent;">Edit</button>
+                                        <button id="printButton" class="button-primary" tabindex="23" onclick="printPdf()">Download as PDF</button>
+                                        <button id="revertButton" class="button-primary" tabindex="22" onclick="popupComment()">Revert to Quality</button>
                                     </div>
+                                </div>
 
+                                <!--modal for the text box-->
+                                <div>
+                                    <div id="modal" class="modal-container" style="visibility: hidden; display: none">
+                                        <span onclick="closeModal()" class="close"></span>
+                                        <span tabindex="1" class="btn-close" onclick="closeModal()">
+                                            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
+                                                xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="none"
+                                                viewBox="0 0 24 24">
+                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                                    stroke-width="2.5" d="M6 18 17.94 6M18 18 6.06 6" />
+                                            </svg>
+                                        </span>
+                                        <label for="reason" aria-label="Reason, required">Reason: <span class="required">*</span></label>
+                                        <textarea id="reason" name="reason" rows="2" placeholder="Reason for reverting" required></textarea>
+
+                                        <div class="form-ncr-buttons">
+                                            <button type="button" class="button-primary" tabindex="0" onclick="sendComment()">Send</button>
+                                            <button type="button" id="editButton" tabindex="0" class="button-secondary" onclick="closeModal()">Cancel</button>
+                                        </div>
+
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
 
-        <section id="secEngineer">
-            <!--Engineering-->
-            <div class="eng-Edit-Moddal">
-                <div class="container">
-                    <div class="page-title">
-                        <h1 id="ncr-info">NCR Information by Engineering</h1>
-                    </div>
-                    <div class="div-container">
-                        <div id="createEditModal" class="container">
-                            <div>
-                                <div class="view-form-quality">
-                                    <div>
-                                        <strong>NCR Number:</strong>
-                                        <span id="ncrNumberEng"></span>
+                            <div id="secEngineer" class="tab-content">
+                                <div id="createEditModal" class="form-section">
+                                    <div class="two-cols">
+                                        <div class="form-ncr-details">
+                                            <strong>NCR Number:</strong>
+                                            <span id="ncrNumberEng"></span>
+                                        </div>
+                                        <div class="form-ncr-details">
+                                            <strong>Review By CF Engineering:</strong>
+                                            <span id="reviewByCfEngineering"></span>
+                                        </div>
+                                        <div class="form-ncr-details">
+                                            <strong>Does Customer require notification of NCR?</strong>
+                                            <span id="customerNotification"></span>
+                                        </div>
+                                        <div class="form-ncr-details">
+                                            <strong for="disposition">Disposition:</strong>
+                                            <span id="disposition"></span>
+                                        </div>
+                                        <div class="form-ncr-details">
+                                            <strong for="drawingUpdate">Does the drawing require updating?</strong>
+                                            <span id="drawingUpdate"></span>
+                                        </div>
+                                        <div class="form-ncr-details">
+                                            <strong>Original Revision Number:</strong>
+                                            <span id="originalRevNumber"></span>
+                                        </div>
+                                        <div class="form-ncr-details">
+                                            <strong for="originalEngineerName">Original Engineering Name:</strong>
+                                            <span id="originalEngineerName"></span>
+                                        </div>
+                                        <div class="form-ncr-details">
+                                            <strong>Updated Revision Number:</strong>
+                                            <span id="updatedRevNumber"></span>
+                                        </div>
+                                        <div class="form-ncr-details">
+                                            <strong>Revision Date:</strong>
+                                            <span id="revisionDate"></span>
+                                        </div>
+                                        <div class="form-ncr-details">
+                                            <strong>Engineer Name:</label>
+                                                <span id="engineerName"></span>
+                                        </div>
                                     </div>
-                                    <div class="form-ncr-details">
-                                        <strong>Review By CF Engineering:</strong>
-                                        <span id="reviewByCfEngineering"></span>
-                                    </div>
-                                    <div class="form-ncr-details">
-                                        <strong>Does Customer require notification of NCR?</strong>
-                                        <span id="customerNotification"></span>
-                                    </div>
-                                    <div class="form-ncr-details">
-                                        <strong for="disposition">Disposition:</strong>
-                                        <span id="disposition"></span>
-                                    </div>
-                                    <div class="form-ncr-details">
-                                        <strong for="drawingUpdate">Does the drawing require updating?</strong>
-                                        <span id="drawingUpdate"></span>
-                                    </div>
-                                    <div class="form-ncr-details">
-                                        <strong>Original Revision Number:</strong>
-                                        <span id="originalRevNumber"></span>
-                                    </div>
-                                    <div class="form-ncr-details">
-                                        <strong for="originalEngineerName">Original Engineering Name:</strong>
-                                        <span id="originalEngineerName"></span>
-                                    </div>
-                                    <div class="form-ncr-details">
-                                        <strong>Updated Revision Number:</strong>
-                                        <span id="updatedRevNumber"></span>
-                                    </div>
-                                    <div class="form-ncr-details">
-                                        <strong>Revision Date:</strong>
-                                        <span id="revisionDate"></span>
-                                    </div>
-                                    <div class="form-ncr-details">
-                                        <strong>Engineer Name:</label>
-                                            <span id="engineerName"></span>
-                                    </div>
-
+                                    
                                     <div class="form-ncr-buttons">
                                         <button id="editButton" class="button-primary" tabindex="22"
                                             onclick="window.location.href='create.html?ncr=' + document.getElementById('ncrNumber').textContent;">Edit</button>
                                     </div>
                                 </div>
                             </div>
+
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
     </main>
     <footer id="footer">
         <p><small>&copy; 2024 Copyright. QCision - WireWits. All rights reserved.</small></p>
