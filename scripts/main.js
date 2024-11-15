@@ -390,7 +390,7 @@ function setupEngSubmitNCR() {
     //=============================
     //Account Settings Page
     //=============================
-    const editButton = document.getElementById('editButtonAcc');
+    const editButton = document.getElementById('editButton');
     const saveButton = document.getElementById('saveButton');
     const cancelProfileButton = document.getElementById('cancelButton');
     const nameDisplay = document.getElementById('userFullnameProfilePage');

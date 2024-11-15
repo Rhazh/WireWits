@@ -1620,3 +1620,172 @@ button {
     }
 
 }
+
+
+/*Sorry I again added css for this but please delete this as this was just for my visual understanding*/
+
+/*Profile/Settings Page*/
+
+/* Main Profile Section Container */
+#Profile, #settings {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px 300px;
+    background-color: #fdfdfd;
+    border-radius: 10px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+    border: 2px solid #e3e7f2; /* Matches the NCR table styling */
+}
+
+#Profile h1 {
+    font-size: 24px;
+    color: #0b1c33;
+    margin-bottom: 20px;
+    font-family: "Instrument Sans", sans-serif;
+}
+
+/* Profile Content Wrapper */
+.profile-content {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-direction: column; /* Stacks the picture and text on smaller screens */
+}
+
+/* Profile Picture Container */
+.profile-picture-container , .settings-container{
+    position: relative;
+    width: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.profile-picture-container img {
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #00214d;;
+}
+
+
+/* Edit Icon */
+.edit-icon {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    font-size: 1.2rem;
+    color: #0056b3;
+    cursor: pointer;
+    background-color: #fdfdfd;
+    border-radius: 50%;
+    padding: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+#saveButton, #editButton, #cancelButton{
+    display: inline-flex;
+    padding: 12px 30px;
+}
+#roleMessage{
+    display: none;
+    color: #991111;
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.info-block {
+    text-align: center;
+    line-height: 1.6; /* Adjust spacing between label and value */
+    margin-bottom: 10px;
+}
+
+.profileHeadings {
+    display: block; /* Ensures 'Name :' and 'Role :' appear above the values */
+    font-weight: bold;
+}
+
+.user-fullname,
+.user-role {
+    display: block; /* Ensures values appear below the labels */
+}
+
+.buttons {
+    display: flex;
+    gap: 30px;
+}
+
+.buttons button {
+    padding: 12px 30px;
+    width: 170px;
+    text-align: center;
+}
+
+
+/*Toggl switch for profile-settings page*/
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+  }
+  
+  .switch input { 
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  input:checked + .slider {
+    background-color: #2196F3;
+  }
+  
+  input:focus + .slider {
+    box-shadow: 0 0 1px #2196F3;
+  }
+  
+  input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+  }
+  
+  /* Rounded sliders */
+  .slider.round {
+    border-radius: 34px;
+  }
+  
+  .slider.round:before {
+    border-radius: 50%;
+  }
