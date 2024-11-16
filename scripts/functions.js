@@ -1064,47 +1064,232 @@ function NavBar() {
 };
 
 function printPdf() {
-    // Get the content of the print section
-    var printContent = document.getElementById("printSection");
-    var ncrNumber = document.getElementById("ncrNumber").textContent.trim(); // Get NCR number from the page
+    const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
+    const userRole = loggedInUser ? loggedInUser.Department_Name : null; // "Quality" or "Engineer"
+
+    // Get the common NCR fields
+    var ncrNumber = document.getElementById("ncrNumber").textContent.trim();
+    var dateCreated = document.getElementById("dateCreated").textContent.trim();
+    var createdBy = document.getElementById("createdBy").textContent.trim();
+    var ncrStatus = document.getElementById("ncrStatus").textContent.trim();
+    var supplierName = document.getElementById("supplierNameD").textContent.trim();
+    var productionNumber = document.getElementById("poNumber").textContent.trim();
+    var qtyRecieved = document.getElementById("quantityReceived").textContent.trim();
+    var engneeded = document.getElementById("engNeeded").textContent.trim();
+    var appProcess = document.getElementById("applicableProcess").textContent.trim();
+    var qtyDefect = document.getElementById("quantityDefect").textContent.trim();
+    var itemConform = document.getElementById("itemConform").textContent.trim();
+    var sonumber = document.getElementById("soNumber").textContent.trim();
+    var thumbnailsContainer = document.getElementById("thumbnailsContainer");
+    var thumbnail = thumbnailsContainer ? thumbnailsContainer.innerHTML : "";
+    var customerNotification = document.getElementById("customerNotification").textContent.trim();
+    var disposition = document.getElementById("disposition").textContent.trim();
+    var drawingUpdate = document.getElementById("drawingUpdate").textContent.trim();
+    var originalRevNumber = document.getElementById("originalRevNumber").textContent.trim();
+    var originalEngineerName = document.getElementById("originalEngineerName").textContent.trim();
+    var updatedRevNumber = document.getElementById("updatedRevNumber").textContent.trim();
+    var revisionDate = document.getElementById("revisionDate").textContent.trim();
+    var engineerName = document.getElementById("engineerName").textContent.trim();
 
 
-    // Check if printContent exists
-    if (!printContent) {
-        console.error("Print section not found.");
-        return;
-    }
+    // Quality-specific fields
+    var itemDescription = document.getElementById("itemDescription").textContent.trim();
+    var defectDescription = document.getElementById("defectDescription").innerHTML.trim();
+
+    // Engineer-specific fields
+    var reviewByCfEngineering = document.getElementById("reviewByCfEngineering")?.textContent.trim();
+    var disposition = document.getElementById("disposition")?.textContent.trim();
+    var engineerName = document.getElementById("engineerName")?.textContent.trim();
 
     // Open a new window
     var printWindow = window.open("", "_blank", "width=800,height=600");
 
+    // Build the custom content dynamically based on the role
+    let content = `
+        <div class="div-container">
+                        <div class="form-header">
+                            <div class="form-ncr-details">
+                                <strong>NCR Number:</strong>
+                                <span id="ncrNumber">${ncrNumber}</span>
+                            </div>
+                            <div class="form-ncr-details">
+                                <strong>Date Created:</strong>
+                                <span id="dateCreated">${dateCreated}</span>
+                            </div>
+                            <div class="form-ncr-details">
+                                <strong>Created By:</strong>
+                                <span id="createdBy">${createdBy}</span>
+                            </div>
+                            <div class="form-ncr-details">
+                                <strong>Status:</strong>
+                                <span id="ncrStatus">${ncrStatus}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <br>
+                    <div class="div-container">
+                        <div class="form-section">
+                            <div class="four-cols">
+                                <div class="form-ncr-details">
+                                    <strong>Supplier Name:</strong>
+                                    <span id="supplierNameD">${supplierName}</span>
+                                </div>
+                                <div class="form-ncr-details">
+                                    <strong>Production Number:</strong>
+                                    <span id="poNumber">${productionNumber}</span>
+                                </div>
+                                <div class="form-ncr-details">
+                                    <strong>Quantity Received:</strong>
+                                    <span id="quantityReceived">${qtyRecieved}</span>
+                                </div>
+                                <div class="form-ncr-details">
+                                    <strong>Forward to Engineering:</strong>
+                                    <span id="engNeeded">${engneeded}</span>
+                                </div>
+                                <div class="form-ncr-details">
+                                    <strong>Applicable Process:</strong>
+                                    <span  id="applicableProcess">${appProcess}</span>
+                                </div>
+                                <div class="form-ncr-details">
+                                    <strong>Sales Order Number:</strong>
+                                    <span  id="soNumber">${sonumber}</span>
+                                </div>
+                                <div class="form-ncr-details">
+                                    <strong>Quantity Defective:</strong>
+                                    <span id="quantityDefect">${qtyDefect}</span>
+                                </div>
+                                <div class="form-ncr-details">
+                                    <strong>Item marked conforming:</strong>
+                                    <span id="itemConform">${itemConform}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+    `;
+
+    if (userRole === "Quality" || userRole === "Engineer") {
+        content += `
+            <br>
+            <hr>
+            <br>
+            <div class="div-container">
+                <div class = "quality-section">
+                    <div class="form-section">
+                        <h2>Quality Section</h2>
+                        <div class="form-ncr-details">
+                            <strong>Item Description:</strong>
+                            ${itemDescription}
+                        </div>
+                        <div class="form-ncr-details">
+                            <strong>Defect Description:</strong>
+                                <ul>${defectDescription}</ul>
+                        </div>
+                        <br>
+                        <br>
+                        <br>
+                        
+                        <div class="form-ncr-details">
+                        <strong>    Uploaded Images/Videos:</strong>
+                                <div id="thumbnailsContainer" class="thumbnails-container">
+                                ${thumbnail}
+                                 </div>
+                    </div>
+                    
+                     </div>
+                </div>
+             </div>
+        `;
+    }
+
+    if (userRole === "Engineer") {
+        content += `
+            <br>
+            <hr>
+            <br>
+            <div class="div-container">
+                    <div class="form-section">
+                        <h2>Engineering Section</h2>
+                        <div class="form-ncr-details">
+                            <strong>Review by CF Engineering:</strong>
+                             ${reviewByCfEngineering}
+                        </div>
+                        <div class="form-ncr-details">
+                            <strong>Does Customer require notification of NCR?</strong>
+                            <span id="customerNotification">${customerNotification}</span>
+                        </div>
+                        <div class="form-ncr-details">
+                            <strong for="disposition">Disposition:</strong>
+                            <span id="disposition">${disposition}</span>
+                        </div>
+                        <div class="form-ncr-details">
+                            <strong for="drawingUpdate">Does the drawing require updating?</strong>
+                            <span id="drawingUpdate">${drawingUpdate}</span>
+                        </div>
+                        <div class="form-ncr-details">
+                            <strong>Original Revision Number:</strong>
+                            <span id="originalRevNumber">${originalRevNumber}</span>
+                        </div>
+                        <div class="form-ncr-details">
+                            <strong for="originalEngineerName">Original Engineering Name:</strong>
+                            <span id="originalEngineerName">${originalEngineerName}</span>
+                        </div>
+                        <div class="form-ncr-details">
+                            <strong>Updated Revision Number:</strong>
+                            <span id="updatedRevNumber">${updatedRevNumber}</span>
+                        </div>
+                        <div class="form-ncr-details">
+                            <strong>Revision Date:</strong>
+                            <span id="revisionDate">${revisionDate}</span>
+                        </div>
+                        <div class="form-ncr-details">
+                            <strong>Engineer Name:</label>
+                                <span id="engineerName">${engineerName}</span>
+                        </div>
+                    </div>                        
+                    </div>
+                </div>
+        `;
+    }
+
     // Write the content and styles to the new window
     printWindow.document.open();
     printWindow.document.write(`
-        <html>
+        <!DOCTYPE html>
+        <html lang="en">
         <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>NCR - ${ncrNumber}</title>
             <link href="styles.css" rel="stylesheet">
-
             <style>
-                body 
-                {
-                    -webkit-print-color-adjust: exact;
-                     color-adjust: exact;
+                body {
+                    font-family: Arial, sans-serif;
+                    margin: 20px;
                 }
-                .form-header
-                {
-                    margin-top:5px;
+                h1, h2 {
+                    text-align: center;
+                    margin-bottom: 20px;
                 }
-                #PrintButton, #editButton
-                {
-                    display:none;
+                div {
+                    margin-bottom: 10px;
+                }
+                ul {
+                    margin-top: 5px;
+                    padding-left: 20px;
+                }
+                .div-container{
+                    width: 90%;
                 }
             </style>
         </head>
         <body>
         <br>
-            ${printContent.outerHTML}
+        <p>Document Number: OPS-00011</p>
+        <br>
+        <br>
+        <h1>NCR Information</h1>
+            ${content}
         </body>
         </html>
     `);
@@ -1114,7 +1299,7 @@ function printPdf() {
     printWindow.onload = function () {
         setTimeout(() => {
             printWindow.print();
-        }, 500); // Adjust delay as needed (500ms is usually sufficient)
+        }, 500);
     };
 
     // Close the print window only after printing is complete
@@ -1122,6 +1307,66 @@ function printPdf() {
         printWindow.close();
     };
 }
+
+// function printPdf() {
+//     // Get the content of the print section
+//     var printContent = document.getElementById("printSection");
+//     var ncrNumber = document.getElementById("ncrNumber").textContent.trim(); // Get NCR number from the page
+
+
+//     // Check if printContent exists
+//     if (!printContent) {
+//         console.error("Print section not found.");
+//         return;
+//     }
+
+//     // Open a new window
+//     var printWindow = window.open("", "_blank", "width=800,height=600");
+
+//     // Write the content and styles to the new window
+//     printWindow.document.open();
+//     printWindow.document.write(`
+//         <html>
+//         <head>
+//             <title>NCR - ${ncrNumber}</title>
+//             <link href="styles.css" rel="stylesheet">
+
+//             <style>
+//                 body 
+//                 {
+//                     -webkit-print-color-adjust: exact;
+//                      color-adjust: exact;
+//                 }
+//                 .form-header
+//                 {
+//                     margin-top:5px;
+//                 }
+//                 #PrintButton, #editButton
+//                 {
+//                     display:none;
+//                 }
+//             </style>
+//         </head>
+//         <body>
+//         <br>
+//             ${printContent.outerHTML}
+//         </body>
+//         </html>
+//     `);
+//     printWindow.document.close();
+
+//     // Wait for the new window to fully load, then print
+//     printWindow.onload = function () {
+//         setTimeout(() => {
+//             printWindow.print();
+//         }, 500); // Adjust delay as needed (500ms is usually sufficient)
+//     };
+
+//     // Close the print window only after printing is complete
+//     printWindow.onafterprint = function () {
+//         printWindow.close();
+//     };
+// }
 
 //================================================================================================================
 ///FUNCTIONS SUPPLIER DROPDOWN
