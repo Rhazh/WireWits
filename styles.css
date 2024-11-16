@@ -1113,7 +1113,8 @@ button {
 }
 
 .button-primary,
-.button-secondary {
+.button-secondary,
+.button-warning {
     border-radius: 8px;
     border: none;
     font-size: 18px;
@@ -1136,6 +1137,15 @@ button {
 .button-secondary {
     color: #0b1c33;
     background-color: #e3e7f2;
+}
+
+.button-warning {
+    color: #fdfdfd;
+    background-color: #991111;
+}
+
+.button-warning:hover {
+    background-color: #B22222;
 }
 
 /* -------------------------------------------------------------- */
@@ -1291,14 +1301,115 @@ button {
     border: 3px solid #0056b3;
 }
 
-
 /* -------------------------------------------------------------- */
 /* -------------------------------------------------------------- */
 /* -------------------------------------------------------------- */
 
 /* Account Page */
+.settings-two-cols {
+    display: grid;
+    grid-template-columns: 1.25fr 3fr;
+    gap: 20px;
+}
 
+.settings-left-col {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
 
+.settings-acc-img {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    flex-direction: column;
+    background-color: #fdfdfd;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+}
+
+.settings-section-title {
+    width: 100%;
+    background-color: #0056b3;
+    padding: 20px 0 15px 20px;
+}
+
+.settings-section-title h2 {
+    color: #fafafa;
+    font-weight: normal;
+}
+
+.settings-section-field {
+    display: flex;
+    align-items: center;
+}
+
+.settings-section-field strong {
+    width: 35%;
+}
+
+.settings-acc-info {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+  }
+  
+  .switch input { 
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #d3d3d3;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: #fafafa;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  input:checked + .slider {
+    background-color: #0056b3;
+  }
+  
+  input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+  }
+  
+  /* Rounded sliders */
+  .slider.round {
+    border-radius: 34px;
+  }
+  
+  .slider.round:before {
+    border-radius: 50%;
+  }
 
 /* -------------------------------------------------------------- */
 /* -------------------------------------------------------------- */
@@ -1730,62 +1841,3 @@ button {
 
 
 /*Toggl switch for profile-settings page*/
-.switch {
-    position: relative;
-    display: inline-block;
-    width: 60px;
-    height: 34px;
-  }
-  
-  .switch input { 
-    opacity: 0;
-    width: 0;
-    height: 0;
-  }
-  
-  .slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: #ccc;
-    -webkit-transition: .4s;
-    transition: .4s;
-  }
-  
-  .slider:before {
-    position: absolute;
-    content: "";
-    height: 26px;
-    width: 26px;
-    left: 4px;
-    bottom: 4px;
-    background-color: white;
-    -webkit-transition: .4s;
-    transition: .4s;
-  }
-  
-  input:checked + .slider {
-    background-color: #2196F3;
-  }
-  
-  input:focus + .slider {
-    box-shadow: 0 0 1px #2196F3;
-  }
-  
-  input:checked + .slider:before {
-    -webkit-transform: translateX(26px);
-    -ms-transform: translateX(26px);
-    transform: translateX(26px);
-  }
-  
-  /* Rounded sliders */
-  .slider.round {
-    border-radius: 34px;
-  }
-  
-  .slider.round:before {
-    border-radius: 50%;
-  }
