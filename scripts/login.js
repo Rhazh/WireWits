@@ -25,9 +25,10 @@ fetch('seed-data/login.json')
             const password = document.getElementById("password").value;
             //const department = document.getElementById("department").value;
 
+            const storedUsers = JSON.parse(localStorage.getItem('users')) || userData.users;
 
             // Validate the user
-            const user = userData.users.find(user =>
+            const user = storedUsers.find(user =>
                 user.user_name === username &&
                 user.password === password
             );
@@ -36,6 +37,7 @@ fetch('seed-data/login.json')
                 // Store user details in localStorage
                 localStorage.setItem('loggedInUser', JSON.stringify(user));
 
+                localStorage.setItem('users', JSON.stringify(storedUsers));
 
 
                 window.location.href = 'index.html'; // Redirect to index.html

@@ -2197,3 +2197,213 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 });
+
+//=================
+//   Acoount Page
+//================
+
+// Load user data and populate the profile settings page
+function loadProfileSettings(loggedInUser) {
+    if (!loggedInUser) return;
+
+    // Update display elements
+    document.getElementById('userFullnameProfilePage').textContent = 
+        `${loggedInUser.user_Firstname} ${loggedInUser.user_Middlename || ''} ${loggedInUser.user_Lastname}`.trim();
+    document.getElementById('username').textContent = loggedInUser.user_name;
+    document.getElementById('userFirstnameProfilePage').textContent = loggedInUser.user_Firstname;
+    document.getElementById('userMiddlenameProfilePage').textContent = loggedInUser.user_Middlename || '-';
+    document.getElementById('userLastnameProfilePage').textContent = loggedInUser.user_Lastname;
+    document.getElementById('userEmailProfilePage').textContent = loggedInUser.email;
+    document.getElementById('userPasswordProfilePage').textContent = loggedInUser.password;
+    document.getElementById('userRoleProfilePage').textContent = loggedInUser.Department_Name;
+    document.getElementById('userGenderProfilePage').textContent = loggedInUser.gender;
+
+
+    // Set the profile picture
+    const profilePicSrc = loggedInUser.profilePicture || 
+        (loggedInUser.gender.toLowerCase() === 'male' ? 'images/user-profile_v1.png' : 'images/user-profile.png');
+    document.getElementById('profilePagePic').src = profilePicSrc;
+}
+
+// Toggle edit mode on the profile settings page
+function toggleEditMode(loggedInUser) {
+    const displayFields = document.querySelectorAll('.user-fullname, .user-role');
+    const editFields = document.querySelectorAll('.editable-field, #togglePassword');
+
+    const updatedUser = JSON.parse(localStorage.getItem('loggedInUser'));
+
+    // Update input fields with the latest saved data
+    document.getElementById('nameInput').value = `${updatedUser.user_Firstname} ${updatedUser.user_Middlename || ''} ${updatedUser.user_Lastname}`;
+    document.getElementById('usernameInput').value = updatedUser.user_name;
+    document.getElementById('firstnameInput').value = updatedUser.user_Firstname;
+    document.getElementById('middlenameInput').value = updatedUser.user_Middlename || '';
+    document.getElementById('lastnameInput').value = updatedUser.user_Lastname;
+    document.getElementById('emailInput').value = updatedUser.email;
+    document.getElementById('passwordInput').value = updatedUser.password;
+    document.getElementById('genderInput').value = updatedUser.gender;
+
+    displayFields.forEach(field => field.style.display = 'none'); // Hide display-only elements
+    editFields.forEach(field => field.style.display = 'block'); // Show editable elements
+    fullnameHeading.style.display = 'none';
+    nameInput.style.display = 'none';
+    genderInput.style.display='block';
+
+    document.getElementById('userFullname').style.display = 'block'; // Ensure name remains visible
+    document.getElementById('userRole').style.display = 'block';   
+
+    document.getElementById('editprofileButton').style.display = 'none';
+    document.getElementById('saveprofileButton').style.display = 'block';
+    document.getElementById('cancelprofileButton').style.display = 'block';
+    document.getElementById('editIcon').style.display = 'block';
+
+    const profilePagePic = document.getElementById('profilePagePic');
+    tempProfilePicture = profilePagePic.src;
+}
+
+// Save profile changes and persist to localStorage
+function saveProfileSettings(loggedInUser) {
+    const updatedUser = {
+        ...loggedInUser,
+        user_name: document.getElementById('usernameInput').value,
+        user_Firstname: document.getElementById('firstnameInput').value,
+        user_Middlename: document.getElementById('middlenameInput').value || '-',
+        user_Lastname: document.getElementById('lastnameInput').value,
+        email: document.getElementById('emailInput').value,
+        password: document.getElementById('passwordInput').value,
+        gender: document.getElementById('genderInput').value,
+
+    };
+
+    // Validate required fields
+    if (!updatedUser.user_Firstname || !updatedUser.user_Lastname || !updatedUser.email || !updatedUser.password) {
+        alert("Please fill in all required fields.");
+        return;
+    }
+    const profilePagePic = document.getElementById('profilePagePic');
+    loggedInUser.profilePicture = profilePagePic.src;
+    profilePic.src = profilePagePic.src;
+
+    fullnameHeading.style.display = 'block';
+    genderInput.style.display='none';
+
+    // Update `loggedInUser` in localStorage
+    localStorage.setItem('loggedInUser', JSON.stringify(updatedUser));
+
+    // Update the users array in localStorage
+    const users = JSON.parse(localStorage.getItem('users')) || [];
+    const userIndex = users.findIndex(user => user.user_name === loggedInUser.user_name);
+
+    if (userIndex !== -1) {
+        // Update the specific user in the users array
+        users[userIndex] = updatedUser;
+    } else {
+        // Add the user if it doesn't exist (unlikely scenario but included for completeness)
+        users.push(updatedUser);
+    }
+
+    // Save the updated users array back to localStorage
+    localStorage.setItem('users', JSON.stringify(users));
+
+    alert("Profile updated successfully!");
+    location.reload();
+}
+
+
+// Cancel editing and revert to original values
+function cancelEditMode(loggedInUser) {
+    loadProfileSettings(loggedInUser);
+
+    const displayFields = document.querySelectorAll('.user-fullname, .user-role');
+    const editFields = document.querySelectorAll('.editable-field, #togglePassword');
+
+    displayFields.forEach(field => field.style.display = 'block'); // Show display-only elements
+    editFields.forEach(field => field.style.display = 'none'); // Hide editable elements
+    document.getElementById('editprofileButton').style.display = 'block';
+    document.getElementById('saveprofileButton').style.display = 'none';
+    document.getElementById('cancelprofileButton').style.display = 'none';
+    document.getElementById('editIcon').style.display = 'none';
+
+    fullnameHeading.style.display = 'block';
+    genderInput.style.display='none';
+
+    const profilePagePic = document.getElementById('profilePagePic');
+    profilePagePic.src = tempProfilePicture;
+    profilePic.src = profilePagePic.src;
+
+}
+
+// Toggle password visibility
+function togglePasswordVisibility() {
+    const passwordInput = document.getElementById('passwordInput');
+    passwordInput.type = passwordInput.type === 'password' ? 'text' : 'password';
+}
+
+function handleProfilePictureChange(loggedInUser) {
+    const editIcon = document.getElementById('editIcon'); // The pencil icon
+    const imageUpload = document.getElementById('imageUpload'); // The hidden file input
+    const profilePagePic = document.getElementById('profilePagePic'); // The profile picture on the profile page
+    const profilePic = document.getElementById('profilePic'); // The profile picture in the header
+
+    // Handle the pencil icon click event
+    editIcon.addEventListener('click', () => {
+        imageUpload.click(); // Trigger the file input dialog
+    });
+
+    // Handle the file selection and preview
+    imageUpload.addEventListener('change', (event) => {
+        const file = event.target.files[0]; // Get the selected file
+        if (file) {
+            const reader = new FileReader();
+
+            reader.onload = (e) => {
+                const newProfilePicture = e.target.result; // Base64 URL of the image
+                profilePagePic.src = newProfilePicture; // Update the profile picture preview
+                profilePic.src = newProfilePicture; // Update the header profile picture
+
+                // Persist the new profile picture to loggedInUser and localStorage
+                loggedInUser.profilePicture = newProfilePicture;
+                localStorage.setItem('loggedInUser', JSON.stringify(loggedInUser));
+            };
+
+            reader.readAsDataURL(file); // Read the file as a Data URL
+        }
+    });
+}
+
+//======================
+// Notifications 
+//======================
+// Update the visibility of the notification button
+function updateNotificationButton() {
+    const profileButton = document.getElementById("btnNotification");
+    const savedState = localStorage.getItem("toggleState");
+    const isVisible = savedState === "true";
+
+    if (profileButton) {
+        profileButton.style.display = isVisible ? "block" : "none";
+    } else {
+        console.warn("#btnNotification not found on this page.");
+    }
+}
+
+// Initialize the toggle switch and notification button
+function initializeNotificationToggle() {
+    const toggleSwitch = document.getElementById("toggleSwitch");
+
+    // Update toggle state and visibility on page load
+    if (toggleSwitch) {
+        const savedState = localStorage.getItem("toggleState");
+        toggleSwitch.checked = savedState === "true"; // Set the toggle switch to the saved state
+
+        // Add event listener to toggle visibility and save state
+        toggleSwitch.addEventListener("change", () => {
+            const isVisible = toggleSwitch.checked;
+            localStorage.setItem("toggleState", isVisible);
+            updateNotificationButton(); // Update button visibility
+        });
+    }
+
+    // Update notification button visibility on page load
+    updateNotificationButton();
+}
+
