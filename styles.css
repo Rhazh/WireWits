@@ -1355,6 +1355,15 @@ button {
     gap: 20px;
 }
 
+.settings-button button {
+    width: 100%;
+    padding: 10px 10px;
+}
+
+.settings-button.two-cols {
+    gap:10px;
+}
+
 .switch {
     position: relative;
     display: inline-block;
@@ -1503,6 +1512,10 @@ button {
     .four-cols {
         display: flex;
         flex-direction: column;
+    }
+    
+    .settings-section-field.notifs strong {
+        width: 70% !important;
     }
 }
 
@@ -1686,8 +1699,29 @@ button {
         height: auto;
     }
 
+    .settings-two-cols {
+        grid-template-columns: 1fr;
+    }
+
     .three-cols {
         grid-template-columns: 1fr 1fr;
+    }
+
+    .settings-section-field {
+        flex-direction: column;
+    }
+
+    .settings-section-field strong {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .settings-section-field.notifs {
+        flex-direction: row;
+    }
+    
+    .settings-section-field.notifs strong {
+        width: 50%;
     }
 
     .search-section .div-container .div-section .three-cols div:first-child {

@@ -32,7 +32,7 @@
                 <nav aria-label="Main Navigation" id="mainNav">
                     <ul>
                         <li><a href="index.html"  id="home" aria-current="page"
-                                aria-label="Dashboard page" tabindex="0">Dashboard</a></li>
+                                aria-label="Dashboard page" class="nav-active" tabindex="0">Dashboard</a></li>
                         <li><a href="create.html" id="create" aria-label="Create new Non-Conformance Report"
                                 tabindex="0">Create <abbr title="Non-Conformance Report">NCR</abbr></a></li>
                         <li><a href="view.html" id="view" tabindex="0"
@@ -184,10 +184,10 @@
                     </div>
                     <div class="settings-left-col">
                         <div>
-                            <div class="form-ncr-buttons one-col">
+                            <div class="settings-button one-col">
                                 <button id="editprofileButton" class="button-primary">Edit Account</button>
                             </div>
-                            <div class="form-ncr-buttons two-cols">
+                            <div class="settings-button two-cols">
                                 <button id="saveprofileButton" class="button-primary" style="display: none;">Save</button>
                                 <button id="cancelprofileButton" class="button-warning" style="display: none;">Cancel</button>
                             </div>
@@ -265,7 +265,7 @@
                         
                         <div class="form-section">
                             <div class="one-col">
-                                <div class="settings-section-field">
+                                <div class="settings-section-field notifs">
                                     <strong id="notifs">Enable Notifications</strong>
                                     <label class="switch">
                                         <input type="checkbox" id="toggleSwitch" checked>
