@@ -1553,6 +1553,9 @@ function displayThumbnail(fileObject) {
  
     // Remove the file item from the display
     fileItem.remove();
+    if(uploadedFiles.length == 0){
+        document.getElementById('fileNames').innerHTML = "No Uploaded Files yet.";
+    }
  }
  
  // Use the modified event listener for new file uploads
