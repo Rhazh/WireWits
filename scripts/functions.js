@@ -1554,7 +1554,7 @@ function displayThumbnail(fileObject) {
     // Remove the file item from the display
     fileItem.remove();
     if(uploadedFiles.length == 0){
-        document.getElementById('fileNames').innerHTML = "No Uploaded Files yet.";
+        document.getElementById('fileNames').innerHTML = "No files uploaded yet!";
     }
  }
  
@@ -1562,7 +1562,7 @@ function displayThumbnail(fileObject) {
  document.getElementById('attachedDocument').addEventListener('change', function () {
     const fileInput = document.getElementById('attachedDocument');
     const files = Array.from(fileInput.files);
-    const validExtensions = ['image/jpeg', 'image/png', 'image/gif'];
+    const validExtensions = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
     let validFiles = [];
     let invalidFiles = [];
  

@@ -149,6 +149,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 populateNotificationsEng()
                 populateDetailsPageEng(ncrNumber)
                 populateEngEditPage(ncrNumber)
+                document.getElementById('sectionEngineer').checked = true;   
                 setupEngSaveNCR();
                 setupEngSubmitNCR();
             }
@@ -166,6 +167,8 @@ document.addEventListener('DOMContentLoaded', async () => {
                 document.getElementById('secEngineer').style.display = 'none';
                 document.getElementById('sectionEngineerlabel').style.display = 'none';
                 document.getElementById('revertButton').style.display = 'none';
+                document.getElementById('sectionQualitylabel').style.display = 'none';
+                document.getElementById('sectionQuality').checked = true;              
                 populateNotifications();
                 NavBar();
             }
@@ -173,6 +176,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 document.getElementById('editButton').style.display = 'none';
                 populateNotificationsEng()
                 populateEngDetailsPage(ncrNumber);
+                document.getElementById('sectionEngineer').checked = true;   
                 //popupComment();
                 //closeModal();
                 ;
