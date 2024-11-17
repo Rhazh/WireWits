@@ -1866,7 +1866,7 @@ function populateEngEditPage(ncrNumber) {
             document.getElementById('originalRevNumber').value = entry.originalRevNumber;
             document.getElementById('updatedRevNumber').value = entry.updatedRevNumber;
 
-            document.getElementById('revisionDate').value = setDate(entry.revisionDate);
+            document.getElementById('revisionDate').value = entry.revisionDate ? setDate(entry.revisionDate) : "";
             document.getElementById('engineerName').value = entry.engineerName;
 
 
@@ -2024,7 +2024,7 @@ function saveEngNCR() {
 
             alert('Your changes have been saved. You can continue later.');
             window.history.back();
-            //console.log(typeof(revisionDate), revisionDate)
+            console.log(typeof(revisionDate), revisionDate)
         } else {
             alert("Save operation cancelled.");
         }
