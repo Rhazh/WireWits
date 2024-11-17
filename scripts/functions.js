@@ -1821,7 +1821,6 @@ function populateDetailsPageEng(ncrNumber) {
 function populateEngDetailsPage(ncrNumber) {
     const entry = engineering.find(item => item.ncrNumber === ncrNumber);
     if (entry) {
-        document.getElementById('ncrNumberEng').textContent = entry.ncrNumber;
         document.getElementById('reviewByCfEngineering').textContent = entry.reviewByCfEngineering ?? "";
         document.getElementById('customerNotification').textContent = entry.customerNotification ?? "";
         document.getElementById('disposition').innerHTML = entry.disposition.replace(/\n/g, '<br/>') ?? "";
@@ -1843,7 +1842,6 @@ function populateEngEditPage(ncrNumber) {
     //document.getElementById('create-edit')
     const entry = engineering.find(item => item.ncrNumber === ncrNumber);
     if (entry) {
-        document.getElementById('ncrNumberEng').textContent = entry.ncrNumber;
         document.getElementById('reviewByCfEngineering').value = entry.reviewByCfEngineering;
         document.getElementById('customerNotification').value = entry.customerNotification;
         document.getElementById('disposition').textContent = entry.disposition;
@@ -1905,7 +1903,7 @@ document.getElementById('drawingUpdate').addEventListener('change', (event) => {
 //
 //=================================================================================================================
 function saveEngNCR() {
-    const ncrNumber = document.getElementById('ncrNumberEng').textContent;
+    const ncrNumber = document.getElementById('ncrNumberE').textContent;
     const changedBy = getUserName();
     const reviewByCfEngineering = document.getElementById('reviewByCfEngineering').value;
     const customerNotification = document.getElementById('customerNotification').value;
@@ -1993,7 +1991,7 @@ function submitEngNCR() {
 
     //changedBy = getUserName();
 
-    const ncrNumber = document.getElementById('ncrNumberEng').textContent;
+    const ncrNumber = document.getElementById('ncrNumberE').textContent;
     const changedBy = getUserName();
     const reviewByCfEngineering = document.getElementById('reviewByCfEngineering').value;
     const customerNotification = document.getElementById('customerNotification').value;
