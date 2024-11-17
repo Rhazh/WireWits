@@ -1844,6 +1844,7 @@ function populateEngDetailsPage(ncrNumber) {
     }
 }
 
+
 //================================================================================================================
 //POPULATE EDIT PAGE OF ENGINEER'S PORTION OF NCR
 //
@@ -1853,9 +1854,11 @@ function populateEngEditPage(ncrNumber) {
     //document.getElementById('create-edit')
     const entry = engineering.find(item => item.ncrNumber === ncrNumber);
     if (entry) {
+        
+        //document.getElementById('ncrNumberEng').textContent = entry.ncrNumber;
         document.getElementById('reviewByCfEngineering').value = entry.reviewByCfEngineering;
         document.getElementById('customerNotification').value = entry.customerNotification;
-        document.getElementById('disposition').textContent = entry.disposition;
+        document.getElementById('disposition').textContent = entry.disposition.replace(/\n/g, '<br/>');
         document.getElementById('drawingUpdate').value = entry.drawingUpdate;
 
         if (entry.drawingUpdate === "Yes") {
@@ -1863,17 +1866,30 @@ function populateEngEditPage(ncrNumber) {
             document.getElementById('originalEngineerName').value = entry.originalEngineerName;
             document.getElementById('originalRevNumber').value = entry.originalRevNumber;
             document.getElementById('updatedRevNumber').value = entry.updatedRevNumber;
-            document.getElementById('revisionDate').value = entry.revisionDate ? formatDate(entry.revisionDate) : "";
+           
+            document.getElementById('revisionDate').value = setDate(entry.revisionDate);
+            document.getElementById('engineerName').value = entry.engineerName;
+            
 
         } else {
             document.getElementById('revisionDate').value = '';
             document.getElementById('originalEngineerName').value = '';
             document.getElementById('originalRevNumber').value = '';
             document.getElementById('updatedRevNumber').value = '';
+            document.getElementById('engineerName').value = '';
+
+             // Disable the fields
+         document.getElementById('originalRevNumber').disabled = true;
+         document.getElementById('originalEngineerName').disabled = true;
+         document.getElementById('updatedRevNumber').disabled = true;
+         document.getElementById('revisionDate').disabled = true;
+         document.getElementById('engineerName').disabled = true;
+         
         }
     }
-    console.log(entry);
+    //console.log(entry);
 }
+
 
 //================================================================================================================
 //EVENT LISTENER FOR YES/NO TO UPDATE DRAWINGS - ENGINEER
@@ -1883,6 +1899,7 @@ let prevOriginalRevNumber = "";
 let prevOriginalEngineerName = "";
 let prevUpdatedRevNumber = "";
 let prevRevisionDate = "";
+let prevEngineerName = "";
 
 // Event listener for drawingUpdate
 document.getElementById('drawingUpdate').addEventListener('change', (event) => {
@@ -1893,19 +1910,37 @@ document.getElementById('drawingUpdate').addEventListener('change', (event) => {
         prevOriginalRevNumber = document.getElementById('originalRevNumber').value;
         prevOriginalEngineerName = document.getElementById('originalEngineerName').value;
         prevUpdatedRevNumber = document.getElementById('updatedRevNumber').value;
-        prevRevisionDate = document.getElementById('revisionDate').value;
+        prevRevisionDate = correctDate(document.getElementById('revisionDate').value);
+        prevEngineerName = document.getElementById('engineerName').value;
 
         // Clear the fields
         document.getElementById('originalRevNumber').value = "";
         document.getElementById('originalEngineerName').value = "";
         document.getElementById('updatedRevNumber').value = "";
         document.getElementById('revisionDate').value = "";
+        document.getElementById('engineerName').value = "";
+
+         // Disable the fields
+         document.getElementById('originalRevNumber').disabled = true;
+         document.getElementById('originalEngineerName').disabled = true;
+         document.getElementById('updatedRevNumber').disabled = true;
+         document.getElementById('revisionDate').disabled = true;
+         document.getElementById('engineerName').disabled = true;
+ 
     } else if (drawingUpdate === "Yes") {
         // Restore previous values if "Yes" is selected
         document.getElementById('originalRevNumber').value = prevOriginalRevNumber;
         document.getElementById('originalEngineerName').value = prevOriginalEngineerName;
         document.getElementById('updatedRevNumber').value = prevUpdatedRevNumber;
-        document.getElementById('revisionDate').value = prevRevisionDate;
+        document.getElementById('revisionDate').value = setDate(prevRevisionDate);
+        document.getElementById('engineerName').value = prevEngineerName;
+
+         // Enable the fields
+         document.getElementById('originalRevNumber').disabled = false;
+         document.getElementById('originalEngineerName').disabled = false;
+         document.getElementById('updatedRevNumber').disabled = false;
+         document.getElementById('revisionDate').disabled = false;
+         document.getElementById('engineerName').disabled = false;
     }
 });
 
@@ -1914,6 +1949,7 @@ document.getElementById('drawingUpdate').addEventListener('change', (event) => {
 //
 //=================================================================================================================
 function saveEngNCR() {
+    
     const ncrNumber = document.getElementById('ncrNumberE').textContent;
     const changedBy = getUserName();
     const reviewByCfEngineering = document.getElementById('reviewByCfEngineering').value;
@@ -1923,11 +1959,12 @@ function saveEngNCR() {
     const originalRevNumber = document.getElementById('originalRevNumber').value;
     const originalEngineerName = document.getElementById('originalEngineerName').value;
     const updatedRevNumber = document.getElementById('updatedRevNumber').value;
-    
-    // Only set revisionDate if updatedRevNumber has a value
-    const revisionDate = updatedRevNumber ? Timestamp() : "";
+    const revisionDateRaw = document.getElementById('revisionDate').value;
+    const revisionDate = revisionDateRaw?correctDate(revisionDateRaw) : "";
+    const engineerName = document.getElementById('engineerName').value;
 
     const engineeringEntry = engineering.find(entry => entry.ncrNumber === ncrNumber);
+    
 
     if (engineeringEntry) {
         // Check for changes in all relevant fields
@@ -1937,10 +1974,11 @@ function saveEngNCR() {
             engineeringEntry.disposition === disposition &&
             engineeringEntry.drawingUpdate === drawingUpdate &&
             engineeringEntry.originalRevNumber === originalRevNumber &&
-            engineeringEntry.updatedRevNumber === updatedRevNumber 
-            //still need more info about revision (ask Mark in class)
-            //&&
-            //engineeringEntry.revisionDate === revisionDate
+            engineeringEntry.updatedRevNumber === updatedRevNumber &&
+            engineeringEntry.originalEngineerName === originalEngineerName &&
+            engineeringEntry.engineerName === engineerName &&
+            engineeringEntry.revisionDate === revisionDate
+
         );
 
         if (noChanges) {
@@ -1959,16 +1997,16 @@ function saveEngNCR() {
                 engineeringEntry.originalRevNumber = originalRevNumber;
                 engineeringEntry.originalEngineerName = originalEngineerName;
                 engineeringEntry.updatedRevNumber = updatedRevNumber;
-
-                // Only set the revision date if updatedRevNumber has a value
                 engineeringEntry.revisionDate = revisionDate;
+                engineeringEntry.engineerName = engineerName;
             } else {
                 engineeringEntry.originalRevNumber = "";
                 engineeringEntry.originalEngineerName = "";
                 engineeringEntry.updatedRevNumber = "";
                 engineeringEntry.revisionDate = "";
+                engineeringEntry.engineerName = "";
             }
-            sessionStorage.setItem('engineering', JSON.stringify(engineering));
+            localStorage.setItem('engineering', JSON.stringify(engineering));
 
             const historyEntry = {
                 ncrNumber: ncrNumber,
@@ -1980,17 +2018,20 @@ function saveEngNCR() {
             };
 
             history.push(historyEntry);
-            sessionStorage.setItem('history', JSON.stringify(history));
+            localStorage.setItem('history', JSON.stringify(history));
 
             alert('Your changes have been saved. You can continue later.');
             window.history.back();
+            //console.log(typeof(revisionDate), revisionDate)
         } else {
             alert("Save operation cancelled.");
         }
     } else {
         alert('NCR not found. Please check the NCR number.');
     }
-    console.log(engineering);
+    //console.log(engineering);
+    //console.log(typeof(revisionDate), revisionDate)
+    
 }
 
 //================================================================================================================
@@ -2011,6 +2052,9 @@ function submitEngNCR() {
     const originalRevNumber = document.getElementById('originalRevNumber').value;
     const originalEngineerName = document.getElementById('originalEngineerName').value;
     const updatedRevNumber = document.getElementById('updatedRevNumber').value;
+    const revisionDateRaw = document.getElementById('revisionDate').value;
+    const revisionDate = revisionDateRaw?correctDate(revisionDateRaw) : "";
+    const engineerName = document.getElementById('engineerName').value;
 
     // Check if all required fields are filled
     if (!reviewByCfEngineering || !disposition) {
@@ -2025,7 +2069,15 @@ function submitEngNCR() {
 
     const confirmation = confirm("Are you sure you want to submit the NCR?");
     if (confirmation) {
-        // Update the corresponding NCR in the quality array
+        // Update the corresponding NCR status in the quality array
+        const qualityEntry = quality.find(entry => entry.ncrNumber === ncrNumber);
+
+        if (qualityEntry){
+            qualityEntry.ncrStatus = "Operations";
+        }
+        localStorage.setItem('quality', JSON.stringify(quality)); //persist the changes
+
+        //update the corresponding NCR in Engineering
         const engineeringEntry = engineering.find(entry => entry.ncrNumber === ncrNumber);
 
         if (engineeringEntry) {
@@ -2033,38 +2085,30 @@ function submitEngNCR() {
             engineeringEntry.customerNotification = customerNotification;
             engineeringEntry.disposition = disposition;
             engineeringEntry.drawingUpdate = drawingUpdate;
-            engineeringEntry.ncrStatus = "Operations";
+            engineeringEntry.ncrStatus = quality.find(item => item.ncrNumber === ncrNumber)?.ncrStatus;
             engineeringEntry.engineerName = changedBy;
-
-            if (drawingUpdate === "Yes") {
-                engineeringEntry.originalRevNumber = originalRevNumber;
-                engineeringEntry.originalEngineerName = originalEngineerName;
-                engineeringEntry.updatedRevNumber = updatedRevNumber;
-
-                // Only set the revision date if updatedRevNumber has a value
-                //engineeringEntry.revisionDate = revisionDate;
-            } else {
-                engineeringEntry.originalRevNumber = "";
-                engineeringEntry.originalEngineerName = "";
-                engineeringEntry.updatedRevNumber = "";
-                engineeringEntry.revisionDate = "";
+            engineeringEntry.originalRevNumber = originalRevNumber;
+            engineeringEntry.originalEngineerName = originalEngineerName;
+            engineeringEntry.updatedRevNumber = updatedRevNumber;
+            engineeringEntry.revisionDate = revisionDate;
+            engineeringEntry.engineerName = engineerName;
             }
-            sessionStorage.setItem('engineering', JSON.stringify(engineering));
+            localStorage.setItem('engineering', JSON.stringify(engineering));
             //make history array and push to history json
             const historyEntry = {
                 ncrNumber: ncrNumber,
                 actionType: "Submit",
                 status: 'Open',
-                actionDescription: "Submission by Engineering",
+                actionDescription: "Submitted from Engineering to Operations",
                 changedBy: changedBy,
                 changedOn: Timestamp()
             }
             history.push(historyEntry);
-            sessionStorage.setItem('history', JSON.stringify(history));
+            localStorage.setItem('history', JSON.stringify(history));
             alert('NCR has been successfully submitted.');
             window.history.back();
-        }
-
+        
+    
     } else {
         // If the user cancels, do nothing or add custom logic
         alert("Submit operation cancelled.");
@@ -2072,6 +2116,25 @@ function submitEngNCR() {
         return;
     }
 }
+
+
+//================================================================================================================
+//SUPPORTING FUNCTIONS FOR ENGINEER'S PORTION OF NCR
+//
+//=================================================================================================================
+
+//Function to Set Date to Date input for Revision Date of NCR
+function setDate(dateString) {
+    //const newDate = dateString.replace(/-/g, '/')
+    const [month, day, year] = dateString.split('/'); // Split the string into parts
+    return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`; // Convert to MM-DD-YYYY to suit data in json.
+}
+function correctDate(dateString) {
+    //const newDate = dateString.replace(/-/g, '/')
+    const [year, month, day] = dateString.split('-'); // Split the string into parts
+    return `${month.padStart(2, '0')}/${day.padStart(2, '0')}/${year}`; // Convert to MM-DD-YYYY to suit data in json.
+}
+
 
 //FUNCTION TO CHANGE NAVIGATION LINKS BASED ON USER
 function updateNavLinks(userRole) {
