@@ -86,7 +86,7 @@ function populateNotifications() {
         closeButton.innerHTML = `<svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="21" height="21" fill="none" viewBox="0 0 24 24">
             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M6 18 17.94 6M18 18 6.06 6"/>
         </svg>`
-        
+
         closeButton.onclick = (e) => {
             e.preventDefault(); // Prevent default action
             e.stopPropagation(); // Prevent click from propagating to parent elements
@@ -370,21 +370,21 @@ function populateEditPage(ncrNumber) {
         document.getElementById('defectDescription').value = entry.defectDescription ? entry.defectDescription : '';
         document.getElementById('engNeeded').checked = entry.engNeeded === 'Yes';
         document.getElementById('itemConform').checked = entry.itemConform === 'Yes';
-        
 
-       // Clear the existing thumbnails container
-       const thumbnailsContainer = document.getElementById('thumbnailsContainer');
-       thumbnailsContainer.innerHTML = "";
-       // Populate previously uploaded files into the global array and display them
-       uploadedFiles.length = 0; // Clear current files (if any)
-       if (entry.documentFiles && entry.documentFiles.length > 0) {
-           entry.documentFiles.forEach(file => {
-               const fileObject = { file, thumbnail: file.thumbnail };
-               uploadedFiles.push(fileObject);
-               displayThumbnail(fileObject);
-           });
-       } 
-   }
+
+        // Clear the existing thumbnails container
+        const thumbnailsContainer = document.getElementById('thumbnailsContainer');
+        thumbnailsContainer.innerHTML = "";
+        // Populate previously uploaded files into the global array and display them
+        uploadedFiles.length = 0; // Clear current files (if any)
+        if (entry.documentFiles && entry.documentFiles.length > 0) {
+            entry.documentFiles.forEach(file => {
+                const fileObject = { file, thumbnail: file.thumbnail };
+                uploadedFiles.push(fileObject);
+                displayThumbnail(fileObject);
+            });
+        }
+    }
 }
 
 // Supporting Function - Redirection to Edit an NCR when Edit button is clicked
@@ -481,24 +481,24 @@ function performSearch() {
     const filteredResults = uniqueQuality.filter(item => {
         // Validate NCR number if provided
         const isNcrNumberValid = ncrNumber ? item.ncrNumber.includes(ncrNumber) : true;
-        
+
         // Validate supplier name if provided
         const isSupplierNameValid = supplierName ? item.supplierName === supplierName : true;
-        
+
         // Validate status: if ncrStatus is "All", ignore the status filter, else match it
         const isStatusValid = (ncrStatus === "All" || item.ncrStatus === ncrStatus);
-    
+
         // Validate date range if provided
         const itemDateCreated = new Date(item.dateCreated);
         const isDateCreatedValid = (
             (fromDateObj ? itemDateCreated >= fromDateObj : true) &&
             (toDateObj ? itemDateCreated <= toDateObj : true)
         );
-    
+
         // Return the result only if all filters are satisfied
         return isNcrNumberValid && isSupplierNameValid && isStatusValid && isDateCreatedValid;
     });
-    
+
 
     const totalResults = filteredResults.length;
 
@@ -561,11 +561,11 @@ function CreateNCR() {
     const applicableProcess = document.getElementById('napplicableProcess')?.value;
     const supplierName = document.getElementById('nsupplierName')?.value;
 
-   // Check for empty or undefined applicableProcess and supplierName
-   if (!applicableProcess || !supplierName) {
-    alert("Please select both Applicable Process and Supplier");
-    return;
-}
+    // Check for empty or undefined applicableProcess and supplierName
+    if (!applicableProcess || !supplierName) {
+        alert("Please select both Applicable Process and Supplier");
+        return;
+    }
 
     // Generate NCR Number and Timestamp
     const ncrNumber = NCRNumberGenerator();
@@ -853,8 +853,8 @@ function submitNCR() {
             sessionStorage.setItem('history', JSON.stringify(history));
 
             //make engineering array and push to engineering json
-             //make engineering array and push to engineering json
-             const engineeringEntry = {
+            //make engineering array and push to engineering json
+            const engineeringEntry = {
                 ncrNumber: ncrNumber,
                 dateReceived: Timestamp(),
                 itemDescription: itemDescription,
@@ -1039,7 +1039,7 @@ function performSearchReports() {
 }
 
 function clearSearch() {
-    
+
     location.reload();
 }
 
@@ -1442,7 +1442,7 @@ function populateSupplierDropdown(elementID, ncrNumber = null) {
     }
 
     // Handle custom supplier input and saving selected supplier
-    supplierDropdown.addEventListener('change', function(event) {
+    supplierDropdown.addEventListener('change', function (event) {
         const supplierName = event.target.value;
         if (supplierName === 'custom') {
             const customSupplier = prompt('Please enter your supplier name:');
@@ -1505,7 +1505,7 @@ function populateSupplierDropdownN(elementID) {
         });
         return group;
     };
-     // Populate dropdown
+    // Populate dropdown
     //supplierDropdown.innerHTML = ''; // Clear existing options
     supplierDropdown.appendChild(createOptionGroup('Popular Suppliers', topSuppliers));
     supplierDropdown.appendChild(createOptionGroup('All Suppliers', allSuppliers));
@@ -1519,53 +1519,53 @@ function populateSupplierDropdownN(elementID) {
 // Function to display a thumbnail and add delete functionality
 function displayThumbnail(fileObject) {
     const thumbnailsContainer = document.getElementById('thumbnailsContainer');
- 
+
     // Create elements for each thumbnail and delete button
     const fileItem = document.createElement('div');
     fileItem.classList.add('file-item');
- 
+
     const thumbnailImage = document.createElement('img');
     thumbnailImage.src = fileObject.thumbnail;
     thumbnailImage.classList.add('thumbnail');
- 
+
     const deleteButton = document.createElement('button');
     deleteButton.textContent = 'Delete';
     deleteButton.classList.add('delete-button');
- 
+
     // Delete function removes the file item from both array and display
     deleteButton.addEventListener('click', () => {
         deleteFile(fileObject, fileItem);
     });
- 
+
     // Append elements to the file item
     fileItem.appendChild(thumbnailImage);
     fileItem.appendChild(deleteButton);
- 
+
     // Append file item to thumbnails container
     thumbnailsContainer.appendChild(fileItem);
     document.getElementById('fileNames').innerHTML = "";
- }
- 
- // Function to delete an uploaded file
- function deleteFile(fileObject, fileItem) {
+}
+
+// Function to delete an uploaded file
+function deleteFile(fileObject, fileItem) {
     // Remove fileObject from uploadedFiles array
     uploadedFiles.splice(uploadedFiles.indexOf(fileObject), 1);
- 
+
     // Remove the file item from the display
     fileItem.remove();
-    if(uploadedFiles.length == 0){
+    if (uploadedFiles.length == 0) {
         document.getElementById('fileNames').innerHTML = "No files uploaded yet!";
     }
- }
- 
- // Use the modified event listener for new file uploads
- document.getElementById('attachedDocument').addEventListener('change', function () {
+}
+
+// Use the modified event listener for new file uploads
+document.getElementById('attachedDocument').addEventListener('change', function () {
     const fileInput = document.getElementById('attachedDocument');
     const files = Array.from(fileInput.files);
     const validExtensions = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
     let validFiles = [];
     let invalidFiles = [];
- 
+
     files.forEach(file => {
         if (validExtensions.includes(file.type)) {
             validFiles.push(file);
@@ -1573,13 +1573,13 @@ function displayThumbnail(fileObject) {
             invalidFiles.push(file.name);
         }
     });
- 
+
     if (invalidFiles.length > 0) {
         alert(`These files are not allowed: ${invalidFiles.join(', ')}. Please upload only images.`);
         fileInput.value = '';
         return;
     }
- 
+
     // Process and display new valid files
     validFiles.forEach(file => {
         const reader = new FileReader();
@@ -1589,42 +1589,42 @@ function displayThumbnail(fileObject) {
             img.src = imageData;
             img.onload = () => {
                 const thumbnailData = compressImage(img, 200, 200);
- 
+
                 const fileObject = { file, thumbnail: thumbnailData };
                 uploadedFiles.push(fileObject);
- 
+
                 // Display the new thumbnail
                 displayThumbnail(fileObject);
-                
+
             };
         };
         reader.readAsDataURL(file);
     });
- 
+
     // Clear the file input for potential future uploads
     fileInput.value = '';
- });
- 
- // Function to compress the image and return thumbnail data
- function compressImage(img, width, height) {
-     const canvas = document.createElement('canvas');
-     const ctx = canvas.getContext('2d');
-     canvas.width = width;
-     canvas.height = height;
- 
-     // Draw the image scaled to fit the thumbnail dimensions
-     ctx.drawImage(img, 0, 0, width, height);
- 
-     // Return the thumbnail data URL (compressed as JPEG, adjust quality as needed)
-     return canvas.toDataURL('image/jpeg', 0.6); // 0.7 is a good balance of quality and size
- }
- 
+});
 
- //==========================================================================================================================
+// Function to compress the image and return thumbnail data
+function compressImage(img, width, height) {
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    canvas.width = width;
+    canvas.height = height;
+
+    // Draw the image scaled to fit the thumbnail dimensions
+    ctx.drawImage(img, 0, 0, width, height);
+
+    // Return the thumbnail data URL (compressed as JPEG, adjust quality as needed)
+    return canvas.toDataURL('image/jpeg', 0.6); // 0.7 is a good balance of quality and size
+}
+
+
+//==========================================================================================================================
 //ENGINEER
 //
 //==============================================================================================================================
- 
+
 // ==========================================
 // Engineer Populate Notifications - For all pages
 // ==========================================
@@ -1680,7 +1680,7 @@ function populateNotificationsEng() {
         closeButton.innerHTML = `<svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="21" height="21" fill="none" viewBox="0 0 24 24">
             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M6 18 17.94 6M18 18 6.06 6"/>
         </svg>`
-        
+
         closeButton.onclick = (e) => {
             e.preventDefault(); // Prevent default action
             e.stopPropagation(); // Prevent click from propagating to parent elements
@@ -1715,7 +1715,7 @@ function updateNotificationCountEng() {
 function getOldNotificationsEng() {
 
     return engineering.filter(item => item.ncrStatus === "Engineering")
-                      .map(item => item.ncrNumber);
+        .map(item => item.ncrNumber);
 
 }
 
@@ -1844,7 +1844,6 @@ function populateEngDetailsPage(ncrNumber) {
     }
 }
 
-
 //================================================================================================================
 //POPULATE EDIT PAGE OF ENGINEER'S PORTION OF NCR
 //
@@ -1854,7 +1853,7 @@ function populateEngEditPage(ncrNumber) {
     //document.getElementById('create-edit')
     const entry = engineering.find(item => item.ncrNumber === ncrNumber);
     if (entry) {
-        
+
         //document.getElementById('ncrNumberEng').textContent = entry.ncrNumber;
         document.getElementById('reviewByCfEngineering').value = entry.reviewByCfEngineering;
         document.getElementById('customerNotification').value = entry.customerNotification;
@@ -1866,10 +1865,10 @@ function populateEngEditPage(ncrNumber) {
             document.getElementById('originalEngineerName').value = entry.originalEngineerName;
             document.getElementById('originalRevNumber').value = entry.originalRevNumber;
             document.getElementById('updatedRevNumber').value = entry.updatedRevNumber;
-           
+
             document.getElementById('revisionDate').value = setDate(entry.revisionDate);
             document.getElementById('engineerName').value = entry.engineerName;
-            
+
 
         } else {
             document.getElementById('revisionDate').value = '';
@@ -1878,13 +1877,13 @@ function populateEngEditPage(ncrNumber) {
             document.getElementById('updatedRevNumber').value = '';
             document.getElementById('engineerName').value = '';
 
-             // Disable the fields
-         document.getElementById('originalRevNumber').disabled = true;
-         document.getElementById('originalEngineerName').disabled = true;
-         document.getElementById('updatedRevNumber').disabled = true;
-         document.getElementById('revisionDate').disabled = true;
-         document.getElementById('engineerName').disabled = true;
-         
+            // Disable the fields
+            document.getElementById('originalRevNumber').disabled = true;
+            document.getElementById('originalEngineerName').disabled = true;
+            document.getElementById('updatedRevNumber').disabled = true;
+            document.getElementById('revisionDate').disabled = true;
+            document.getElementById('engineerName').disabled = true;
+
         }
     }
     //console.log(entry);
@@ -1920,27 +1919,30 @@ document.getElementById('drawingUpdate').addEventListener('change', (event) => {
         document.getElementById('revisionDate').value = "";
         document.getElementById('engineerName').value = "";
 
-         // Disable the fields
-         document.getElementById('originalRevNumber').disabled = true;
-         document.getElementById('originalEngineerName').disabled = true;
-         document.getElementById('updatedRevNumber').disabled = true;
-         document.getElementById('revisionDate').disabled = true;
-         document.getElementById('engineerName').disabled = true;
- 
+        // Disable the fields
+        document.getElementById('originalRevNumber').disabled = true;
+        document.getElementById('originalEngineerName').disabled = true;
+        document.getElementById('updatedRevNumber').disabled = true;
+        document.getElementById('revisionDate').disabled = true;
+        document.getElementById('engineerName').disabled = true;
+
     } else if (drawingUpdate === "Yes") {
-        // Restore previous values if "Yes" is selected
+
+        // Enable the fields
+        document.getElementById('originalRevNumber').disabled = false;
+        document.getElementById('originalEngineerName').disabled = false;
+        document.getElementById('updatedRevNumber').disabled = false;
+        document.getElementById('revisionDate').disabled = false;
+        document.getElementById('engineerName').disabled = false;
+
+         // Restore previous values if "Yes" is selected
         document.getElementById('originalRevNumber').value = prevOriginalRevNumber;
         document.getElementById('originalEngineerName').value = prevOriginalEngineerName;
         document.getElementById('updatedRevNumber').value = prevUpdatedRevNumber;
         document.getElementById('revisionDate').value = setDate(prevRevisionDate);
         document.getElementById('engineerName').value = prevEngineerName;
 
-         // Enable the fields
-         document.getElementById('originalRevNumber').disabled = false;
-         document.getElementById('originalEngineerName').disabled = false;
-         document.getElementById('updatedRevNumber').disabled = false;
-         document.getElementById('revisionDate').disabled = false;
-         document.getElementById('engineerName').disabled = false;
+
     }
 });
 
@@ -1949,7 +1951,7 @@ document.getElementById('drawingUpdate').addEventListener('change', (event) => {
 //
 //=================================================================================================================
 function saveEngNCR() {
-    
+
     const ncrNumber = document.getElementById('ncrNumberE').textContent;
     const changedBy = getUserName();
     const reviewByCfEngineering = document.getElementById('reviewByCfEngineering').value;
@@ -1960,11 +1962,11 @@ function saveEngNCR() {
     const originalEngineerName = document.getElementById('originalEngineerName').value;
     const updatedRevNumber = document.getElementById('updatedRevNumber').value;
     const revisionDateRaw = document.getElementById('revisionDate').value;
-    const revisionDate = revisionDateRaw?correctDate(revisionDateRaw) : "";
+    const revisionDate = revisionDateRaw ? correctDate(revisionDateRaw) : "";
     const engineerName = document.getElementById('engineerName').value;
 
     const engineeringEntry = engineering.find(entry => entry.ncrNumber === ncrNumber);
-    
+
 
     if (engineeringEntry) {
         // Check for changes in all relevant fields
@@ -2006,7 +2008,7 @@ function saveEngNCR() {
                 engineeringEntry.revisionDate = "";
                 engineeringEntry.engineerName = "";
             }
-            session.setItem('engineering', JSON.stringify(engineering));
+            sessionStorage.setItem('engineering', JSON.stringify(engineering));
 
             const historyEntry = {
                 ncrNumber: ncrNumber,
@@ -2031,7 +2033,7 @@ function saveEngNCR() {
     }
     //console.log(engineering);
     //console.log(typeof(revisionDate), revisionDate)
-    
+
 }
 
 //================================================================================================================
@@ -2053,7 +2055,7 @@ function submitEngNCR() {
     const originalEngineerName = document.getElementById('originalEngineerName').value;
     const updatedRevNumber = document.getElementById('updatedRevNumber').value;
     const revisionDateRaw = document.getElementById('revisionDate').value;
-    const revisionDate = revisionDateRaw?correctDate(revisionDateRaw) : "";
+    const revisionDate = revisionDateRaw ? correctDate(revisionDateRaw) : "";
     const engineerName = document.getElementById('engineerName').value;
 
     // Check if all required fields are filled
@@ -2069,16 +2071,17 @@ function submitEngNCR() {
 
     const confirmation = confirm("Are you sure you want to submit the NCR?");
     if (confirmation) {
-        // Update the corresponding NCR status in the quality array
+        // Update the corresponding NCR in the quality array
+        const engineeringEntry = engineering.find(entry => entry.ncrNumber === ncrNumber);
+
         const qualityEntry = quality.find(entry => entry.ncrNumber === ncrNumber);
 
-        if (qualityEntry){
+        if (qualityEntry) {
             qualityEntry.ncrStatus = "Operations";
         }
-        sessionStorage.setItem('quality', JSON.stringify(quality)); //persist the changes
+        sessionStorage.setItem('quality', JSON.stringify(quality));
 
-        //update the corresponding NCR in Engineering
-        const engineeringEntry = engineering.find(entry => entry.ncrNumber === ncrNumber);
+
 
         if (engineeringEntry) {
             engineeringEntry.reviewByCfEngineering = reviewByCfEngineering;
@@ -2092,23 +2095,23 @@ function submitEngNCR() {
             engineeringEntry.updatedRevNumber = updatedRevNumber;
             engineeringEntry.revisionDate = revisionDate;
             engineeringEntry.engineerName = engineerName;
-            }
-            sessionStorage.setItem('engineering', JSON.stringify(engineering));
-            //make history array and push to history json
-            const historyEntry = {
-                ncrNumber: ncrNumber,
-                actionType: "Submit",
-                status: 'Open',
-                actionDescription: "Submitted from Engineering to Operations",
-                changedBy: changedBy,
-                changedOn: Timestamp()
-            }
-            history.push(historyEntry);
-            sessionStorage.setItem('history', JSON.stringify(history));
-            alert('NCR has been successfully submitted.');
-            window.history.back();
-        
-    
+        }
+        sessionStorage.setItem('engineering', JSON.stringify(engineering));
+        //make history array and push to history json
+        const historyEntry = {
+            ncrNumber: ncrNumber,
+            actionType: "Submit",
+            status: 'Open',
+            actionDescription: "Submitted from Engineering to Operations",
+            changedBy: changedBy,
+            changedOn: Timestamp()
+        }
+        history.push(historyEntry);
+        sessionStorage.setItem('history', JSON.stringify(history));
+        alert('NCR has been successfully submitted.');
+        window.history.back();
+
+
     } else {
         // If the user cancels, do nothing or add custom logic
         alert("Submit operation cancelled.");
@@ -2150,7 +2153,7 @@ function updateNavLinks(userRole) {
         viewLink.style.display = 'block';
         reportsLink.style.display = 'block';
     }
-    else if(userRole == "Engineer"){
+    else if (userRole == "Engineer") {
         homeLink.style.display = 'block';
         createLink.style.display = 'none';
         viewLink.style.display = 'block';
@@ -2187,7 +2190,7 @@ function performSearchEng() {
         resultsCountMessage.style.display = 'none';
     }*/
 
-    
+
     const uniqueEngineering = Array.from(new Map(ncrLog.map(item => [item.ncrNumber, item])).values())
         .sort((a, b) => {
             const numA = parseInt(a.ncrNumber.split('-')[1], 10);
@@ -2202,7 +2205,7 @@ function performSearchEng() {
     const filteredResults = uniqueEngineering.filter(item => {
         const isNcrNumberValid = ncrNumber ? item.ncrNumber.includes(ncrNumber) : true;
         const qualityItem = quality.find(qItem => qItem.ncrNumber === item.ncrNumber);
-        
+
         // If ncrStatus is "All", don't filter by status, else filter by the selected ncrStatus
         const isStatusValid = (ncrStatus === "All" || qualityItem && qualityItem.ncrStatus === ncrStatus);
 
@@ -2282,9 +2285,9 @@ function loadProfileSettings(loggedInUser) {
     if (!loggedInUser) return;
 
     // Update display elements
-    document.getElementById('userFullnameProfilePage').textContent = 
+    document.getElementById('userFullnameProfilePage').textContent =
         `${loggedInUser.user_Firstname} ${loggedInUser.user_Middlename || ''} ${loggedInUser.user_Lastname}`.trim();
-    
+
     document.getElementById('usernameInput').value = loggedInUser.user_name;
     document.getElementById('firstnameInput').value = loggedInUser.user_Firstname;
     document.getElementById('middlenameInput').value = loggedInUser.user_Middlename || '-';
@@ -2299,7 +2302,7 @@ function loadProfileSettings(loggedInUser) {
 
 
     // Set the profile picture
-    const profilePicSrc = loggedInUser.profilePicture || 
+    const profilePicSrc = loggedInUser.profilePicture ||
         (loggedInUser.gender.toLowerCase() === 'male' ? 'images/user-profile_v1.png' : 'images/user-profile.png');
     document.getElementById('profilePagePic').src = profilePicSrc;
 }
@@ -2312,18 +2315,18 @@ function toggleEditMode(loggedInUser) {
     const updatedUser = JSON.parse(localStorage.getItem('loggedInUser'));
 
 
-    document.getElementById('userFullnameProfilePage').style.display = 'none';     
+    document.getElementById('userFullnameProfilePage').style.display = 'none';
     document.getElementById('usernameInput').disabled = false;
     document.getElementById('firstnameInput').disabled = false;
     document.getElementById('middlenameInput').disabled = false;
     document.getElementById('lastnameInput').disabled = false;
     document.getElementById('emailInput').disabled = false;
     document.getElementById('passwordInput').disabled = false;
-    document.getElementById('roleInput').value +=  '     *Cannot change without administrative permissions.';
+    document.getElementById('roleInput').value += '     *Cannot change without administrative permissions.';
     document.getElementById('genderInput').disabled = false;
 
     document.getElementById('username').style.display = 'none';
-    document.getElementById('togglePassword').style.display = 'block';   
+    document.getElementById('togglePassword').style.display = 'block';
 
     document.getElementById('editprofileButton').style.display = 'none';
     document.getElementById('saveprofileButton').style.display = 'block';
@@ -2385,14 +2388,14 @@ function cancelEditMode(loggedInUser) {
     loadProfileSettings(loggedInUser);
 
 
-    document.getElementById('userFullnameProfilePage').style.display = 'block';     
+    document.getElementById('userFullnameProfilePage').style.display = 'block';
     document.getElementById('usernameInput').disabled = true;
     document.getElementById('firstnameInput').disabled = true;
     document.getElementById('middlenameInput').disabled = true;
     document.getElementById('lastnameInput').disabled = true;
     document.getElementById('emailInput').disabled = true;
     document.getElementById('passwordInput').disabled = true;
-    document.getElementById('roleInput').value =  loggedInUser.Department_Name;
+    document.getElementById('roleInput').value = loggedInUser.Department_Name;
     document.getElementById('genderInput').disabled = true;
 
     document.getElementById('username').style.display = 'block';
@@ -2405,19 +2408,19 @@ function cancelEditMode(loggedInUser) {
 
     document.getElementById('togglePassword').style.display = 'none';
 
-    document.getElementById('userFullnameProfilePage').textContent = 
-    `${loggedInUser.user_Firstname} ${loggedInUser.user_Middlename || ''} ${loggedInUser.user_Lastname}`.trim();
+    document.getElementById('userFullnameProfilePage').textContent =
+        `${loggedInUser.user_Firstname} ${loggedInUser.user_Middlename || ''} ${loggedInUser.user_Lastname}`.trim();
 
-document.getElementById('usernameInput').value = loggedInUser.user_name;
-document.getElementById('firstnameInput').value = loggedInUser.user_Firstname;
-document.getElementById('middlenameInput').value = loggedInUser.user_Middlename || '-';
-document.getElementById('lastnameInput').value = loggedInUser.user_Lastname;
-document.getElementById('emailInput').value = loggedInUser.email;
-document.getElementById('passwordInput').value = loggedInUser.password;
-document.getElementById('roleInput').value = loggedInUser.Department_Name;
-document.getElementById('genderInput').value = loggedInUser.gender;
+    document.getElementById('usernameInput').value = loggedInUser.user_name;
+    document.getElementById('firstnameInput').value = loggedInUser.user_Firstname;
+    document.getElementById('middlenameInput').value = loggedInUser.user_Middlename || '-';
+    document.getElementById('lastnameInput').value = loggedInUser.user_Lastname;
+    document.getElementById('emailInput').value = loggedInUser.email;
+    document.getElementById('passwordInput').value = loggedInUser.password;
+    document.getElementById('roleInput').value = loggedInUser.Department_Name;
+    document.getElementById('genderInput').value = loggedInUser.gender;
 
-document.getElementById('username').textContent = loggedInUser.user_name;
+    document.getElementById('username').textContent = loggedInUser.user_name;
 
     const profilePagePic = document.getElementById('profilePagePic');
     profilePagePic.src = tempProfilePicture;
