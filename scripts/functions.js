@@ -2006,7 +2006,7 @@ function saveEngNCR() {
                 engineeringEntry.revisionDate = "";
                 engineeringEntry.engineerName = "";
             }
-            localStorage.setItem('engineering', JSON.stringify(engineering));
+            session.setItem('engineering', JSON.stringify(engineering));
 
             const historyEntry = {
                 ncrNumber: ncrNumber,
@@ -2018,7 +2018,7 @@ function saveEngNCR() {
             };
 
             history.push(historyEntry);
-            localStorage.setItem('history', JSON.stringify(history));
+            sessionStorage.setItem('history', JSON.stringify(history));
 
             alert('Your changes have been saved. You can continue later.');
             window.history.back();
@@ -2075,7 +2075,7 @@ function submitEngNCR() {
         if (qualityEntry){
             qualityEntry.ncrStatus = "Operations";
         }
-        localStorage.setItem('quality', JSON.stringify(quality)); //persist the changes
+        sessionStorage.setItem('quality', JSON.stringify(quality)); //persist the changes
 
         //update the corresponding NCR in Engineering
         const engineeringEntry = engineering.find(entry => entry.ncrNumber === ncrNumber);
@@ -2093,7 +2093,7 @@ function submitEngNCR() {
             engineeringEntry.revisionDate = revisionDate;
             engineeringEntry.engineerName = engineerName;
             }
-            localStorage.setItem('engineering', JSON.stringify(engineering));
+            sessionStorage.setItem('engineering', JSON.stringify(engineering));
             //make history array and push to history json
             const historyEntry = {
                 ncrNumber: ncrNumber,
@@ -2104,7 +2104,7 @@ function submitEngNCR() {
                 changedOn: Timestamp()
             }
             history.push(historyEntry);
-            localStorage.setItem('history', JSON.stringify(history));
+            sessionStorage.setItem('history', JSON.stringify(history));
             alert('NCR has been successfully submitted.');
             window.history.back();
         
