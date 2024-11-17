@@ -11,6 +11,28 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
         <link rel="icon" type="image/x-icon" href="images/favicon.png">
+
+        <style>
+            /* Style for password container */
+            .password-container {
+                   position: relative;
+                   width: 100%;
+               }
+       
+               .password-container input {
+                   padding-right: 40px; /* Space for the icon */
+               }
+       
+               .password-container svg {
+                   position: absolute;
+                   right: 10px;
+                   top: 50%;
+                   transform: translateY(-50%);
+                   cursor: pointer;
+                   color: gray;
+               }
+       </style>
+
     </head>
 <body>
     <header>
@@ -32,7 +54,7 @@
                 <nav aria-label="Main Navigation" id="mainNav">
                     <ul>
                         <li><a href="index.html"  id="home" aria-current="page"
-                                aria-label="Dashboard page" class="nav-active" tabindex="0">Dashboard</a></li>
+                                aria-label="Dashboard page"  tabindex="0">Dashboard</a></li>
                         <li><a href="create.html" id="create" aria-label="Create new Non-Conformance Report"
                                 tabindex="0">Create <abbr title="Non-Conformance Report">NCR</abbr></a></li>
                         <li><a href="view.html" id="view" tabindex="0"
@@ -76,7 +98,7 @@
                                     <!-- Notifications description -->
                                 </div>
                             </div>
-                            <div class="notif-list" id="notifList" tabindex="0">
+                            <div class="notif-list" id="notifList" tabindex="-1">
                                 <!-- Notifications will be populated here -->
                             </div>
                         </div>
@@ -96,11 +118,11 @@
                             </span>
                         </button>
                     </div>
-                    <div id="profileDropdown" class="profile-dropdown" tabindex="0" role="region"
+                    <div id="profileDropdown" class="profile-dropdown" tabindex="-1" role="region"
                         aria-labelledby="btnProfile">
                         <ul>
                             <li>
-                                <a href="profile_settings.html" aria-label="Navigate to Profile Page" tabindex="0">
+                                <a href="profile_settings.html" aria-label="Navigate to Profile Page" tabindex="-1">
                                     <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
                                         xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
                                         viewBox="0 0 24 24">
@@ -132,7 +154,7 @@
                                 </a>
                             </li> -->
                             <li>
-                                <a id="logout" href="login.html" aria-label="Navigate to Logout Page" tabindex="0">
+                                <a id="logout" href="login.html" aria-label="Navigate to Logout Page" tabindex="-1">
                                     <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
                                         xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
                                         viewBox="0 0 24 24">
@@ -185,7 +207,7 @@
                     <div class="settings-left-col">
                         <div>
                             <div class="settings-button one-col">
-                                <button id="editprofileButton" class="button-primary">Edit Account</button>
+                                <button id="editprofileButton" class="button-primary" tabindex="1">Edit Account</button>
                             </div>
                             <div class="settings-button two-cols">
                                 <button id="saveprofileButton" class="button-primary" style="display: none;">Save</button>
@@ -247,11 +269,25 @@
                                 </div>
                                 <div class="settings-section-field">
                                     <strong>Password:</strong>
+                                    <div class="password-container">
                                     <input type="password" id="passwordInput" value="" disabled>
+                                    <svg id="togglePassword" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                                viewBox="0 0 24 24" style="display: none;">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 5c-5.25 0-9.568 3.832-11 7 1.432 3.168 5.75 7 11 7s9.568-3.832 11-7c-1.432-3.168-5.75-7-11-7zm0 4a3 3 0 1 1 0 6 3 3 0 0 1 0-6z" />
+                            </svg>
+                            </div>
                                 </div>
                                 <div class="settings-section-field" style="display: none;">
                                     <strong>Confirm Password:</strong>
+                                    <div class="password-container">
                                     <input type="password" id="passwordConfirmInput" value="" disabled>
+                                    <svg id="togglePassword" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                                viewBox="0 0 24 24" style="display: none;">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 5c-5.25 0-9.568 3.832-11 7 1.432 3.168 5.75 7 11 7s9.568-3.832 11-7c-1.432-3.168-5.75-7-11-7zm0 4a3 3 0 1 1 0 6 3 3 0 0 1 0-6z" />
+                            </svg>
+                                    </div>
                                 </div>
                                 
                             </div>
@@ -268,7 +304,7 @@
                                 <div class="settings-section-field notifs">
                                     <strong id="notifs">Enable Notifications</strong>
                                     <label class="switch">
-                                        <input type="checkbox" id="toggleSwitch" checked>
+                                        <input type="checkbox" id="toggleSwitch" tabindex="0" checked>
                                         <span class="slider round"></span>
                                     </label>
                                 </div>
@@ -279,7 +315,7 @@
             </div>
 
 
-        <div id="Profile" class="profile-container">
+        <!-- <div id="Profile" class="profile-container">
                     <h1>Profile Settings</h1>
             
             <span id="errormsg" style="display: none; color: red;"></span>
@@ -336,9 +372,9 @@
                         <option value="other">Other</option>
                     </select>
                 </div>
-            </div>
+            </div> -->
     
-            <div class="buttons">
+            <!-- <div class="buttons">
             <button id="editprofileButton" class="button-primary">Edit</button>
     
             </div>
@@ -349,9 +385,9 @@
             <div class="buttons">
                         <button id="cancelprofileButton" class="button-secondary" style="display: none;">Cancel</button>
     
-         </div>
+         </div> -->
          
-        </div>  
+        <!-- </div>  
         <div id="settings" class=".settings-container">
             <div class="settings-section">
                 <h3>Settings</h3>
@@ -362,7 +398,7 @@
                     <span class="slider round"></span>
                   </label>
             </div>
-         </div>      
+         </div>       -->
         </main>
     <footer id="footer">
         <p><small>&copy; 2024 Copyright. QCision - WireWits. All rights reserved.</small></p>

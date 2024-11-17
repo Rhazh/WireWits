@@ -1842,8 +1842,6 @@ function populateEngEditPage(ncrNumber) {
     //document.getElementById('create-edit')
     const entry = engineering.find(item => item.ncrNumber === ncrNumber);
     if (entry) {
-        
-        //document.getElementById('ncrNumberEng').textContent = entry.ncrNumber;
         document.getElementById('reviewByCfEngineering').value = entry.reviewByCfEngineering;
         document.getElementById('customerNotification').value = entry.customerNotification;
         document.getElementById('disposition').textContent = entry.disposition;
@@ -1854,40 +1852,16 @@ function populateEngEditPage(ncrNumber) {
             document.getElementById('originalEngineerName').value = entry.originalEngineerName;
             document.getElementById('originalRevNumber').value = entry.originalRevNumber;
             document.getElementById('updatedRevNumber').value = entry.updatedRevNumber;
-           
-            document.getElementById('revisionDate').value = setDate(entry.revisionDate);
-            document.getElementById('engineerName').value = entry.engineerName;
-            
+            document.getElementById('revisionDate').value = entry.revisionDate ? formatDate(entry.revisionDate) : "";
 
         } else {
             document.getElementById('revisionDate').value = '';
             document.getElementById('originalEngineerName').value = '';
             document.getElementById('originalRevNumber').value = '';
             document.getElementById('updatedRevNumber').value = '';
-            document.getElementById('engineerName').value = '';
-
-             // Disable the fields
-         document.getElementById('originalRevNumber').disabled = true;
-         document.getElementById('originalEngineerName').disabled = true;
-         document.getElementById('updatedRevNumber').disabled = true;
-         document.getElementById('revisionDate').disabled = true;
-         document.getElementById('engineerName').disabled = true;
-         
         }
     }
     console.log(entry);
-}
-
-//Function to Set Date to Date input for Revision Date of NCR
-function setDate(dateString) {
-    //const newDate = dateString.replace(/-/g, '/')
-    const [month, day, year] = dateString.split('/'); // Split the string into parts
-    return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`; // Convert to MM-DD-YYYY to suit data in json.
-}
-function correctDate(dateString) {
-    //const newDate = dateString.replace(/-/g, '/')
-    const [year, month, day] = dateString.split('-'); // Split the string into parts
-    return `${month.padStart(2, '0')}/${day.padStart(2, '0')}/${year}`; // Convert to MM-DD-YYYY to suit data in json.
 }
 
 //================================================================================================================
@@ -1898,7 +1872,6 @@ let prevOriginalRevNumber = "";
 let prevOriginalEngineerName = "";
 let prevUpdatedRevNumber = "";
 let prevRevisionDate = "";
-let prevEngineerName = "";
 
 // Event listener for drawingUpdate
 document.getElementById('drawingUpdate').addEventListener('change', (event) => {
@@ -1909,37 +1882,19 @@ document.getElementById('drawingUpdate').addEventListener('change', (event) => {
         prevOriginalRevNumber = document.getElementById('originalRevNumber').value;
         prevOriginalEngineerName = document.getElementById('originalEngineerName').value;
         prevUpdatedRevNumber = document.getElementById('updatedRevNumber').value;
-        prevRevisionDate = correctDate(document.getElementById('revisionDate').value);
-        prevEngineerName = document.getElementById('engineerName').value;
+        prevRevisionDate = document.getElementById('revisionDate').value;
 
         // Clear the fields
         document.getElementById('originalRevNumber').value = "";
         document.getElementById('originalEngineerName').value = "";
         document.getElementById('updatedRevNumber').value = "";
         document.getElementById('revisionDate').value = "";
-        document.getElementById('engineerName').value = "";
-
-         // Disable the fields
-         document.getElementById('originalRevNumber').disabled = true;
-         document.getElementById('originalEngineerName').disabled = true;
-         document.getElementById('updatedRevNumber').disabled = true;
-         document.getElementById('revisionDate').disabled = true;
-         document.getElementById('engineerName').disabled = true;
- 
     } else if (drawingUpdate === "Yes") {
         // Restore previous values if "Yes" is selected
         document.getElementById('originalRevNumber').value = prevOriginalRevNumber;
         document.getElementById('originalEngineerName').value = prevOriginalEngineerName;
         document.getElementById('updatedRevNumber').value = prevUpdatedRevNumber;
-        document.getElementById('revisionDate').value = setDate(prevRevisionDate);
-        document.getElementById('engineerName').value = prevEngineerName;
-
-         // Enable the fields
-         document.getElementById('originalRevNumber').disabled = false;
-         document.getElementById('originalEngineerName').disabled = false;
-         document.getElementById('updatedRevNumber').disabled = false;
-         document.getElementById('revisionDate').disabled = false;
-         document.getElementById('engineerName').disabled = false;
+        document.getElementById('revisionDate').value = prevRevisionDate;
     }
 });
 
@@ -1957,11 +1912,9 @@ function saveEngNCR() {
     const originalRevNumber = document.getElementById('originalRevNumber').value;
     const originalEngineerName = document.getElementById('originalEngineerName').value;
     const updatedRevNumber = document.getElementById('updatedRevNumber').value;
-    const revisionDate = correctDate(document.getElementById('revisionDate').value);
-    const engineerName = document.getElementById('engineerName').value;
     
     // Only set revisionDate if updatedRevNumber has a value
-    //const revisionDate = updatedRevNumber ? Timestamp() : "";
+    const revisionDate = updatedRevNumber ? Timestamp() : "";
 
     const engineeringEntry = engineering.find(entry => entry.ncrNumber === ncrNumber);
 
@@ -1973,11 +1926,10 @@ function saveEngNCR() {
             engineeringEntry.disposition === disposition &&
             engineeringEntry.drawingUpdate === drawingUpdate &&
             engineeringEntry.originalRevNumber === originalRevNumber &&
-            engineeringEntry.updatedRevNumber === updatedRevNumber &&
-            engineeringEntry.originalEngineerName === originalEngineerName &&
-            engineeringEntry.engineerName === engineerName &&
-            engineeringEntry.revisionDate === revisionDate
-
+            engineeringEntry.updatedRevNumber === updatedRevNumber 
+            //still need more info about revision (ask Mark in class)
+            //&&
+            //engineeringEntry.revisionDate === revisionDate
         );
 
         if (noChanges) {
@@ -1996,14 +1948,14 @@ function saveEngNCR() {
                 engineeringEntry.originalRevNumber = originalRevNumber;
                 engineeringEntry.originalEngineerName = originalEngineerName;
                 engineeringEntry.updatedRevNumber = updatedRevNumber;
+
+                // Only set the revision date if updatedRevNumber has a value
                 engineeringEntry.revisionDate = revisionDate;
-                engineeringEntry.engineerName = engineerName;
             } else {
                 engineeringEntry.originalRevNumber = "";
                 engineeringEntry.originalEngineerName = "";
                 engineeringEntry.updatedRevNumber = "";
                 engineeringEntry.revisionDate = "";
-                engineeringEntry.engineerName = "";
             }
             sessionStorage.setItem('engineering', JSON.stringify(engineering));
 
@@ -2021,15 +1973,13 @@ function saveEngNCR() {
 
             alert('Your changes have been saved. You can continue later.');
             window.history.back();
-            //console.log(typeof(revisionDate), revisionDate)
         } else {
             alert("Save operation cancelled.");
         }
     } else {
         alert('NCR not found. Please check the NCR number.');
     }
-    //console.log(engineering);
-    //console.log(typeof(revisionDate), revisionDate)
+    console.log(engineering);
 }
 
 //================================================================================================================
@@ -2050,8 +2000,6 @@ function submitEngNCR() {
     const originalRevNumber = document.getElementById('originalRevNumber').value;
     const originalEngineerName = document.getElementById('originalEngineerName').value;
     const updatedRevNumber = document.getElementById('updatedRevNumber').value;
-    const revisionDate = correctDate(document.getElementById('revisionDate').value);
-    const engineerName = document.getElementById('engineerName').value;
 
     // Check if all required fields are filled
     if (!reviewByCfEngineering || !disposition) {
@@ -2076,11 +2024,19 @@ function submitEngNCR() {
             engineeringEntry.drawingUpdate = drawingUpdate;
             engineeringEntry.ncrStatus = "Operations";
             engineeringEntry.engineerName = changedBy;
-            engineeringEntry.originalRevNumber = originalRevNumber;
-            engineeringEntry.originalEngineerName = originalEngineerName;
-            engineeringEntry.updatedRevNumber = updatedRevNumber;
-            engineeringEntry.revisionDate = revisionDate;
-            engineeringEntry.engineerName = engineerName;
+
+            if (drawingUpdate === "Yes") {
+                engineeringEntry.originalRevNumber = originalRevNumber;
+                engineeringEntry.originalEngineerName = originalEngineerName;
+                engineeringEntry.updatedRevNumber = updatedRevNumber;
+
+                // Only set the revision date if updatedRevNumber has a value
+                //engineeringEntry.revisionDate = revisionDate;
+            } else {
+                engineeringEntry.originalRevNumber = "";
+                engineeringEntry.originalEngineerName = "";
+                engineeringEntry.updatedRevNumber = "";
+                engineeringEntry.revisionDate = "";
             }
             sessionStorage.setItem('engineering', JSON.stringify(engineering));
             //make history array and push to history json
@@ -2088,7 +2044,7 @@ function submitEngNCR() {
                 ncrNumber: ncrNumber,
                 actionType: "Submit",
                 status: 'Open',
-                actionDescription: "Submitted from Engineering to Operations",
+                actionDescription: "Submission by Engineering",
                 changedBy: changedBy,
                 changedOn: Timestamp()
             }
@@ -2096,8 +2052,8 @@ function submitEngNCR() {
             sessionStorage.setItem('history', JSON.stringify(history));
             alert('NCR has been successfully submitted.');
             window.history.back();
-        
-    
+        }
+
     } else {
         // If the user cancels, do nothing or add custom logic
         alert("Submit operation cancelled.");
@@ -2105,14 +2061,6 @@ function submitEngNCR() {
         return;
     }
 }
-
-
-//================================================================================================================
-//SUPPORTING FUNCTIONS FOR ENGINEER'S PORTION OF NCR
-//
-//=================================================================================================================
-
-
 
 //FUNCTION TO CHANGE NAVIGATION LINKS BASED ON USER
 function updateNavLinks(userRole) {
@@ -2262,14 +2210,18 @@ function loadProfileSettings(loggedInUser) {
     // Update display elements
     document.getElementById('userFullnameProfilePage').textContent = 
         `${loggedInUser.user_Firstname} ${loggedInUser.user_Middlename || ''} ${loggedInUser.user_Lastname}`.trim();
+    
+    document.getElementById('usernameInput').value = loggedInUser.user_name;
+    document.getElementById('firstnameInput').value = loggedInUser.user_Firstname;
+    document.getElementById('middlenameInput').value = loggedInUser.user_Middlename || '-';
+    document.getElementById('lastnameInput').value = loggedInUser.user_Lastname;
+    document.getElementById('emailInput').value = loggedInUser.email;
+    document.getElementById('passwordInput').value = loggedInUser.password;
+    document.getElementById('roleInput').value = loggedInUser.Department_Name;
+    document.getElementById('genderInput').value = loggedInUser.gender;
+
     document.getElementById('username').textContent = loggedInUser.user_name;
-    document.getElementById('userFirstnameProfilePage').textContent = loggedInUser.user_Firstname;
-    document.getElementById('userMiddlenameProfilePage').textContent = loggedInUser.user_Middlename || '-';
-    document.getElementById('userLastnameProfilePage').textContent = loggedInUser.user_Lastname;
-    document.getElementById('userEmailProfilePage').textContent = loggedInUser.email;
-    document.getElementById('userPasswordProfilePage').textContent = loggedInUser.password;
-    document.getElementById('userRoleProfilePage').textContent = loggedInUser.Department_Name;
-    document.getElementById('userGenderProfilePage').textContent = loggedInUser.gender;
+
 
 
     // Set the profile picture
@@ -2280,29 +2232,24 @@ function loadProfileSettings(loggedInUser) {
 
 // Toggle edit mode on the profile settings page
 function toggleEditMode(loggedInUser) {
-    const displayFields = document.querySelectorAll('.user-fullname, .user-role');
-    const editFields = document.querySelectorAll('.editable-field, #togglePassword');
+    // const displayFields = document.querySelectorAll('.user-fullname, .user-role');
+    // const editFields = document.querySelectorAll('.editable-field, #togglePassword');
 
     const updatedUser = JSON.parse(localStorage.getItem('loggedInUser'));
 
-    // Update input fields with the latest saved data
-    document.getElementById('nameInput').value = `${updatedUser.user_Firstname} ${updatedUser.user_Middlename || ''} ${updatedUser.user_Lastname}`;
-    document.getElementById('usernameInput').value = updatedUser.user_name;
-    document.getElementById('firstnameInput').value = updatedUser.user_Firstname;
-    document.getElementById('middlenameInput').value = updatedUser.user_Middlename || '';
-    document.getElementById('lastnameInput').value = updatedUser.user_Lastname;
-    document.getElementById('emailInput').value = updatedUser.email;
-    document.getElementById('passwordInput').value = updatedUser.password;
-    document.getElementById('genderInput').value = updatedUser.gender;
 
-    displayFields.forEach(field => field.style.display = 'none'); // Hide display-only elements
-    editFields.forEach(field => field.style.display = 'block'); // Show editable elements
-    fullnameHeading.style.display = 'none';
-    nameInput.style.display = 'none';
-    genderInput.style.display='block';
+    document.getElementById('userFullnameProfilePage').style.display = 'none';     
+    document.getElementById('usernameInput').disabled = false;
+    document.getElementById('firstnameInput').disabled = false;
+    document.getElementById('middlenameInput').disabled = false;
+    document.getElementById('lastnameInput').disabled = false;
+    document.getElementById('emailInput').disabled = false;
+    document.getElementById('passwordInput').disabled = false;
+    document.getElementById('roleInput').value +=  '     *Cannot change without administrative permissions.';
+    document.getElementById('genderInput').disabled = false;
 
-    document.getElementById('userFullname').style.display = 'block'; // Ensure name remains visible
-    document.getElementById('userRole').style.display = 'block';   
+    document.getElementById('username').style.display = 'none';
+    document.getElementById('togglePassword').style.display = 'block';   
 
     document.getElementById('editprofileButton').style.display = 'none';
     document.getElementById('saveprofileButton').style.display = 'block';
@@ -2328,16 +2275,13 @@ function saveProfileSettings(loggedInUser) {
     };
 
     // Validate required fields
-    if (!updatedUser.user_Firstname || !updatedUser.user_Lastname || !updatedUser.email || !updatedUser.password) {
+    if (!updatedUser.user_Firstname || !updatedUser.user_Lastname || !updatedUser.email || !updatedUser.password || !updatedUser.user_name) {
         alert("Please fill in all required fields.");
         return;
     }
     const profilePagePic = document.getElementById('profilePagePic');
     loggedInUser.profilePicture = profilePagePic.src;
     profilePic.src = profilePagePic.src;
-
-    fullnameHeading.style.display = 'block';
-    genderInput.style.display='none';
 
     // Update `loggedInUser` in localStorage
     localStorage.setItem('loggedInUser', JSON.stringify(updatedUser));
@@ -2366,29 +2310,45 @@ function saveProfileSettings(loggedInUser) {
 function cancelEditMode(loggedInUser) {
     loadProfileSettings(loggedInUser);
 
-    const displayFields = document.querySelectorAll('.user-fullname, .user-role');
-    const editFields = document.querySelectorAll('.editable-field, #togglePassword');
 
-    displayFields.forEach(field => field.style.display = 'block'); // Show display-only elements
-    editFields.forEach(field => field.style.display = 'none'); // Hide editable elements
+    document.getElementById('userFullnameProfilePage').style.display = 'block';     
+    document.getElementById('usernameInput').disabled = true;
+    document.getElementById('firstnameInput').disabled = true;
+    document.getElementById('middlenameInput').disabled = true;
+    document.getElementById('lastnameInput').disabled = true;
+    document.getElementById('emailInput').disabled = true;
+    document.getElementById('passwordInput').disabled = true;
+    document.getElementById('roleInput').value =  loggedInUser.Department_Name;
+    document.getElementById('genderInput').disabled = true;
+
+    document.getElementById('username').style.display = 'block';
+
     document.getElementById('editprofileButton').style.display = 'block';
     document.getElementById('saveprofileButton').style.display = 'none';
     document.getElementById('cancelprofileButton').style.display = 'none';
     document.getElementById('editIcon').style.display = 'none';
 
-    fullnameHeading.style.display = 'block';
-    genderInput.style.display='none';
+
+    document.getElementById('togglePassword').style.display = 'none';
+
+    document.getElementById('userFullnameProfilePage').textContent = 
+    `${loggedInUser.user_Firstname} ${loggedInUser.user_Middlename || ''} ${loggedInUser.user_Lastname}`.trim();
+
+document.getElementById('usernameInput').value = loggedInUser.user_name;
+document.getElementById('firstnameInput').value = loggedInUser.user_Firstname;
+document.getElementById('middlenameInput').value = loggedInUser.user_Middlename || '-';
+document.getElementById('lastnameInput').value = loggedInUser.user_Lastname;
+document.getElementById('emailInput').value = loggedInUser.email;
+document.getElementById('passwordInput').value = loggedInUser.password;
+document.getElementById('roleInput').value = loggedInUser.Department_Name;
+document.getElementById('genderInput').value = loggedInUser.gender;
+
+document.getElementById('username').textContent = loggedInUser.user_name;
 
     const profilePagePic = document.getElementById('profilePagePic');
     profilePagePic.src = tempProfilePicture;
     profilePic.src = profilePagePic.src;
 
-}
-
-// Toggle password visibility
-function togglePasswordVisibility() {
-    const passwordInput = document.getElementById('passwordInput');
-    passwordInput.type = passwordInput.type === 'password' ? 'text' : 'password';
 }
 
 function handleProfilePictureChange(loggedInUser) {

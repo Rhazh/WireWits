@@ -405,7 +405,7 @@ handleProfilePictureChange(loggedInUser); // Initialize the profile picture uplo
     document.getElementById('editprofileButton').addEventListener('click', toggleEditMode);
     document.getElementById('saveprofileButton').addEventListener('click', () => saveProfileSettings(loggedInUser));
     document.getElementById('cancelprofileButton').addEventListener('click', () => cancelEditMode(loggedInUser));
-    document.getElementById('togglePassword').addEventListener('click', togglePasswordVisibility);
+    // document.getElementById('togglePassword').addEventListener('click', togglePasswordVisibility);
 
     // Event listener for profile picture upload
     // document.getElementById('imageUpload').addEventListener('change', (e) => handleProfilePictureUpload(e, loggedInUser));
