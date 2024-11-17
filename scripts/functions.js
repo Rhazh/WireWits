@@ -2020,7 +2020,7 @@ function saveEngNCR() {
             sessionStorage.setItem('history', JSON.stringify(history));
 
             alert('Your changes have been saved. You can continue later.');
-            //window.history.back();
+            window.history.back();
             //console.log(typeof(revisionDate), revisionDate)
         } else {
             alert("Save operation cancelled.");
