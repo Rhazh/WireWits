@@ -1801,16 +1801,27 @@ function populateDetailsPageEng(ncrNumber) {
 
         document.getElementById('itemConformE').textContent = entry.itemConform ?? "No";
 
-        const documentFilesList = document.getElementById('attachedDocumentE');
+        const documentFilesList = document.getElementById('thumbnailsContainerE');
         documentFilesList.innerHTML = ''; // Clear any existing content
 
-        if (entry.documentFiles.length > 0) {
+        // Check if documentFiles exists and has items
+        if (entry.documentFiles && entry.documentFiles.length > 0) {
             entry.documentFiles.forEach(file => {
-                const li = document.createElement('li');
-                li.textContent = file; // Just display the file name
-                documentFilesList.appendChild(li);
+                // Create elements for each thumbnail
+                const fileItem = document.createElement('div');
+                fileItem.classList.add('file-item');
+
+                const thumbnailImage = document.createElement('img');
+                thumbnailImage.src = file.thumbnail; // Assuming file.thumbnail contains the image data
+                thumbnailImage.classList.add('thumbnail');
+
+                // Append elements to the file item
+                fileItem.appendChild(thumbnailImage);
+                documentFilesList.appendChild(fileItem); // Append file item to the container
             });
-        } else { documentFilesList.innerHTML = 'No uploaded files.' }
+        } else {
+            documentFilesList.innerHTML = 'No uploaded files.'; // Handle no files case
+        }
     }
 }
 
