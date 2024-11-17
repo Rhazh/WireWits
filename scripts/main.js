@@ -113,7 +113,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             if (userRole == "Quality") {
                 document.getElementById('secEngineer').style.display = 'none';
                 populateNotifications();
-                NavBar();
+                //NavBar(); commented out because of loading errors.
                 recentNCRs();
                 setupNavigationButtons();
             }
