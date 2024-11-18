@@ -167,7 +167,6 @@ document.addEventListener('DOMContentLoaded', async () => {
             if (userRole == "Quality") {
                 document.getElementById('secEngineer').style.display = 'none';
                 document.getElementById('sectionEngineerlabel').style.display = 'none';
-                document.getElementById('revertButton').style.display = 'none';
                 document.getElementById('sectionQualitylabel').style.display = 'none';
                 document.getElementById('sectionQuality').checked = true;              
                 populateNotifications();

@@ -2151,10 +2151,10 @@ function correctDate(dateString) {
 
 //FUNCTION TO CHANGE NAVIGATION LINKS BASED ON USER
 function updateNavLinks(userRole) {
-    const homeLink = document.getElementById('home');
-    const createLink = document.getElementById('create');
-    const viewLink = document.getElementById('view');
-    const reportsLink = document.getElementById('reports');
+    const homeLink = document.getElementById('homeLi');
+    const createLink = document.getElementById('createLi');
+    const viewLink = document.getElementById('viewLi');
+    const reportsLink = document.getElementById('reportsLi');
 
     // Hide link if the user is not an admin
     if (userRole == "Quality") {
