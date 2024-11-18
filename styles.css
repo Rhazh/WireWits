@@ -244,9 +244,10 @@ nav ul li a:hover {
 }
 
 .notif-dropdown-container {
+    display: none;
     max-height: 0;
     opacity: 0;
-    transition: max-height 0.3s ease-in-out, opacity 0.5s ease-in-out;
+    transition: max-height 0.3s ease-in-out, opacity 0.5s ease-in-out, display 0.2s ease-in-out;
 
     position: absolute;
     top: 100%;
@@ -353,9 +354,10 @@ nav ul li a:hover {
 
 .notif-dropdown-container.active,
 .profile-dropdown.active {
+    display: block;
     max-height: 300px;
     opacity: 1;
-    transition: max-height 0.3s ease-in-out;
+    transition: max-height 0.3s ease-in-out, display 0.2s ease-in-out;
 }
 
 /* Default Branding Style */
@@ -400,9 +402,10 @@ nav ul li a:hover {
 }
 
 .profile-dropdown {
+    display: none;
     max-height: 0;
     opacity: 0;
-    transition: max-height 0.3s ease-in-out, opacity 0.5s ease-in-out;
+    transition: max-height 0.3s ease-in-out, opacity 0.5s ease-in-out, display 0.2s ease-in-out;
 
     position: absolute;
     top: 100%;
