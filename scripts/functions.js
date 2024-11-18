@@ -901,8 +901,8 @@ function submitNCR() {
         // Redirect or perform other actions as needed
         window.history.back();
 
-        history.push(historyEntry);
-        sessionStorage.setItem('history', JSON.stringify(history));
+        //history.push(historyEntry);
+        //sessionStorage.setItem('history', JSON.stringify(history));
     }
 }
 
@@ -2241,6 +2241,7 @@ function performSearchEng() {
     paginatedResults.forEach(result => {
         const newRow = `<tr>
                             <td>${result.ncrNumber}</td>
+                             <td>${((quality.find(q => q.ncrNumber === result.ncrNumber)?.itemDescription)) || ''}</td>
                              <td>
                                 ${engineering.find(q => q.ncrNumber === result.ncrNumber && q.ncrStatus ==="Engineering")?.dateReceived ?
                                 formatDate(engineering.find(q => q.ncrNumber === result.ncrNumber).dateReceived) : 'N/A'}

@@ -300,6 +300,12 @@ document.addEventListener('DOMContentLoaded', async () => {
         closeModalButton.addEventListener('click', goBack); // Reuse the goBack function
     }
 
+     // Set up the Cancel button for Engineer
+     const cancelEngSubmitButton = document.getElementById('btnEngCancel');
+     if (cancelEngSubmitButton) {
+        cancelEngSubmitButton.addEventListener('click', goBack); // Use event listener instead of inline onclick
+     }
+
     // Function to go back to the previous page
     function goBack() {
         console.log("Going back...");
