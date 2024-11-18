@@ -2477,37 +2477,45 @@ function handleProfilePictureChange(loggedInUser) {
 //======================
 // Notifications 
 //======================
-// Update the visibility of the notification button
+// Function to update the visibility of the notification button
 function updateNotificationButton() {
-    const profileButton = document.getElementById("btnNotification");
-    const savedState = localStorage.getItem("toggleState");
-    const isVisible = savedState === "true";
+    const profileButton = document.getElementById("btnNotification"); // Notification button
+    const savedState = localStorage.getItem("toggleState"); // Read state from localStorage
+    const isVisible = savedState === "true"; // Check if the state is true or false
 
     if (profileButton) {
+        // Show or hide the button based on the toggle state
         profileButton.style.display = isVisible ? "block" : "none";
     } else {
         console.warn("#btnNotification not found on this page.");
     }
 }
 
-// Initialize the toggle switch and notification button
+// Function to initialize the toggle switch and its behavior
 function initializeNotificationToggle() {
-    const toggleSwitch = document.getElementById("toggleSwitch");
+    const toggleSwitch = document.getElementById("toggleSwitch"); // The toggle button element
 
-    // Update toggle state and visibility on page load
+    // Step 1: Check the saved toggle state in localStorage
+    let savedState = localStorage.getItem("toggleState");
+    if (savedState === null) {
+        savedState = "true"; // Default to "checked" on the first app load
+        localStorage.setItem("toggleState", savedState); // Save default state
+    }
+
+    // Step 2: Set the toggle switch state if it exists on the current page
     if (toggleSwitch) {
-        const savedState = localStorage.getItem("toggleState");
-        toggleSwitch.checked = savedState === "true"; // Set the toggle switch to the saved state
+        toggleSwitch.checked = savedState === "true"; // Set the toggle state on the page
 
-        // Add event listener to toggle visibility and save state
+        // Add event listener to handle changes
         toggleSwitch.addEventListener("change", () => {
-            const isVisible = toggleSwitch.checked;
-            localStorage.setItem("toggleState", isVisible);
-            updateNotificationButton(); // Update button visibility
+            const isVisible = toggleSwitch.checked; // Get the new state of the toggle
+            localStorage.setItem("toggleState", isVisible); // Save the new state to localStorage
+            updateNotificationButton(); // Update button visibility immediately
         });
     }
 
-    // Update notification button visibility on page load
+    // Step 3: Update the notification button visibility based on the saved state
     updateNotificationButton();
 }
+
 
