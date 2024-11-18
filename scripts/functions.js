@@ -44,7 +44,7 @@ function populateNotifications() {
     dropdown.innerHTML = ""; // Clear existing notifications
 
     const oldNotifications = getOldNotifications();
-    const closedNotifications = JSON.parse(sessionStorage.getItem('closedNotifications')) || [];
+    const closedNotifications = JSON.parse(localStorage.getItem('closedNotifications')) || [];
 
     // Filter out closed notifications
     const visibleNotifications = oldNotifications.filter(ncr => !closedNotifications.includes(ncr));
@@ -93,7 +93,7 @@ function populateNotifications() {
 
             // Logic to close the notification
             closedNotifications.push(ncrNumber); // Store the closed notification
-            sessionStorage.setItem('closedNotifications', JSON.stringify(closedNotifications)); // Save to sessionStorage
+            localStorage.setItem('closedNotifications', JSON.stringify(closedNotifications)); // Save to localStorage
             notificationItem.remove(); // Remove this notification item
             updateNotificationCount(); // Update the notification count
             // Dropdown remains open
@@ -628,10 +628,10 @@ function CreateNCR() {
     quality.push(qualityEntry);
     console.log("Updated Quality Array:", quality);
 
-    // Persist ncrLog and quality to sessionStorage
-    sessionStorage.setItem('ncrLog', JSON.stringify(ncrLog));
-    sessionStorage.setItem('history', JSON.stringify(history));
-    sessionStorage.setItem('quality', JSON.stringify(quality));
+    // Persist ncrLog and quality to localStorage
+    localStorage.setItem('ncrLog', JSON.stringify(ncrLog));
+    localStorage.setItem('history', JSON.stringify(history));
+    localStorage.setItem('quality', JSON.stringify(quality));
 
     alert(`NCR Number ${ncrNumber} successfully generated. You may continue to provide additional information now or later`);
     //const createNCRModal = document.getElementById('createNCRModal');
@@ -640,7 +640,7 @@ function CreateNCR() {
     //createNCRModal.style.visibility = 'hidden';
     //createEditModal.style.visibility = 'visible';
 
-    sessionStorage.setItem('ncrNumber', ncrNumber);
+    localStorage.setItem('ncrNumber', ncrNumber);
     return ncrNumber
 }
 
@@ -744,8 +744,8 @@ function saveNCR() {
             qualityEntry.defectDescription = defectDescription;
             qualityEntry.documentFiles = [...uploadedFiles];  // Store the accumulated uploaded files
 
-            // Persist updated quality array to sessionStorage
-            sessionStorage.setItem('quality', JSON.stringify(quality));
+            // Persist updated quality array to localStorage
+            localStorage.setItem('quality', JSON.stringify(quality));
 
             // Create a history entry and add it to the history array
             const historyEntry = {
@@ -757,9 +757,9 @@ function saveNCR() {
                 changedOn: Timestamp() // Use function timestamp
             };
 
-            // Push the history entry and save it in sessionStorage
+            // Push the history entry and save it in localStorage
             history.push(historyEntry);
-            sessionStorage.setItem('history', JSON.stringify(history));
+            localStorage.setItem('history', JSON.stringify(history));
 
             alert('Your changes have been saved. You can continue later.');
             window.history.back();
@@ -838,8 +838,8 @@ function submitNCR() {
             // Mark the NCR as submitted
             qualityEntry.ncrStatus = engNeededCheckbox.checked ? "Engineering" : "Operations";
 
-            // Persist updated quality array to sessionStorage
-            sessionStorage.setItem('quality', JSON.stringify(quality));
+            // Persist updated quality array to localStorage
+            localStorage.setItem('quality', JSON.stringify(quality));
 
             //make engineering array and push to engineering json
             if (qualityEntry.ncrStatus === "Engineering"){
@@ -858,7 +858,7 @@ function submitNCR() {
                     completedBy: ""
                 }
                 engineering.push(engineeringEntry);
-                session.setItem('engineering', JSON.stringify(engineering));
+                local.setItem('engineering', JSON.stringify(engineering));
 
                 
             //make history array and push to history json
@@ -871,7 +871,7 @@ function submitNCR() {
                     changedOn: Timestamp()
                 }
                 history.push(historyEntry);
-            sessionStorage.setItem('history', JSON.stringify(history));
+            localStorage.setItem('history', JSON.stringify(history));
 
             }
             else{
@@ -885,7 +885,7 @@ function submitNCR() {
                     changedOn: Timestamp()
                 }
                 history.push(historyEntry);
-            sessionStorage.setItem('history', JSON.stringify(history));
+            localStorage.setItem('history', JSON.stringify(history));
             }
            
             alert('NCR has been successfully submitted.');
@@ -904,7 +904,7 @@ function submitNCR() {
         window.history.back();
 
         //history.push(historyEntry);
-        //sessionStorage.setItem('history', JSON.stringify(history));
+        //localStorage.setItem('history', JSON.stringify(history));
     }
 }
 
@@ -1394,15 +1394,15 @@ function populateSupplierDropdown(elementID, ncrNumber = null) {
     placeholderOption.selected = true;
     supplierDropdown.appendChild(placeholderOption);
 
-    // Retrieve supplier and quality data from sessionStorage
-    const supplier = JSON.parse(sessionStorage.getItem('supplier')) || [];
-    const quality = JSON.parse(sessionStorage.getItem('quality')) || [];
+    // Retrieve supplier and quality data from localStorage
+    const supplier = JSON.parse(localStorage.getItem('supplier')) || [];
+    const quality = JSON.parse(localStorage.getItem('quality')) || [];
 
     // Load or initialize stored suppliers with a Set to avoid duplicates
-    let storedSuppliers = new Set(JSON.parse(sessionStorage.getItem('suppliers')) || []);
+    let storedSuppliers = new Set(JSON.parse(localStorage.getItem('suppliers')) || []);
     if (storedSuppliers.size === 0) {
         supplier.forEach(item => storedSuppliers.add(item.supplierName));
-        sessionStorage.setItem('suppliers', JSON.stringify([...storedSuppliers])); // Save to session storage
+        localStorage.setItem('suppliers', JSON.stringify([...storedSuppliers])); // Save to local storage
     }
 
     // If `ncrNumber` is provided, retrieve the previously selected supplier
@@ -1457,17 +1457,17 @@ function populateSupplierDropdown(elementID, ncrNumber = null) {
             if (customSupplier && !storedSuppliers.has(customSupplier)) {
                 // Add new custom supplier to stored suppliers
                 storedSuppliers.add(customSupplier);
-                sessionStorage.setItem('suppliers', JSON.stringify([...storedSuppliers])); // Save updated list
+                localStorage.setItem('suppliers', JSON.stringify([...storedSuppliers])); // Save updated list
 
                 // Refresh dropdown with the updated list
                 populateSupplierDropdown(elementID, ncrNumber);
 
                 // Set the dropdown to the new supplier
                 supplierDropdown.value = customSupplier;
-                sessionStorage.setItem('selectedSupplier', customSupplier); // Save new selection
+                localStorage.setItem('selectedSupplier', customSupplier); // Save new selection
             }
         } else {
-            sessionStorage.setItem('selectedSupplier', supplierName); // Save selected supplier
+            localStorage.setItem('selectedSupplier', supplierName); // Save selected supplier
         }
     });
 }
@@ -1476,15 +1476,15 @@ function populateSupplierDropdown(elementID, ncrNumber = null) {
 function populateSupplierDropdownN(elementID) {
     const supplierDropdown = document.getElementById(elementID);
 
-    // Retrieve supplier and quality data from sessionStorage
-    const supplier = JSON.parse(sessionStorage.getItem('supplier')) || [];
-    const quality = JSON.parse(sessionStorage.getItem('quality')) || [];
+    // Retrieve supplier and quality data from localStorage
+    const supplier = JSON.parse(localStorage.getItem('supplier')) || [];
+    const quality = JSON.parse(localStorage.getItem('quality')) || [];
 
     // Load or initialize stored suppliers
-    let storedSuppliers = JSON.parse(sessionStorage.getItem('suppliers')) || [];
+    let storedSuppliers = JSON.parse(localStorage.getItem('suppliers')) || [];
     if (storedSuppliers.length === 0) {
         supplier.forEach(item => storedSuppliers.push(item.supplierName));
-        sessionStorage.setItem('suppliers', JSON.stringify(storedSuppliers)); // Save to session storage
+        localStorage.setItem('suppliers', JSON.stringify(storedSuppliers)); // Save to local storage
     }
 
     // If `ncrNumber` is provided, retrieve the previously selected supplier
@@ -1646,7 +1646,7 @@ function populateNotificationsEng() {
     dropdown.innerHTML = ""; // Clear existing notifications
 
     const oldNotifications = getOldNotificationsEng();
-    const closedNotifications = JSON.parse(sessionStorage.getItem('closedNotifications')) || [];
+    const closedNotifications = JSON.parse(localStorage.getItem('closedNotifications')) || [];
 
     // Filter out closed notifications
     const visibleNotifications = oldNotifications.filter(ncr => !closedNotifications.includes(ncr));
@@ -1695,7 +1695,7 @@ function populateNotificationsEng() {
 
             // Logic to close the notification
             closedNotifications.push(ncrNumber); // Store the closed notification
-            sessionStorage.setItem('closedNotifications', JSON.stringify(closedNotifications)); // Save to sessionStorage
+            localStorage.setItem('closedNotifications', JSON.stringify(closedNotifications)); // Save to localStorage
             notificationItem.remove(); // Remove this notification item
             updateNotificationCountEng(); // Update the notification count
             // Dropdown remains open
@@ -2001,7 +2001,7 @@ function saveEngNCR() {
                 engineeringEntry.revisionDate = "";
                 engineeringEntry.engineerName = "";
             }
-            sessionStorage.setItem('engineering', JSON.stringify(engineering));
+            localStorage.setItem('engineering', JSON.stringify(engineering));
 
             const historyEntry = {
                 ncrNumber: ncrNumber,
@@ -2013,7 +2013,7 @@ function saveEngNCR() {
             };
 
             history.push(historyEntry);
-            sessionStorage.setItem('history', JSON.stringify(history));
+            localStorage.setItem('history', JSON.stringify(history));
 
             alert('Your changes have been saved. You can continue later.');
             window.history.back();
@@ -2068,7 +2068,7 @@ function submitEngNCR() {
         if (qualityEntry) {
             qualityEntry.ncrStatus = "Operations";
         }
-        sessionStorage.setItem('quality', JSON.stringify(quality));
+        localStorage.setItem('quality', JSON.stringify(quality));
 
 
 
@@ -2085,7 +2085,7 @@ function submitEngNCR() {
             engineeringEntry.engineerName = engineerName;
             engineeringEntry.completedBy = changedBy;
         }
-        sessionStorage.setItem('engineering', JSON.stringify(engineering));
+        localStorage.setItem('engineering', JSON.stringify(engineering));
         //make history array and push to history json
         const historyEntry = {
             ncrNumber: ncrNumber,
@@ -2096,7 +2096,7 @@ function submitEngNCR() {
             changedOn: Timestamp()
         }
         history.push(historyEntry);
-        sessionStorage.setItem('history', JSON.stringify(history));
+        localStorage.setItem('history', JSON.stringify(history));
         alert('NCR has been successfully submitted.');
         window.history.back();
 

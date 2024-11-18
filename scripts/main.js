@@ -36,7 +36,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         // Logout functionality
         document.getElementById('logout').addEventListener('click', function () {
             localStorage.removeItem('loggedInUser');
-            sessionStorage.clear();
+            //Comment this out to start afresh
+            localStorage.clear();
             alert("Successfully logged out.");
             window.location.href = 'login.html';
         });
@@ -48,12 +49,12 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 
     // Proceed if the user is logged in
-    // Load data from sessionStorage or default to empty arrays
-    ncrLog = JSON.parse(sessionStorage.getItem('ncrLog')) || [];
-    quality = JSON.parse(sessionStorage.getItem('quality')) || [];
-    history = JSON.parse(sessionStorage.getItem('history')) || [];
-    engineering = JSON.parse(sessionStorage.getItem('engineering')) || [];
-    supplier = JSON.parse(sessionStorage.getItem('supplier')) || [];
+    // Load data from localStorage or default to empty arrays
+    ncrLog = JSON.parse(localStorage.getItem('ncrLog')) || [];
+    quality = JSON.parse(localStorage.getItem('quality')) || [];
+    history = JSON.parse(localStorage.getItem('history')) || [];
+    engineering = JSON.parse(localStorage.getItem('engineering')) || [];
+    supplier = JSON.parse(localStorage.getItem('supplier')) || [];
 
     const path = window.location.pathname;
     const pageName = path.substring(path.lastIndexOf('/') + 1);
@@ -76,7 +77,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     };
 
     try {
-        // If session data is not available, fetch seed data and store it in sessionStorage
+        // If local data is not available, fetch seed data and store it in localStorage
         if (!ncrLog.length || !quality.length || !history.length || !engineering.length || !supplier.length) {
             const [qualityData, ncrData, historyData, engineeringData, supplierData] = await Promise.all([
                 fetchData('seed-data/Quality.json'),
@@ -92,12 +93,12 @@ document.addEventListener('DOMContentLoaded', async () => {
             engineering = engineeringData;
             supplier = supplierData;
 
-            // Store seed data in sessionStorage for use in the current session
-            sessionStorage.setItem('quality', JSON.stringify(quality));
-            sessionStorage.setItem('ncrLog', JSON.stringify(ncrLog));
-            sessionStorage.setItem('history', JSON.stringify(history));
-            sessionStorage.setItem('engineering', JSON.stringify(engineering));
-            sessionStorage.setItem('supplier', JSON.stringify(supplier));
+            // Store seed data in localStorage for use in the current local
+            localStorage.setItem('quality', JSON.stringify(quality));
+            localStorage.setItem('ncrLog', JSON.stringify(ncrLog));
+            localStorage.setItem('history', JSON.stringify(history));
+            localStorage.setItem('engineering', JSON.stringify(engineering));
+            localStorage.setItem('supplier', JSON.stringify(supplier));
         }
 
         if (loadingIndicator) loadingIndicator.style.display = 'none';
