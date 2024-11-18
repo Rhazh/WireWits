@@ -154,6 +154,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             if (userRole == "Quality") {
                 document.getElementById('secEngineer').style.display = 'none';
                 toggleCreateEditModal(ncrNumber, true);
+                restrictInputToNumbersAndDashes(["poNumber", "soNumber"]);
             }
             else if (userRole == "Engineer") {
                 document.getElementById('secQuality').style.display = 'none';
@@ -163,6 +164,8 @@ document.addEventListener('DOMContentLoaded', async () => {
                 document.getElementById('sectionEngineer').checked = true;   
                 setupEngSaveNCR();
                 setupEngSubmitNCR();
+                restrictInputToNumbersAndDashes(["poNumber", "soNumber"]);
+
             }
 
          //=======================================================================================================
@@ -173,8 +176,10 @@ document.addEventListener('DOMContentLoaded', async () => {
                 document.getElementById('secEngineer').style.display = 'none';
                 toggleCreateEditModal(null, false);
                 setupCreateNCRButton();
+                restrictInputToNumbersAndDashes(["poNumber", "soNumber"]);
             }else if(userRole == 'Engineer'){
                 document.getElementById('secQuality').style.display = 'none';
+                restrictInputToNumbersAndDashes(["poNumber", "soNumber"]);
             }
         } else if (ncrNumber && pageName === 'details.html') {
             populateDetailsPage(ncrNumber);

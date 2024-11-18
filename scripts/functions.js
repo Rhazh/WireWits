@@ -2509,4 +2509,30 @@ function initializeNotificationToggle() {
     updateNotificationButton();
 }
 
+//=======================================
+//Restrict inputs to numbers and dashes
+//========================================
+
+// Restrict input to numbers and dashes only
+function restrictInputToNumbersAndDashes(fieldIds) {
+    fieldIds.forEach((id) => {
+        const field = document.getElementById(id);
+        if (!field) {
+            console.warn(`Field with ID "${id}" not found.`);
+            return;
+        }
+
+        field.addEventListener("keypress", function (event) {
+            const char = String.fromCharCode(event.keyCode);
+            const regex = /^[0-9-]$/; // Allow only numbers and dashes
+            if (!regex.test(char)) {
+                event.preventDefault();
+            }
+        });
+
+        field.addEventListener("input", function () {
+            this.value = this.value.replace(/[^0-9-]/g, ""); // Remove invalid characters
+        });
+    });
+}
 

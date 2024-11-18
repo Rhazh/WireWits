@@ -292,14 +292,14 @@
                                 <div class="two-cols">
                                     <div>
                                         <label for="poNumber" aria-label="Production Number">Prod. Number:<span class="required">*</span></label>
-                                        <input id="poNumber" name="poNumber" type="text"
+                                        <input id="poNumber" name="poNumber" type="text"  pattern="[0-9-]*"
                                             placeholder="Enter Production Number">
                                         <!--include regex for pattern: digits-->
                                     </div>
                                     <div>
                                         <label for="soNumber" aria-label="Sales Order Number, required">Sales Order
                                             Number:<span class="required">*</span></label>
-                                        <input id="soNumber" name="soNumber" type="text"
+                                        <input id="soNumber" name="soNumber" type="text"  pattern="[0-9-]*"
                                             placeholder="Enter Sales Order Number" required>
                                         <!--include regex for pattern: digits-->
                                     </div>
