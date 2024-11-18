@@ -43,7 +43,8 @@
                         <li id="viewLi"><a href="view.html" id="view" tabindex="0"
                                 aria-label="View existing Non-Conformance Reports"><abbr
                                     title="Non-Conformance Reports">NCR</abbr> Log </abbr> </a></li>
-                        <li id="reportsLi"><a href="reports.html" id="reports" aria-label="View Reports" tabindex="0">Reports</a></li>
+                        <li id="reportsLi"><a href="reports.html" id="reports" aria-label="View Reports"
+                                tabindex="0">Reports</a></li>
                     </ul>
                 </nav>
             </div>
@@ -344,14 +345,54 @@
                                 </div>
                                 <div class="two-cols">
                                     <div>
-                                        <label for="poNumber" aria-label="Production Number">Prod. Number:<span class="required">*</span></label>
+                                        <div class="two-cols">
+                                            <label for="poNumber" aria-label="Production Number">Prod. Number:<span
+                                                    class="required">*</span></label>
+                                            <div class="form-info">
+                                                <div class="info-icon">
+                                                    <svg class="w-6 h-6 text-gray-800 dark:text-white"
+                                                        aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
+                                                        height="24" fill="none" viewBox="0 0 24 24">
+                                                        <path stroke="currentColor" stroke-linecap="round"
+                                                            stroke-linejoin="round" stroke-width="2"
+                                                            d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                                    </svg>
+                                                </div>
+                                                <div class="info-desc">
+                                                    <p>The Product Number identifies the specific item or material
+                                                         associated with the Non-Conformance Report (NCR), ensuring
+                                                          precise tracking and resolution of the issue.</p>
+                                                </div>
+                                            </div>
+
+                                        </div>
                                         <input id="poNumber" name="poNumber" type="text"
                                             placeholder="Enter Production Number">
                                         <!--include regex for pattern: digits-->
                                     </div>
                                     <div>
-                                        <label for="soNumber" aria-label="Sales Order Number, required">Sales Order
-                                            Number:<span class="required">*</span></label>
+                                        <div class="two-cols">
+                                            <label for="soNumber" aria-label="Sales Order Number, required">Sales Order
+                                                Number:<span class="required">*</span></label>
+
+                                            <div class="form-info">
+                                                <div class="info-icon">
+                                                    <svg class="w-6 h-6 text-gray-800 dark:text-white"
+                                                        aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
+                                                        height="24" fill="none" viewBox="0 0 24 24">
+                                                        <path stroke="currentColor" stroke-linecap="round"
+                                                            stroke-linejoin="round" stroke-width="2"
+                                                            d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                                    </svg>
+                                                </div>
+                                                <div class="info-desc">
+                                                    <p>The Sales Order Number identifies the specific 
+                                                      customer order associated with this Non-Conformance Report (NCR).
+                                                     It helps link the issue to the original order for accurate tracking and resolution.</p>
+                                                </div>
+                                            </div>
+
+                                        </div>
                                         <input id="soNumber" name="soNumber" type="text"
                                             placeholder="Enter Sales Order Number" required>
                                         <!--include regex for pattern: digits-->
@@ -498,7 +539,8 @@
                                                 <p>
                                                     Allows you to attach images or videos related to the defect
                                                     or non-conformance. This can include photos of the defective
-                                                    items or videos demonstrating the issue, providing visual evidence to support the NCR.
+                                                    items or videos demonstrating the issue, providing visual evidence
+                                                    to support the NCR.
                                                 </p>
                                             </div>
                                         </div>
