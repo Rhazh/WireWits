@@ -528,7 +528,7 @@
                                                 <!--Took out NCR Number from here as it will show at the top-->
                                                 <div class="one-col">
                                                     <div class="form-ncr-details">
-                                                        <label for="reviewByCfEngineering">Review By CF Engineering:</label>
+                                                        <label for="reviewByCfEngineering">Review By CF Engineering:<span class="required">*</span></label>
                                                         <select name="CFEngineering" id="reviewByCfEngineering" required>
                                                             <option value="" disabled selected>Select an option</option>
                                                             <option value="Use As Is">Use As Is</option>
@@ -549,7 +549,7 @@
                                                     </div>
 
                                                     <div class="form-ncr-details">
-                                                        <label for="disposition">Disposition:</label>
+                                                        <label for="disposition">Disposition:<span class="required">*</span></label>
                                                         <textarea name="disposition" id="disposition"></textarea>
                                                     </div>
                                                     <div class="form-ncr-details">
@@ -565,10 +565,6 @@
                                                         <input type="text" id="originalRevNumber">
                                                     </div>
                                                     <div class="form-ncr-details">
-                                                        <label for="originalEngineerName">Original Engineering Name:</label>
-                                                        <input type="text" id="originalEngineerName">
-                                                    </div>
-                                                    <div class="form-ncr-details">
                                                         <label for="updatedRevNumber">Updated Revision Number:</label>
                                                         <input type="text" id="updatedRevNumber">
                                                     </div>
@@ -577,7 +573,7 @@
                                                         <input type="date" id="revisionDate"> <!--changed input type to date instead of datetime-->
                                                     </div>
                                                     <div class="form-ncr-details">
-                                                        <label for="engineerName">Engineer Name:</label>
+                                                        <label for="engineerName">Name of Engineer:</label>
                                                         <input type="text" id="engineerName">
                                                     </div>
                                                 </div>

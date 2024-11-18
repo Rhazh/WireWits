@@ -16,7 +16,7 @@
         "documentFiles": [
         ],
         "ncrStatus": "Engineering",
-        "comment" : ""
+        "completedBy" : "Cassandra Washington"
     },
     {
         "ncrNumber": "2024-002",
@@ -35,12 +35,12 @@
         "documentFiles": [
         ],
         "ncrStatus": "Engineering",
-        "comment" : ""
+        "completedBy" : "Marcus Allen"
     },
     {
         "ncrNumber": "2024-003",
         "dateCreated": "09/21/2024",
-        "createdBy": "Sophia Lee",
+        "createdBy": "Cassandra Washington",
         "supplierName": "Tech Parts Co.",
         "applicableProcess": "Supplier or Rec-Insp",
         "poNumber": "0111559538",
@@ -54,12 +54,12 @@
         "documentFiles": [
         ],
         "ncrStatus": "Engineering",
-        "comment" : ""
+        "completedBy" : "Cassandra Washington"
     },
     {
         "ncrNumber": "2024-004",
         "dateCreated": "09/22/2024",
-        "createdBy": "James Smith",
+        "createdBy": "Marcus Allen",
         "supplierName": "Home Goods Inc.",
         "applicableProcess": "WIP (Production Order)",
         "poNumber": "0111559539",
@@ -73,12 +73,12 @@
         "documentFiles": [
         ],
         "ncrStatus": "Engineering",
-        "comment" : ""
+        "completedBy" : "Marcus Allen"
     },
     {
         "ncrNumber": "2024-005",
         "dateCreated": "09/23/2024",
-        "createdBy": "Emily Davis",
+        "createdBy": "Cassandra Washington",
         "supplierName": "Auto Parts Ltd.",
         "applicableProcess": "Supplier or Rec-Insp",
         "poNumber": "0111559540",
@@ -92,12 +92,12 @@
         "documentFiles": [
         ],
         "ncrStatus": "Engineering",
-        "comment" : ""
+        "completedBy" : "Cassandra Washington"
     },
     {
         "ncrNumber": "2024-006",
         "dateCreated": "09/24/2024",
-        "createdBy": "Oliver Brown",
+        "createdBy": "Marcus Allen",
         "supplierName": "Fresh Foods Co.",
         "applicableProcess": "WIP (Production Order)",
         "poNumber": "0111559541",
@@ -111,12 +111,12 @@
         "documentFiles": [
         ],
         "ncrStatus": "Engineering",
-        "comment" : ""
+        "completedBy" : "Marcus Allen"
     },
     {
         "ncrNumber": "2024-007",
         "dateCreated": "09/25/2024",
-        "createdBy": "Isabella Johnson",
+        "createdBy": "Cassandra Washington",
         "supplierName": "Textile Supplies",
         "applicableProcess": "Supplier or Rec-Insp",
         "poNumber": "0111559542",
@@ -130,12 +130,12 @@
         "documentFiles": [
         ],
         "ncrStatus": "Engineering",
-        "comment" : ""
+        "completedBy" : "Cassandra Washington"
     },
     {
         "ncrNumber": "2024-008",
         "dateCreated": "09/26/2024",
-        "createdBy": "Liam Miller",
+        "createdBy": "Marcus Allen",
         "supplierName": "Building Materials Co.",
         "applicableProcess": "WIP (Production Order)",
         "poNumber": "0111559543",
@@ -149,12 +149,12 @@
         "documentFiles": [
         ],
         "ncrStatus": "Engineering",
-        "comment" : ""
+        "completedBy" : "Marcus Allen"
     },
     {
         "ncrNumber": "2024-009",
         "dateCreated": "09/27/2024",
-        "createdBy": "Mia Wilson",
+        "createdBy": "Cassandra Washington",
         "supplierName": "Cosmetics Corp.",
         "applicableProcess": "Supplier or Rec-Insp",
         "poNumber": "0111559544",
@@ -168,12 +168,12 @@
         "documentFiles": [
         ],
         "ncrStatus": "Engineering",
-        "comment" : ""
+        "completedBy" : "Cassandra Washington"
     },
     {
         "ncrNumber": "2024-010",
         "dateCreated": "09/28/2024",
-        "createdBy": "Noah Martinez",
+        "createdBy": "Marcus Allen",
         "supplierName": "Medical Supplies Inc.",
         "applicableProcess": "WIP (Production Order)",
         "poNumber": "0111559545",
@@ -187,12 +187,12 @@
         "documentFiles": [
         ],
         "ncrStatus": "Engineering",
-        "comment" : ""
+        "completedBy" : "Marcus Allen"
     },
     {
         "ncrNumber": "2024-011",
         "dateCreated": "09/29/2024",
-        "createdBy": "Emma Clark",
+        "createdBy": "Cassandra Washington",
         "supplierName": "Green Solutions",
         "applicableProcess": "Supplier or Rec-Insp",
         "poNumber": "0111559546",
@@ -206,12 +206,12 @@
         "documentFiles": [
         ],
         "ncrStatus": "Quality",
-        "comment": ""
+        "completedBy": ""
     },
     {
         "ncrNumber": "2024-012",
         "dateCreated": "09/30/2024",
-        "createdBy": "James Taylor",
+        "createdBy": "Marcus Allen",
         "supplierName": "Electronics Hub",
         "applicableProcess": "WIP (Production Order)",
         "poNumber": "0111559547",
@@ -225,12 +225,12 @@
         "documentFiles": [
         ],
         "ncrStatus": "Quality",
-        "comment": ""
+        "completedBy": ""
     },
     {
         "ncrNumber": "2024-013",
         "dateCreated": "10/01/2024",
-        "createdBy": "Olivia Wright",
+        "createdBy": "Cassandra Washington",
         "supplierName": "Gadget World",
         "applicableProcess": "Supplier or Rec-Insp",
         "poNumber": "0111559548",
@@ -244,12 +244,12 @@
         "documentFiles": [
         ],
         "ncrStatus": "Quality",
-        "comment": ""
+        "completedBy": ""
     },
     {
         "ncrNumber": "2024-014",
         "dateCreated": "10/02/2024",
-        "createdBy": "Liam Johnson",
+        "createdBy": "Marcus Allen",
         "supplierName": "Home Essentials",
         "applicableProcess": "WIP (Production Order)",
         "poNumber": "0111559549",
@@ -263,12 +263,12 @@
         "documentFiles": [
         ],
         "ncrStatus": "Quality",
-        "comment": ""
+        "completedBy": ""
     },
     {
         "ncrNumber": "2024-015",
         "dateCreated": "10/03/2024",
-        "createdBy": "Sophia White",
+        "createdBy": "Cassandra Washington",
         "supplierName": "Sporting Goods Inc.",
         "applicableProcess": "Supplier or Rec-Insp",
         "poNumber": "0111559550",
@@ -282,12 +282,12 @@
         "documentFiles": [
         ],
         "ncrStatus": "Quality",
-        "comment": ""
+        "completedBy": ""
     },
     {
         "ncrNumber": "2024-016",
         "dateCreated": "10/04/2024",
-        "createdBy": "Ethan Lee",
+        "createdBy": "Marcus Allen",
         "supplierName": "Pet Supplies Co.",
         "applicableProcess": "WIP (Production Order)",
         "poNumber": "0111559551",
@@ -301,12 +301,12 @@
         "documentFiles": [
         ],
         "ncrStatus": "Quality",
-        "comment": ""
+        "completedBy": ""
     },
     {
         "ncrNumber": "2024-017",
         "dateCreated": "10/05/2024",
-        "createdBy": "Ava Taylor",
+        "createdBy": "Cassandra Washington",
         "supplierName": "Office Supplies Ltd.",
         "applicableProcess": "Supplier or Rec-Insp",
         "poNumber": "0111559552",
@@ -320,12 +320,12 @@
         "documentFiles": [
         ],
         "ncrStatus": "Quality",
-        "comment": ""
+        "completedBy": ""
     },
     {
         "ncrNumber": "2024-018",
         "dateCreated": "10/06/2024",
-        "createdBy": "Mason Harris",
+        "createdBy": "Marcus Allen",
         "supplierName": "Construction Pros",
         "applicableProcess": "WIP (Production Order)",
         "poNumber": "0111559553",
@@ -339,12 +339,12 @@
         "documentFiles": [
         ],
         "ncrStatus": "Quality",
-        "comment": ""
+        "completedBy": ""
     },
     {
         "ncrNumber": "2024-019",
         "dateCreated": "10/07/2024",
-        "createdBy": "Aiden Clark",
+        "createdBy": "Cassandra Washington",
         "supplierName": "Beverage Distributors",
         "applicableProcess": "Supplier or Rec-Insp",
         "poNumber": "0111559554",
@@ -358,12 +358,12 @@
         "documentFiles": [
         ],
         "ncrStatus": "Quality",
-        "comment": ""
+        "completedBy": ""
     },
     {
         "ncrNumber": "2024-020",
         "dateCreated": "10/08/2024",
-        "createdBy": "Lily Scott",
+        "createdBy": "Marcus Allen",
         "supplierName": "Textile Warehouse",
         "applicableProcess": "WIP (Production Order)",
         "poNumber": "0111559555",
@@ -377,6 +377,6 @@
         "documentFiles": [
         ],
         "ncrStatus": "Quality",
-        "comment": ""
+        "completedBy": ""
     }
 ]

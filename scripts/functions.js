@@ -620,7 +620,8 @@ function CreateNCR() {
         itemDescription: "",  // Empty for now
         defectDescription: "",  // Empty for now
         documentFiles: [],  // Empty for now
-        ncrStatus: "Quality"
+        ncrStatus: "Quality",
+        completedBy: ""
     };
 
     // Add the entry to the quality array
@@ -832,6 +833,7 @@ function submitNCR() {
             qualityEntry.itemDescription = itemDescription;
             qualityEntry.defectDescription = defectDescription;
             qualityEntry.documentFiles = [...uploadedFiles];
+            qualityEntry.completedBy = changedBy;
 
             // Mark the NCR as submitted
             qualityEntry.ncrStatus = engNeededCheckbox.checked ? "Engineering" : "Operations";
@@ -850,10 +852,10 @@ function submitNCR() {
                     disposition: "",
                     drawingUpdate: "",
                     originalRevNumber: "",
-                    originalEngineerName: "",
                     updatedRevNumber: "",
                     revisionDate: "",
-                    engineerName: ""
+                    engineerName: "",
+                    completedBy: ""
                 }
                 engineering.push(engineeringEntry);
                 session.setItem('engineering', JSON.stringify(engineering));
@@ -1097,7 +1099,6 @@ function printPdf() {
     var disposition = document.getElementById("disposition").textContent.trim();
     var drawingUpdate = document.getElementById("drawingUpdate").textContent.trim();
     var originalRevNumber = document.getElementById("originalRevNumber").textContent.trim();
-    var originalEngineerName = document.getElementById("originalEngineerName").textContent.trim();
     var updatedRevNumber = document.getElementById("updatedRevNumber").textContent.trim();
     var revisionDate = document.getElementById("revisionDate").textContent.trim();
     var engineerName = document.getElementById("engineerName").textContent.trim();
@@ -1240,10 +1241,6 @@ function printPdf() {
                         <div class="form-ncr-details">
                             <strong>Original Revision Number:</strong>
                             <span id="originalRevNumber">${originalRevNumber}</span>
-                        </div>
-                        <div class="form-ncr-details">
-                            <strong for="originalEngineerName">Original Engineering Name:</strong>
-                            <span id="originalEngineerName">${originalEngineerName}</span>
                         </div>
                         <div class="form-ncr-details">
                             <strong>Updated Revision Number:</strong>
@@ -1847,7 +1844,6 @@ function populateEngDetailsPage(ncrNumber) {
         document.getElementById('customerNotification').textContent = entry.customerNotification ?? "";
         document.getElementById('disposition').innerHTML = entry.disposition.replace(/\n/g, '<br/>') ?? "";
         document.getElementById('drawingUpdate').textContent = entry.drawingUpdate ?? "";
-        document.getElementById('originalEngineerName').textContent = entry.originalEngineerName ?? "";
         document.getElementById('originalRevNumber').textContent = entry.originalRevNumber ?? "";
         document.getElementById('updatedRevNumber').textContent = entry.updatedRevNumber ?? "";
         document.getElementById('revisionDate').textContent = entry.revisionDate ? formatDate(entry.revisionDate) : "";
@@ -1872,8 +1868,6 @@ function populateEngEditPage(ncrNumber) {
         document.getElementById('drawingUpdate').value = entry.drawingUpdate;
 
         if (entry.drawingUpdate === "Yes") {
-
-            document.getElementById('originalEngineerName').value = entry.originalEngineerName;
             document.getElementById('originalRevNumber').value = entry.originalRevNumber;
             document.getElementById('updatedRevNumber').value = entry.updatedRevNumber;
 
@@ -1883,14 +1877,12 @@ function populateEngEditPage(ncrNumber) {
 
         } else {
             document.getElementById('revisionDate').value = '';
-            document.getElementById('originalEngineerName').value = '';
             document.getElementById('originalRevNumber').value = '';
             document.getElementById('updatedRevNumber').value = '';
             document.getElementById('engineerName').value = '';
 
             // Disable the fields
             document.getElementById('originalRevNumber').disabled = true;
-            document.getElementById('originalEngineerName').disabled = true;
             document.getElementById('updatedRevNumber').disabled = true;
             document.getElementById('revisionDate').disabled = true;
             document.getElementById('engineerName').disabled = true;
@@ -1906,7 +1898,6 @@ function populateEngEditPage(ncrNumber) {
 //
 //=================================================================================================================
 let prevOriginalRevNumber = "";
-let prevOriginalEngineerName = "";
 let prevUpdatedRevNumber = "";
 let prevRevisionDate = "";
 let prevEngineerName = "";
@@ -1918,21 +1909,18 @@ document.getElementById('drawingUpdate').addEventListener('change', (event) => {
     if (drawingUpdate === "No") {
         // Store the current values before clearing them
         prevOriginalRevNumber = document.getElementById('originalRevNumber').value;
-        prevOriginalEngineerName = document.getElementById('originalEngineerName').value;
         prevUpdatedRevNumber = document.getElementById('updatedRevNumber').value;
         prevRevisionDate = correctDate(document.getElementById('revisionDate').value);
         prevEngineerName = document.getElementById('engineerName').value;
 
         // Clear the fields
         document.getElementById('originalRevNumber').value = "";
-        document.getElementById('originalEngineerName').value = "";
         document.getElementById('updatedRevNumber').value = "";
         document.getElementById('revisionDate').value = "";
         document.getElementById('engineerName').value = "";
 
         // Disable the fields
         document.getElementById('originalRevNumber').disabled = true;
-        document.getElementById('originalEngineerName').disabled = true;
         document.getElementById('updatedRevNumber').disabled = true;
         document.getElementById('revisionDate').disabled = true;
         document.getElementById('engineerName').disabled = true;
@@ -1941,14 +1929,12 @@ document.getElementById('drawingUpdate').addEventListener('change', (event) => {
 
         // Enable the fields
         document.getElementById('originalRevNumber').disabled = false;
-        document.getElementById('originalEngineerName').disabled = false;
         document.getElementById('updatedRevNumber').disabled = false;
         document.getElementById('revisionDate').disabled = false;
         document.getElementById('engineerName').disabled = false;
 
          // Restore previous values if "Yes" is selected
         document.getElementById('originalRevNumber').value = prevOriginalRevNumber;
-        document.getElementById('originalEngineerName').value = prevOriginalEngineerName;
         document.getElementById('updatedRevNumber').value = prevUpdatedRevNumber;
         document.getElementById('revisionDate').value = setDate(prevRevisionDate);
         document.getElementById('engineerName').value = prevEngineerName;
@@ -1970,7 +1956,6 @@ function saveEngNCR() {
     const disposition = document.getElementById('disposition').value;
     const drawingUpdate = document.getElementById('drawingUpdate').value;
     const originalRevNumber = document.getElementById('originalRevNumber').value;
-    const originalEngineerName = document.getElementById('originalEngineerName').value;
     const updatedRevNumber = document.getElementById('updatedRevNumber').value;
     const revisionDateRaw = document.getElementById('revisionDate').value;
     const revisionDate = revisionDateRaw ? correctDate(revisionDateRaw) : "";
@@ -1988,7 +1973,6 @@ function saveEngNCR() {
             engineeringEntry.drawingUpdate === drawingUpdate &&
             engineeringEntry.originalRevNumber === originalRevNumber &&
             engineeringEntry.updatedRevNumber === updatedRevNumber &&
-            engineeringEntry.originalEngineerName === originalEngineerName &&
             engineeringEntry.engineerName === engineerName &&
             engineeringEntry.revisionDate === revisionDate
 
@@ -2008,13 +1992,11 @@ function saveEngNCR() {
 
             if (drawingUpdate === "Yes") {
                 engineeringEntry.originalRevNumber = originalRevNumber;
-                engineeringEntry.originalEngineerName = originalEngineerName;
                 engineeringEntry.updatedRevNumber = updatedRevNumber;
                 engineeringEntry.revisionDate = revisionDate;
                 engineeringEntry.engineerName = engineerName;
             } else {
                 engineeringEntry.originalRevNumber = "";
-                engineeringEntry.originalEngineerName = "";
                 engineeringEntry.updatedRevNumber = "";
                 engineeringEntry.revisionDate = "";
                 engineeringEntry.engineerName = "";
@@ -2052,10 +2034,7 @@ function saveEngNCR() {
 //
 //=================================================================================================================
 function submitEngNCR() {
-    //const ncrNumber = document.getElementById('ncrNumber').textContent;
-
-    //changedBy = getUserName();
-
+    
     const ncrNumber = document.getElementById('ncrNumberE').textContent;
     const changedBy = getUserName();
     const reviewByCfEngineering = document.getElementById('reviewByCfEngineering').value;
@@ -2063,7 +2042,6 @@ function submitEngNCR() {
     const disposition = document.getElementById('disposition').value;
     const drawingUpdate = document.getElementById('drawingUpdate').value;
     const originalRevNumber = document.getElementById('originalRevNumber').value;
-    const originalEngineerName = document.getElementById('originalEngineerName').value;
     const updatedRevNumber = document.getElementById('updatedRevNumber').value;
     const revisionDateRaw = document.getElementById('revisionDate').value;
     const revisionDate = revisionDateRaw ? correctDate(revisionDateRaw) : "";
@@ -2102,10 +2080,10 @@ function submitEngNCR() {
             engineeringEntry.ncrStatus = quality.find(item => item.ncrNumber === ncrNumber)?.ncrStatus;
             engineeringEntry.engineerName = changedBy;
             engineeringEntry.originalRevNumber = originalRevNumber;
-            engineeringEntry.originalEngineerName = originalEngineerName;
             engineeringEntry.updatedRevNumber = updatedRevNumber;
             engineeringEntry.revisionDate = revisionDate;
             engineeringEntry.engineerName = engineerName;
+            engineeringEntry.completedBy = changedBy;
         }
         sessionStorage.setItem('engineering', JSON.stringify(engineering));
         //make history array and push to history json

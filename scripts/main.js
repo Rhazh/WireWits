@@ -12,10 +12,10 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Redirect to login if the user is not logged in
     // Add later
-    /*if (!loggedInUser) {
+    if (!loggedInUser) {
         window.location.href = 'login.html';
         return;
-    }*/
+    }
 
     // Populate user profile details in the UI (e.g., for the header)
     const fullNameElement = document.getElementById('userFullname');
