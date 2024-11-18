@@ -366,8 +366,9 @@
                                             </div>
 
                                         </div>
-                                        <input id="poNumber" name="poNumber" type="text"
-                                            placeholder="Enter Production Number">
+                                        <input id="poNumber" name="poNumber" type="text" pattern="[0-9-]*" 
+
+                                            placeholder="Example: 000-00">
                                         <!--include regex for pattern: digits-->
                                     </div>
                                     <div>
@@ -393,8 +394,8 @@
                                             </div>
 
                                         </div>
-                                        <input id="soNumber" name="soNumber" type="text"
-                                            placeholder="Enter Sales Order Number" required>
+                                        <input id="soNumber" name="soNumber" type="text" pattern="[0-9-]*" 
+                                            placeholder="Example: 000-00" required>
                                         <!--include regex for pattern: digits-->
                                     </div>
                                 </div>
