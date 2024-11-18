@@ -751,7 +751,7 @@ function saveNCR() {
                 ncrNumber: ncrNumber,
                 actionType: "Edit",
                 status: 'Open',
-                actionDescription: "Edited the NCR",
+                actionDescription: `NCR editted by ${getUserRole()}`,
                 changedBy: changedBy,  // This should be dynamically set to the actual user
                 changedOn: Timestamp() // Use function timestamp
             };
@@ -787,8 +787,8 @@ function submitNCR() {
     const soNumber = document.getElementById('soNumber')?.value || '';
     const quantityReceived = document.getElementById('quantityReceived')?.value || '';
     const quantityDefect = document.getElementById('quantityDefect')?.value || '';
-    const engNeeded = document.getElementById('engNeeded')?.value || 'No';
-    const itemConform = document.getElementById('itemConform')?.value || 'No';
+    const engNeeded = document.getElementById('engNeeded')?.checked ? 'Yes' : 'No';
+    const itemConform = document.getElementById('itemConform')?.checked ? 'Yes' : 'No';
     const itemDescription = document.getElementById('itemDescription')?.value || '';
     const defectDescription = document.getElementById('defectDescription')?.value || '';
 
@@ -839,40 +839,53 @@ function submitNCR() {
             // Persist updated quality array to sessionStorage
             sessionStorage.setItem('quality', JSON.stringify(quality));
 
-            //make history array and push to history json
-            const historyEntry = {
-                ncrNumber: ncrNumber,
-                actionType: "Submit",
-                status: 'Open',
-                actionDescription: "Submission by Quality",
-                changedBy: changedBy,
-                changedOn: Timestamp()
-            }
+            //make engineering array and push to engineering json
+            if (qualityEntry.ncrStatus === "Engineering"){
+                const engineeringEntry = {
+                    ncrNumber: ncrNumber,
+                    dateReceived: Timestamp(),
+                    ncrStatus: qualityEntry.ncrStatus,
+                    reviewByCfEngineering: "",
+                    customerNotification: "",
+                    disposition: "",
+                    drawingUpdate: "",
+                    originalRevNumber: "",
+                    originalEngineerName: "",
+                    updatedRevNumber: "",
+                    revisionDate: "",
+                    engineerName: ""
+                }
+                engineering.push(engineeringEntry);
+                session.setItem('engineering', JSON.stringify(engineering));
 
-            history.push(historyEntry);
+                
+            //make history array and push to history json
+                const historyEntry = {
+                    ncrNumber: ncrNumber,
+                    actionType: "Submit",
+                    status: 'Open',
+                    actionDescription: "NCR submitted from Quality to Engineering",
+                    changedBy: changedBy,
+                    changedOn: Timestamp()
+                }
+                history.push(historyEntry);
             sessionStorage.setItem('history', JSON.stringify(history));
 
-            //make engineering array and push to engineering json
-            //make engineering array and push to engineering json
-            const engineeringEntry = {
-                ncrNumber: ncrNumber,
-                dateReceived: Timestamp(),
-                itemDescription: itemDescription,
-                ncrStatus: qualityEntry.ncrStatus,
-                comment: "",
-                reviewByCfEngineering: "",
-                customerNotification: "",
-                disposition: "",
-                drawingUpdate: "",
-                originalRevNumber: "",
-                originalEngineerName: "",
-                updatedRevNumber: "",
-                revisionDate: "",
-                engineerName: ""
             }
-            engineering.push(engineeringEntry);
-            sessionStorage.setItem('engineering', JSON.stringify(engineering));
-
+            else{
+                 //make history array and push to history json
+                 const historyEntry = {
+                    ncrNumber: ncrNumber,
+                    actionType: "Submit",
+                    status: 'Open',
+                    actionDescription: "NCR submitted from Quality to Operations",
+                    changedBy: changedBy,
+                    changedOn: Timestamp()
+                }
+                history.push(historyEntry);
+            sessionStorage.setItem('history', JSON.stringify(history));
+            }
+           
             alert('NCR has been successfully submitted.');
 
             // Redirect or perform other actions as needed
@@ -892,8 +905,6 @@ function submitNCR() {
         sessionStorage.setItem('history', JSON.stringify(history));
     }
 }
-
-
 
 function populateRecordsTable(data) {
     const tableContent = document.getElementById('reportsTableContent');
@@ -1726,7 +1737,7 @@ function getOldNotificationsEng() {
 //
 //=================================================================================================================
 function recentEngNCRs() {
-    console.log(engineering);
+    //console.log(engineering);
     if (!engineering.length) {
         console.warn('No engineering data available to display.');
         return;
@@ -1749,7 +1760,7 @@ function recentEngNCRs() {
         //const editButtonDisabled = result.ncrStatus !== "Quality" ? "disabled" : "";
         const newRow = `<tr>
                              <td>${result.ncrNumber}</td>
-                             <td>${result.itemDescription}</td>
+                             <td>${((quality.find(q => q.ncrNumber === result.ncrNumber)?.itemDescription)) || ''}</td>
                              <td>${formatDate(result.dateReceived)}</td>
                              <td>${result.ncrStatus}</td>
                               <td>
@@ -1857,7 +1868,7 @@ function populateEngEditPage(ncrNumber) {
         //document.getElementById('ncrNumberEng').textContent = entry.ncrNumber;
         document.getElementById('reviewByCfEngineering').value = entry.reviewByCfEngineering;
         document.getElementById('customerNotification').value = entry.customerNotification;
-        document.getElementById('disposition').textContent = entry.disposition.replace(/\n/g, '<br/>');
+        document.getElementById('disposition').textContent = entry.disposition;
         document.getElementById('drawingUpdate').value = entry.drawingUpdate;
 
         if (entry.drawingUpdate === "Yes") {
@@ -2014,7 +2025,7 @@ function saveEngNCR() {
                 ncrNumber: ncrNumber,
                 actionType: "Edit",
                 status: 'Open',
-                actionDescription: "Edited the NCR by Engineering",
+                actionDescription: `NCR editted by ${getUserRole()}`,
                 changedBy: changedBy,
                 changedOn: Timestamp()
             };
@@ -2102,7 +2113,7 @@ function submitEngNCR() {
             ncrNumber: ncrNumber,
             actionType: "Submit",
             status: 'Open',
-            actionDescription: "Submitted from Engineering to Operations",
+            actionDescription: "NCR submitted from Engineering to Operations",
             changedBy: changedBy,
             changedOn: Timestamp()
         }
@@ -2230,7 +2241,10 @@ function performSearchEng() {
     paginatedResults.forEach(result => {
         const newRow = `<tr>
                             <td>${result.ncrNumber}</td>
-                            <td>${engineering.find(q => q.ncrNumber === result.ncrNumber)?.dateReceived ? formatDate(engineering.find(q => q.ncrNumber === result.ncrNumber).dateReceived) : 'N/A'}</td>
+                             <td>
+                                ${engineering.find(q => q.ncrNumber === result.ncrNumber && q.ncrStatus ==="Engineering")?.dateReceived ?
+                                formatDate(engineering.find(q => q.ncrNumber === result.ncrNumber).dateReceived) : 'N/A'}
+                            </td>
                             <td>${((quality.find(q => q.ncrNumber === result.ncrNumber)?.ncrStatus)) || ''}</td>
                             <td>
                                 <div>
