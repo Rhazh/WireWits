@@ -201,6 +201,15 @@ document.addEventListener('DOMContentLoaded', async () => {
             else if (userRole == "Engineer") {
                 populateNotificationsEng()
             }
+        }else if (pageName === 'faqs.html') {
+            if (userRole == "Quality") {
+                populateNotifications();
+                NavBar();
+            }
+            else if (userRole == "Engineer") {
+                populateNotificationsEng()
+            }
+
         }
 
         // Set up the supplierName dropdown
