@@ -173,6 +173,7 @@ function getOldNotifications() {
 function toggleDropdown(dropdownId) {
     const profileDropdown = document.getElementById('profileDropdown');
     const notifDropdown = document.getElementById('notifDisplay');
+    const mainNav = document.getElementById('mainNav');
     const targetDropdown = document.getElementById(dropdownId);
 
     // Close the other dropdown if it's open
@@ -180,6 +181,9 @@ function toggleDropdown(dropdownId) {
         notifDropdown.classList.remove('active');
     } else if (dropdownId === 'notifDisplay' && profileDropdown.classList.contains('active')) {
         profileDropdown.classList.remove('active');
+    } else if (dropdownId === 'mainNav' && (profileDropdown.classList.contains('active') || notifDropdown.classList.contains('active'))) {
+        profileDropdown.classList.remove('active');
+        notifDropdown.classList.remove('active');
     }
 
     // Toggle the target dropdown
@@ -197,10 +201,16 @@ document.getElementById('btnNotification').addEventListener('click', function (e
     toggleDropdown('notifDisplay');
 });
 
+document.getElementById('toggleNavButton').addEventListener('click', function (event) {
+    event.stopPropagation(); // Prevents event from reaching document level
+    toggleDropdown('mainNav');
+});
+
 // Close dropdowns if clicked outside
 document.addEventListener('click', function (event) {
     document.getElementById('profileDropdown').classList.remove('active');
     document.getElementById('notifDisplay').classList.remove('active');
+    document.getElementById('mainNav').classList.remove('active');
 });
 
 // ==============================================================
