@@ -110,11 +110,15 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 
         // Handle different pages based on the current page name
+
+        //=======================================================================================================
+        //INDEX PAGE - DASHBOARD
+        //=======================================================================================================
         if (pageName === 'index.html') {
             if (userRole == "Quality") {
                 document.getElementById('secEngineer').style.display = 'none';
                 populateNotifications();
-                //NavBar(); commented out because of loading errors.
+                //NavBar(); //commented out because of loading errors.
                 recentNCRs();
                 setupNavigationButtons();
             }
@@ -124,21 +128,27 @@ document.addEventListener('DOMContentLoaded', async () => {
                 setupEngNavigationButtons();
                 recentEngNCRs();
             }
-
+        
+        //=======================================================================================================
+        //VIEW PAGE
+        //=======================================================================================================
         } else if (pageName === 'view.html') {
             if (userRole == "Quality") {
                 document.getElementById('secEngineer').style.display = 'none';
                 populateNotifications();
                 populateSupplierDropdownN('supplierName')
-                NavBar();
+                //NavBar();
                 performSearch();
-
             }
             else if (userRole == "Engineer") {
                 document.getElementById('secQuality').style.display = 'none';
                 populateNotificationsEng()
                 performSearchEng();
             }
+
+        //=======================================================================================================
+        //CREATE PAGE FOR AN NCR - FOR EDIT NCRS
+        //=======================================================================================================
 
         } else if (ncrNumber && pageName === 'create.html') {
             if (userRole == "Quality") {
@@ -154,6 +164,10 @@ document.addEventListener('DOMContentLoaded', async () => {
                 setupEngSaveNCR();
                 setupEngSubmitNCR();
             }
+
+         //=======================================================================================================
+        //CREATE PAGE - FOR CREATING AN NCR
+        //=======================================================================================================
         } else if (pageName === 'create.html') {
             if(userRole == 'Quality'){
                 document.getElementById('secEngineer').style.display = 'none';
@@ -170,7 +184,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 document.getElementById('sectionQualitylabel').style.display = 'none';
                 document.getElementById('sectionQuality').checked = true;              
                 populateNotifications();
-                NavBar();
+                //NavBar();
             }
             else if (userRole == "Engineer") {
                 document.getElementById('editButton').style.display = 'none';
@@ -185,7 +199,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         else if (pageName === 'profile_settings.html') {
             if (userRole == "Quality") {
                 populateNotifications();
-                NavBar();
+                //NavBar();
             }
             else if (userRole == "Engineer") {
                 populateNotificationsEng()
@@ -195,7 +209,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             performSearchReports();
             if (userRole == "Quality") {
                 populateNotifications();
-                NavBar();
+                //NavBar();
             }
             else if (userRole == "Engineer") {
                 populateNotificationsEng()
@@ -203,7 +217,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         }else if (pageName === 'faqs.html') {
             if (userRole == "Quality") {
                 populateNotifications();
-                NavBar();
+                //NavBar();
             }
             else if (userRole == "Engineer") {
                 populateNotificationsEng()
@@ -256,7 +270,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             createNCRModal.style.visibility = 'hidden';
             createEditModal.style.visibility = 'visible';
             populateNotifications();
-            NavBar();
+            //NavBar();
             populateEditPage(ncrNumber);
             populateSupplierDropdown('supplierName', ncrNumber);
             setupSaveNCR();

@@ -1072,7 +1072,7 @@ function closeModal() {
     modal.style.display = 'none';
 }
 
-function NavBar() {
+/*function NavBar() {
     const toggleCheckbox = document.getElementById('mobList');
     const navMenu = document.getElementById('mainNav');
 
@@ -1084,7 +1084,7 @@ function NavBar() {
             navMenu.style.display = 'none'; // Hide the nav
         }
     });
-};
+};*/
 
 function printPdf() {
     const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
@@ -2151,23 +2151,14 @@ function correctDate(dateString) {
 
 //FUNCTION TO CHANGE NAVIGATION LINKS BASED ON USER
 function updateNavLinks(userRole) {
-    const homeLink = document.getElementById('homeLi');
+    //const homeLink = document.getElementById('homeLi');
     const createLink = document.getElementById('createLi');
-    const viewLink = document.getElementById('viewLi');
-    const reportsLink = document.getElementById('reportsLi');
+    //const viewLink = document.getElementById('viewLi');
+    //const reportsLink = document.getElementById('reports');
 
     // Hide link if the user is not an admin
-    if (userRole == "Quality") {
-        homeLink.style.display = 'block';
-        createLink.style.display = 'block';
-        viewLink.style.display = 'block';
-        reportsLink.style.display = 'block';
-    }
-    else if (userRole == "Engineer") {
-        homeLink.style.display = 'block';
-        createLink.style.display = 'none';
-        viewLink.style.display = 'block';
-        reportsLink.style.display = 'block';
+    if (userRole == "Engineer") {
+        createLink.classList = 'nav-hide';  
     }
 }
 

@@ -193,6 +193,10 @@ nav ul li a:hover {
     transition: box-shadow 0.3s ease-in-out;
 }
 
+.nav-hide {
+    display: none;
+}
+
 /* Default Branding Style */
 /* ------- Header ------- */
 /* --- Notifications ---- */
