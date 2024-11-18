@@ -2262,25 +2262,6 @@ function performSearchEng() {
     setupPagination(totalResults, performSearchEng, "viewTableContentEng", "paginationEng");
 }
 
-
-// Dropdown for nav list
-document.addEventListener("DOMContentLoaded", function () {
-    const toggleButton = document.getElementById("toggleNavButton");
-    const mainNav = document.getElementById("mainNav");
-
-    toggleButton.addEventListener("click", function () {
-        // Toggle the visibility of the menu
-        mainNav.classList.toggle("active");
-    });
-
-    // Close menu when clicking outside
-    document.addEventListener("click", function (event) {
-        if (!mainNav.contains(event.target) && event.target !== toggleButton) {
-            mainNav.classList.remove("active");
-        }
-    });
-});
-
 //=================
 //   Acoount Page
 //================

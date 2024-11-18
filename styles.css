@@ -720,6 +720,7 @@ table tbody tr:hover {
     align-items: center;
     cursor: pointer;
     color: #666;
+    z-index: 2;
 }
 
 .div-container .form-header {
@@ -759,6 +760,7 @@ table tbody tr:hover {
 .form-ncr-buttons {
     display: flex;
     gap: 20px;
+    box-sizing: border-box;
 }
 
 .form-ncr-buttons button {
@@ -830,8 +832,8 @@ table tbody tr:hover {
     padding: 25px 40px 10px;
     margin: 0 3px 0 0;
     display: inline-block;
-    background-color: #00214d;
-    color: #fdfdfd;
+    background-color: #efefef;
+    color: #00214d;
     box-sizing: border-box;
     transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out;
 }
@@ -853,7 +855,7 @@ table tbody tr:hover {
 .tab-cards #sectionQuality:checked ~ .tab-head label[for="sectionQuality"],
 .tab-cards #sectionEngineer:checked ~ .tab-head label[for="sectionEngineer"]  {
     color: #00214d;
-    background-color: #fafafa;
+    background-color: #fdfdfd;
 }
 
 .tab-cards #sectionQuality:checked ~ #secQuality,
@@ -946,6 +948,7 @@ table tbody tr:hover {
 /* Show tooltip on hover */
 .info-icon:hover + .info-desc {
     display: block;
+    position: relative;
 }
 
 /* -------------------------------------------------------------- */
@@ -1022,14 +1025,14 @@ table tbody tr:hover {
     align-items: center;
     cursor: pointer;
     color: #0b1c33;
+    transition: all 0.3s ease-in-out;
 }
 
 .file-upload:hover,    
 .file-upload:focus-within:hover {
-    background-color: #00214d;
-    color: #fdfdfd;
-    transition: background-color 0.3s ease-in-out;
-    border: 2px solid transparent;
+    color: #0056b3;
+    transition: all 0.3s ease-in-out;
+    border: 3px dashed #0056b3;
 }
 
 .file-upload input {
@@ -1376,15 +1379,15 @@ button {
     display: inline-block;
     width: 60px;
     height: 34px;
-  }
-  
-  .switch input { 
+}
+
+.switch input { 
     opacity: 0;
     width: 0;
     height: 0;
-  }
-  
-  .slider {
+}
+
+.slider {
     position: absolute;
     cursor: pointer;
     top: 0;
@@ -1394,9 +1397,9 @@ button {
     background-color: #d3d3d3;
     -webkit-transition: .4s;
     transition: .4s;
-  }
-  
-  .slider:before {
+}
+
+.slider:before {
     position: absolute;
     content: "";
     height: 26px;
@@ -1406,26 +1409,36 @@ button {
     background-color: #fafafa;
     -webkit-transition: .4s;
     transition: .4s;
-  }
-  
-  input:checked + .slider {
-    background-color: #0056b3;
-  }
-  
-  input:checked + .slider:before {
+}
+
+input:checked + .slider {
+background-color: #0056b3;
+}
+
+input:checked + .slider:before {
     -webkit-transform: translateX(26px);
     -ms-transform: translateX(26px);
     transform: translateX(26px);
-  }
-  
-  /* Rounded sliders */
-  .slider.round {
+}
+
+/* Rounded sliders */
+.slider.round {
     border-radius: 34px;
-  }
-  
-  .slider.round:before {
+}
+
+.slider.round:before {
     border-radius: 50%;
-  }
+}
+
+hr {
+    border: 1.5px dashed #d3d3d3;
+    margin: 10px 0;
+}
+
+.bottom-margin{
+    margin-bottom: 20px;
+}
+
 
 /* -------------------------------------------------------------- */
 /* -------------------------------------------------------------- */
@@ -1443,7 +1456,7 @@ button {
 
     .form-ncr-buttons {
         display: grid;
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: 1fr;
     }
 
     .form-ncr-buttons div button {

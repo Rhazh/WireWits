@@ -23,8 +23,7 @@
             <div class="header-col-left">
                 <!--mobile navigation menu-->
                 <div class="mob-nav" id="mobNav">
-                    <button id="toggleNavButton" class="mob-nav-icon" aria-label="Toggle Navigation Menu"
-                        onclick="toggleDropdown()"></button>
+                    <button id="toggleNavButton" class="mob-nav-icon" aria-label="Toggle Navigation Menu" onclick="toggleDropdown()"></button>
                 </div>
                 <!--logo-->
                 <div class="logo">
@@ -33,7 +32,7 @@
                     </a>
                 </div>
                 <!--navigation menu-->
-                <nav aria-label="Main Navigation" id="mainNav">
+                <nav aria-label="Main Navigation" id="mainNav" class="">
                     <ul>
                         <li id="homeLi"><a href="index.html" id="home" aria-current="page" aria-label="Dashboard page"
                                 tabindex="0">Dashboard</a></li>
@@ -721,10 +720,10 @@
                                     </div>
 
                                     <div id="secEngineer" class="tab-content">
-                                        <div id="createEditModal" class="form-section">
-                                            <form class="form-ncr">
+                                        <div id="createEditModal" class="form-ncr">
+                                            <form class="form-section">
                                                 <!--Took out NCR Number from here as it will show at the top-->
-                                                <div class="one-col">
+                                                <div class="two-cols">
                                                     <div class="form-ncr-details">
                                                         <label for="reviewByCfEngineering">Review By CF
                                                             Engineering:<span class="required">*</span></label>
@@ -748,12 +747,16 @@
                                                             <option value="No">No</option>
                                                         </select>
                                                     </div>
-
+                                                </div>
+                                                <div class="one-col">
                                                     <div class="form-ncr-details">
                                                         <label for="disposition">Disposition:<span
                                                                 class="required">*</span></label>
                                                         <textarea name="disposition" id="disposition"></textarea>
                                                     </div>
+                                                </div>
+                                                <hr>
+                                                <div class="two-cols">
                                                     <div class="form-ncr-details">
                                                         <label for="drawingUpdate">Does the drawing require
                                                             updating?</label>
@@ -763,6 +766,7 @@
                                                             <option value="No">No</option>
                                                         </select>
                                                     </div>
+                                                    <div></div>
                                                     <div class="form-ncr-details drawingUpdateToggle2">
                                                         <label for="originalRevNumber">Original Revision Number:</label>
                                                         <input type="text" id="originalRevNumber">
@@ -781,7 +785,17 @@
                                                         <input type="text" id="engineerName">
                                                     </div>
                                                 </div>
-
+                                                <hr>
+                                                <div class="two-cols bottom-margin">
+                                                    <div class="form-ncr-details drawingUpdateToggle2">
+                                                        <label for="completedByEng">Completed By:</label>
+                                                        <input type="text" id="completedByEng">
+                                                    </div>
+                                                    <div class="form-ncr-details drawingUpdateToggle2">
+                                                        <label for="completedOnEng">Date Completed:</label>
+                                                        <input type="date" id="completedOnEng">
+                                                    </div>
+                                                </div>
                                                 <div class="form-ncr-buttons">
                                                     <button type="button" id="btnEngSave"
                                                         class="button-primary">Save</button>
