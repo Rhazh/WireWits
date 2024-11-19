@@ -561,6 +561,14 @@ function performSearch() {
 
     // Setup pagination
     setupPagination(totalResults, performSearch, "viewTableContent", "pagination");
+
+    if (totalResults === 0) {
+        //noResultsMessage.textContent = 'No results found.';
+        //noResultsMessage.style.display = 'block';
+
+        alert("No results found.")
+        location.reload();
+    }
 }
 
 
@@ -2282,6 +2290,14 @@ function performSearchEng() {
 
     // Setup pagination
     setupPagination(totalResults, performSearchEng, "viewTableContentEng", "paginationEng");
+    
+    if (totalResults === 0) {
+        //noResultsMessage.textContent = 'No results found.';
+        //noResultsMessage.style.display = 'block';
+
+        alert("No results found.")
+        location.reload();
+    }
 }
 
 
