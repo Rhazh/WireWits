@@ -1380,6 +1380,14 @@ button {
     padding: 10px 0;
 }
 
+.settings-section-field.notifs span {
+    padding: 10px 20px;
+    color: #0056b3;
+}
+.settings-section-field.notifs label {
+    margin: auto 0;
+}
+
 .settings-section-input {
     display: flex;
     flex-direction: column;
