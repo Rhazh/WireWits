@@ -176,18 +176,25 @@ function toggleDropdown(dropdownId) {
     const mainNav = document.getElementById('mainNav');
     const targetDropdown = document.getElementById(dropdownId);
 
-    // Close the other dropdown if it's open
-    if (dropdownId === 'profileDropdown' && notifDropdown.classList.contains('active')) {
-        notifDropdown.classList.remove('active');
-    } else if (dropdownId === 'notifDisplay' && profileDropdown.classList.contains('active')) {
-        profileDropdown.classList.remove('active');
-    } else if (dropdownId === 'mainNav' && (profileDropdown.classList.contains('active') || notifDropdown.classList.contains('active'))) {
-        profileDropdown.classList.remove('active');
-        notifDropdown.classList.remove('active');
+    // Close all dropdowns if the clicked one is already active
+    if (targetDropdown.classList.contains('active')) {
+        targetDropdown.classList.remove('active');
+        return; // Exit the function if the clicked dropdown is already active
     }
 
-    // Toggle the target dropdown
-    targetDropdown.classList.toggle('active');
+    // Close other dropdowns
+    if (profileDropdown.classList.contains('active')) {
+        profileDropdown.classList.remove('active');
+    }
+    if (notifDropdown.classList.contains('active')) {
+        notifDropdown.classList.remove('active');
+    }
+    if (mainNav.classList.contains('active')) {
+        mainNav.classList.remove('active');
+    }
+
+    // Open the target dropdown
+    targetDropdown.classList.add('active');
 }
 
 // Event listeners for profile and notification buttons
