@@ -948,7 +948,7 @@ table tbody tr:hover {
 /* Show tooltip on hover */
 .info-icon:hover + .info-desc {
     display: block;
-    position: relative;
+    position: absolute;
 }
 
 /* -------------------------------------------------------------- */
@@ -1099,10 +1099,15 @@ label {
 
 .one-col,
 .two-cols,
+.two-cols-info,
 .three-cols,
 .four-cols {
     display: grid;
     grid-gap: 30px;
+}
+
+.two-cols-info {
+    grid-template-columns: auto auto;
 }
 
 .two-cols {
