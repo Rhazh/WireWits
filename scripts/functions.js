@@ -1923,18 +1923,13 @@ let prevEngineerName = "";
 document.getElementById('drawingUpdate').addEventListener('change', (event) => {
     const drawingUpdate = event.target.value;
 
-    if (drawingUpdate == "No") {
+    if (drawingUpdate === "No") {
         // Store the current values before clearing them
         prevOriginalRevNumber = document.getElementById('originalRevNumber').value;
         prevUpdatedRevNumber = document.getElementById('updatedRevNumber').value;
-        prevRevisionDate = correctDate(document.getElementById('revisionDate').value);
+        prevRevisionDateRaw = document.getElementById('revisionDate').value;
+        prevRevisionDate = prevRevisionDateRaw? correctDate(prevRevisionDateRaw) : "";
         prevEngineerName = document.getElementById('engineerName').value;
-
-        // Clear the fields
-        document.getElementById('originalRevNumber').value = "";
-        document.getElementById('updatedRevNumber').value = "";
-        document.getElementById('revisionDate').value = "";
-        document.getElementById('engineerName').value = "";
 
         // Disable the fields
         document.getElementById('originalRevNumber').disabled = true;
@@ -1942,11 +1937,19 @@ document.getElementById('drawingUpdate').addEventListener('change', (event) => {
         document.getElementById('revisionDate').disabled = true;
         document.getElementById('engineerName').disabled = true;
 
+        // Clear the fields
+        document.getElementById('originalRevNumber').value = "";
+        document.getElementById('updatedRevNumber').value = "";
+        document.getElementById('revisionDate').value = "";
+        document.getElementById('engineerName').value = "";
+
+        
+
         /*Array.from(document.getElementsByClassName('drawingUpdateToggle2')).forEach(element => {
                 element.style.display = 'none';
             });*/
 
-    } else if (drawingUpdate == "Yes") {
+    } else if (drawingUpdate === "Yes") {
 
         // Enable the fields
         document.getElementById('originalRevNumber').disabled = false;
@@ -1954,10 +1957,7 @@ document.getElementById('drawingUpdate').addEventListener('change', (event) => {
         document.getElementById('revisionDate').disabled = false;
         document.getElementById('engineerName').disabled = false;
 
-        Array.from(document.getElementsByClassName('drawingUpdateToggle2')).forEach(element => {
-            element.style.display = 'block';
-        });
-
+        
          // Restore previous values if "Yes" is selected
         document.getElementById('originalRevNumber').value = prevOriginalRevNumber;
         document.getElementById('updatedRevNumber').value = prevUpdatedRevNumber;
