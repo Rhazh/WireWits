@@ -2315,17 +2315,16 @@ function toggleEditMode(loggedInUser) {
     const updatedUser = JSON.parse(localStorage.getItem('loggedInUser'));
 
 
-    document.getElementById('userFullnameProfilePage').style.display = 'none';
+    //document.getElementById('userFullnameProfilePage').style.display = 'none';
     document.getElementById('usernameInput').disabled = false;
     document.getElementById('firstnameInput').disabled = false;
     document.getElementById('middlenameInput').disabled = false;
     document.getElementById('lastnameInput').disabled = false;
     document.getElementById('emailInput').disabled = false;
     document.getElementById('passwordInput').disabled = false;
-    document.getElementById('roleInput').value += '     *Cannot change without administrative permissions.';
     document.getElementById('genderInput').disabled = false;
 
-    document.getElementById('username').style.display = 'none';
+    //document.getElementById('username').style.display = 'none';
     document.getElementById('togglePassword').style.display = 'block';
 
     document.getElementById('editprofileButton').style.display = 'none';
