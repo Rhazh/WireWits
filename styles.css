@@ -952,6 +952,11 @@ table tbody tr:hover {
     border-color: transparent transparent #666 transparent;
 }
 
+.info-icon:hover + .info-desc {
+    visibility: visible;
+    opacity: 1;
+}
+
 /* -------------------------------------------------------------- */
 /* -------------------------------------------------------------- */
 /* -------------------------------------------------------------- */
