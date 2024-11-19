@@ -1128,62 +1128,59 @@ function printPdf() {
 
     // Build the custom content dynamically based on the role
     let content = `
-        <div class="div-container">
-                        <div class="form-header">
-                            <div class="form-ncr-details">
+       
+
+                    <div class="div-container-print">
+                    <h2>Quality Section</h2>
+                        <div class="form-section-print">
+                            <div class="four-cols-print">
+                             <div class="form-ncr-details-print">
                                 <strong>NCR Number:</strong>
-                                <span id="ncrNumber">${ncrNumber}</span>
+                                <span id="ncrNumber" class="inputs">${ncrNumber}</span>
                             </div>
-                            <div class="form-ncr-details">
+                            <div class="form-ncr-details-print">
                                 <strong>Date Created:</strong>
-                                <span id="dateCreated">${dateCreated}</span>
+                                <span id="dateCreated" class="inputs">${dateCreated}</span>
                             </div>
-                            <div class="form-ncr-details">
+                            <div class="form-ncr-details-print">
                                 <strong>Created By:</strong>
-                                <span id="createdBy">${createdBy}</span>
+                                <span id="createdBy" class="inputs">${createdBy}</span>
                             </div>
-                            <div class="form-ncr-details">
+                            <div class="form-ncr-details-print">
                                 <strong>Status:</strong>
-                                <span id="ncrStatus">${ncrStatus}</span>
+                                <span id="ncrStatus" class="inputs">${ncrStatus}</span>
                             </div>
-                        </div>
-                    </div>
-                    <br>
-                    <br>
-                    <div class="div-container">
-                        <div class="form-section">
-                            <div class="four-cols">
-                                <div class="form-ncr-details">
+                                <div class="form-ncr-details-print">
                                     <strong>Supplier Name:</strong>
-                                    <span id="supplierNameD">${supplierName}</span>
+                                    <span id="supplierNameD" class="inputs">${supplierName}</span>
                                 </div>
-                                <div class="form-ncr-details">
+                                <div class="form-ncr-details-print">
                                     <strong>Production Number:</strong>
-                                    <span id="poNumber">${productionNumber}</span>
+                                    <span id="poNumber" class="inputs">${productionNumber}</span>
                                 </div>
-                                <div class="form-ncr-details">
+                                <div class="form-ncr-details-print">
                                     <strong>Quantity Received:</strong>
-                                    <span id="quantityReceived">${qtyRecieved}</span>
+                                    <span id="quantityReceived" class="inputs">${qtyRecieved}</span>
                                 </div>
-                                <div class="form-ncr-details">
+                                <div class="form-ncr-details-print">
                                     <strong>Forward to Engineering:</strong>
-                                    <span id="engNeeded">${engneeded}</span>
+                                    <span id="engNeeded" class="inputs">${engneeded}</span>
                                 </div>
-                                <div class="form-ncr-details">
+                                <div class="form-ncr-details-print">
                                     <strong>Applicable Process:</strong>
-                                    <span  id="applicableProcess">${appProcess}</span>
+                                    <span  id="applicableProcess" class="inputs">${appProcess}</span>
                                 </div>
-                                <div class="form-ncr-details">
+                                <div class="form-ncr-details-print">
                                     <strong>Sales Order Number:</strong>
-                                    <span  id="soNumber">${sonumber}</span>
+                                    <span  id="soNumber" class="inputs">${sonumber}</span>
                                 </div>
-                                <div class="form-ncr-details">
+                                <div class="form-ncr-details-print">
                                     <strong>Quantity Defective:</strong>
-                                    <span id="quantityDefect">${qtyDefect}</span>
+                                    <span id="quantityDefect" class="inputs">${qtyDefect}</span>
                                 </div>
-                                <div class="form-ncr-details">
+                                <div class="form-ncr-details-print">
                                     <strong>Item marked conforming:</strong>
-                                    <span id="itemConform">${itemConform}</span>
+                                    <span id="itemConform" class="inputs">${itemConform}</span>
                                 </div>
                             </div>
                         </div>
@@ -1192,26 +1189,21 @@ function printPdf() {
 
     if (userRole === "Quality" || userRole === "Engineer") {
         content += `
-            <br>
-            <hr>
-            <br>
-            <div class="div-container">
+        <br>
+
+            <div class="div-container-print">
                 <div class = "quality-section">
-                    <div class="form-section">
-                        <h2>Quality Section</h2>
-                        <div class="form-ncr-details">
+                    <div class="form-section-print">
+                        <div class="form-ncr-details-print">
                             <strong>Item Description:</strong>
-                            ${itemDescription}
+                            <span class="inputs">${itemDescription}</span>
                         </div>
-                        <div class="form-ncr-details">
+                        <div class="form-ncr-details-print">
                             <strong>Defect Description:</strong>
-                                <ul>${defectDescription}</ul>
+                            <span class="inputs"><ul>${defectDescription}</ul></span>
                         </div>
-                        <br>
-                        <br>
-                        <br>
                         
-                        <div class="form-ncr-details">
+                        <div class="form-ncr-details-print">
                         <strong>    Uploaded Images/Videos:</strong>
                                 <div id="thumbnailsContainer" class="thumbnails-container">
                                 ${thumbnail}
@@ -1227,45 +1219,45 @@ function printPdf() {
     if (userRole === "Engineer") {
         content += `
             <br>
-            <hr>
-            <br>
-            <div class="div-container">
-                    <div class="form-section">
+            <div class="div-container-print">
+                    <div class="form-section-print">
                         <h2>Engineering Section</h2>
-                        <div class="form-ncr-details">
+                        <div class="four-cols-print">
+                        <div class="form-ncr-details-print">
                             <strong>Review by CF Engineering:</strong>
-                             ${reviewByCfEngineering}
+                            <span class="inputs">${reviewByCfEngineering}<span class="inputs">
                         </div>
-                        <div class="form-ncr-details">
+                        <div class="form-ncr-details-print">
                             <strong>Does Customer require notification of NCR?</strong>
-                            <span id="customerNotification">${customerNotification}</span>
+                            <span id="customerNotification" class="inputs">${customerNotification}</span>
                         </div>
-                        <div class="form-ncr-details">
+                        <div class="form-ncr-details-print">
                             <strong for="disposition">Disposition:</strong>
-                            <span id="disposition">${disposition}</span>
+                            <span id="disposition" class="inputs">${disposition}</span>
                         </div>
-                        <div class="form-ncr-details">
+                        <div class="form-ncr-details-print">
                             <strong for="drawingUpdate">Does the drawing require updating?</strong>
-                            <span id="drawingUpdate">${drawingUpdate}</span>
+                            <span id="drawingUpdate" class="inputs">${drawingUpdate}</span>
                         </div>
-                        <div class="form-ncr-details">
+                        <div class="form-ncr-details-print">
                             <strong>Original Revision Number:</strong>
-                            <span id="originalRevNumber">${originalRevNumber}</span>
+                            <span id="originalRevNumber" class="inputs">${originalRevNumber}</span>
                         </div>
-                        <div class="form-ncr-details">
+                        <div class="form-ncr-details-print">
                             <strong>Updated Revision Number:</strong>
-                            <span id="updatedRevNumber">${updatedRevNumber}</span>
+                            <span id="updatedRevNumber" class="inputs">${updatedRevNumber}</span>
                         </div>
-                        <div class="form-ncr-details">
+                        <div class="form-ncr-details-print">
                             <strong>Revision Date:</strong>
-                            <span id="revisionDate">${revisionDate}</span>
+                            <span id="revisionDate" class="inputs">${revisionDate}</span>
                         </div>
-                        <div class="form-ncr-details">
+                        <div class="form-ncr-details-print">
                             <strong>Engineer Name:</label>
-                                <span id="engineerName">${engineerName}</span>
+                                <span id="engineerName" class="inputs">${engineerName}</span>
                         </div>
                     </div>                        
                     </div>
+                </div>
                 </div>
         `;
     }
@@ -1281,32 +1273,94 @@ function printPdf() {
             <title>NCR - ${ncrNumber}</title>
             <link href="styles.css" rel="stylesheet">
             <style>
-                body {
-                    font-family: Arial, sans-serif;
-                    margin: 20px;
-                }
-                h1, h2 {
-                    text-align: center;
-                    margin-bottom: 20px;
-                }
-                div {
-                    margin-bottom: 10px;
-                }
-                ul {
-                    margin-top: 5px;
-                    padding-left: 20px;
-                }
-                .div-container{
-                    width: 90%;
-                }
+            body{
+                background-color: white;
+                font-size:14px;            }
+            h1,h2{
+                font-size:22px;
+                text-align: center;
+            }
+            h1{
+                margin-top:20px;
+                margin-bottom: 20px;
+
+            }
+            h2{
+                margin-top:20px;
+                font-size:20px;
+                margin-bottom:20px;
+            }
+            .form-ncr-details-print {
+                display: flex;
+                flex-direction: column;
+                gap: 5px;
+            }
+            .form-header-print {
+                display: grid;
+                grid-template-columns: 1fr 1fr 1fr 1fr;
+                grid-gap: 15px;
+                padding: 30px;
+            }
+            .form-section-print {
+                display: grid;
+                grid-gap: 30px;
+                box-sizing: border-box;
+            }
+            .four-cols-print {
+                display: grid;
+                grid-gap: 30px;
+                grid-template-columns: 1fr 1fr 1fr 1fr;
+
+            }
+            /* Regular styles for screen */
+            .print-header {
+                display: none; /* Hide header during normal view */
+            }
+
+            .inputs{
+                font-size: 14px;
+            }
+
+@media print {
+    /* Show header only in print */
+    .print-header {
+        display: block;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        padding: 10px;
+        background: white;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .logo {
+        height: 20px;
+        width: auto;
+        float: left;
+        margin-right: 10px;
+    }
+
+    .document-number {
+        font-size: 14px;
+        font-weight: bold;
+        vertical-align: middle;
+        text-align: right;
+    }
+
+    
+}
+
             </style>
         </head>
         <body>
         <br>
-        <p>Document Number: OPS-00011</p>
+        <div class="print-header">
+        <img src="images/logo.png" alt="Logo" class="logo">
+        <p class="document-number" >Document Number: OPS-00011</p>
+    </div>
         <br>
-        <br>
-        <h1>NCR Information</h1>
+        <h1>NCR Information : ${ncrNumber}</h1>
             ${content}
         </body>
         </html>
@@ -1326,65 +1380,6 @@ function printPdf() {
     };
 }
 
-// function printPdf() {
-//     // Get the content of the print section
-//     var printContent = document.getElementById("printSection");
-//     var ncrNumber = document.getElementById("ncrNumber").textContent.trim(); // Get NCR number from the page
-
-
-//     // Check if printContent exists
-//     if (!printContent) {
-//         console.error("Print section not found.");
-//         return;
-//     }
-
-//     // Open a new window
-//     var printWindow = window.open("", "_blank", "width=800,height=600");
-
-//     // Write the content and styles to the new window
-//     printWindow.document.open();
-//     printWindow.document.write(`
-//         <html>
-//         <head>
-//             <title>NCR - ${ncrNumber}</title>
-//             <link href="styles.css" rel="stylesheet">
-
-//             <style>
-//                 body 
-//                 {
-//                     -webkit-print-color-adjust: exact;
-//                      color-adjust: exact;
-//                 }
-//                 .form-header
-//                 {
-//                     margin-top:5px;
-//                 }
-//                 #PrintButton, #editButton
-//                 {
-//                     display:none;
-//                 }
-//             </style>
-//         </head>
-//         <body>
-//         <br>
-//             ${printContent.outerHTML}
-//         </body>
-//         </html>
-//     `);
-//     printWindow.document.close();
-
-//     // Wait for the new window to fully load, then print
-//     printWindow.onload = function () {
-//         setTimeout(() => {
-//             printWindow.print();
-//         }, 500); // Adjust delay as needed (500ms is usually sufficient)
-//     };
-
-//     // Close the print window only after printing is complete
-//     printWindow.onafterprint = function () {
-//         printWindow.close();
-//     };
-// }
 
 //================================================================================================================
 ///FUNCTIONS SUPPLIER DROPDOWN
@@ -2262,6 +2257,25 @@ function performSearchEng() {
     setupPagination(totalResults, performSearchEng, "viewTableContentEng", "paginationEng");
 }
 
+
+// Dropdown for nav list
+document.addEventListener("DOMContentLoaded", function () {
+    const toggleButton = document.getElementById("toggleNavButton");
+    const mainNav = document.getElementById("mainNav");
+
+    toggleButton.addEventListener("click", function () {
+        // Toggle the visibility of the menu
+        mainNav.classList.toggle("active");
+    });
+
+    // Close menu when clicking outside
+    document.addEventListener("click", function (event) {
+        if (!mainNav.contains(event.target) && event.target !== toggleButton) {
+            mainNav.classList.remove("active");
+        }
+    });
+});
+
 //=================
 //   Acoount Page
 //================
@@ -2318,6 +2332,8 @@ function toggleEditMode(loggedInUser) {
     document.getElementById('saveprofileButton').style.display = 'block';
     document.getElementById('cancelprofileButton').style.display = 'block';
     document.getElementById('editIcon').style.display = 'block';
+    document.getElementById('roleMessage').style.display = 'block';
+
 
     const profilePagePic = document.getElementById('profilePagePic');
     tempProfilePicture = profilePagePic.src;
@@ -2390,6 +2406,8 @@ function cancelEditMode(loggedInUser) {
     document.getElementById('saveprofileButton').style.display = 'none';
     document.getElementById('cancelprofileButton').style.display = 'none';
     document.getElementById('editIcon').style.display = 'none';
+    document.getElementById('roleMessage').style.display = 'none';
+
 
 
     document.getElementById('togglePassword').style.display = 'none';
@@ -2454,12 +2472,18 @@ function updateNotificationButton() {
     const profileButton = document.getElementById("btnNotification"); // Notification button
     const savedState = localStorage.getItem("toggleState"); // Read state from localStorage
     const isVisible = savedState === "true"; // Check if the state is true or false
+    const notifSettingsMessage = document.getElementById("notifSettingsMessage"); // Notification message
 
     if (profileButton) {
         // Show or hide the button based on the toggle state
         profileButton.style.display = isVisible ? "block" : "none";
     } else {
         console.warn("#btnNotification not found on this page.");
+    }
+    if (notifSettingsMessage) {
+        notifSettingsMessage.style.display = isVisible ? "inline" : "none";
+    } else {
+        console.warn("#notifSettingsMessage not found on this page.");
     }
 }
 
