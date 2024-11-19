@@ -2322,7 +2322,6 @@ function toggleEditMode(loggedInUser) {
     document.getElementById('lastnameInput').disabled = false;
     document.getElementById('emailInput').disabled = false;
     document.getElementById('passwordInput').disabled = false;
-    document.getElementById('roleInput').value += '     *Cannot change without administrative permissions.';
     document.getElementById('genderInput').disabled = false;
 
     document.getElementById('username').style.display = 'none';
@@ -2481,7 +2480,10 @@ function updateNotificationButton() {
         console.warn("#btnNotification not found on this page.");
     }
     if (notifSettingsMessage) {
-        notifSettingsMessage.style.display = isVisible ? "inline" : "none";
+        //notifSettingsMessage.style.display = isVisible ? "inline" : "none";
+        notifSettingsMessage.textContent = isVisible
+        ? "Notifications are enabled"
+        : "Notifications are disabled";
     } else {
         console.warn("#notifSettingsMessage not found on this page.");
     }
