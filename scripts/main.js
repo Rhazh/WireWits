@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         document.getElementById('logout').addEventListener('click', function () {
             localStorage.removeItem('loggedInUser');
             //Comment this out to start afresh
-            localStorage.clear();
+            //localStorage.clear();
             alert("Successfully logged out.");
             window.location.href = 'login.html';
         });
