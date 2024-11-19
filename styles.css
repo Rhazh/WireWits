@@ -1106,6 +1106,12 @@ label {
     grid-gap: 30px;
 }
 
+.cols-info {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
 .two-cols-info {
     grid-template-columns: auto auto;
 }
@@ -1321,6 +1327,14 @@ button {
 /* -------------------------------------------------------------- */
 
 /* Account Page */
+
+.profile-picture-container img {
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid #eee;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+}
+
 .settings-two-cols {
     display: grid;
     grid-template-columns: 1.25fr 3fr;
@@ -1346,8 +1360,9 @@ button {
 
 .settings-section-title {
     width: 100%;
-    background-color: #0056b3;
+    background-color: #00214d;
     padding: 20px 0 15px 20px;
+    box-sizing: border-box;
 }
 
 .settings-section-title h2 {
