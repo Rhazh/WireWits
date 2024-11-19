@@ -2563,3 +2563,58 @@ function restrictInputToNumbersAndDashes(fieldIds) {
     });
 }
 
+//=======================================
+// Tool tip 
+//========================================
+document.addEventListener("DOMContentLoaded", () => {
+    const icons = document.querySelectorAll(".info-icon");
+    let activeTooltip = null;
+
+    icons.forEach((icon) => {
+        const tooltip = icon.nextElementSibling;
+
+        icon.addEventListener("mouseenter", () => {
+            const iconRect = icon.getBoundingClientRect();
+            const viewportWidth = window.innerWidth;
+
+            // Set default positioning
+            tooltip.style.position = "fixed";
+            tooltip.style.top = `${iconRect.bottom + 8}px`;
+            tooltip.style.minWidth = "150px"; // Minimum width
+            tooltip.style.maxWidth = "300px"; // Maximum width
+
+            // Align tooltip's right edge with the icon
+            tooltip.style.left = `${iconRect.right}px`;
+            tooltip.style.transform = "translateX(-100%)";
+
+            // Adjust if tooltip overflows to the left
+            if (iconRect.right - tooltip.offsetWidth < 0) {
+                tooltip.style.left = `${iconRect.left}px`; // Align to left edge
+                tooltip.style.transform = "translateX(0)";
+            }
+
+            // Show tooltip
+            tooltip.style.visibility = "visible";
+            tooltip.style.opacity = "1";
+
+            // Track the active tooltip
+            activeTooltip = tooltip;
+        });
+
+        icon.addEventListener("mouseleave", () => {
+            // Hide tooltip
+            tooltip.style.visibility = "hidden";
+            tooltip.style.opacity = "0";
+            activeTooltip = null; // Clear active tooltip
+        });
+    });
+
+    // Hide tooltip on scroll
+    window.addEventListener("scroll", () => {
+        if (activeTooltip) {
+            activeTooltip.style.visibility = "hidden";
+            activeTooltip.style.opacity = "0";
+            activeTooltip = null;
+        }
+    });
+});

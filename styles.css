@@ -925,35 +925,31 @@ table tbody tr:hover {
 }
 
 .info-desc {
-    display: none;
-    position: absolute;
-    bottom: 37px;
-    right: -4.5px;
+    position: fixed;
     background-color: #666;
     color: #fafafa;
-    padding: 15px;
+    padding: 8px 12px;
     border-radius: 5px;
-    width: 500px;
+    width: 400px;
+    white-space: normal;
     text-align: left;
-    font-size: 16px;
-    z-index: 10;
+    font-size: 14px;
+    z-index: 9999;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
 }
 
-.info-desc::after {
-    content: "";
+.info-desc:before {
+    content: '';
     position: absolute;
-    top: 100%;
+    top: -5px;
     right: 10px;
-    border-width: 8px;
+    transform: translateX(50%);
+    border-width: 5px;
     border-style: solid;
-    border-color: #666 transparent transparent transparent;
-}
-
-/* Show tooltip on hover */
-.info-icon:hover + .info-desc {
-    display: block;
-    position: absolute;
+    border-color: transparent transparent #666 transparent;
 }
 
 /* -------------------------------------------------------------- */
@@ -1543,6 +1539,10 @@ hr {
 
     .form-ncr-buttons div button {
         width: 100% !important;
+    }
+
+    .info-desc {
+        width: 200px;
     }
 }
 
