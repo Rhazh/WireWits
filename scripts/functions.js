@@ -401,6 +401,12 @@ function populateEditPage(ncrNumber) {
                 displayThumbnail(fileObject);
             });
         }
+
+        if(entry.ncrStatus != "Quality"){
+            document.getElementById('btnSubmit').style.display = 'none';
+            document.getElementById('engNeeded').disabled = true;
+            document.getElementById('itemConform').disabled = true;
+        }
     }
 }
 
@@ -413,7 +419,8 @@ function editEntry(ncrNumber) {
 // Supporting Function - Redirection to Edit an NCR when Edit button is clicked
 function handleEditEntry(ncrNumber, ncrStatus) {
     if (ncrStatus !== "Quality") {
-        alert(`This NCR is already submitted to ${ncrStatus}.`);
+        alert(`This NCR is already submitted to ${ncrStatus}. You can make and save changes, except to 'Item Marked Conforming' and 'Engineering Needed' fields.` );
+        window.location.href = `create.html?ncr=${ncrNumber}`; // Redirect to edit page
     } else {
         window.location.href = `create.html?ncr=${ncrNumber}`; // Redirect to edit page
     }
