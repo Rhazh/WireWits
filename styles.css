@@ -828,10 +828,6 @@ table tbody tr:hover {
     box-sizing: border-box;
 }
 
-.tab-head {
-    min-width: 300px;
-}
-
 .tab-head label {
     cursor: pointer;
     padding: 25px 40px 10px;
@@ -1514,7 +1510,7 @@ input:checked + .slider:before {
 
 hr {
     border: 1.5px dashed #d3d3d3;
-    margin: 5px 0;
+    margin: 10px 0;
 }
 
 .bottom-margin{
@@ -1547,7 +1543,7 @@ hr {
 }
 
 /* Small devices */
-@media only screen and (max-width: 800px) {
+@media only screen and (max-width: 600px) {
     header .header-col-left {
         width: 50%;
     }
@@ -1627,7 +1623,7 @@ hr {
 }
 
 /* Medium devices */
-@media only screen and (max-width: 1080px) {
+@media only screen and (max-width: 1000px) {
     header .header-col {
         width: 95%;
     }

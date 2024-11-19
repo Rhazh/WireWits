@@ -1861,10 +1861,9 @@ function populateEngDetailsPage(ncrNumber) {
         document.getElementById('revisionDate').textContent = entry.revisionDate ? formatDate(entry.revisionDate) : "";
         document.getElementById('engineerName').textContent = entry.engineerName ?? "";
         if(entry.drawingUpdate == "No"){
-            // Array.from(document.getElementsById('drawingUpdateToggle')).forEach(element => {
-            //     element.style.display = 'none';
-            // });
-            document.getElementById('drawingUpdateToggle').style.display = 'none';
+            Array.from(document.getElementsByClassName('drawingUpdateToggle')).forEach(element => {
+                element.style.display = 'none';
+            });
         }
     }
 }
@@ -1905,10 +1904,10 @@ function populateEngEditPage(ncrNumber) {
             // document.getElementById('revisionDate').disabled = true;
             // document.getElementById('engineerName').disabled = true;
             
-            Array.from(document.getElementsByClassList('drawingUpdateToggle2')).forEach(element => {
+            Array.from(document.getElementsByClassName('drawingUpdateToggle2')).forEach(element => {
                 element.style.display = 'none';
             });
-            //document.getElementById('drawingUpdateToggle2').style.display = 'none';
+
         }
     }
     //console.log(entry);
@@ -1941,11 +1940,9 @@ document.getElementById('drawingUpdate').addEventListener('change', (event) => {
         // document.getElementById('updatedRevNumber').disabled = true;
         // document.getElementById('revisionDate').disabled = true;
         // document.getElementById('engineerName').disabled = true;
-
-        Array.from(document.getElementsByClassList('drawingUpdateToggle2')).forEach(element => {
+        Array.from(document.getElementsByClassName('drawingUpdateToggle2')).forEach(element => {
             element.style.display = 'none';
         });
-        // document.getElementById('drawingUpdateToggle2').style.display = 'none';
 
         // Clear the fields
         document.getElementById('originalRevNumber').value = "";
@@ -1969,10 +1966,9 @@ document.getElementById('drawingUpdate').addEventListener('change', (event) => {
         // document.getElementById('revisionDate').disabled = false;
         // document.getElementById('engineerName').disabled = false;
 
-        Array.from(document.getElementsByClassList('drawingUpdateToggle2')).forEach(element => {
+        Array.from(document.getElementsByClassName('drawingUpdateToggle2')).forEach(element => {
             element.style.display = 'block';
         });
-        //document.getElementById('drawingUpdateToggle2').style.display = 'none';
 
         
          // Restore previous values if "Yes" is selected
