@@ -2315,7 +2315,7 @@ function toggleEditMode(loggedInUser) {
     const updatedUser = JSON.parse(localStorage.getItem('loggedInUser'));
 
 
-    document.getElementById('userFullnameProfilePage').style.display = 'none';
+    //document.getElementById('userFullnameProfilePage').style.display = 'none';
     document.getElementById('usernameInput').disabled = false;
     document.getElementById('firstnameInput').disabled = false;
     document.getElementById('middlenameInput').disabled = false;
@@ -2324,7 +2324,7 @@ function toggleEditMode(loggedInUser) {
     document.getElementById('passwordInput').disabled = false;
     document.getElementById('genderInput').disabled = false;
 
-    document.getElementById('username').style.display = 'none';
+    //document.getElementById('username').style.display = 'none';
     document.getElementById('togglePassword').style.display = 'block';
 
     document.getElementById('editprofileButton').style.display = 'none';
