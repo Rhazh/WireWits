@@ -563,11 +563,17 @@ function performSearch() {
     setupPagination(totalResults, performSearch, "viewTableContent", "pagination");
 
     if (totalResults === 0) {
-        //noResultsMessage.textContent = 'No results found.';
-        //noResultsMessage.style.display = 'block';
-
-        alert("No results found.")
-        location.reload();
+        // Show a placeholder row in the table with a magnifying glass icon
+            tableBody.innerHTML = `
+            <tr>
+                <td colspan="5" style="text-align: center; padding: 20px; color: #666; font-style: italic; font-size: 16px; background-color: #f9f9f9;">
+                    <svg xmlns="http://www.w3.org/2000/svg" style="width: 24px; height: 24px; vertical-align: middle; margin-right: 10px; color: #888;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35m2.1-5.45a7.5 7.5 0 1 1-15 0 7.5 7.5 0 0 1 15 0z"/>
+                    </svg>
+                    No results found.
+                </td>
+            </tr>`;
+        return;
     }
 }
 
@@ -1076,8 +1082,17 @@ function performSearchReports() {
         //noResultsMessage.textContent = 'No results found.';
         //noResultsMessage.style.display = 'block';
 
-        alert("No results found.")
-        location.reload();
+            // Show a placeholder row in the table with a magnifying glass icon
+            tableContent.innerHTML = `
+        <tr>
+            <td colspan="7" style="text-align: center; padding: 20px; color: #666; font-style: italic; font-size: 16px; background-color: #f9f9f9;">
+                <svg xmlns="http://www.w3.org/2000/svg" style="width: 24px; height: 24px; vertical-align: middle; margin-right: 10px; color: #888;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35m2.1-5.45a7.5 7.5 0 1 1-15 0 7.5 7.5 0 0 1 15 0z"/>
+                </svg>
+                No results found.
+            </td>
+        </tr>`;
+    return;
     } /*else {
         noResultsMessage.style.display = 'none';
     }*/
@@ -2290,14 +2305,21 @@ function performSearchEng() {
 
     // Setup pagination
     setupPagination(totalResults, performSearchEng, "viewTableContentEng", "paginationEng");
-    
-    if (totalResults === 0) {
-        //noResultsMessage.textContent = 'No results found.';
-        //noResultsMessage.style.display = 'block';
 
-        alert("No results found.")
-        location.reload();
-    }
+    if (totalResults === 0) {
+        // Show a placeholder row in the table with a magnifying glass icon
+           tableBody.innerHTML = `
+           <tr>
+               <td colspan="5" style="text-align: center; padding: 20px; color: #666; font-style: italic; font-size: 16px; background-color: #f9f9f9;">
+                   <svg xmlns="http://www.w3.org/2000/svg" style="width: 24px; height: 24px; vertical-align: middle; margin-right: 10px; color: #888;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                       <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35m2.1-5.45a7.5 7.5 0 1 1-15 0 7.5 7.5 0 0 1 15 0z"/>
+                   </svg>
+                   No results found.
+               </td>
+           </tr>`;
+       return;
+   }
+    
 }
 
 
