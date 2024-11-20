@@ -155,7 +155,6 @@
                 </div>
             </div>
         </div>
-        </div>
         <div class="skip-links-div">
             <a href="#createEditModal" class="skip-link" aria-label="Skip to Create NCR Form">Skip to NCR from</a>
             <a href="#quantityReceived" class="skip-link" aria-label="Skip to Quantity details">Skip to Quantity
@@ -167,604 +166,629 @@
         </div>
     </header>
     <main>
-        <section id="secQuality">
-            <div class="container">
-                <div class="breadcrumb-container">
-                    <div>
-                        <ol class="breadcrumb-list" tabindex="-1"></ol>
-                        <!-- Breadcrumbs will be dynamically populated here -->
+        <div class="container">
+            <div class="breadcrumb-container">
+                <div>
+                    <ol class="breadcrumb-list" tabindex="-1"></ol>
+                    <!-- Breadcrumbs will be dynamically populated here -->
+                </div>
+                </div>
+                <section id="secQuality">
+                    <div class="page-title">
+                        <h1 id="createEditNCR">Create NCR</h1> <!--title may change depending on user actions-->
                     </div>
-                </div>
-                <div class="page-title">
-                    <h1 id="createEditNCR">Create NCR</h1> <!--title may change depending on user actions-->
-                </div>
-                <div id="createNCRModal" class="modal" role="dialog" aria-labelledby="create-edit-NCR">
-                    <div class="modal-container">
-                        <div class="modal-top">
-                            <span id="btnCloseModal" tabindex="1" class="btn-close" onclick="goBack()">
-                                <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
-                                    xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="none"
-                                    viewBox="0 0 24 24">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                        stroke-width="2.5" d="M6 18 17.94 6M18 18 6.06 6" />
-                                </svg>
-                            </span>
-                            <div class="modal-header">
-                                <h2 id="create-edit-NCR">Create NCR</h2> <!--Heading may change-->
+                    <div id="createNCRModal" class="modal" role="dialog" aria-labelledby="create-edit-NCR">
+                        <div class="modal-container">
+                            <div class="modal-top">
+                                <span id="btnCloseModal" tabindex="1" class="btn-close" onclick="goBack()">
+                                    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
+                                        xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="none"
+                                        viewBox="0 0 24 24">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                            stroke-width="2.5" d="M6 18 17.94 6M18 18 6.06 6" />
+                                    </svg>
+                                </span>
+                                <div class="modal-header">
+                                    <h2 id="create-edit-NCR">Create NCR</h2> <!--Heading may change-->
+                                </div>
                             </div>
+                            <form id="createNCRForm" class="modal-form">
+                                <div>
+                                    <div class="two-cols-info">
+                                        <label for="napplicableProcess">Applicable Process:
+                                            <span aria-hidden="true" class="required">*</span>
+                                            <!-- Hide asterisk from screen readers -->
+                                        </label>
+                                        <div class="form-info">
+                                            <div class="info-icon">
+                                                <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
+                                                    xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                    fill="none" viewBox="0 0 24 24">
+                                                    <path stroke="currentColor" stroke-linecap="round"
+                                                        stroke-linejoin="round" stroke-width="2"
+                                                        d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                                </svg>
+                                            </div>
+                                            <div class="info-desc">
+                                                <p>The applicable process in an NCR report identifies the specific step
+                                                    where the non-conformance occurred, helping to pinpoint causes and
+                                                    implement targeted corrective actions for improved quality.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <select id="napplicableProcess" name="napplicableProcess"
+                                        aria-label="required field">
+                                        <option value="" disabled selected>Select a process</option>
+                                        <!-- Added value="" and selected attribute -->
+                                        <option value="Supplier or Rec-Insp">Supplier or Rec-Insp</option>
+                                        <option value="WIP (Production Order)">WIP (Production Order)</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <div class="two-cols-info">
+                                        <label for="nsupplierName">Supplier Name:
+                                            <span aria-hidden="true" class="required">*</span>
+                                            <!-- Hide asterisk from screen readers -->
+                                        </label>
+                                        <div class="form-info">
+                                            <div class="info-icon">
+                                                <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
+                                                    xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                    fill="none" viewBox="0 0 24 24">
+                                                    <path stroke="currentColor" stroke-linecap="round"
+                                                        stroke-linejoin="round" stroke-width="2"
+                                                        d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                                </svg>
+                                            </div>
+                                            <div class="info-desc">
+                                                <p>The supplier name in an NCR report identifies where non-conforming
+                                                    materials or services originated.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <select id="nsupplierName" name="nsupplierName" aria-label="required field">
+                                        <option value="" disabled selected>Select a Supplier</option>
+                                        <!-- Added value="" and selected attribute -->
+                                    </select>
+                                </div>
+                                <div class="two-cols">
+                                    <button type="button" id="btnCreateNCR" class="button-primary"
+                                        tabindex="4">Create</button>
+                                    <button type="button" id="btnCancelNCR" tabindex="5" class="button-secondary"
+                                        onclick="goBack()">Cancel</button>
+                                </div>
+                            </form>
                         </div>
-                        <form id="createNCRForm" class="modal-form">
-                            <div>
-                                <div class="two-cols-info">
-                                    <label for="napplicableProcess">Applicable Process:
-                                        <span aria-hidden="true" class="required">*</span>
-                                        <!-- Hide asterisk from screen readers -->
-                                    </label>
-                                    <div class="form-info">
-                                        <div class="info-icon">
-                                            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
-                                                xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
-                                                viewBox="0 0 24 24">
-                                                <path stroke="currentColor" stroke-linecap="round"
-                                                    stroke-linejoin="round" stroke-width="2"
-                                                    d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                                            </svg>
-                                        </div>
-                                        <div class="info-desc">
-                                            <p>The applicable process in an NCR report identifies the specific step
-                                                where the non-conformance occurred, helping to pinpoint causes and
-                                                implement targeted corrective actions for improved quality.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <select id="napplicableProcess" name="napplicableProcess" aria-label="required field">
-                                    <option value="" disabled selected>Select a process</option>
-                                    <!-- Added value="" and selected attribute -->
-                                    <option value="Supplier or Rec-Insp">Supplier or Rec-Insp</option>
-                                    <option value="WIP (Production Order)">WIP (Production Order)</option>
-                                </select>
-                            </div>
-                            <div>
-                                <div class="two-cols-info">
-                                    <label for="nsupplierName">Supplier Name:
-                                        <span aria-hidden="true" class="required">*</span>
-                                        <!-- Hide asterisk from screen readers -->
-                                    </label>
-                                    <div class="form-info">
-                                        <div class="info-icon">
-                                            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
-                                                xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
-                                                viewBox="0 0 24 24">
-                                                <path stroke="currentColor" stroke-linecap="round"
-                                                    stroke-linejoin="round" stroke-width="2"
-                                                    d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                                            </svg>
-                                        </div>
-                                        <div class="info-desc">
-                                            <p>The supplier name in an NCR report identifies where non-conforming
-                                                materials or services originated.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <select id="nsupplierName" name="nsupplierName" aria-label="required field">
-                                    <option value="" disabled selected>Select a Supplier</option>
-                                    <!-- Added value="" and selected attribute -->
-                                </select>
-                            </div>
-                            <div class="two-cols">
-                                <button type="button" id="btnCreateNCR" class="button-primary"
-                                    tabindex="4">Create</button>
-                                <button type="button" id="btnCancelNCR" tabindex="5" class="button-secondary"
-                                    onclick="goBack()">Cancel</button>
-                            </div>
-                        </form>
                     </div>
-                </div>
-                <!--Form Field-->
-                <div id="createEditModal">
-                    <form class="form-ncr">
-                        <div class="div-container">
-                            <div class="form-header">
-                                <div class="form-ncr-details">
-                                    <strong>NCR Number:</strong>
-                                    <span id="ncrNumber"></span>
-                                </div>
-                                <div class="form-ncr-details">
-                                    <strong>Date Created:</strong>
-                                    <span id="dateCreated"></span>
-                                </div>
-                                <div class="form-ncr-details">
-                                    <strong>Created By:</strong>
-                                    <span id="createdBy"></span>
-                                </div>
-                                <div class="form-ncr-details">
-                                    <strong>Department:</strong>
-                                    <span id="ncrStatus"></span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="div-container">
-                            <div class="form-section">
-                                <div class="two-cols">
-                                    <div>
-                                        <div class="two-cols-info">
-                                            <label for="applicableProcess"
-                                                aria-label="Applicable Process, required">Applicable
-                                                Process:<span class="required">*</span></label>
-                                            <div class="form-info">
-                                                <div class="info-icon">
-                                                    <svg class="w-6 h-6 text-gray-800 dark:text-white"
-                                                        aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
-                                                        height="24" fill="none" viewBox="0 0 24 24">
-                                                        <path stroke="currentColor" stroke-linecap="round"
-                                                            stroke-linejoin="round" stroke-width="2"
-                                                            d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                                                    </svg>
-                                                </div>
-                                                <div class="info-desc">
-                                                    <p>The applicable process in an NCR report identifies the specific
-                                                        step
-                                                        where the non-conformance occurred, helping to pinpoint causes
-                                                        and
-                                                        implement targeted corrective actions for improved quality.</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <select id="applicableProcess" required>
-                                            <option value="" disabled selected>Select a process</option>
-                                            <option value="Supplier or Rec-Insp">Supplier or Rec-Insp</option>
-                                            <option value="WIP (Production Order)">WIP (Production Order)</option>
-                                        </select>
-                                    </div>
-                                    <div>
-                                        <div class="two-cols-info">
-                                            <label for="supplierName" aria-label="Supplier Name, required">Supplier
-                                                Name:<span class="required">*</span></label>
-                                            <div class="form-info">
-                                                <div class="info-icon">
-                                                    <svg class="w-6 h-6 text-gray-800 dark:text-white"
-                                                        aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
-                                                        height="24" fill="none" viewBox="0 0 24 24">
-                                                        <path stroke="currentColor" stroke-linecap="round"
-                                                            stroke-linejoin="round" stroke-width="2"
-                                                            d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                                                    </svg>
-                                                </div>
-                                                <div class="info-desc">
-                                                    <p>The supplier name in an NCR report identifies where
-                                                        non-conforming
-                                                        materials or services originated.</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <select id="supplierName" required>
-                                            <option value="" disabled selected>Select a Supplier</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="two-cols">
-                                    <div>
-                                        <div class="two-cols-info">
-                                            <label for="poNumber" aria-label="Production Number">Prod. Number:<span
-                                                    class="required">*</span></label>
-                                            <div class="form-info">
-                                                <div class="info-icon">
-                                                    <svg class="w-6 h-6 text-gray-800 dark:text-white"
-                                                        aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
-                                                        height="24" fill="none" viewBox="0 0 24 24">
-                                                        <path stroke="currentColor" stroke-linecap="round"
-                                                            stroke-linejoin="round" stroke-width="2"
-                                                            d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                                                    </svg>
-                                                </div>
-                                                <div class="info-desc">
-                                                    <p>The Product Number identifies the specific item or material
-                                                        associated with the Non-Conformance Report (NCR), ensuring
-                                                        precise tracking and resolution of the issue.</p>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                        <input id="poNumber" name="poNumber" type="text" pattern="[0-9-]*"
-                                            placeholder="Example: 000-00">
-                                        <!--include regex for pattern: digits-->
-                                    </div>
-                                    <div>
-                                        <div class="two-cols-info">
-                                            <label for="soNumber" aria-label="Sales Order Number, required">Sales Order
-                                                Number:<span class="required">*</span></label>
-
-                                            <div class="form-info">
-                                                <div class="info-icon">
-                                                    <svg class="w-6 h-6 text-gray-800 dark:text-white"
-                                                        aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
-                                                        height="24" fill="none" viewBox="0 0 24 24">
-                                                        <path stroke="currentColor" stroke-linecap="round"
-                                                            stroke-linejoin="round" stroke-width="2"
-                                                            d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                                                    </svg>
-                                                </div>
-                                                <div class="info-desc">
-                                                    <p>The Sales Order Number identifies the specific
-                                                        customer order associated with this Non-Conformance Report
-                                                        (NCR).
-                                                        It helps link the issue to the original order for accurate
-                                                        tracking and resolution.</p>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                        <input id="soNumber" name="soNumber" type="text" pattern="[0-9-]*"
-                                            placeholder="Example: 000-00" required>
-                                        <!--include regex for pattern: digits-->
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <div class="div-container">
-                            <!--include validation against negatives and ensure that defective is not more received-->
-                            <div class="form-section">
-                                <div class="two-cols">
-                                    <div>
-                                        <div class="two-cols-info">
-                                            <label for="quantityReceived"
-                                                aria-label="Quantity Received, required">Quantity
-                                                Received:<span class="required">*</span></label>
-
-                                            <div class="form-info">
-                                                <div class="info-icon">
-                                                    <svg class="w-6 h-6 text-gray-800 dark:text-white"
-                                                        aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
-                                                        height="24" fill="none" viewBox="0 0 24 24">
-                                                        <path stroke="currentColor" stroke-linecap="round"
-                                                            stroke-linejoin="round" stroke-width="2"
-                                                            d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                                                    </svg>
-                                                </div>
-                                                <div class="info-desc">
-                                                    <p>Quantity received indicates the total quantity of items received
-                                                        by the
-                                                        Quality department for inspection as part of the NCR process.
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <input id="quantityReceived" name="quantityReceived" type="number"
-                                            placeholder="Example : 100" required min="1">
-                                    </div>
-                                    <div>
-                                        <div class="two-cols-info">
-                                            <label for="quantityDefect"
-                                                aria-label="Quantity Defective, required">Quantity
-                                                Defective:<span class="required">*</span></label>
-
-                                            <div class="form-info">
-                                                <div class="info-icon">
-                                                    <svg class="w-6 h-6 text-gray-800 dark:text-white"
-                                                        aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
-                                                        height="24" fill="none" viewBox="0 0 24 24">
-                                                        <path stroke="currentColor" stroke-linecap="round"
-                                                            stroke-linejoin="round" stroke-width="2"
-                                                            d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                                                    </svg>
-                                                </div>
-                                                <div class="info-desc">
-                                                    <p>Quantity Defective Represents the quantity of items found to be
-                                                        defective or non-conforming during the Quality inspection.
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <input id="quantityDefect" name="quantityDefect" type="number"
-                                            placeholder="Example : 50" required min="1">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="div-container">
-                            <div class="form-section">
-                                <div>
-                                    <div class="two-cols-info">
-                                        <label for="itemDescription" aria-label="Item Description, required">Item
-                                            Description:<span class="required">*</span></label>
-
-                                        <div class="form-info">
-                                            <div class="info-icon">
-                                                <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
-                                                    xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                    fill="none" viewBox="0 0 24 24">
-                                                    <path stroke="currentColor" stroke-linecap="round"
-                                                        stroke-linejoin="round" stroke-width="2"
-                                                        d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                                                </svg>
-                                            </div>
-                                            <div class="info-desc">
-                                                <p> The Item description provides a detailed description of the product
-                                                    or material associated with the Non-Conformance
-                                                    Report (NCR) to clearly identify the item in question.
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <textarea id="itemDescription" name="itemDescription" rows="2"
-                                        placeholder="Describe the item" required></textarea>
-                                </div>
-                                <div>
-                                    <div class="two-cols-info">
-                                        <label for="defectDescription"
-                                            aria-label="Description of Defect, required">Description
-                                            of Defect:<span class="required">*</span></label>
-
-                                        <div class="form-info">
-                                            <div class="info-icon">
-                                                <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
-                                                    xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                    fill="none" viewBox="0 0 24 24">
-                                                    <path stroke="currentColor" stroke-linecap="round"
-                                                        stroke-linejoin="round" stroke-width="2"
-                                                        d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                                                </svg>
-                                            </div>
-                                            <div class="info-desc">
-                                                <p>Description of defect provides a detailed explanation of the issue or
-                                                    problem found
-                                                    with the product or material during the inspection. This helps
-                                                    clearly define the nature of the defect for corrective actions and
-                                                    follow-up.
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <textarea id="defectDescription" name="defectDescription" rows="5"
-                                        placeholder="Describe the defect in as much detail as possible"
-                                        required></textarea>
-                                </div>
-                                <div>
-                                    <div class="two-cols-info">
-                                        <label for="attachedDocument">Upload image(s)/video(s):</label>
-
-                                        <div class="form-info">
-                                            <div class="info-icon">
-                                                <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
-                                                    xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                    fill="none" viewBox="0 0 24 24">
-                                                    <path stroke="currentColor" stroke-linecap="round"
-                                                        stroke-linejoin="round" stroke-width="2"
-                                                        d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                                                </svg>
-                                            </div>
-                                            <div class="info-desc">
-                                                <p>
-                                                    Allows you to attach images or videos related to the defect
-                                                    or non-conformance. This can include photos of the defective
-                                                    items or videos demonstrating the issue, providing visual evidence
-                                                    to support the NCR.
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="file-upload">
-                                        <input id="attachedDocument" name="attachedDocument" type="file" multiple
-                                            accept="image/*,video/*">
-                                        <div class="file-upload-details">
-                                            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
-                                                xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="none"
-                                                viewBox="0 0 24 24">
-                                                <path stroke="currentColor" stroke-linecap="round"
-                                                    stroke-linejoin="round" stroke-width="2"
-                                                    d="M12 5v9m-5 0H5a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1h-2M8 9l4-5 4 5m1 8h.01" />
-                                            </svg>
-                                            <p>Drop a file here to upload, or<br>click here to browse</p>
-                                        </div>
-                                    </div>
-                                    <div class="file-upload-details">
-                                        <p id="fileSummary">Uploaded Files:</p>
-                                        <div id="thumbnailsContainer" class="thumbnails-container">
-                                            <!-- Thumbnails will be dynamically inserted here -->
-                                        </div>
-                                        <p id="fileNames">No files uploaded yet!</p>
-                                    </div>
-                                </div>
-                                <div class="form-checkbox-container">
-                                    <div class="form-checkbox">
-                                        <input id="itemConform" name="itemConform" type="checkbox">
-                                        <label for="itemConform">Item marked conforming?</label>
-                                    </div>
-                                    <div id="engNeededtoggle" class="form-checkbox">
-                                        <input id="engNeeded" name="engNeeded" type="checkbox">
-                                        <label for="engNeeded">Forward to Engineering?</label>
-                                    </div>
-                                </div>
-                                <hr>
-                                <div>
-                                    <div class="two-cols bottom-margin">
-                                        <div class="form-ncr-details drawingUpdateToggle3">
-                                            <div class="two-cols-info">
-                                                <label for="completedByQI">Completed By:</label>
-                                                <div class="form-info">
-                                                    <div class="info-icon">
-                                                        <svg class="w-6 h-6 text-gray-800 dark:text-white"
-                                                            aria-hidden="true"
-                                                            xmlns="http://www.w3.org/2000/svg" width="24"
-                                                            height="24" fill="none" viewBox="0 0 24 24">
-                                                            <path stroke="currentColor"
-                                                                stroke-linecap="round"
-                                                                stroke-linejoin="round" stroke-width="2"
-                                                                d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                                                        </svg>
-                                                    </div>
-                                                    <div class="info-desc">
-                                                        <p>
-                                                            The name of the individual who completed the
-                                                            Non-Conformance Report (NCR) or the associated
-                                                            task, providing accountability and traceability
-                                                            for the action taken.
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <input type="text" id="completedByQI">
-                                        </div>
-                                        <div class="form-ncr-details drawingUpdateToggle3">
-                                            <div class="two-cols-info">
-                                                <label for="completedOnQI">Date Completed:</label>
-                                                <div class="form-info">
-                                                    <div class="info-icon">
-                                                        <svg class="w-6 h-6 text-gray-800 dark:text-white"
-                                                            aria-hidden="true"
-                                                            xmlns="http://www.w3.org/2000/svg" width="24"
-                                                            height="24" fill="none" viewBox="0 0 24 24">
-                                                            <path stroke="currentColor"
-                                                                stroke-linecap="round"
-                                                                stroke-linejoin="round" stroke-width="2"
-                                                                d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                                                        </svg>
-                                                    </div>
-                                                    <div class="info-desc">
-                                                        <p>
-                                                            The date when the Non-Conformance Report (NCR)
-                                                            or associated task was finalized, providing a
-                                                            record of when the issue was addressed or
-                                                            resolved.
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <input type="date" id="completedOnQI">
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="form-ncr-buttons">
-                                    <div>
-                                        <button type="button" id="btnSave" class="button-primary">Save</button>
-                                    </div>
-                                    <div>
-                                        <button type="button" id="btnSubmit"
-                                            class="button-secondary btnDisable">Submit</button>
-                                    </div>
-                                    <div>
-                                        <button type="button" id="btnCancel" class="button-secondary"
-                                            onclick="goBack()">Cancel</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-        </section>
-
-        <!--Engineering-->
-        <section id="secEngineer">
-            <div class="eng-Edit-Modal">
-                <div class="view-from-quality">
-                    <div class="container">
-                        <div class="breadcrumb-container">
-                            <div aria-label="Breadcrumb">
-                                <ol class="breadcrumb-list" tabindex="6"></ol>
-                                <!-- Breadcrumbs will be dynamically populated here -->
-                            </div>
-                        </div>
-                        <div class="page-title">
-                            <h1 id="ncr-info">NCR Information</h1>
-                        </div>
-                        <div class="form-ncr">
+                    <!--Form Field-->
+                    <div id="createEditModal">
+                        <form class="form-ncr">
                             <div class="div-container">
                                 <div class="form-header">
                                     <div class="form-ncr-details">
                                         <strong>NCR Number:</strong>
-                                        <span tabindex="7" id="ncrNumberE"></span>
+                                        <span id="ncrNumber"></span>
                                     </div>
                                     <div class="form-ncr-details">
                                         <strong>Date Created:</strong>
-                                        <span tabindex="8" id="dateCreatedE"></span>
+                                        <span id="dateCreated"></span>
                                     </div>
                                     <div class="form-ncr-details">
                                         <strong>Created By:</strong>
-                                        <span tabindex="9" id="createdByE"></span>
+                                        <span id="createdBy"></span>
                                     </div>
                                     <div class="form-ncr-details">
                                         <strong>Department:</strong>
-                                        <span tabindex="10" id="ncrStatusE"></span>
+                                        <span id="ncrStatus"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        
+
+                            <div class="div-container">
+                                <div class="form-section">
+                                    <div class="two-cols">
+                                        <div>
+                                            <div class="two-cols-info">
+                                                <label for="applicableProcess"
+                                                    aria-label="Applicable Process, required">Applicable
+                                                    Process:<span class="required">*</span></label>
+                                                <div class="form-info">
+                                                    <div class="info-icon">
+                                                        <svg class="w-6 h-6 text-gray-800 dark:text-white"
+                                                            aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                                            width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                                            <path stroke="currentColor" stroke-linecap="round"
+                                                                stroke-linejoin="round" stroke-width="2"
+                                                                d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                                        </svg>
+                                                    </div>
+                                                    <div class="info-desc">
+                                                        <p>The applicable process in an NCR report identifies the
+                                                            specific
+                                                            step
+                                                            where the non-conformance occurred, helping to pinpoint
+                                                            causes
+                                                            and
+                                                            implement targeted corrective actions for improved quality.
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <select id="applicableProcess" required>
+                                                <option value="" disabled selected>Select a process</option>
+                                                <option value="Supplier or Rec-Insp">Supplier or Rec-Insp</option>
+                                                <option value="WIP (Production Order)">WIP (Production Order)</option>
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <div class="two-cols-info">
+                                                <label for="supplierName" aria-label="Supplier Name, required">Supplier
+                                                    Name:<span class="required">*</span></label>
+                                                <div class="form-info">
+                                                    <div class="info-icon">
+                                                        <svg class="w-6 h-6 text-gray-800 dark:text-white"
+                                                            aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                                            width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                                            <path stroke="currentColor" stroke-linecap="round"
+                                                                stroke-linejoin="round" stroke-width="2"
+                                                                d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                                        </svg>
+                                                    </div>
+                                                    <div class="info-desc">
+                                                        <p>The supplier name in an NCR report identifies where
+                                                            non-conforming
+                                                            materials or services originated.</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <select id="supplierName" required>
+                                                <option value="" disabled selected>Select a Supplier</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="two-cols">
+                                        <div>
+                                            <div class="two-cols-info">
+                                                <label for="poNumber" aria-label="Production Number">Prod. Number:<span
+                                                        class="required">*</span></label>
+                                                <div class="form-info">
+                                                    <div class="info-icon">
+                                                        <svg class="w-6 h-6 text-gray-800 dark:text-white"
+                                                            aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                                            width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                                            <path stroke="currentColor" stroke-linecap="round"
+                                                                stroke-linejoin="round" stroke-width="2"
+                                                                d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                                        </svg>
+                                                    </div>
+                                                    <div class="info-desc">
+                                                        <p>The Product Number identifies the specific item or material
+                                                            associated with the Non-Conformance Report (NCR), ensuring
+                                                            precise tracking and resolution of the issue.</p>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <input id="poNumber" name="poNumber" type="text" pattern="[0-9-]*"
+                                                placeholder="Example: 000-00">
+                                            <!--include regex for pattern: digits-->
+                                        </div>
+                                        <div>
+                                            <div class="two-cols-info">
+                                                <label for="soNumber" aria-label="Sales Order Number, required">Sales
+                                                    Order
+                                                    Number:<span class="required">*</span></label>
+
+                                                <div class="form-info">
+                                                    <div class="info-icon">
+                                                        <svg class="w-6 h-6 text-gray-800 dark:text-white"
+                                                            aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                                            width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                                            <path stroke="currentColor" stroke-linecap="round"
+                                                                stroke-linejoin="round" stroke-width="2"
+                                                                d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                                        </svg>
+                                                    </div>
+                                                    <div class="info-desc">
+                                                        <p>The Sales Order Number identifies the specific
+                                                            customer order associated with this Non-Conformance Report
+                                                            (NCR).
+                                                            It helps link the issue to the original order for accurate
+                                                            tracking and resolution.</p>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <input id="soNumber" name="soNumber" type="text" pattern="[0-9-]*"
+                                                placeholder="Example: 000-00" required>
+                                            <!--include regex for pattern: digits-->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="div-container">
+                                <!--include validation against negatives and ensure that defective is not more received-->
+                                <div class="form-section">
+                                    <div class="two-cols">
+                                        <div>
+                                            <div class="two-cols-info">
+                                                <label for="quantityReceived"
+                                                    aria-label="Quantity Received, required">Quantity
+                                                    Received:<span class="required">*</span></label>
+
+                                                <div class="form-info">
+                                                    <div class="info-icon">
+                                                        <svg class="w-6 h-6 text-gray-800 dark:text-white"
+                                                            aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                                            width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                                            <path stroke="currentColor" stroke-linecap="round"
+                                                                stroke-linejoin="round" stroke-width="2"
+                                                                d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                                        </svg>
+                                                    </div>
+                                                    <div class="info-desc">
+                                                        <p>Quantity received indicates the total quantity of items
+                                                            received
+                                                            by the
+                                                            Quality department for inspection as part of the NCR
+                                                            process.
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <input id="quantityReceived" name="quantityReceived" type="number"
+                                                placeholder="Example : 100" required min="1">
+                                        </div>
+                                        <div>
+                                            <div class="two-cols-info">
+                                                <label for="quantityDefect"
+                                                    aria-label="Quantity Defective, required">Quantity
+                                                    Defective:<span class="required">*</span></label>
+
+                                                <div class="form-info">
+                                                    <div class="info-icon">
+                                                        <svg class="w-6 h-6 text-gray-800 dark:text-white"
+                                                            aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                                            width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                                            <path stroke="currentColor" stroke-linecap="round"
+                                                                stroke-linejoin="round" stroke-width="2"
+                                                                d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                                        </svg>
+                                                    </div>
+                                                    <div class="info-desc">
+                                                        <p>Quantity Defective Represents the quantity of items found to
+                                                            be
+                                                            defective or non-conforming during the Quality inspection.
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <input id="quantityDefect" name="quantityDefect" type="number"
+                                                placeholder="Example : 50" required min="1">
+                                        </div>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="div-container">
                                 <div class="form-section">
-                                    <div class="four-cols">
-                                        <div class="form-ncr-details">
-                                            <strong>Supplier Name:</strong>
-                                            <span tabindex="11" id="supplierNameDE"></span>
+                                    <div>
+                                        <div class="two-cols-info">
+                                            <label for="itemDescription" aria-label="Item Description, required">Item
+                                                Description:<span class="required">*</span></label>
+
+                                            <div class="form-info">
+                                                <div class="info-icon">
+                                                    <svg class="w-6 h-6 text-gray-800 dark:text-white"
+                                                        aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
+                                                        height="24" fill="none" viewBox="0 0 24 24">
+                                                        <path stroke="currentColor" stroke-linecap="round"
+                                                            stroke-linejoin="round" stroke-width="2"
+                                                            d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                                    </svg>
+                                                </div>
+                                                <div class="info-desc">
+                                                    <p> The Item description provides a detailed description of the
+                                                        product
+                                                        or material associated with the Non-Conformance
+                                                        Report (NCR) to clearly identify the item in question.
+                                                    </p>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="form-ncr-details">
-                                            <strong>Production Number:</strong>
-                                            <span tabindex="12" id="poNumberE"></span>
+                                        <textarea id="itemDescription" name="itemDescription" rows="2"
+                                            placeholder="Describe the item" required></textarea>
+                                    </div>
+                                    <div>
+                                        <div class="two-cols-info">
+                                            <label for="defectDescription"
+                                                aria-label="Description of Defect, required">Description
+                                                of Defect:<span class="required">*</span></label>
+
+                                            <div class="form-info">
+                                                <div class="info-icon">
+                                                    <svg class="w-6 h-6 text-gray-800 dark:text-white"
+                                                        aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
+                                                        height="24" fill="none" viewBox="0 0 24 24">
+                                                        <path stroke="currentColor" stroke-linecap="round"
+                                                            stroke-linejoin="round" stroke-width="2"
+                                                            d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                                    </svg>
+                                                </div>
+                                                <div class="info-desc">
+                                                    <p>Description of defect provides a detailed explanation of the
+                                                        issue or
+                                                        problem found
+                                                        with the product or material during the inspection. This helps
+                                                        clearly define the nature of the defect for corrective actions
+                                                        and
+                                                        follow-up.
+                                                    </p>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="form-ncr-details">
-                                            <strong>Quantity Received:</strong>
-                                            <span tabindex="13" id="quantityReceivedE"></span>
+                                        <textarea id="defectDescription" name="defectDescription" rows="5"
+                                            placeholder="Describe the defect in as much detail as possible"
+                                            required></textarea>
+                                    </div>
+                                    <div>
+                                        <div class="two-cols-info">
+                                            <label for="attachedDocument">Upload image(s)/video(s):</label>
+
+                                            <div class="form-info">
+                                                <div class="info-icon">
+                                                    <svg class="w-6 h-6 text-gray-800 dark:text-white"
+                                                        aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
+                                                        height="24" fill="none" viewBox="0 0 24 24">
+                                                        <path stroke="currentColor" stroke-linecap="round"
+                                                            stroke-linejoin="round" stroke-width="2"
+                                                            d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                                    </svg>
+                                                </div>
+                                                <div class="info-desc">
+                                                    <p>
+                                                        Allows you to attach images or videos related to the defect
+                                                        or non-conformance. This can include photos of the defective
+                                                        items or videos demonstrating the issue, providing visual
+                                                        evidence
+                                                        to support the NCR.
+                                                    </p>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="form-ncr-details">
-                                            <strong>Forward to Engineering:</strong>
-                                            <span tabindex="14" id="engNeededE"></span>
+                                        <div class="file-upload">
+                                            <input id="attachedDocument" name="attachedDocument" type="file" multiple
+                                                accept="image/*,video/*">
+                                            <div class="file-upload-details">
+                                                <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
+                                                    xmlns="http://www.w3.org/2000/svg" width="32" height="32"
+                                                    fill="none" viewBox="0 0 24 24">
+                                                    <path stroke="currentColor" stroke-linecap="round"
+                                                        stroke-linejoin="round" stroke-width="2"
+                                                        d="M12 5v9m-5 0H5a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1h-2M8 9l4-5 4 5m1 8h.01" />
+                                                </svg>
+                                                <p>Drop a file here to upload, or<br>click here to browse</p>
+                                            </div>
                                         </div>
-                                        <div class="form-ncr-details">
-                                            <strong>Applicable Process:</strong>
-                                            <span tabindex="15" id="applicableProcessE"></span>
+                                        <div class="file-upload-details">
+                                            <p id="fileSummary">Uploaded Files:</p>
+                                            <div id="thumbnailsContainer" class="thumbnails-container">
+                                                <!-- Thumbnails will be dynamically inserted here -->
+                                            </div>
+                                            <p id="fileNames">No files uploaded yet!</p>
                                         </div>
-                                        <div class="form-ncr-details">
-                                            <strong>Sales Order Number:</strong>
-                                            <span tabindex="16" id="soNumberE"></span>
+                                    </div>
+                                    <div class="form-checkbox-container">
+                                        <div class="form-checkbox">
+                                            <input id="itemConform" name="itemConform" type="checkbox">
+                                            <label for="itemConform">Item marked conforming?</label>
                                         </div>
-                                        <div class="form-ncr-details">
-                                            <strong>Quantity Defective:</strong>
-                                            <span tabindex="17" id="quantityDefectE"></span>
+                                        <div id="engNeededtoggle" class="form-checkbox">
+                                            <input id="engNeeded" name="engNeeded" type="checkbox">
+                                            <label for="engNeeded">Forward to Engineering?</label>
                                         </div>
-                                        <div class="form-ncr-details">
-                                            <strong>Item marked conforming:</strong>
-                                            <span tabindex="18" id="itemConformE"></span>
+                                    </div>
+                                    <hr>
+                                    <div id="completionToggle1" style="display: none">
+                                        <div class="two-cols bottom-margin">
+                                            <div class="form-ncr-details drawingUpdateToggle3">
+                                                <div class="two-cols-info">
+                                                    <label for="completedByQI">Completed By:</label>
+                                                    <div class="form-info">
+                                                        <div class="info-icon">
+                                                            <svg class="w-6 h-6 text-gray-800 dark:text-white"
+                                                                aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                                                width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                                                <path stroke="currentColor" stroke-linecap="round"
+                                                                    stroke-linejoin="round" stroke-width="2"
+                                                                    d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                                            </svg>
+                                                        </div>
+                                                        <div class="info-desc">
+                                                            <p>
+                                                                The name of the individual who completed the
+                                                                Non-Conformance Report (NCR) or the associated
+                                                                task, providing accountability and traceability
+                                                                for the action taken.
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <input type="text" id="completedByQI" disabled>
+                                            </div>
+                                            <div class="form-ncr-details drawingUpdateToggle3">
+                                                <div class="two-cols-info">
+                                                    <label for="completedOnQI">Date Completed:</label>
+                                                    <div class="form-info">
+                                                        <div class="info-icon">
+                                                            <svg class="w-6 h-6 text-gray-800 dark:text-white"
+                                                                aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                                                width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                                                <path stroke="currentColor" stroke-linecap="round"
+                                                                    stroke-linejoin="round" stroke-width="2"
+                                                                    d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                                            </svg>
+                                                        </div>
+                                                        <div class="info-desc">
+                                                            <p>
+                                                                The date when the Non-Conformance Report (NCR)
+                                                                or associated task was finalized, providing a
+                                                                record of when the issue was addressed or
+                                                                resolved.
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <input type="text" id="completedOnQI" disabled>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-ncr-buttons">
+                                        <div>
+                                            <button type="button" id="btnSave" class="button-primary">Save</button>
+                                        </div>
+                                        <div>
+                                            <button type="button" id="btnSubmit"
+                                                class="button-secondary btnDisable">Submit</button>
+                                        </div>
+                                        <div>
+                                            <button type="button" id="btnCancel" class="button-secondary"
+                                                onclick="goBack()">Cancel</button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                        </form>
+                </section>
 
-                            <div class="div-container">
-                                <div class="tab-cards">
-                                    <input id="sectionQuality" type="radio" class="tab-selector" name="tabs" />
-                                    <input id="sectionEngineer" type="radio" class="tab-selector" name="tabs" />
-
-                                    <div class="tab-head">
-                                        <label for="sectionQuality">Quality</label>
-                                        <label for="sectionEngineer">Engineer</label>
+                <!--Engineering-->
+                <section id="secEngineer">
+                    <div class="eng-Edit-Modal">
+                        <div class="view-from-quality">
+                            <div class="container">
+                                <div class="breadcrumb-container">
+                                    <div aria-label="Breadcrumb">
+                                        <ol class="breadcrumb-list" tabindex="6"></ol>
+                                        <!-- Breadcrumbs will be dynamically populated here -->
+                                    </div>
+                                </div>
+                                <div class="page-title">
+                                    <h1 id="ncr-info">Edit NCR</h1>
+                                </div>
+                                <div class="form-ncr">
+                                    <div class="div-container">
+                                        <div class="form-header">
+                                            <div class="form-ncr-details">
+                                                <strong>NCR Number:</strong>
+                                                <span tabindex="7" id="ncrNumberE"></span>
+                                            </div>
+                                            <div class="form-ncr-details">
+                                                <strong>Date Created:</strong>
+                                                <span tabindex="8" id="dateCreatedE"></span>
+                                            </div>
+                                            <div class="form-ncr-details">
+                                                <strong>Created By:</strong>
+                                                <span tabindex="9" id="createdByE"></span>
+                                            </div>
+                                            <div class="form-ncr-details">
+                                                <strong>Department:</strong>
+                                                <span tabindex="10" id="ncrStatusE"></span>
+                                            </div>
+                                        </div>
                                     </div>
 
-                                    <div id="secQuality" class="tab-content">
+                                    <div class="div-container">
                                         <div class="form-section">
-                                            <div class="form-ncr-details">
-                                                <strong>Item Description:</strong>
-                                                <span tabindex="19" id="itemDescriptionE"></span>
-                                            </div>
-                                            <div class="form-ncr-details">
-                                                <strong>Description of Defect:</strong>
-                                                <ul tabindex="20" id="defectDescriptionE"></ul>
-                                            </div>
-                                            <div class="form-ncr-details">
-                                                <strong>Uploaded Images/Videos:</strong>
-                                                <div id="thumbnailsContainerE" class="thumbnails-container">
-                                                    <!-- Thumbnails will be dynamically inserted here -->
+                                            <div class="four-cols">
+                                                <div class="form-ncr-details">
+                                                    <strong>Supplier Name:</strong>
+                                                    <span tabindex="11" id="supplierNameDE"></span>
+                                                </div>
+                                                <div class="form-ncr-details">
+                                                    <strong>Production Number:</strong>
+                                                    <span tabindex="12" id="poNumberE"></span>
+                                                </div>
+                                                <div class="form-ncr-details">
+                                                    <strong>Quantity Received:</strong>
+                                                    <span tabindex="13" id="quantityReceivedE"></span>
+                                                </div>
+                                                <div class="form-ncr-details">
+                                                    <strong>Forward to Engineering:</strong>
+                                                    <span tabindex="14" id="engNeededE"></span>
+                                                </div>
+                                                <div class="form-ncr-details">
+                                                    <strong>Applicable Process:</strong>
+                                                    <span tabindex="15" id="applicableProcessE"></span>
+                                                </div>
+                                                <div class="form-ncr-details">
+                                                    <strong>Sales Order Number:</strong>
+                                                    <span tabindex="16" id="soNumberE"></span>
+                                                </div>
+                                                <div class="form-ncr-details">
+                                                    <strong>Quantity Defective:</strong>
+                                                    <span tabindex="17" id="quantityDefectE"></span>
+                                                </div>
+                                                <div class="form-ncr-details">
+                                                    <strong>Item marked conforming:</strong>
+                                                    <span tabindex="18" id="itemConformE"></span>
                                                 </div>
                                             </div>
+                                        </div>
+                                    </div>
 
-                                            <!-- <div class="form-ncr-buttons">
+                                    <div class="div-container">
+                                        <div class="tab-cards">
+                                            <input id="sectionQuality" type="radio" class="tab-selector" name="tabs" />
+                                            <input id="sectionEngineer" type="radio" class="tab-selector" name="tabs" />
+
+                                            <div class="tab-head">
+                                                <label for="sectionQuality">Quality</label>
+                                                <label for="sectionEngineer">Engineer</label>
+                                            </div>
+
+                                            <div id="secQuality" class="tab-content">
+                                                <div class="form-section">
+                                                    <div class="form-ncr-details">
+                                                        <strong>Item Description:</strong>
+                                                        <span tabindex="19" id="itemDescriptionE"></span>
+                                                    </div>
+                                                    <div class="form-ncr-details">
+                                                        <strong>Description of Defect:</strong>
+                                                        <ul tabindex="20" id="defectDescriptionE"></ul>
+                                                    </div>
+                                                    <div class="form-ncr-details">
+                                                        <strong>Uploaded Images/Videos:</strong>
+                                                        <div id="thumbnailsContainerE" class="thumbnails-container">
+                                                            <!-- Thumbnails will be dynamically inserted here -->
+                                                        </div>
+                                                    </div>
+                                                    <hr>
+                                                    <div class="two-cols">
+                                                    <div class="form-ncr-details">
+                
+                                                        <strong>Completed By:</strong>
+                    
+                                                        <span tabindex="21" id="completedByQIE"></span>
+                                                    </div>
+                                                    <div class="form-ncr-details">
+                    
+                                                        <strong>Completed On:</strong>
+                    
+                                                        <span tabindex="22" id="completedOnQIE"></span>
+                                                    </div>
+                                                </div>
+
+                                                    <!-- <div class="form-ncr-buttons">
                                                 <button id="revertButton" class="button-primary" tabindex="22" onclick="popupComment()">Revert to Quality</button>
                                             </div> -->
 
-                                            <!--modal for the text box-->
-                                            <!-- <div>
+                                                    <!--modal for the text box-->
+                                                    <!-- <div>
                                                 <div id="modal" class="modal-container" style="visibility: hidden; display: none">
                                                     <span onclick="closeModal()" class="close"></span>
                                                     <span tabindex="1" class="btn-close" onclick="closeModal()">
@@ -777,357 +801,412 @@
                                                 </div>
                                             </div> -->
 
+                                                </div>
+                                            </div>
+
+                                            <div id="secEngineer" class="tab-content">
+                                                <div id="createEditModal" class="form-ncr">
+                                                    <form class="form-section">
+                                                        <!--Took out NCR Number from here as it will show at the top-->
+                                                        <div class="two-cols">
+                                                            <div class="form-ncr-details">
+                                                                <div class="two-cols-info">
+                                                                    <label for="reviewByCfEngineering">Review By CF
+                                                                        Engineering:<span
+                                                                            class="required">*</span></label>
+                                                                    <div class="form-info">
+                                                                        <div class="info-icon">
+                                                                            <svg class="w-6 h-6 text-gray-800 dark:text-white"
+                                                                                aria-hidden="true"
+                                                                                xmlns="http://www.w3.org/2000/svg"
+                                                                                width="24" height="24" fill="none"
+                                                                                viewBox="0 0 24 24">
+                                                                                <path stroke="currentColor"
+                                                                                    stroke-linecap="round"
+                                                                                    stroke-linejoin="round"
+                                                                                    stroke-width="2"
+                                                                                    d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                                                            </svg>
+                                                                        </div>
+                                                                        <div class="info-desc">
+                                                                            <p>
+                                                                                Choose a resolution
+                                                                                to define how the non-conformance will
+                                                                                be
+                                                                                addressed,
+                                                                                ensuring proper documentation and
+                                                                                compliance
+                                                                                with quality
+                                                                                standards.
+                                                                            </p>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <select name="CFEngineering" id="reviewByCfEngineering"
+                                                                    required>
+                                                                    <option value="" disabled selected>Select an option
+                                                                    </option>
+                                                                    <option value="Use As Is">Use As Is</option>
+                                                                    <option value="Repair">Repair</option>
+                                                                    <option value="Rework">Rework</option>
+                                                                    <option value="Scrap">Scrap</option>
+                                                                </select>
+                                                            </div>
+
+                                                            <div class="form-ncr-details">
+                                                                <div class="two-cols-info">
+                                                                    <label for="customerNotification">Does Customer
+                                                                        require
+                                                                        notification of
+                                                                        NCR?</label>
+                                                                    <div class="form-info">
+                                                                        <div class="info-icon">
+                                                                            <svg class="w-6 h-6 text-gray-800 dark:text-white"
+                                                                                aria-hidden="true"
+                                                                                xmlns="http://www.w3.org/2000/svg"
+                                                                                width="24" height="24" fill="none"
+                                                                                viewBox="0 0 24 24">
+                                                                                <path stroke="currentColor"
+                                                                                    stroke-linecap="round"
+                                                                                    stroke-linejoin="round"
+                                                                                    stroke-width="2"
+                                                                                    d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                                                            </svg>
+                                                                        </div>
+                                                                        <div class="info-desc">
+                                                                            <p>
+                                                                                This field indicates whether the
+                                                                                customer should
+                                                                                be
+                                                                                notified about the non-conformance.
+                                                                                Select "Yes"
+                                                                                if the customer
+                                                                                needs to be informed, or "No" if no
+                                                                                notification
+                                                                                is required.
+                                                                            </p>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <select name="customerNot" id="customerNotification">
+                                                                    <option value="">Select an option</option>
+                                                                    <option value="Yes">Yes</option>
+                                                                    <option value="No">No</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="one-col">
+                                                            <div class="form-ncr-details">
+                                                                <div class="two-cols-info">
+                                                                    <label for="disposition">Disposition:<span
+                                                                            class="required">*</span></label>
+                                                                    <div class="form-info">
+                                                                        <div class="info-icon">
+                                                                            <svg class="w-6 h-6 text-gray-800 dark:text-white"
+                                                                                aria-hidden="true"
+                                                                                xmlns="http://www.w3.org/2000/svg"
+                                                                                width="24" height="24" fill="none"
+                                                                                viewBox="0 0 24 24">
+                                                                                <path stroke="currentColor"
+                                                                                    stroke-linecap="round"
+                                                                                    stroke-linejoin="round"
+                                                                                    stroke-width="2"
+                                                                                    d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                                                            </svg>
+                                                                        </div>
+                                                                        <div class="info-desc">
+                                                                            <p>
+                                                                                The action taken to resolve the
+                                                                                non-conformance,
+                                                                                such as "Use As Is," "Repair," "Rework,"
+                                                                                or
+                                                                                "Scrap." This decision determines how
+                                                                                the
+                                                                                non-conforming item will be handled.
+                                                                            </p>
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+                                                                <textarea name="disposition"
+                                                                    id="disposition"></textarea>
+                                                            </div>
+                                                        </div>
+                                                        <hr>
+                                                        <div class="two-cols">
+                                                            <div class="form-ncr-details">
+                                                                <div class="two-cols-info">
+                                                                    <label for="drawingUpdate">Does the drawing require
+                                                                        updating?</label>
+                                                                    <div class="form-info">
+                                                                        <div class="info-icon">
+                                                                            <svg class="w-6 h-6 text-gray-800 dark:text-white"
+                                                                                aria-hidden="true"
+                                                                                xmlns="http://www.w3.org/2000/svg"
+                                                                                width="24" height="24" fill="none"
+                                                                                viewBox="0 0 24 24">
+                                                                                <path stroke="currentColor"
+                                                                                    stroke-linecap="round"
+                                                                                    stroke-linejoin="round"
+                                                                                    stroke-width="2"
+                                                                                    d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                                                            </svg>
+                                                                        </div>
+                                                                        <div class="info-desc">
+                                                                            <p>
+                                                                                Indicates whether the drawing for the
+                                                                                product or
+                                                                                component needs to be revised due to the
+                                                                                non-conformance.
+                                                                                Select "Yes" if an update is needed, or
+                                                                                "No" if
+                                                                                the drawing remains unchanged.
+                                                                            </p>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <select name="drawingUpdate" id="drawingUpdate">
+                                                                    <option value="">Select an option</option>
+                                                                    <option value="Yes">Yes</option>
+                                                                    <option value="No">No</option>
+                                                                </select>
+                                                            </div>
+                                                            <div></div>
+                                                            <div class="form-ncr-details drawingUpdateToggle2">
+                                                                <div class="two-cols-info">
+                                                                    <label for="originalRevNumber">Original Revision
+                                                                        Number:</label>
+                                                                    <div class="form-info">
+                                                                        <div class="info-icon">
+                                                                            <svg class="w-6 h-6 text-gray-800 dark:text-white"
+                                                                                aria-hidden="true"
+                                                                                xmlns="http://www.w3.org/2000/svg"
+                                                                                width="24" height="24" fill="none"
+                                                                                viewBox="0 0 24 24">
+                                                                                <path stroke="currentColor"
+                                                                                    stroke-linecap="round"
+                                                                                    stroke-linejoin="round"
+                                                                                    stroke-width="2"
+                                                                                    d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                                                            </svg>
+                                                                        </div>
+                                                                        <div class="info-desc">
+                                                                            <p>
+                                                                                This refers to the revision number of
+                                                                                the
+                                                                                original drawing
+                                                                                or design before any updates or changes
+                                                                                were
+                                                                                made. This helps track
+                                                                                the version of the design being
+                                                                                referenced
+                                                                            </p>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <input type="text" id="originalRevNumber">
+                                                            </div>
+                                                            <div class="form-ncr-details drawingUpdateToggle2">
+                                                                <div class="two-cols-info">
+                                                                    <label for="updatedRevNumber">Updated Revision
+                                                                        Number:</label>
+                                                                    <div class="form-info">
+                                                                        <div class="info-icon">
+                                                                            <svg class="w-6 h-6 text-gray-800 dark:text-white"
+                                                                                aria-hidden="true"
+                                                                                xmlns="http://www.w3.org/2000/svg"
+                                                                                width="24" height="24" fill="none"
+                                                                                viewBox="0 0 24 24">
+                                                                                <path stroke="currentColor"
+                                                                                    stroke-linecap="round"
+                                                                                    stroke-linejoin="round"
+                                                                                    stroke-width="2"
+                                                                                    d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                                                            </svg>
+                                                                        </div>
+                                                                        <div class="info-desc">
+                                                                            <p>
+                                                                                This refers to the revision number
+                                                                                assigned to
+                                                                                the drawing
+                                                                                or design after updates or changes have
+                                                                                been
+                                                                                made. This
+                                                                                helps track the most current version of
+                                                                                the
+                                                                                design following any modifications.
+                                                                            </p>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <input type="text" id="updatedRevNumber">
+                                                            </div>
+                                                            <div class="form-ncr-details drawingUpdateToggle2">
+                                                                <div class="two-cols-info">
+                                                                    <label for="revisionDate">Revision Date:</label>
+                                                                    <div class="form-info">
+                                                                        <div class="info-icon">
+                                                                            <svg class="w-6 h-6 text-gray-800 dark:text-white"
+                                                                                aria-hidden="true"
+                                                                                xmlns="http://www.w3.org/2000/svg"
+                                                                                width="24" height="24" fill="none"
+                                                                                viewBox="0 0 24 24">
+                                                                                <path stroke="currentColor"
+                                                                                    stroke-linecap="round"
+                                                                                    stroke-linejoin="round"
+                                                                                    stroke-width="2"
+                                                                                    d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                                                            </svg>
+                                                                        </div>
+                                                                        <div class="info-desc">
+                                                                            <p>
+                                                                                The date when the drawing or design was
+                                                                                last
+                                                                                updated or revised. This helps track
+                                                                                when
+                                                                                changes were made to ensure the most
+                                                                                current
+                                                                                version is used.
+                                                                            </p>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <input type="date" id="revisionDate">
+                                                                <!--changed input type to date instead of datetime-->
+                                                            </div>
+                                                            <div class="form-ncr-details drawingUpdateToggle2">
+                                                                <div class="two-cols-info">
+                                                                    <label for="engineerName">Name of Engineer:</label>
+                                                                    <div class="form-info">
+                                                                        <div class="info-icon">
+                                                                            <svg class="w-6 h-6 text-gray-800 dark:text-white"
+                                                                                aria-hidden="true"
+                                                                                xmlns="http://www.w3.org/2000/svg"
+                                                                                width="24" height="24" fill="none"
+                                                                                viewBox="0 0 24 24">
+                                                                                <path stroke="currentColor"
+                                                                                    stroke-linecap="round"
+                                                                                    stroke-linejoin="round"
+                                                                                    stroke-width="2"
+                                                                                    d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                                                            </svg>
+                                                                        </div>
+                                                                        <div class="info-desc">
+                                                                            <p>
+                                                                                The name of the engineer responsible for
+                                                                                reviewing or making updates to the
+                                                                                drawing or
+                                                                                design. This helps identify the person
+                                                                                who made
+                                                                                the revisions or decisions regarding the
+                                                                                non-conformance.
+                                                                            </p>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <input type="text" id="engineerName">
+                                                            </div>
+                                                        </div>
+                                                        <hr>
+                                                        <div id="completionToggle2" style="display: none">
+                                                        <div class="two-cols bottom-margin">
+                                                            <div class="form-ncr-details drawingUpdateToggle3">
+                                                                <div class="two-cols-info">
+                                                                    <label for="completedByEng">Completed By:</label>
+                                                                    <div class="form-info">
+                                                                        <div class="info-icon">
+                                                                            <svg class="w-6 h-6 text-gray-800 dark:text-white"
+                                                                                aria-hidden="true"
+                                                                                xmlns="http://www.w3.org/2000/svg"
+                                                                                width="24" height="24" fill="none"
+                                                                                viewBox="0 0 24 24">
+                                                                                <path stroke="currentColor"
+                                                                                    stroke-linecap="round"
+                                                                                    stroke-linejoin="round"
+                                                                                    stroke-width="2"
+                                                                                    d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                                                            </svg>
+                                                                        </div>
+                                                                        <div class="info-desc">
+                                                                            <p>
+                                                                                The name of the individual who completed
+                                                                                the
+                                                                                Non-Conformance Report (NCR) or the
+                                                                                associated
+                                                                                task, providing accountability and
+                                                                                traceability
+                                                                                for the action taken.
+                                                                            </p>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <input type="text" id="completedByEng" disabled>
+                                                            </div>
+                                                            <div class="form-ncr-details drawingUpdateToggle3">
+                                                                <div class="two-cols-info">
+                                                                    <label for="completedOnEng">Date Completed:</label>
+                                                                    <div class="form-info">
+                                                                        <div class="info-icon">
+                                                                            <svg class="w-6 h-6 text-gray-800 dark:text-white"
+                                                                                aria-hidden="true"
+                                                                                xmlns="http://www.w3.org/2000/svg"
+                                                                                width="24" height="24" fill="none"
+                                                                                viewBox="0 0 24 24">
+                                                                                <path stroke="currentColor"
+                                                                                    stroke-linecap="round"
+                                                                                    stroke-linejoin="round"
+                                                                                    stroke-width="2"
+                                                                                    d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                                                            </svg>
+                                                                        </div>
+                                                                        <div class="info-desc">
+                                                                            <p>
+                                                                                The date when the Non-Conformance Report
+                                                                                (NCR)
+                                                                                or associated task was finalized,
+                                                                                providing a
+                                                                                record of when the issue was addressed
+                                                                                or
+                                                                                resolved.
+                                                                            </p>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <input type="text" id="completedOnEng" disabled>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                        <div class="form-ncr-buttons">
+                                                            <button type="button" id="btnEngSave"
+                                                                class="button-primary">Save</button>
+                                                            <button type="button" id="btnEngSubmit"
+                                                                class="button-secondary btnDisable">Submit</button>
+                                                            <button type="button" id="btnEngCancel"
+                                                                class="button-secondary"
+                                                                onclick="goBack()">Cancel</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+
                                         </div>
                                     </div>
+                                </div>
+                                <!--Edit Modal for Engineering-->
+                                <div id="createEditModal">
+                                    <form class="form-ncr">
+                                        <div>
+                                            <div>
+                                            </div>
 
-                                    <div id="secEngineer" class="tab-content">
-                                        <div id="createEditModal" class="form-ncr">
-                                            <form class="form-section">
-                                                <!--Took out NCR Number from here as it will show at the top-->
-                                                <div class="two-cols">
-                                                    <div class="form-ncr-details">
-                                                        <div class="two-cols-info">
-                                                            <label for="reviewByCfEngineering">Review By CF
-                                                                Engineering:<span class="required">*</span></label>
-                                                            <div class="form-info">
-                                                                <div class="info-icon">
-                                                                    <svg class="w-6 h-6 text-gray-800 dark:text-white"
-                                                                        aria-hidden="true"
-                                                                        xmlns="http://www.w3.org/2000/svg" width="24"
-                                                                        height="24" fill="none" viewBox="0 0 24 24">
-                                                                        <path stroke="currentColor"
-                                                                            stroke-linecap="round"
-                                                                            stroke-linejoin="round" stroke-width="2"
-                                                                            d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                                                                    </svg>
-                                                                </div>
-                                                                <div class="info-desc">
-                                                                    <p>
-                                                                        Choose a resolution
-                                                                        to define how the non-conformance will be
-                                                                        addressed,
-                                                                        ensuring proper documentation and compliance
-                                                                        with quality
-                                                                        standards.
-                                                                    </p>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <select name="CFEngineering" id="reviewByCfEngineering"
-                                                            required>
-                                                            <option value="" disabled selected>Select an option</option>
-                                                            <option value="Use As Is">Use As Is</option>
-                                                            <option value="Repair">Repair</option>
-                                                            <option value="Rework">Rework</option>
-                                                            <option value="Scrap">Scrap</option>
-                                                        </select>
-                                                    </div>
-
-                                                    <div class="form-ncr-details">
-                                                        <div class="two-cols-info">
-                                                            <label for="customerNotification">Does Customer require
-                                                                notification of
-                                                                NCR?</label>
-                                                            <div class="form-info">
-                                                                <div class="info-icon">
-                                                                    <svg class="w-6 h-6 text-gray-800 dark:text-white"
-                                                                        aria-hidden="true"
-                                                                        xmlns="http://www.w3.org/2000/svg" width="24"
-                                                                        height="24" fill="none" viewBox="0 0 24 24">
-                                                                        <path stroke="currentColor"
-                                                                            stroke-linecap="round"
-                                                                            stroke-linejoin="round" stroke-width="2"
-                                                                            d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                                                                    </svg>
-                                                                </div>
-                                                                <div class="info-desc">
-                                                                    <p>
-                                                                        This field indicates whether the customer should
-                                                                        be
-                                                                        notified about the non-conformance. Select "Yes"
-                                                                        if the customer
-                                                                        needs to be informed, or "No" if no notification
-                                                                        is required.
-                                                                    </p>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <select name="customerNot" id="customerNotification">
-                                                            <option value="">Select an option</option>
-                                                            <option value="Yes">Yes</option>
-                                                            <option value="No">No</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="one-col">
-                                                    <div class="form-ncr-details">
-                                                        <div class="two-cols-info">
-                                                            <label for="disposition">Disposition:<span
-                                                                    class="required">*</span></label>
-                                                            <div class="form-info">
-                                                                <div class="info-icon">
-                                                                    <svg class="w-6 h-6 text-gray-800 dark:text-white"
-                                                                        aria-hidden="true"
-                                                                        xmlns="http://www.w3.org/2000/svg" width="24"
-                                                                        height="24" fill="none" viewBox="0 0 24 24">
-                                                                        <path stroke="currentColor"
-                                                                            stroke-linecap="round"
-                                                                            stroke-linejoin="round" stroke-width="2"
-                                                                            d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                                                                    </svg>
-                                                                </div>
-                                                                <div class="info-desc">
-                                                                    <p>
-                                                                        The action taken to resolve the non-conformance,
-                                                                        such as "Use As Is," "Repair," "Rework," or
-                                                                        "Scrap." This decision determines how the
-                                                                        non-conforming item will be handled.
-                                                                    </p>
-                                                                </div>
-                                                            </div>
-
-                                                        </div>
-                                                        <textarea name="disposition" id="disposition"></textarea>
-                                                    </div>
-                                                </div>
-                                                <hr>
-                                                <div class="two-cols">
-                                                    <div class="form-ncr-details">
-                                                        <div class="two-cols-info">
-                                                            <label for="drawingUpdate">Does the drawing require
-                                                                updating?</label>
-                                                            <div class="form-info">
-                                                                <div class="info-icon">
-                                                                    <svg class="w-6 h-6 text-gray-800 dark:text-white"
-                                                                        aria-hidden="true"
-                                                                        xmlns="http://www.w3.org/2000/svg" width="24"
-                                                                        height="24" fill="none" viewBox="0 0 24 24">
-                                                                        <path stroke="currentColor"
-                                                                            stroke-linecap="round"
-                                                                            stroke-linejoin="round" stroke-width="2"
-                                                                            d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                                                                    </svg>
-                                                                </div>
-                                                                <div class="info-desc">
-                                                                    <p>
-                                                                        Indicates whether the drawing for the product or
-                                                                        component needs to be revised due to the
-                                                                        non-conformance.
-                                                                        Select "Yes" if an update is needed, or "No" if
-                                                                        the drawing remains unchanged.
-                                                                    </p>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <select name="drawingUpdate" id="drawingUpdate">
-                                                            <option value="">Select an option</option>
-                                                            <option value="Yes">Yes</option>
-                                                            <option value="No">No</option>
-                                                        </select>
-                                                    </div>
-                                                    <div></div>
-                                                    <div class="form-ncr-details drawingUpdateToggle2">
-                                                        <div class="two-cols-info">
-                                                            <label for="originalRevNumber">Original Revision
-                                                                Number:</label>
-                                                            <div class="form-info">
-                                                                <div class="info-icon">
-                                                                    <svg class="w-6 h-6 text-gray-800 dark:text-white"
-                                                                        aria-hidden="true"
-                                                                        xmlns="http://www.w3.org/2000/svg" width="24"
-                                                                        height="24" fill="none" viewBox="0 0 24 24">
-                                                                        <path stroke="currentColor"
-                                                                            stroke-linecap="round"
-                                                                            stroke-linejoin="round" stroke-width="2"
-                                                                            d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                                                                    </svg>
-                                                                </div>
-                                                                <div class="info-desc">
-                                                                    <p>
-                                                                        This refers to the revision number of the
-                                                                        original drawing
-                                                                        or design before any updates or changes were
-                                                                        made. This helps track
-                                                                        the version of the design being referenced
-                                                                    </p>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <input type="text" id="originalRevNumber">
-                                                    </div>
-                                                    <div class="form-ncr-details drawingUpdateToggle2">
-                                                        <div class="two-cols-info">
-                                                            <label for="updatedRevNumber">Updated Revision
-                                                                Number:</label>
-                                                            <div class="form-info">
-                                                                <div class="info-icon">
-                                                                    <svg class="w-6 h-6 text-gray-800 dark:text-white"
-                                                                        aria-hidden="true"
-                                                                        xmlns="http://www.w3.org/2000/svg" width="24"
-                                                                        height="24" fill="none" viewBox="0 0 24 24">
-                                                                        <path stroke="currentColor"
-                                                                            stroke-linecap="round"
-                                                                            stroke-linejoin="round" stroke-width="2"
-                                                                            d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                                                                    </svg>
-                                                                </div>
-                                                                <div class="info-desc">
-                                                                    <p>
-                                                                        This refers to the revision number assigned to
-                                                                        the drawing
-                                                                        or design after updates or changes have been
-                                                                        made. This
-                                                                        helps track the most current version of the
-                                                                        design following any modifications.
-                                                                    </p>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <input type="text" id="updatedRevNumber">
-                                                    </div>
-                                                    <div class="form-ncr-details drawingUpdateToggle2">
-                                                        <div class="two-cols-info">
-                                                            <label for="revisionDate">Revision Date:</label>
-                                                            <div class="form-info">
-                                                                <div class="info-icon">
-                                                                    <svg class="w-6 h-6 text-gray-800 dark:text-white"
-                                                                        aria-hidden="true"
-                                                                        xmlns="http://www.w3.org/2000/svg" width="24"
-                                                                        height="24" fill="none" viewBox="0 0 24 24">
-                                                                        <path stroke="currentColor"
-                                                                            stroke-linecap="round"
-                                                                            stroke-linejoin="round" stroke-width="2"
-                                                                            d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                                                                    </svg>
-                                                                </div>
-                                                                <div class="info-desc">
-                                                                    <p>
-                                                                        The date when the drawing or design was last
-                                                                        updated or revised. This helps track when
-                                                                        changes were made to ensure the most current
-                                                                        version is used.
-                                                                    </p>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <input type="date" id="revisionDate">
-                                                        <!--changed input type to date instead of datetime-->
-                                                    </div>
-                                                    <div class="form-ncr-details drawingUpdateToggle2">
-                                                        <div class="two-cols-info">
-                                                            <label for="engineerName">Name of Engineer:</label>
-                                                            <div class="form-info">
-                                                                <div class="info-icon">
-                                                                    <svg class="w-6 h-6 text-gray-800 dark:text-white"
-                                                                        aria-hidden="true"
-                                                                        xmlns="http://www.w3.org/2000/svg" width="24"
-                                                                        height="24" fill="none" viewBox="0 0 24 24">
-                                                                        <path stroke="currentColor"
-                                                                            stroke-linecap="round"
-                                                                            stroke-linejoin="round" stroke-width="2"
-                                                                            d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                                                                    </svg>
-                                                                </div>
-                                                                <div class="info-desc">
-                                                                    <p>
-                                                                        The name of the engineer responsible for
-                                                                        reviewing or making updates to the drawing or
-                                                                        design. This helps identify the person who made
-                                                                        the revisions or decisions regarding the
-                                                                        non-conformance.
-                                                                    </p>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <input type="text" id="engineerName">
-                                                    </div>
-                                                </div>
-                                                <hr>
-                                                <div class="two-cols bottom-margin">
-                                                    <div class="form-ncr-details drawingUpdateToggle3">
-                                                        <div class="two-cols-info">
-                                                            <label for="completedByEng">Completed By:</label>
-                                                            <div class="form-info">
-                                                                <div class="info-icon">
-                                                                    <svg class="w-6 h-6 text-gray-800 dark:text-white"
-                                                                        aria-hidden="true"
-                                                                        xmlns="http://www.w3.org/2000/svg" width="24"
-                                                                        height="24" fill="none" viewBox="0 0 24 24">
-                                                                        <path stroke="currentColor"
-                                                                            stroke-linecap="round"
-                                                                            stroke-linejoin="round" stroke-width="2"
-                                                                            d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                                                                    </svg>
-                                                                </div>
-                                                                <div class="info-desc">
-                                                                    <p>
-                                                                        The name of the individual who completed the
-                                                                        Non-Conformance Report (NCR) or the associated
-                                                                        task, providing accountability and traceability
-                                                                        for the action taken.
-                                                                    </p>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <input type="text" id="completedByEng">
-                                                    </div>
-                                                    <div class="form-ncr-details drawingUpdateToggle3">
-                                                        <div class="two-cols-info">
-                                                            <label for="completedOnEng">Date Completed:</label>
-                                                            <div class="form-info">
-                                                                <div class="info-icon">
-                                                                    <svg class="w-6 h-6 text-gray-800 dark:text-white"
-                                                                        aria-hidden="true"
-                                                                        xmlns="http://www.w3.org/2000/svg" width="24"
-                                                                        height="24" fill="none" viewBox="0 0 24 24">
-                                                                        <path stroke="currentColor"
-                                                                            stroke-linecap="round"
-                                                                            stroke-linejoin="round" stroke-width="2"
-                                                                            d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                                                                    </svg>
-                                                                </div>
-                                                                <div class="info-desc">
-                                                                    <p>
-                                                                        The date when the Non-Conformance Report (NCR)
-                                                                        or associated task was finalized, providing a
-                                                                        record of when the issue was addressed or
-                                                                        resolved.
-                                                                    </p>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <input type="date" id="completedOnEng">
-                                                    </div>
-                                                </div>
-                                                <div class="form-ncr-buttons">
-                                                    <button type="button" id="btnEngSave"
-                                                        class="button-primary">Save</button>
-                                                    <button type="button" id="btnEngSubmit"
-                                                        class="button-secondary btnDisable">Submit</button>
-                                                    <button type="button" id="btnEngCancel" class="button-secondary"
-                                                        onclick="goBack()">Cancel</button>
-                                                </div>
-                                            </form>
                                         </div>
-                                    </div>
-
+                                    </form>
                                 </div>
                             </div>
                         </div>
-                        <!--Edit Modal for Engineering-->
-                        <div id="createEditModal">
-                            <form class="form-ncr">
-                                <div>
-                                    <div>
-                                    </div>
-
-                                </div>
-                            </form>
-                        </div>
                     </div>
+                </section>
                 </div>
-            </div>
-        </section>
     </main>
     <footer id="footer">
         <p><small>&copy; 2024 Copyright. QCision - WireWits. All rights reserved.</small></p>

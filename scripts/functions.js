@@ -286,24 +286,27 @@ function formatDate(dateString) {
 function populateDetailsPage(ncrNumber) {
     const entry = quality.find(item => item.ncrNumber === ncrNumber);
     if (entry) {
-        document.getElementById('ncrNumber').textContent = entry.ncrNumber ?? "";
-        document.getElementById('dateCreated').textContent = formatDate(entry.dateCreated) ?? "";
-        document.getElementById('createdBy').textContent = entry.createdBy ?? "";
+        document.getElementById('ncrNumber').textContent = entry.ncrNumber || "-";
+        document.getElementById('dateCreated').textContent = formatDate(entry.dateCreated) || "-";
+        document.getElementById('createdBy').textContent = entry.createdBy || "-";
         document.getElementById('ncrStatus').textContent = entry.ncrStatus ?? "Quality";
-        document.getElementById('applicableProcess').textContent = entry.applicableProcess ?? "";
-        document.getElementById('supplierNameD').textContent = entry.supplierName ?? "";
+        document.getElementById('applicableProcess').textContent = entry.applicableProcess || "-";
+        document.getElementById('supplierNameD').textContent = entry.supplierName || "-";
 
         // Handle missing values with nullish coalescing
-        document.getElementById('poNumber').textContent = entry.poNumber ?? "";
-        document.getElementById('soNumber').textContent = entry.soNumber ?? "";
-        document.getElementById('quantityReceived').textContent = entry.quantityReceived ?? "";
-        document.getElementById('quantityDefect').textContent = entry.quantityDefect ?? "";
-        document.getElementById('itemDescription').innerHTML = entry.itemDescription.replace(/\n/g, '<br/>') ?? "";
-        document.getElementById('defectDescription').innerHTML = entry.defectDescription.replace(/\n/g, '<br/>') ?? "";
+        document.getElementById('poNumber').textContent = entry.poNumber || "-";
+        document.getElementById('soNumber').textContent = entry.soNumber || "-";
+        document.getElementById('quantityReceived').textContent = entry.quantityReceived || "-";
+        document.getElementById('quantityDefect').textContent = entry.quantityDefect || "-";
+        document.getElementById('itemDescription').innerHTML = entry.itemDescription.replace(/\n/g, '<br/>') || "-";
+        document.getElementById('defectDescription').innerHTML = entry.defectDescription.replace(/\n/g, '<br/>') || "-";
 
         // Assuming engineering is related to defect description
         document.getElementById('engNeeded').textContent = entry.engNeeded ?? "No";
         document.getElementById('itemConform').textContent = entry.itemConform ?? "No";
+
+        document.getElementById('completedByQI').textContent = entry.completedBy || "-";
+        document.getElementById('completedOnQI').textContent = entry.completedOn ? formatDate(entry.completedOn) : "-";
 
         const documentFilesList = document.getElementById('thumbnailsContainer');
         documentFilesList.innerHTML = ''; // Clear any existing content
@@ -326,6 +329,14 @@ function populateDetailsPage(ncrNumber) {
         } else {
             documentFilesList.innerHTML = 'No uploaded files.'; // Handle no files case
         }
+
+        if (entry.ncrStatus != "Quality") {
+            document.getElementById('completionToggle1').style.display = 'grid';
+        }
+
+
+
+
         // Disable edit button if status is not "Quality"
         const editButton = document.getElementById('editButton'); // Assuming you have an edit button with this ID
 
@@ -334,7 +345,7 @@ function populateDetailsPage(ncrNumber) {
                 const ncrStatus = entry.ncrStatus; // Get the NCR status from the entry object
 
                 if (ncrStatus !== "Quality") {
-                    alert(`This NCR is already submitted to ${ncrStatus}. You can make and save changes, except to 'Item Marked Conforming' and 'Engineering Needed' fields.` );
+                    alert(`This NCR is already submitted to ${ncrStatus}. You can make and save changes, except to 'Item Marked Conforming' and 'Engineering Needed' fields.`);
                     window.location.href = `create.html?ncr=${ncrNumber}`; // Redirect to edit page
                 } else {
                     window.location.href = `create.html?ncr=${ncrNumber}`; // Redirect to edit page
@@ -387,6 +398,8 @@ function populateEditPage(ncrNumber) {
         document.getElementById('defectDescription').value = entry.defectDescription ? entry.defectDescription : '';
         document.getElementById('engNeeded').checked = entry.engNeeded === 'Yes';
         document.getElementById('itemConform').checked = entry.itemConform === 'Yes';
+        document.getElementById('completedByQI').value = entry.completedBy ? entry.completedBy : "";
+        document.getElementById('completedOnQI').value = entry.completedOn ? formatDate(entry.completedOn) : "";
 
 
         // Clear the existing thumbnails container
@@ -402,10 +415,11 @@ function populateEditPage(ncrNumber) {
             });
         }
 
-        if(entry.ncrStatus != "Quality"){
+        if (entry.ncrStatus != "Quality") {
             document.getElementById('btnSubmit').style.display = 'none';
             document.getElementById('engNeeded').disabled = true;
             document.getElementById('itemConform').disabled = true;
+            document.getElementById('completionToggle1').style.display = 'block'
         }
     }
 }
@@ -419,7 +433,7 @@ function editEntry(ncrNumber) {
 // Supporting Function - Redirection to Edit an NCR when Edit button is clicked
 function handleEditEntry(ncrNumber, ncrStatus) {
     if (ncrStatus !== "Quality") {
-        alert(`This NCR is already submitted to ${ncrStatus}. You can make and save changes, except to 'Item Marked Conforming' and 'Engineering Needed' fields.` );
+        alert(`This NCR is already submitted to ${ncrStatus}. You can make and save changes, except to 'Item Marked Conforming' and 'Engineering Needed' fields.`);
         window.location.href = `create.html?ncr=${ncrNumber}`; // Redirect to edit page
     } else {
         window.location.href = `create.html?ncr=${ncrNumber}`; // Redirect to edit page
@@ -564,7 +578,7 @@ function performSearch() {
 
     if (totalResults === 0) {
         // Show a placeholder row in the table with a magnifying glass icon
-            tableBody.innerHTML = `
+        tableBody.innerHTML = `
             <tr>
                 <td colspan="5" style="text-align: center; padding: 20px; color: #666; font-style: italic; font-size: 16px; background-color: #f9f9f9;">
                     <svg xmlns="http://www.w3.org/2000/svg" style="width: 24px; height: 24px; vertical-align: middle; margin-right: 10px; color: #888;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -817,7 +831,8 @@ function saveNCR() {
 function submitNCR() {
     const ncrNumber = document.getElementById('ncrNumber').textContent;
 
-    changedBy = getUserName();
+    const changedBy = getUserName();
+    const date = Timestamp();
 
     // Collect current form values
     const applicableProcess = document.getElementById('applicableProcess')?.value;
@@ -872,6 +887,7 @@ function submitNCR() {
             qualityEntry.defectDescription = defectDescription;
             qualityEntry.documentFiles = [...uploadedFiles];
             qualityEntry.completedBy = changedBy;
+            qualityEntry.completedOn = date;
 
             // Mark the NCR as submitted
             qualityEntry.ncrStatus = engNeededCheckbox.checked ? "Engineering" : "Operations";
@@ -880,7 +896,7 @@ function submitNCR() {
             localStorage.setItem('quality', JSON.stringify(quality));
 
             //make engineering array and push to engineering json
-            if (qualityEntry.ncrStatus === "Engineering"){
+            if (qualityEntry.ncrStatus === "Engineering") {
                 const engineeringEntry = {
                     ncrNumber: ncrNumber,
                     dateReceived: Timestamp(),
@@ -898,34 +914,34 @@ function submitNCR() {
                 engineering.push(engineeringEntry);
                 localStorage.setItem('engineering', JSON.stringify(engineering));
 
-                
-            //make history array and push to history json
+
+                //make history array and push to history json
                 const historyEntry = {
                     ncrNumber: ncrNumber,
                     actionType: "Submit",
                     status: 'Open',
                     actionDescription: "NCR submitted from Quality to Engineering",
                     changedBy: changedBy,
-                    changedOn: Timestamp()
+                    changedOn: date
                 }
                 history.push(historyEntry);
-            localStorage.setItem('history', JSON.stringify(history));
+                localStorage.setItem('history', JSON.stringify(history));
 
             }
-            else{
-                 //make history array and push to history json
-                 const historyEntry = {
+            else {
+                //make history array and push to history json
+                const historyEntry = {
                     ncrNumber: ncrNumber,
                     actionType: "Submit",
                     status: 'Open',
                     actionDescription: "NCR submitted from Quality to Operations",
                     changedBy: changedBy,
-                    changedOn: Timestamp()
+                    changedOn: date
                 }
                 history.push(historyEntry);
-            localStorage.setItem('history', JSON.stringify(history));
+                localStorage.setItem('history', JSON.stringify(history));
             }
-           
+
             alert('NCR has been successfully submitted.');
 
             // Redirect or perform other actions as needed
@@ -1082,8 +1098,8 @@ function performSearchReports() {
         //noResultsMessage.textContent = 'No results found.';
         //noResultsMessage.style.display = 'block';
 
-            // Show a placeholder row in the table with a magnifying glass icon
-            tableContent.innerHTML = `
+        // Show a placeholder row in the table with a magnifying glass icon
+        tableContent.innerHTML = `
         <tr>
             <td colspan="7" style="text-align: center; padding: 20px; color: #666; font-style: italic; font-size: 16px; background-color: #f9f9f9;">
                 <svg xmlns="http://www.w3.org/2000/svg" style="width: 24px; height: 24px; vertical-align: middle; margin-right: 10px; color: #888;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -1092,7 +1108,7 @@ function performSearchReports() {
                 No results found.
             </td>
         </tr>`;
-    return;
+        return;
     } /*else {
         noResultsMessage.style.display = 'none';
     }*/
@@ -1831,20 +1847,20 @@ function recentEngNCRs() {
 function populateDetailsPageEng(ncrNumber) {
     const entry = quality.find(item => item.ncrNumber === ncrNumber);
     if (entry) {
-        document.getElementById('ncrNumberE').textContent = entry.ncrNumber ?? "";
-        document.getElementById('dateCreatedE').textContent = formatDate(entry.dateCreated) ?? "";
-        document.getElementById('createdByE').textContent = entry.createdBy ?? "";
+        document.getElementById('ncrNumberE').textContent = entry.ncrNumber || "-";
+        document.getElementById('dateCreatedE').textContent = formatDate(entry.dateCreated) || "-";
+        document.getElementById('createdByE').textContent = entry.createdBy || "-";
         document.getElementById('ncrStatusE').textContent = entry.ncrStatus ?? "Quality";
-        document.getElementById('applicableProcessE').textContent = entry.applicableProcess ?? "";
-        document.getElementById('supplierNameDE').textContent = entry.supplierName ?? "";
+        document.getElementById('applicableProcessE').textContent = entry.applicableProcess || "-";
+        document.getElementById('supplierNameDE').textContent = entry.supplierName || "-";
 
         // Use nullish coalescing to handle missing or undefined values
-        document.getElementById('poNumberE').textContent = entry.poNumber ?? "";
-        document.getElementById('soNumberE').textContent = entry.soNumber ?? "";
-        document.getElementById('quantityReceivedE').textContent = entry.quantityReceived ?? "";
-        document.getElementById('quantityDefectE').textContent = entry.quantityDefect ?? "";
-        document.getElementById('itemDescriptionE').innerHTML = entry.itemDescription.replace(/\n/g, '<br/>') ?? "";
-        document.getElementById('defectDescriptionE').innerHTML = entry.defectDescription.replace(/\n/g, '<br/>') ?? "";
+        document.getElementById('poNumberE').textContent = entry.poNumber || "-";
+        document.getElementById('soNumberE').textContent = entry.soNumber || "-";
+        document.getElementById('quantityReceivedE').textContent = entry.quantityReceived || "-";
+        document.getElementById('quantityDefectE').textContent = entry.quantityDefect || "-";
+        document.getElementById('itemDescriptionE').innerHTML = entry.itemDescription.replace(/\n/g, '<br/>') || "-";
+        document.getElementById('defectDescriptionE').innerHTML = entry.defectDescription.replace(/\n/g, '<br/>') || "-";
 
         // Assuming engineering is related to defect description, corrected as `engNeeded`
         document.getElementById('engNeededE').textContent = entry.engNeeded ?? "No";
@@ -1872,6 +1888,10 @@ function populateDetailsPageEng(ncrNumber) {
         } else {
             documentFilesList.innerHTML = 'No uploaded files.'; // Handle no files case
         }
+
+        document.getElementById('completedByQIE').textContent = entry.completedBy ?? "";
+        document.getElementById('completedOnQIE').textContent = entry.completedOn ? formatDate(entry.completedOn) : "";
+
     }
 }
 
@@ -1882,18 +1902,25 @@ function populateDetailsPageEng(ncrNumber) {
 function populateEngDetailsPage(ncrNumber) {
     const entry = engineering.find(item => item.ncrNumber === ncrNumber);
     if (entry) {
-        document.getElementById('reviewByCfEngineering').textContent = entry.reviewByCfEngineering ?? "";
-        document.getElementById('customerNotification').textContent = entry.customerNotification ?? "";
-        document.getElementById('disposition').innerHTML = entry.disposition.replace(/\n/g, '<br/>') ?? "";
-        document.getElementById('drawingUpdate').textContent = entry.drawingUpdate ?? "";
-        document.getElementById('originalRevNumber').textContent = entry.originalRevNumber ?? "";
-        document.getElementById('updatedRevNumber').textContent = entry.updatedRevNumber ?? "";
-        document.getElementById('revisionDate').textContent = entry.revisionDate ? formatDate(entry.revisionDate) : "";
-        document.getElementById('engineerName').textContent = entry.engineerName ?? "";
-        if(entry.drawingUpdate == "No"){
+        document.getElementById('reviewByCfEngineering').textContent = entry.reviewByCfEngineering || "-";
+        document.getElementById('customerNotification').textContent = entry.customerNotification || "-";
+        document.getElementById('disposition').innerHTML = entry.disposition.replace(/\n/g, '<br/>') || "-";
+        document.getElementById('drawingUpdate').textContent = entry.drawingUpdate || "-";
+        document.getElementById('originalRevNumber').textContent = entry.originalRevNumber || "-";
+        document.getElementById('updatedRevNumber').textContent = entry.updatedRevNumber || "-";
+        document.getElementById('revisionDate').textContent = entry.revisionDate ? formatDate(entry.revisionDate) : "-";
+        document.getElementById('engineerName').textContent = entry.engineerName || "-";
+        if (entry.drawingUpdate == "No") {
             Array.from(document.getElementsByClassName('drawingUpdateToggle')).forEach(element => {
                 element.style.display = 'none';
             });
+        }
+
+        document.getElementById('completedByEng').textContent = entry.completedBy ?? "";
+        document.getElementById('completedOnEng').textContent = entry.completedOn ? formatDate(entry.completedOn) : "";
+
+        if (entry.ncrStatus != "Engineering") {
+            document.getElementById('completionToggle2').style.display = 'grid';
         }
     }
 }
@@ -1913,6 +1940,14 @@ function populateEngEditPage(ncrNumber) {
         document.getElementById('customerNotification').value = entry.customerNotification;
         document.getElementById('disposition').textContent = entry.disposition;
         document.getElementById('drawingUpdate').value = entry.drawingUpdate;
+        document.getElementById('completedByEng').value = entry.completedBy ? entry.completedBy : "";
+        document.getElementById('completedOnEng').value = entry.completedOn ? formatDate(entry.completedOn) : "";
+
+
+        if (entry.ncrStatus != "Engineering") {
+            document.getElementById('completionToggle2').style.display = 'block'
+            document.getElementById('btnEngSubmit').style.display = 'none';
+        }
 
         if (entry.drawingUpdate === "Yes") {
             document.getElementById('originalRevNumber').value = entry.originalRevNumber;
@@ -1933,7 +1968,7 @@ function populateEngEditPage(ncrNumber) {
             // document.getElementById('updatedRevNumber').disabled = true;
             // document.getElementById('revisionDate').disabled = true;
             // document.getElementById('engineerName').disabled = true;
-            
+
             Array.from(document.getElementsByClassName('drawingUpdateToggle2')).forEach(element => {
                 element.style.display = 'none';
             });
@@ -1962,7 +1997,7 @@ document.getElementById('drawingUpdate').addEventListener('change', (event) => {
         prevOriginalRevNumber = document.getElementById('originalRevNumber').value;
         prevUpdatedRevNumber = document.getElementById('updatedRevNumber').value;
         prevRevisionDateRaw = document.getElementById('revisionDate').value;
-        prevRevisionDate = prevRevisionDateRaw? correctDate(prevRevisionDateRaw) : "";
+        prevRevisionDate = prevRevisionDateRaw ? correctDate(prevRevisionDateRaw) : "";
         prevEngineerName = document.getElementById('engineerName').value;
 
         // Disable the fields
@@ -1980,9 +2015,9 @@ document.getElementById('drawingUpdate').addEventListener('change', (event) => {
         document.getElementById('revisionDate').value = "";
         document.getElementById('engineerName').value = "";
 
-       
 
-        
+
+
 
         /*Array.from(document.getElementsByClassName('drawingUpdateToggle2')).forEach(element => {
                 element.style.display = 'none';
@@ -2000,8 +2035,8 @@ document.getElementById('drawingUpdate').addEventListener('change', (event) => {
             element.style.display = 'block';
         });
 
-        
-         // Restore previous values if "Yes" is selected
+
+        // Restore previous values if "Yes" is selected
         document.getElementById('originalRevNumber').value = prevOriginalRevNumber;
         document.getElementById('updatedRevNumber').value = prevUpdatedRevNumber;
         document.getElementById('revisionDate').value = setDate(prevRevisionDate);
@@ -2083,7 +2118,7 @@ function saveEngNCR() {
 
             alert('Your changes have been saved. You can continue later.');
             window.history.back();
-            console.log(typeof(revisionDate), revisionDate)
+            console.log(typeof (revisionDate), revisionDate)
         } else {
             alert("Save operation cancelled.");
         }
@@ -2100,9 +2135,10 @@ function saveEngNCR() {
 //
 //=================================================================================================================
 function submitEngNCR() {
-    
+
     const ncrNumber = document.getElementById('ncrNumberE').textContent;
     const changedBy = getUserName();
+    const date = Timestamp();
     const reviewByCfEngineering = document.getElementById('reviewByCfEngineering').value;
     const customerNotification = document.getElementById('customerNotification').value;
     const disposition = document.getElementById('disposition').value;
@@ -2113,16 +2149,41 @@ function submitEngNCR() {
     const revisionDate = revisionDateRaw ? correctDate(revisionDateRaw) : "";
     const engineerName = document.getElementById('engineerName').value;
 
-    // Check if all required fields are filled
-    if (!reviewByCfEngineering || !disposition) {
-        alert('Please fill out all the required fields before submitting.');
+    let msg = ""; // Use 'let' since you're modifying the value
+
+    if (!reviewByCfEngineering) {
+        msg += "Review by CF Engineering is required.\n"; // Add newline for separation
+    }
+
+    if (!disposition) {
+        msg += "Disposition is required."; // Append without newline since it's the last message
+    }
+
+    // Check if any required field is missing
+    if (msg) {
+        alert(msg); // Show the concatenated message
         return;
     }
 
-    /*if ((drawingUpdate === "Yes") && (!originalRevNumber || updatedRevNumber)) {
-        alert('Please provide Original Revision Number and Updated Revision Number')
+   if (drawingUpdate == "Yes"){
+    let drawingMsg = "";
+    if (!originalRevNumber) {
+        drawingMsg += "Original Revision number is required.\n"; // Add newline for separation
+    }
+    if (!updatedRevNumber) {
+        drawingMsg += "Updated Revision Number is required.\n"; // Append without newline since it's the last message
+    }
+    if (!revisionDate) {
+        drawingMsg += "Revision Date is required.\n"; // Add newline for separation
+    }
+    if (!engineerName) {
+        drawingMsg += "Name of the Engineer is required."; // Append without newline since it's the last message
+    }
+    if (drawingMsg) {
+        alert(drawingMsg); // Show the concatenated message
         return;
-    }*/
+    }
+   }
 
     const confirmation = confirm("Are you sure you want to submit the NCR?");
     if (confirmation) {
@@ -2150,6 +2211,7 @@ function submitEngNCR() {
             engineeringEntry.revisionDate = revisionDate;
             engineeringEntry.engineerName = engineerName;
             engineeringEntry.completedBy = changedBy;
+            engineeringEntry.completedOn = date;
         }
         localStorage.setItem('engineering', JSON.stringify(engineering));
         //make history array and push to history json
@@ -2159,7 +2221,7 @@ function submitEngNCR() {
             status: 'Open',
             actionDescription: "NCR submitted from Engineering to Operations",
             changedBy: changedBy,
-            changedOn: Timestamp()
+            changedOn: date
         }
         history.push(historyEntry);
         localStorage.setItem('history', JSON.stringify(history));
@@ -2203,7 +2265,7 @@ function updateNavLinks(userRole) {
 
     // Hide link if the user is not an admin
     if (userRole == "Engineer") {
-        createLink.classList = 'nav-hide';  
+        createLink.classList = 'nav-hide';
     }
 }
 
@@ -2278,8 +2340,8 @@ function performSearchEng() {
                             <td>${result.ncrNumber}</td>
                              <td>${((quality.find(q => q.ncrNumber === result.ncrNumber)?.itemDescription)) || ''}</td>
                              <td>
-                                ${engineering.find(q => q.ncrNumber === result.ncrNumber && q.ncrStatus ==="Engineering")?.dateReceived ?
-                                formatDate(engineering.find(q => q.ncrNumber === result.ncrNumber).dateReceived) : 'N/A'}
+                                ${engineering.find(q => q.ncrNumber === result.ncrNumber && q.ncrStatus === "Engineering")?.dateReceived ?
+                formatDate(engineering.find(q => q.ncrNumber === result.ncrNumber).dateReceived) : 'N/A'}
                             </td>
                             <td>${((quality.find(q => q.ncrNumber === result.ncrNumber)?.ncrStatus)) || ''}</td>
                             <td>
@@ -2308,7 +2370,7 @@ function performSearchEng() {
 
     if (totalResults === 0) {
         // Show a placeholder row in the table with a magnifying glass icon
-           tableBody.innerHTML = `
+        tableBody.innerHTML = `
            <tr>
                <td colspan="5" style="text-align: center; padding: 20px; color: #666; font-style: italic; font-size: 16px; background-color: #f9f9f9;">
                    <svg xmlns="http://www.w3.org/2000/svg" style="width: 24px; height: 24px; vertical-align: middle; margin-right: 10px; color: #888;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -2317,9 +2379,9 @@ function performSearchEng() {
                    No results found.
                </td>
            </tr>`;
-       return;
-   }
-    
+        return;
+    }
+
 }
 
 
@@ -2547,8 +2609,8 @@ function updateNotificationButton() {
     if (notifSettingsMessage) {
         //notifSettingsMessage.style.display = isVisible ? "inline" : "none";
         notifSettingsMessage.textContent = isVisible
-        ? "Notifications are enabled"
-        : "Notifications are disabled";
+            ? "Notifications are enabled"
+            : "Notifications are disabled";
     } else {
         console.warn("#notifSettingsMessage not found on this page.");
     }

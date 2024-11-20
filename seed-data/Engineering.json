@@ -11,7 +11,8 @@
     "updatedRevNumber": "",
     "revisionDate": "",
     "engineerName": "",
-    "completedBy" : ""
+    "completedBy" : "",
+    "completedOn" : ""
   },
   {
     "ncrNumber": "2024-002",
@@ -25,7 +26,8 @@
     "updatedRevNumber": "2.1",
     "revisionDate": "11/05/2024",
     "engineerName": "James Smith",
-    "completedBy" : ""
+    "completedBy" : "",
+    "completedOn" : ""
   },
   {
     "ncrNumber": "2024-003",
@@ -39,7 +41,8 @@
     "updatedRevNumber": "",
     "revisionDate": "",
     "engineerName": "",
-    "completedBy" : ""
+    "completedBy" : "",
+    "completedOn" : ""
   },
   {
     "ncrNumber": "2024-004",
@@ -53,7 +56,8 @@
     "updatedRevNumber": "",
     "revisionDate": "",
     "engineerName": "",
-    "completedBy" : ""
+    "completedBy" : "",
+    "completedOn" : ""
   },
   {
     "ncrNumber": "2024-005",
@@ -67,7 +71,8 @@
     "updatedRevNumber": "4.1",
     "revisionDate": "11/07/2024",
     "engineerName": "Sophia Lee",
-    "completedBy" : ""
+    "completedBy" : "",
+    "completedOn" : ""
   },
   {
     "ncrNumber": "2024-006",
@@ -81,7 +86,8 @@
     "updatedRevNumber": "",
     "revisionDate": "",
     "engineerName": "",
-    "completedBy" : ""
+    "completedBy" : "",
+    "completedOn" : ""
   },
   {
     "ncrNumber": "2024-007",
@@ -95,7 +101,8 @@
     "updatedRevNumber": "5.1",
     "revisionDate": "11/08/2024",
     "engineerName": "Sophia Lee",
-    "completedBy" : ""
+    "completedBy" : "",
+    "completedOn" : ""
   },
   {
     "ncrNumber": "2024-008",
@@ -109,7 +116,8 @@
     "updatedRevNumber": "",
     "revisionDate": "",
     "engineerName": "",
-    "completedBy" : ""
+    "completedBy" : "",
+    "completedOn" : ""
   },
   {
     "ncrNumber": "2024-009",
@@ -123,7 +131,8 @@
     "updatedRevNumber": "7.3",
     "revisionDate": "11/09/2024",
     "engineerName": "Sophia Lee",
-    "completedBy" : ""
+    "completedBy" : "",
+    "completedOn" : ""
   },
   {
     "ncrNumber": "2024-010",
@@ -137,6 +146,7 @@
     "updatedRevNumber": "",
     "revisionDate": "",
     "engineerName": "",
-    "completedBy" : ""
+    "completedBy" : "",
+    "completedOn" : ""
   }
 ]

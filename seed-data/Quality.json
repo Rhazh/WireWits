@@ -16,7 +16,8 @@
         "documentFiles": [
         ],
         "ncrStatus": "Engineering",
-        "completedBy" : "Cassandra Washington"
+        "completedBy" : "Cassandra Washington",
+        "completedOn" : "11/05/2024"
     },
     {
         "ncrNumber": "2024-002",
@@ -35,7 +36,8 @@
         "documentFiles": [
         ],
         "ncrStatus": "Engineering",
-        "completedBy" : "Marcus Allen"
+        "completedBy" : "Marcus Allen",
+        "completedOn" : "11/05/2024"
     },
     {
         "ncrNumber": "2024-003",
@@ -54,7 +56,8 @@
         "documentFiles": [
         ],
         "ncrStatus": "Engineering",
-        "completedBy" : "Cassandra Washington"
+        "completedBy" : "Cassandra Washington",
+        "completedOn" : "11/06/2024"
     },
     {
         "ncrNumber": "2024-004",
@@ -73,7 +76,8 @@
         "documentFiles": [
         ],
         "ncrStatus": "Engineering",
-        "completedBy" : "Marcus Allen"
+        "completedBy" : "Marcus Allen",
+        "completedOn" : "11/06/2024"
     },
     {
         "ncrNumber": "2024-005",
@@ -92,7 +96,8 @@
         "documentFiles": [
         ],
         "ncrStatus": "Engineering",
-        "completedBy" : "Cassandra Washington"
+        "completedBy" : "Cassandra Washington",
+        "completedOn" : "11/07/2024"
     },
     {
         "ncrNumber": "2024-006",
@@ -111,7 +116,8 @@
         "documentFiles": [
         ],
         "ncrStatus": "Engineering",
-        "completedBy" : "Marcus Allen"
+        "completedBy" : "Marcus Allen",
+        "completedOn" : "11/07/2024"
     },
     {
         "ncrNumber": "2024-007",
@@ -130,7 +136,8 @@
         "documentFiles": [
         ],
         "ncrStatus": "Engineering",
-        "completedBy" : "Cassandra Washington"
+        "completedBy" : "Cassandra Washington",
+        "completedOn" : "11/08/2024"
     },
     {
         "ncrNumber": "2024-008",
@@ -149,7 +156,8 @@
         "documentFiles": [
         ],
         "ncrStatus": "Engineering",
-        "completedBy" : "Marcus Allen"
+        "completedBy" : "Marcus Allen",
+        "completedOn" : "11/08/2024"
     },
     {
         "ncrNumber": "2024-009",
@@ -168,7 +176,8 @@
         "documentFiles": [
         ],
         "ncrStatus": "Engineering",
-        "completedBy" : "Cassandra Washington"
+        "completedBy" : "Cassandra Washington",
+        "completedOn" : "11/09/2024"
     },
     {
         "ncrNumber": "2024-010",
@@ -187,7 +196,8 @@
         "documentFiles": [
         ],
         "ncrStatus": "Engineering",
-        "completedBy" : "Marcus Allen"
+        "completedBy" : "Marcus Allen",
+        "completedOn" : "11/09/2024"
     },
     {
         "ncrNumber": "2024-011",
@@ -206,7 +216,8 @@
         "documentFiles": [
         ],
         "ncrStatus": "Quality",
-        "completedBy": ""
+        "completedBy": "",
+        "completedOn" : ""
     },
     {
         "ncrNumber": "2024-012",
@@ -225,7 +236,8 @@
         "documentFiles": [
         ],
         "ncrStatus": "Quality",
-        "completedBy": ""
+        "completedBy": "",
+        "completedOn" : ""
     },
     {
         "ncrNumber": "2024-013",
@@ -244,7 +256,8 @@
         "documentFiles": [
         ],
         "ncrStatus": "Quality",
-        "completedBy": ""
+        "completedBy": "",
+        "completedOn" : ""
     },
     {
         "ncrNumber": "2024-014",
@@ -263,7 +276,8 @@
         "documentFiles": [
         ],
         "ncrStatus": "Quality",
-        "completedBy": ""
+        "completedBy": "",
+        "completedOn" : ""
     },
     {
         "ncrNumber": "2024-015",
@@ -282,7 +296,8 @@
         "documentFiles": [
         ],
         "ncrStatus": "Quality",
-        "completedBy": ""
+        "completedBy": "",
+        "completedOn" : ""
     },
     {
         "ncrNumber": "2024-016",
@@ -301,7 +316,8 @@
         "documentFiles": [
         ],
         "ncrStatus": "Quality",
-        "completedBy": ""
+        "completedBy": "",
+        "completedOn" : ""
     },
     {
         "ncrNumber": "2024-017",
@@ -320,7 +336,8 @@
         "documentFiles": [
         ],
         "ncrStatus": "Quality",
-        "completedBy": ""
+        "completedBy": "",
+        "completedOn" : ""
     },
     {
         "ncrNumber": "2024-018",
@@ -339,7 +356,8 @@
         "documentFiles": [
         ],
         "ncrStatus": "Quality",
-        "completedBy": ""
+        "completedBy": "",
+        "completedOn" : ""
     },
     {
         "ncrNumber": "2024-019",
@@ -358,7 +376,8 @@
         "documentFiles": [
         ],
         "ncrStatus": "Quality",
-        "completedBy": ""
+        "completedBy": "",
+        "completedOn" : ""
     },
     {
         "ncrNumber": "2024-020",
@@ -377,6 +396,7 @@
         "documentFiles": [
         ],
         "ncrStatus": "Quality",
-        "completedBy": ""
+        "completedBy": "",
+        "completedOn" : ""
     }
 ]
