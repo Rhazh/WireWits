@@ -334,10 +334,10 @@ function populateDetailsPage(ncrNumber) {
                 const ncrStatus = entry.ncrStatus; // Get the NCR status from the entry object
 
                 if (ncrStatus !== "Quality") {
-                    alert(`This NCR is already submitted to ${ncrStatus}.`);
+                    alert(`This NCR is already submitted to ${ncrStatus}. You can make and save changes, except to 'Item Marked Conforming' and 'Engineering Needed' fields.` );
+                    window.location.href = `create.html?ncr=${ncrNumber}`; // Redirect to edit page
                 } else {
-                    // Proceed to edit the entry
-                    editEntry(entry.ncrNumber, ncrStatus);
+                    window.location.href = `create.html?ncr=${ncrNumber}`; // Redirect to edit page
                 }
             };
         }
