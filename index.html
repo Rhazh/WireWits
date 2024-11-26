@@ -150,6 +150,7 @@
                 </div>
             </div>
         </div>
+        <!--need to create a function for skip links-->
         <div class="skip-links-div">
             <a href="#btnCreate" class="skip-link" aria-label="Skip to Create NCR content">Skip to Create NCR</a>
             <a href="#btnView" class="skip-link" aria-label="Skip to View NCR  content">Skip to View NCR</a>
@@ -160,7 +161,6 @@
         </div>
     </header>
     <main>
-        <section id="secQuality">
             <div class="container">
                 <div id="dashboardSection" aria-labelledby="dashboardTitle">
                     <div class="page-title">
@@ -169,7 +169,7 @@
                     </div>
                     <!--dashboard buttons-->
                     <div class="dashboard">
-                        <div class="div-container">
+                        <div class="div-container" id="onlyQualityDash">
                             <button id="btnCreate" class="createNCR" aria-label="Click to create a new NCR"
                                 tabindex="0">
                                 <img src="images/icon-create-ncr.svg" alt="Create NCR icon" title="Create NCR icon"
@@ -216,58 +216,6 @@
                 </div>
                 <!--Removed popup modal for Create NCR, moved it to Create Page-->
             </div>
-        </section>
-
-        <!--Use this section only for Engineering Content-->
-        <section id="secEngineer">
-            <div class="container">
-                <div id="dashboardSection" aria-labelledby="dashboardTitle">
-                    <div class="page-title">
-                        <!--title may change depending on user actions-->
-                        <h1 id="dashboardTitle">Dashboard</h1>
-                    </div>
-                    <!--dashboard buttons-->
-                    <div class="dashboard">
-                        <div class="div-container">
-                            <button id="btnEngView" aria-label="Click to View existing NCRs" tabindex="0">
-                                <img src="images/icon-view-ncrs.svg" alt="View NCR icon" title="View NCR icon"
-                                    width="95" height="95">
-                                NCR Log
-                            </button>
-                        </div>
-                        <div class="div-container">
-                            <button id="btnEngReports" aria-label="Click to view the reports" tabindex="0">
-                                <img src="images/icon-reports.svg" alt="Reports icon" title="Reports icon" width="95"
-                                    height="95">
-                                Reports
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="secEngRcentNCR" aria-labelledby="recentNCRsTitleEng" tabindex="-1" class="div-table">
-                    <div class="div-container">
-                        <div class="table-title">
-                            <h2 id="recentNCRsTitleEng">Recent NCRs</h2> <!--Heading may change-->
-                        </div>
-                        <table id="recentNCRs-table-Eng" tabindex="10">
-                            <thead>
-                                <tr>
-                                    <th>NCR Number</th>
-                                    <th>Item Description</th>
-                                    <th>Date Received</th>
-                                    <th>Department</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody id="indexTableContentEng">
-                                <!--Results will be populated here-->
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </section>
     </main>
     <footer id="footer">
         <p><small>&copy; 2024 Copyright. QCision - WireWits. All rights reserved.</small></p>

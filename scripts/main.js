@@ -115,18 +115,20 @@ document.addEventListener('DOMContentLoaded', async () => {
         //INDEX PAGE - DASHBOARD
         //=======================================================================================================
         if (pageName === 'index.html') {
+            recentNCRs(userRole);
+            setupNavigationButtons();
             if (userRole == "Quality") {
-                document.getElementById('secEngineer').style.display = 'none';
                 populateNotifications();
                 //NavBar(); //commented out because of loading errors.
-                recentNCRs();
-                setupNavigationButtons();
+                //recentNCRs();
+                //setupNavigationButtons();
             }
             else if (userRole == "Engineer") {
-                document.getElementById('secQuality').style.display = 'none';
-                populateNotificationsEng()
-                setupEngNavigationButtons();
-                recentEngNCRs();
+                document.getElementById('onlyQualityDash').style.display = 'none';
+                populateNotificationsEng();
+                //setupNavigationButtons();
+                //setupEngNavigationButtons();
+                //recentEngNCRs();
             }
         
         //=======================================================================================================

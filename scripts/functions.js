@@ -223,13 +223,63 @@ document.addEventListener('click', function (event) {
 // ==============================================================
 // 2. Recent NCRs on Dashboard/Home Page
 // ==============================================================
-function recentNCRs() {
-    if (!quality.length) {
-        console.warn('No quality data available to display.');
+function recentNCRs(userRole) {
+    
+    if(userRole == "Quality"){
+        if (!quality.length) {
+            console.warn('No quality data available to display.');
+            return;
+        }
+    
+        const recentNCRss = [...quality].reverse(); // Clone and reverse to avoid mutating the original array
+        const recentN = recentNCRss.slice(0, 5);
+    
+        console.log(recentN);
+        console.log(recentNCRss);
+    
+        const tableBody = document.getElementById("indexTableContent");
+        if (!tableBody) {
+            console.warn('Table body element not found.');
+            return;
+        }
+        tableBody.innerHTML = ''; // Clear previous results
+    
+        recentN.forEach(result => {
+            //const editButtonDisabled = result.ncrStatus !== "Quality" ? "disabled" : "";
+            const newRow = `<tr>
+                                 <td>${result.ncrNumber}</td>
+                                 <td>${result.supplierName}</td>
+                                 <td>${formatDate(result.dateCreated)}</td>
+                                 <td>${result.ncrStatus}</td>
+                                 <td>
+                                     <div>
+                                        <button onclick="detailsEntry('${result.ncrNumber}')">
+                                            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                                <path stroke="currentColor" stroke-width="2" d="M21 12c0 1.2-4.03 6-9 6s-9-4.8-9-6c0-1.2 4.03-6 9-6s9 4.8 9 6Z"/>
+                                                <path stroke="currentColor" stroke-width="2" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
+                                            </svg>
+                                            View
+                                        </button>
+                                        <button onclick="handleEditEntry('${result.ncrNumber}', '${result.ncrStatus}')">
+                                            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"/>
+                                            </svg>
+                                            Edit
+                                        </button>
+                                     </div>
+                                 </td>
+                             </tr>`;
+            tableBody.innerHTML += newRow;
+        });
+    }
+    else if (userRole == "Engineer"){
+         //console.log(engineering);
+    if (!engineering.length) {
+        console.warn('No engineering data available to display.');
         return;
     }
 
-    const recentNCRss = [...quality].reverse(); // Clone and reverse to avoid mutating the original array
+    const recentNCRss = [...engineering].reverse(); // Clone and reverse to avoid mutating the original array
     const recentN = recentNCRss.slice(0, 5);
 
     console.log(recentN);
@@ -246,11 +296,11 @@ function recentNCRs() {
         //const editButtonDisabled = result.ncrStatus !== "Quality" ? "disabled" : "";
         const newRow = `<tr>
                              <td>${result.ncrNumber}</td>
-                             <td>${result.supplierName}</td>
-                             <td>${formatDate(result.dateCreated)}</td>
+                             <td>${((quality.find(q => q.ncrNumber === result.ncrNumber)?.supplierName)) || ''}</td>
+                             <td>${formatDate(quality.find(q => q.ncrNumber === result.ncrNumber)?.dateCreated)}</td>
                              <td>${result.ncrStatus}</td>
-                             <td>
-                                 <div>
+                              <td>
+                                <div>
                                     <button onclick="detailsEntry('${result.ncrNumber}')">
                                         <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                                             <path stroke="currentColor" stroke-width="2" d="M21 12c0 1.2-4.03 6-9 6s-9-4.8-9-6c0-1.2 4.03-6 9-6s9 4.8 9 6Z"/>
@@ -258,18 +308,23 @@ function recentNCRs() {
                                         </svg>
                                         View
                                     </button>
-                                    <button onclick="handleEditEntry('${result.ncrNumber}', '${result.ncrStatus}')">
+                                    <button onclick="editEntryEng('${result.ncrNumber}')">
                                         <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"/>
                                         </svg>
                                         Edit
                                     </button>
-                                 </div>
-                             </td>
+                                </div>
+                            </td>
                          </tr>`;
         tableBody.innerHTML += newRow;
     });
+
+    }
+
 }
+  
+
 
 //Supporting Function - For Formatting Dates for User Output
 function formatDate(dateString) {
