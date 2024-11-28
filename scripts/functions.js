@@ -224,26 +224,26 @@ document.addEventListener('click', function (event) {
 // 2. Recent NCRs on Dashboard/Home Page
 // ==============================================================
 function recentNCRs(userRole) {
-    
-    if(userRole == "Quality"){
+
+    if (userRole == "Quality") {
         if (!quality.length) {
             console.warn('No quality data available to display.');
             return;
         }
-    
+
         const recentNCRss = [...quality].reverse(); // Clone and reverse to avoid mutating the original array
         const recentN = recentNCRss.slice(0, 5);
-    
+
         console.log(recentN);
         console.log(recentNCRss);
-    
+
         const tableBody = document.getElementById("indexTableContent");
         if (!tableBody) {
             console.warn('Table body element not found.');
             return;
         }
         tableBody.innerHTML = ''; // Clear previous results
-    
+
         recentN.forEach(result => {
             //const editButtonDisabled = result.ncrStatus !== "Quality" ? "disabled" : "";
             const newRow = `<tr>
@@ -258,7 +258,7 @@ function recentNCRs(userRole) {
                                                 <path stroke="currentColor" stroke-width="2" d="M21 12c0 1.2-4.03 6-9 6s-9-4.8-9-6c0-1.2 4.03-6 9-6s9 4.8 9 6Z"/>
                                                 <path stroke="currentColor" stroke-width="2" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
                                             </svg>
-                                            View
+                                            Details
                                         </button>
                                         <button onclick="handleEditEntry('${result.ncrNumber}', '${result.ncrStatus}')">
                                             <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
@@ -272,29 +272,29 @@ function recentNCRs(userRole) {
             tableBody.innerHTML += newRow;
         });
     }
-    else if (userRole == "Engineer"){
-         //console.log(engineering);
-    if (!engineering.length) {
-        console.warn('No engineering data available to display.');
-        return;
-    }
+    else if (userRole == "Engineer") {
+        //console.log(engineering);
+        if (!engineering.length) {
+            console.warn('No engineering data available to display.');
+            return;
+        }
 
-    const recentNCRss = [...engineering].reverse(); // Clone and reverse to avoid mutating the original array
-    const recentN = recentNCRss.slice(0, 5);
+        const recentNCRss = [...engineering].reverse(); // Clone and reverse to avoid mutating the original array
+        const recentN = recentNCRss.slice(0, 5);
 
-    console.log(recentN);
-    console.log(recentNCRss);
+        console.log(recentN);
+        console.log(recentNCRss);
 
-    const tableBody = document.getElementById("indexTableContent");
-    if (!tableBody) {
-        console.warn('Table body element not found.');
-        return;
-    }
-    tableBody.innerHTML = ''; // Clear previous results
+        const tableBody = document.getElementById("indexTableContent");
+        if (!tableBody) {
+            console.warn('Table body element not found.');
+            return;
+        }
+        tableBody.innerHTML = ''; // Clear previous results
 
-    recentN.forEach(result => {
-        //const editButtonDisabled = result.ncrStatus !== "Quality" ? "disabled" : "";
-        const newRow = `<tr>
+        recentN.forEach(result => {
+            //const editButtonDisabled = result.ncrStatus !== "Quality" ? "disabled" : "";
+            const newRow = `<tr>
                              <td>${result.ncrNumber}</td>
                              <td>${((quality.find(q => q.ncrNumber === result.ncrNumber)?.supplierName)) || ''}</td>
                              <td>${formatDate(quality.find(q => q.ncrNumber === result.ncrNumber)?.dateCreated)}</td>
@@ -306,7 +306,7 @@ function recentNCRs(userRole) {
                                             <path stroke="currentColor" stroke-width="2" d="M21 12c0 1.2-4.03 6-9 6s-9-4.8-9-6c0-1.2 4.03-6 9-6s9 4.8 9 6Z"/>
                                             <path stroke="currentColor" stroke-width="2" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
                                         </svg>
-                                        View
+                                        Details
                                     </button>
                                     <button onclick="editEntryEng('${result.ncrNumber}')">
                                         <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
@@ -317,13 +317,13 @@ function recentNCRs(userRole) {
                                 </div>
                             </td>
                          </tr>`;
-        tableBody.innerHTML += newRow;
-    });
+            tableBody.innerHTML += newRow;
+        });
 
     }
 
 }
-  
+
 
 
 //Supporting Function - For Formatting Dates for User Output
@@ -614,7 +614,7 @@ function performSearch() {
                                             <path stroke="currentColor" stroke-width="2" d="M21 12c0 1.2-4.03 6-9 6s-9-4.8-9-6c0-1.2 4.03-6 9-6s9 4.8 9 6Z"/>
                                             <path stroke="currentColor" stroke-width="2" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
                                         </svg>
-                                        View
+                                        Details
                                     </button>
                                     <button onclick="handleEditEntry('${result.ncrNumber}', '${result.ncrStatus}')">
                                         <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
@@ -668,11 +668,62 @@ function CreateNCR() {
     const applicableProcess = document.getElementById('napplicableProcess')?.value;
     const supplierName = document.getElementById('nsupplierName')?.value;
 
-    // Check for empty or undefined applicableProcess and supplierName
-    if (!applicableProcess || !supplierName) {
-        alert("Please select both Applicable Process and Supplier");
-        return;
-    }
+    // Validation rules for dropdown fields
+    const createNCRValidations = [
+        {
+            id: 'applicableProcess-error', // Unique ID for error message
+            targetId: 'napplicableProcess',
+            condition: () => applicableProcess === '' || applicableProcess === 'default', // Adjust 'default' based on your dropdown's default value
+            message: 'Please select an Applicable Process.'
+        },
+        {
+            id: 'supplierName-error', // Unique ID for error message
+            targetId: 'nsupplierName',
+            condition: () => supplierName === '' || supplierName === 'default', // Adjust 'default' based on your dropdown's default value
+            message: 'Please select a Supplier.'
+        }
+    ];
+
+    // Validate fields
+    let isValid = true;
+    createNCRValidations.forEach(validation => {
+        const fieldElement = document.getElementById(validation.targetId);
+        const errorElement = document.getElementById(validation.id);
+
+        // Clear previous messages and styles
+        if (errorElement) errorElement.remove();
+        if (fieldElement) fieldElement.style.border = '';
+
+        // Apply validation
+        if (validation.condition()) {
+            isValid = false;
+
+            // Display error message
+            const errorDiv = document.createElement('div');
+            errorDiv.id = validation.id;
+            errorDiv.style.color = '#B22222';
+            errorDiv.style.fontSize = '16px';
+            errorDiv.textContent = validation.message;
+            fieldElement.parentNode.appendChild(errorDiv);
+
+            // Highlight border
+            fieldElement.style.border = '3px solid #B22222';
+
+            // Add real-time error clearing
+            fieldElement.addEventListener('change', function clearError() {
+                const fieldValue = fieldElement.value;
+                if (fieldValue !== '' && fieldValue !== 'default') { // Adjust 'default' as needed
+                    const errorElement = document.getElementById(validation.id);
+                    if (errorElement) errorElement.remove();
+                    fieldElement.style.border = '';
+                    fieldElement.removeEventListener('change', clearError);
+                }
+            });
+        }
+    });
+
+    // Stop submission if validations fail
+    if (!isValid) return;
 
     // Generate NCR Number and Timestamp
     const ncrNumber = NCRNumberGenerator();
@@ -885,7 +936,6 @@ function saveNCR() {
 // ===================================================================
 function submitNCR() {
     const ncrNumber = document.getElementById('ncrNumber').textContent;
-
     const changedBy = getUserName();
     const date = Timestamp();
 
@@ -894,32 +944,124 @@ function submitNCR() {
     const supplierName = document.getElementById('supplierName')?.value;
     const poNumber = document.getElementById('poNumber')?.value || '';
     const soNumber = document.getElementById('soNumber')?.value || '';
-    const quantityReceived = document.getElementById('quantityReceived')?.value || '';
-    const quantityDefect = document.getElementById('quantityDefect')?.value || '';
-    const engNeeded = document.getElementById('engNeeded')?.checked ? 'Yes' : 'No';
-    const itemConform = document.getElementById('itemConform')?.checked ? 'Yes' : 'No';
+    const quantityReceivedElement = document.getElementById('quantityReceived');
+    const quantityDefectElement = document.getElementById('quantityDefect');
     const itemDescription = document.getElementById('itemDescription')?.value || '';
     const defectDescription = document.getElementById('defectDescription')?.value || '';
 
-    // Check if all required fields are filled
-    if (!poNumber || !soNumber || !quantityReceived || !quantityDefect || !itemDescription || !defectDescription) {
-        alert('Please fill out all the required fields before submitting.');
-        return;
-    }
+    const quantityReceived = quantityReceivedElement?.value || '';
+    const quantityDefect = quantityDefectElement?.value || '';
 
-    if (Number(quantityDefect) > Number(quantityReceived)) {
-        alert('The number of defects cannot exceed the quantity received.')
-        return;
-    }
+    // Array to store required field validation info
+    const fieldsToValidate = [
+        { id: 'poNumber', value: poNumber, message: 'Prod. Number is required.' },
+        { id: 'soNumber', value: soNumber, message: 'Sales Order Number is required.' },
+        { id: 'quantityReceived', value: quantityReceived, message: 'Quantity Received is required.' },
+        { id: 'quantityDefect', value: quantityDefect, message: 'Quantity Defective is required.' },
+        { id: 'itemDescription', value: itemDescription, message: 'Item Description is required.' },
+        { id: 'defectDescription', value: defectDescription, message: 'Defect Description is required.' }
+    ];
 
-    if (Number(quantityReceived) < 1) {
-        alert('Quantity Received cannot be less than 1.')
-        return;
-    }
-    if (Number(quantityDefect) < 1) {
-        alert('Quantity Defect cannot be less than 1.')
-        return;
-    }
+    // Additional validations as rules
+    const additionalValidations = [
+        {
+            id: 'quantityDefect-exceeds-received', // Unique ID for this rule
+            targetId: 'quantityDefect', // The field being validated
+            condition: () => Number(quantityDefectElement.value) > Number(quantityReceivedElement.value),
+            message: 'Quantity Defective cannot exceed Quantity Received.'
+        },
+        {
+            id: 'quantityReceived-less-than-one', // Unique ID for this rule
+            targetId: 'quantityReceived',
+            condition: () => Number(quantityReceivedElement.value) < 1,
+            message: 'Quantity Received cannot be less than 1.'
+        },
+        {
+            id: 'quantityDefect-less-than-one', // Unique ID for this rule
+            targetId: 'quantityDefect',
+            condition: () => Number(quantityDefectElement.value) < 1,
+            message: 'Quantity Defective cannot be less than 1.'
+        }
+    ];
+
+    // Phase 1: Validate required fields
+    let isMainValid = true;
+    fieldsToValidate.forEach(field => {
+        const fieldElement = document.getElementById(field.id);
+        const errorElement = document.getElementById(`${field.id}-error`);
+
+        // Clear previous messages and styles
+        if (errorElement) errorElement.remove();
+        if (fieldElement) fieldElement.style.border = '';
+
+        // Add validation messages if required field is empty
+        if (!field.value) {
+            isMainValid = false;
+
+            // Display error message
+            const errorDiv = document.createElement('div');
+            errorDiv.id = `${field.id}-error`;
+            errorDiv.style.color = '#B22222';
+            errorDiv.style.fontSize = '16px';
+            errorDiv.textContent = field.message;
+            fieldElement.parentNode.appendChild(errorDiv);
+
+            // Highlight border
+            fieldElement.style.border = '3px solid #B22222';
+
+            // Add real-time error clearing
+            fieldElement.addEventListener('input', function clearError() {
+                if (fieldElement.value) {
+                    const errorElement = document.getElementById(`${field.id}-error`);
+                    if (errorElement) errorElement.remove();
+                    fieldElement.style.border = '';
+                    fieldElement.removeEventListener('input', clearError);
+                }
+            });
+        }
+    });
+
+    // Stop further validation if main validations failed
+    if (!isMainValid) return;
+
+    // Phase 2: Validate additional conditions
+    let isAdditionalValid = true;
+    additionalValidations.forEach(validation => {
+        const fieldElement = document.getElementById(validation.targetId);
+        const errorElement = document.getElementById(validation.id); // Use unique error ID
+
+        // Clear previous messages and styles
+        if (errorElement) errorElement.remove();
+        if (fieldElement) fieldElement.style.border = '';
+
+        // Apply additional validation
+        if (validation.condition()) {
+            isAdditionalValid = false;
+
+            // Display error message
+            const errorDiv = document.createElement('div');
+            errorDiv.id = validation.id; // Unique ID for this error message
+            errorDiv.style.color = '#B22222';
+            errorDiv.style.fontSize = '16px';
+            errorDiv.textContent = validation.message;
+            fieldElement.parentNode.appendChild(errorDiv);
+
+            // Highlight border
+            fieldElement.style.border = '3px solid #B22222';
+
+            // Add real-time error clearing
+            fieldElement.addEventListener('input', function clearError() {
+                if (!validation.condition()) {
+                    const errorElement = document.getElementById(validation.id);
+                    if (errorElement) errorElement.remove();
+                    fieldElement.style.border = '';
+                    fieldElement.removeEventListener('input', clearError);
+                }
+            });
+        }
+    });
+
+    if (!isAdditionalValid) return;
 
     const confirmation = confirm("Are you sure you want to submit the NCR?");
     if (confirmation) {
@@ -1010,7 +1152,7 @@ function submitNCR() {
         // If the user cancels, do nothing or add custom logic
         alert("Submit operation cancelled.");
         // Redirect or perform other actions as needed
-        window.history.back();
+        return;
 
         //history.push(historyEntry);
         //localStorage.setItem('history', JSON.stringify(history));
@@ -1846,54 +1988,6 @@ function getOldNotificationsEng() {
 //POPULATE RECENT NCRs FOR ENGINEER
 //
 //=================================================================================================================
-function recentEngNCRs() {
-    //console.log(engineering);
-    if (!engineering.length) {
-        console.warn('No engineering data available to display.');
-        return;
-    }
-
-    const recentNCRss = [...engineering].reverse(); // Clone and reverse to avoid mutating the original array
-    const recentN = recentNCRss.slice(0, 5);
-
-    console.log(recentN);
-    console.log(recentNCRss);
-
-    const tableBody = document.getElementById("indexTableContentEng");
-    if (!tableBody) {
-        console.warn('Table body element not found.');
-        return;
-    }
-    tableBody.innerHTML = ''; // Clear previous results
-
-    recentN.forEach(result => {
-        //const editButtonDisabled = result.ncrStatus !== "Quality" ? "disabled" : "";
-        const newRow = `<tr>
-                             <td>${result.ncrNumber}</td>
-                             <td>${((quality.find(q => q.ncrNumber === result.ncrNumber)?.itemDescription)) || ''}</td>
-                             <td>${formatDate(result.dateReceived)}</td>
-                             <td>${result.ncrStatus}</td>
-                              <td>
-                                <div>
-                                    <button onclick="detailsEntry('${result.ncrNumber}')">
-                                        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                            <path stroke="currentColor" stroke-width="2" d="M21 12c0 1.2-4.03 6-9 6s-9-4.8-9-6c0-1.2 4.03-6 9-6s9 4.8 9 6Z"/>
-                                            <path stroke="currentColor" stroke-width="2" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
-                                        </svg>
-                                        View
-                                    </button>
-                                    <button onclick="editEntryEng('${result.ncrNumber}')">
-                                        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"/>
-                                        </svg>
-                                        Edit
-                                    </button>
-                                </div>
-                            </td>
-                         </tr>`;
-        tableBody.innerHTML += newRow;
-    });
-}
 
 //================================================================================================================
 //POPULATE NCR DETAILS FROM QUALITY FOR ENGINEER
@@ -2204,41 +2298,110 @@ function submitEngNCR() {
     const revisionDate = revisionDateRaw ? correctDate(revisionDateRaw) : "";
     const engineerName = document.getElementById('engineerName').value;
 
-    let msg = ""; // Use 'let' since you're modifying the value
+    // Validation rules for the form fields
+    const validationRules = [
+        {
+            id: 'reviewByCfEngineering-error',
+            targetId: 'reviewByCfEngineering',
+            condition: () => reviewByCfEngineering === '', // Check if dropdown is empty
+            message: 'Review by CF Engineering is required.',
+            eventType: 'change' // Dropdown: listen for 'change'
+        },
+        {
+            id: 'disposition-error',
+            targetId: 'disposition',
+            condition: () => !disposition, // Check if disposition is empty
+            message: 'Disposition is required.',
+            eventType: 'input' // Dropdown: listen for 'change'
+        },
+        {
+            id: 'originalRevNumber-error',
+            targetId: 'originalRevNumber',
+            condition: () => drawingUpdate === "Yes" && !originalRevNumber, // Check if original revision number is missing
+            message: 'Original Revision number is required.',
+            eventType: 'input' // Textbox: listen for 'input'
+        },
+        {
+            id: 'updatedRevNumber-error',
+            targetId: 'updatedRevNumber',
+            condition: () => drawingUpdate === "Yes" && !updatedRevNumber, // Check if updated revision number is missing
+            message: 'Updated Revision Number is required.',
+            eventType: 'input' // Textbox: listen for 'input'
+        },
+        {
+            id: 'revisionDate-error',
+            targetId: 'revisionDate',
+            condition: () => drawingUpdate === "Yes" && revisionDate === "", // Check if revision date is missing
+            message: 'Revision Date is required.',
+            eventType: 'input' // Textbox: listen for 'input'
+        },
+        {
+            id: 'engineerName-error',
+            targetId: 'engineerName',
+            condition: () => drawingUpdate === "Yes" && !engineerName, // Check if engineer name is missing
+            message: 'Name of the Engineer is required.',
+            eventType: 'input' // Textbox: listen for 'input'
+        }
+    ];
 
-    if (!reviewByCfEngineering) {
-        msg += "Review by CF Engineering is required.\n"; // Add newline for separation
-    }
+    // Perform validation
+    let isValid = true;
 
-    if (!disposition) {
-        msg += "Disposition is required."; // Append without newline since it's the last message
-    }
+    validationRules.forEach(validation => {
+        const fieldElement = document.getElementById(validation.targetId);
+        const errorElement = document.getElementById(validation.id);
 
-    // Check if any required field is missing
-    if (msg) {
-        alert(msg); // Show the concatenated message
-        return;
-    }
+        // Clear previous messages and styles
+        if (errorElement) errorElement.remove();
+        if (fieldElement) fieldElement.style.border = '';
 
-   if (drawingUpdate == "Yes"){
-    let drawingMsg = "";
-    if (!originalRevNumber) {
-        drawingMsg += "Original Revision number is required.\n"; // Add newline for separation
-    }
-    if (!updatedRevNumber) {
-        drawingMsg += "Updated Revision Number is required.\n"; // Append without newline since it's the last message
-    }
-    if (!revisionDate) {
-        drawingMsg += "Revision Date is required.\n"; // Add newline for separation
-    }
-    if (!engineerName) {
-        drawingMsg += "Name of the Engineer is required."; // Append without newline since it's the last message
-    }
-    if (drawingMsg) {
-        alert(drawingMsg); // Show the concatenated message
-        return;
-    }
-   }
+        // Apply validation
+        if (validation.condition()) {
+            isValid = false;
+
+            // Display error message
+            const errorDiv = document.createElement('div');
+            errorDiv.id = validation.id;
+            errorDiv.style.color = '#B22222';
+            errorDiv.style.fontSize = '16px';
+            errorDiv.textContent = validation.message;
+            fieldElement.parentNode.appendChild(errorDiv);
+
+            // Highlight border
+            fieldElement.style.border = '3px solid #B22222';
+
+            // Add real-time error clearing for dropdowns and text fields
+            if (validation.eventType === 'change') {
+                fieldElement.addEventListener('change', function clearError() {
+                    const fieldValue = fieldElement.value;
+                    if (fieldValue !== '' && fieldValue !== 'default') { // Adjust 'default' as needed
+                        const errorElement = document.getElementById(validation.id);
+                        if (errorElement) errorElement.remove();
+                        fieldElement.style.border = '';
+                        fieldElement.removeEventListener('change', clearError);
+                    }
+                });
+
+            }
+            // For textboxes (input event)
+            else if (validation.eventType === 'input') {
+                fieldElement.addEventListener('input', function clearError() {
+                    const fieldValue = fieldElement.value;
+                    if (fieldValue !== '' && fieldValue !== 'default') { // Adjust 'default' as needed
+                        const errorElement = document.getElementById(validation.id);
+                        if (errorElement) errorElement.remove();
+                        fieldElement.style.border = '';
+                        fieldElement.removeEventListener('input', clearError);
+                    }
+                });
+            }
+        }
+    });
+
+
+
+    // If any validation fails, stop the submission
+    if (!isValid) return;
 
     const confirmation = confirm("Are you sure you want to submit the NCR?");
     if (confirmation) {
@@ -2406,7 +2569,7 @@ function performSearchEng() {
                                             <path stroke="currentColor" stroke-width="2" d="M21 12c0 1.2-4.03 6-9 6s-9-4.8-9-6c0-1.2 4.03-6 9-6s9 4.8 9 6Z"/>
                                             <path stroke="currentColor" stroke-width="2" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
                                         </svg>
-                                        View
+                                        Details
                                     </button>
                                     <button onclick="editEntryEng('${result.ncrNumber}')">
                                         <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
@@ -2780,3 +2943,58 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 });
+
+
+
+//===================================================================================================
+//UNUSED FUNCTIONS
+//==================================================================================================
+
+function recentEngNCRs() {
+    //console.log(engineering);
+    if (!engineering.length) {
+        console.warn('No engineering data available to display.');
+        return;
+    }
+
+    const recentNCRss = [...engineering].reverse(); // Clone and reverse to avoid mutating the original array
+    const recentN = recentNCRss.slice(0, 5);
+
+    console.log(recentN);
+    console.log(recentNCRss);
+
+    const tableBody = document.getElementById("indexTableContentEng");
+    if (!tableBody) {
+        console.warn('Table body element not found.');
+        return;
+    }
+    tableBody.innerHTML = ''; // Clear previous results
+
+    recentN.forEach(result => {
+        //const editButtonDisabled = result.ncrStatus !== "Quality" ? "disabled" : "";
+        const newRow = `<tr>
+                             <td>${result.ncrNumber}</td>
+                             <td>${((quality.find(q => q.ncrNumber === result.ncrNumber)?.itemDescription)) || ''}</td>
+                             <td>${formatDate(result.dateReceived)}</td>
+                             <td>${result.ncrStatus}</td>
+                              <td>
+                                <div>
+                                    <button onclick="detailsEntry('${result.ncrNumber}')">
+                                        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                            <path stroke="currentColor" stroke-width="2" d="M21 12c0 1.2-4.03 6-9 6s-9-4.8-9-6c0-1.2 4.03-6 9-6s9 4.8 9 6Z"/>
+                                            <path stroke="currentColor" stroke-width="2" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
+                                        </svg>
+                                        Details
+                                    </button>
+                                    <button onclick="editEntryEng('${result.ncrNumber}')">
+                                        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"/>
+                                        </svg>
+                                        Edit
+                                    </button>
+                                </div>
+                            </td>
+                         </tr>`;
+        tableBody.innerHTML += newRow;
+    });
+}

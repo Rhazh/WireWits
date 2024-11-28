@@ -181,7 +181,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 restrictInputToNumbersAndDashes(["poNumber", "soNumber"]);
             }else if(userRole == 'Engineer'){
                 document.getElementById('secQuality').style.display = 'none';
-                restrictInputToNumbersAndDashes(["poNumber", "soNumber"]);
+                //restrictInputToNumbersAndDashes(["poNumber", "soNumber"]);
             }
         } else if (ncrNumber && pageName === 'details.html') {
             populateDetailsPage(ncrNumber);
