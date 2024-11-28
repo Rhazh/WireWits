@@ -144,12 +144,15 @@ document.addEventListener('DOMContentLoaded', async () => {
                 document.getElementById('secEngineer').style.display = 'none';
                 populateNotifications();
                 populateSupplierDropdownN('supplierName')
+                document.getElementById("ncrStatus").value = "Quality";
                 //NavBar();
                 performSearch();
             }
             else if (userRole == "Engineer") {
                 document.getElementById('secQuality').style.display = 'none';
-                populateNotificationsEng()
+                populateNotificationsEng();
+                populateSupplierDropdownN('supplierNameEng')
+                document.getElementById("ncrStatusEng").value = "Engineering";
                 performSearchEng();
             }
 

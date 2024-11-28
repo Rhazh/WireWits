@@ -201,7 +201,7 @@
                                 <!--performSearch may not work in this case so change-->
                                 <select id="ncrStatus" tabindex="0" aria-label="Filter by Department">
                                     <option value="All">All</option>
-                                    <option value="Quality" selected>Quality</option>
+                                    <option value="Quality">Quality</option>
                                     <option value="Engineering">Engineering</option>
                                     <option value="Purchasing">Purchasing</option>
                                 </select>
@@ -270,12 +270,20 @@
                                     <input type="date" aria-label="Filter from an End Date"  id="toDateEng" tabindex="0">
                                 </div>
                                 <div>
+                                    <label for="supplierNameEng" >Supplier Name:</label>
+                                    <!--performSearch may not work in this case so change-->
+                                    <select id="supplierNameEng" tabindex="0" aria-label="Filter By Supplier Name">
+                                        <option value="" disabled selected>Select Supplier</option>
+                                        <!-- Options will be populated dynamically -->
+                                    </select>
+                                </div>
+                                <div>
                                     <label for="ncrStatusEng" >Department:</label>
                                     <!--performSearch may not work in this case so change-->
                                     <select id="ncrStatusEng" tabindex="0" aria-label="Filter by Department">
                                         <option value="All">All</option>
                                         <option value="Quality">Quality</option>
-                                        <option value="Engineering" selected>Engineering</option>
+                                        <option value="Engineering">Engineering</option>
                                         <option value="Purchasing">Purchasing</option>
                                     </select>
                                 </div>
@@ -308,8 +316,8 @@
                             <thead>
                                 <tr>
                                     <th>NCR Number</th>
-                                    <th>Item Description</th>
-                                    <th>Date Received</th>
+                                    <th>Supplier</th>
+                                    <th>Date Created</th>
                                     <th>Department</th>
                                     <th>Actions</th>
                                 </tr>
