@@ -910,7 +910,7 @@ function saveNCR() {
                 ncrNumber: ncrNumber,
                 actionType: "Edit",
                 status: 'Open',
-                actionDescription: `NCR editted by ${getUserRole()}`,
+                actionDescription: `NCR edited by ${getUserRole()}`,
                 changedBy: changedBy,  // This should be dynamically set to the actual user
                 changedOn: Timestamp() // Use function timestamp
             };
@@ -1087,7 +1087,7 @@ function submitNCR() {
             qualityEntry.completedOn = date;
 
             // Mark the NCR as submitted
-            qualityEntry.ncrStatus = engNeededCheckbox.checked ? "Engineering" : "Operations";
+            qualityEntry.ncrStatus = engNeededCheckbox.checked ? "Engineering" : "Purchasing";
 
             // Persist updated quality array to localStorage
             localStorage.setItem('quality', JSON.stringify(quality));
@@ -1131,7 +1131,7 @@ function submitNCR() {
                     ncrNumber: ncrNumber,
                     actionType: "Submit",
                     status: 'Open',
-                    actionDescription: "NCR submitted from Quality to Operations",
+                    actionDescription: "NCR submitted from Quality to Purchasing",
                     changedBy: changedBy,
                     changedOn: date
                 }
@@ -2257,7 +2257,7 @@ function saveEngNCR() {
                 ncrNumber: ncrNumber,
                 actionType: "Edit",
                 status: 'Open',
-                actionDescription: `NCR editted by ${getUserRole()}`,
+                actionDescription: `NCR edited by ${getUserRole()}`,
                 changedBy: changedBy,
                 changedOn: Timestamp()
             };
@@ -2411,7 +2411,7 @@ function submitEngNCR() {
         const qualityEntry = quality.find(entry => entry.ncrNumber === ncrNumber);
 
         if (qualityEntry) {
-            qualityEntry.ncrStatus = "Operations";
+            qualityEntry.ncrStatus = "Purchasing";
         }
         localStorage.setItem('quality', JSON.stringify(quality));
 
@@ -2437,7 +2437,7 @@ function submitEngNCR() {
             ncrNumber: ncrNumber,
             actionType: "Submit",
             status: 'Open',
-            actionDescription: "NCR submitted from Engineering to Operations",
+            actionDescription: "NCR submitted from Engineering to Purchasing",
             changedBy: changedBy,
             changedOn: date
         }
