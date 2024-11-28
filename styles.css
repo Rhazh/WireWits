@@ -863,8 +863,8 @@ table tbody tr:hover {
     background-color: #fdfdfd;
 }
 
-.tab-cards #sectionQuality:checked ~ #secQuality,
-.tab-cards #sectionEngineer:checked ~ #secEngineer {
+.tab-cards #sectionQuality:checked ~ #tabQuality,
+.tab-cards #sectionEngineer:checked ~ #tabEngineer {
     display: block;
 }
 

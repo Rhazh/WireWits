@@ -3,6 +3,7 @@ let ncrLog = [];
 let quality = [];
 let history = [];
 let engineering = [];
+let purchasing = [];
 let supplier = [];
 let uploadedFiles = [];
 
@@ -54,6 +55,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     quality = JSON.parse(localStorage.getItem('quality')) || [];
     history = JSON.parse(localStorage.getItem('history')) || [];
     engineering = JSON.parse(localStorage.getItem('engineering')) || [];
+    purchasing = JSON.parse(localStorage.getItem('purchasing')) || [];
     supplier = JSON.parse(localStorage.getItem('supplier')) || [];
 
     const path = window.location.pathname;
@@ -78,12 +80,13 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     try {
         // If local data is not available, fetch seed data and store it in localStorage
-        if (!ncrLog.length || !quality.length || !history.length || !engineering.length || !supplier.length) {
-            const [qualityData, ncrData, historyData, engineeringData, supplierData] = await Promise.all([
+        if (!ncrLog.length || !quality.length || !history.length || !engineering.length || !purchasing.length || !supplier.length) {
+            const [qualityData, ncrData, historyData, engineeringData, purchasingData, supplierData] = await Promise.all([
                 fetchData('seed-data/Quality.json'),
                 fetchData('seed-data/NCRLog.json'),
                 fetchData('seed-data/History.json'),
                 fetchData('seed-data/Engineering.json'),
+                fetchData('seed-data/Purchasing.json'),
                 fetchData('seed-data/Supplier.json')
             ]);
 
@@ -91,6 +94,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             ncrLog = ncrData;
             history = historyData;
             engineering = engineeringData;
+            purchasing = purchasingData;
             supplier = supplierData;
 
             // Store seed data in localStorage for use in the current local
@@ -98,6 +102,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             localStorage.setItem('ncrLog', JSON.stringify(ncrLog));
             localStorage.setItem('history', JSON.stringify(history));
             localStorage.setItem('engineering', JSON.stringify(engineering));
+            localStorage.setItem('purchasing', JSON.stringify(purchasing));
             localStorage.setItem('supplier', JSON.stringify(supplier));
         }
 
@@ -139,12 +144,15 @@ document.addEventListener('DOMContentLoaded', async () => {
                 document.getElementById('secEngineer').style.display = 'none';
                 populateNotifications();
                 populateSupplierDropdownN('supplierName')
+                document.getElementById("ncrStatus").value = "Quality";
                 //NavBar();
                 performSearch();
             }
             else if (userRole == "Engineer") {
                 document.getElementById('secQuality').style.display = 'none';
-                populateNotificationsEng()
+                populateNotificationsEng();
+                populateSupplierDropdownN('supplierNameEng')
+                document.getElementById("ncrStatusEng").value = "Engineering";
                 performSearchEng();
             }
 
@@ -181,7 +189,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 restrictInputToNumbersAndDashes(["poNumber", "soNumber"]);
             }else if(userRole == 'Engineer'){
                 document.getElementById('secQuality').style.display = 'none';
-                restrictInputToNumbersAndDashes(["poNumber", "soNumber"]);
+                //restrictInputToNumbersAndDashes(["poNumber", "soNumber"]);
             }
         } else if (ncrNumber && pageName === 'details.html') {
             populateDetailsPage(ncrNumber);
