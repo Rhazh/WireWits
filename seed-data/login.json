@@ -54,14 +54,14 @@
         },
         {
             "user_Id": "5",
-            "user_name": "engGrace",
+            "user_name": "AdminGrace",
             "user_Firstname": "Grace",
             "user_Middlename": "C.",
             "user_Lastname": "Saka",
             "email": "grace.saka@example.com",
-            "password": "Engineer1234",
+            "password": "Admin1234",
             "created_on": "2024-03-05T14:30:00Z",
-            "Department_Name": "Engineer",
+            "Department_Name": "Administrator",
             "gender":"female",
             "profilePicture": "images/user-profile.png"
         }
