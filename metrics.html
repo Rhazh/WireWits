@@ -13,6 +13,39 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
     <link rel="icon" type="image/x-icon" href="images/favicon.png">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+        h1 {
+            text-align: center;
+        }
+        .chart-container {
+            width: 80%;
+            margin: auto;
+            margin-bottom: 40px;
+        }
+        table {
+            width: 80%;
+            margin: auto;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+    </style>
 </head>
 
 
@@ -145,13 +178,163 @@
                     <ol class="breadcrumb-list" tabindex="0"></ol> <!-- Breadcrumbs will be dynamically populated here -->
                 </div>
             </div>
+        </div>
+        <h1>Supplier Performance</h1>
 
-            
+        <!-- Bar Chart Container -->
+        <div class="chart-container">
+            <canvas id="supplierChart"></canvas>
+        </div>
+    
+        <!-- Supplier Defect Table -->
+        <table>
+            <thead>
+                <tr>
+                    <th>Supplier Name</th>
+                    <th>Total Received</th>
+                    <th>Total Defective</th>
+                    <th>Defect Percentage</th>
+                </tr>
+            </thead>
+            <tbody id="supplierTableBody"></tbody>
+        </table>       
     </main>
 
     <footer>
         <p><small>&copy; 2024 Copyright. QCision - WireWits. All rights reserved.</small></p>
     </footer>
+    <script>
+        // Fetch data from the Quality.json file
+        fetch('./seed-data/Quality.json')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok ' + response.statusText);
+                }
+                return response.json();
+            })
+            .then(quality => {
+                // Step 1: Aggregate data by supplier
+                const supplierStats = {};
+                quality.forEach(entry => {
+                    if (!supplierStats[entry.supplierName]) {
+                        supplierStats[entry.supplierName] = {
+                            totalReceived: 0,
+                            totalDefect: 0,
+                            ncrCount: 0
+                        };
+                    }
+                    supplierStats[entry.supplierName].totalReceived += entry.quantityReceived;
+                    supplierStats[entry.supplierName].totalDefect += entry.quantityDefect;
+                    supplierStats[entry.supplierName].ncrCount++;
+                });
+
+                // Step 2: Prepare data for the chart and table
+                const supplierNames = [];
+                const ncrCounts = [];
+                const tableRows = [];
+
+                Object.entries(supplierStats).forEach(([supplier, stats]) => {
+                    supplierNames.push(supplier);
+                    ncrCounts.push(stats.ncrCount);
+
+                    const defectPercentage = ((stats.totalDefect / stats.totalReceived) * 100).toFixed(2);
+                    tableRows.push(`
+                        <tr>
+                            <td>${supplier}</td>
+                            <td>${stats.totalReceived}</td>
+                            <td>${stats.totalDefect}</td>
+                            <td>${defectPercentage}%</td>
+                        </tr>
+                    `);
+                });
+
+                // Insert rows into the table
+                document.getElementById('supplierTableBody').innerHTML = tableRows.join('');
+
+                // Step 3: Render the bar chart
+                const ctx = document.getElementById('supplierChart').getContext('2d');
+const cumulativeDefectPercentage = supplierNames.map(
+    (supplier, index) =>
+        ((supplierStats[supplier].totalDefect / supplierStats[supplier].totalReceived) * 100).toFixed(2)
+);
+
+new Chart(ctx, {
+    type: 'bar', // Base type of the chart
+    data: {
+        labels: supplierNames,
+        datasets: [
+            {
+                label: 'Number of NCR Records', // Bar chart dataset
+                type: 'bar',
+                data: ncrCounts,
+                backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 1
+            },
+            {
+                label: 'Cumulative Defect Percentage (%)', // Line chart dataset
+                type: 'line',
+                data: cumulativeDefectPercentage,
+                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                borderColor: 'rgba(255, 99, 132, 1)',
+                borderWidth: 2,
+                yAxisID: 'y1', // Assign this dataset to the secondary Y-axis
+                tension: 0.4 // Smooth the line
+            }
+        ]
+    },
+    options: {
+        responsive: true,
+        plugins: {
+            legend: {
+                display: true,
+                position: 'top'
+            },
+            tooltip: {
+                callbacks: {
+                    label: (context) => {
+                        if (context.dataset.type === 'line') {
+                            return `Cumulative Defect Percentage: ${context.raw}%`;
+                        }
+                        return `${context.raw} NCRs`;
+                    }
+                }
+            }
+        },
+        scales: {
+            y: {
+                beginAtZero: true,
+                title: {
+                    display: true,
+                    text: 'Number of NCR Records'
+                }
+            },
+            y1: {
+                beginAtZero: true,
+                position: 'right', // Secondary Y-axis on the right
+                title: {
+                    display: true,
+                    text: 'Cumulative Defect Percentage (%)'
+                },
+                grid: {
+                    drawOnChartArea: false // Don't show grid lines for this axis
+                }
+            },
+            x: {
+                title: {
+                    display: true,
+                    text: 'Suppliers'
+                }
+            }
+        }
+    }
+});
+            })
+            .catch(error => {
+                console.error('Error fetching the Quality.json file:', error);
+            });
+    </script>
     <script src="scripts/functions.js"></script>
     <script src="scripts/main.js"></script>
     </body>
+    </html>

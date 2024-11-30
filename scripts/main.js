@@ -128,18 +128,21 @@ document.addEventListener('DOMContentLoaded', async () => {
             setupNavigationButtons();
             if (userRole == "Quality") {
                 populateNotifications();
+                document.getElementById('onlyPurchasingDash').style.display = 'none';
                 //NavBar(); //commented out because of loading errors.
                 //recentNCRs();
                 //setupNavigationButtons();
             }
             else if (userRole == "Engineer") {
                 document.getElementById('onlyQualityDash').style.display = 'none';
+                document.getElementById('onlyPurchasingDash').style.display = 'none';
                 populateNotificationsEng();
                 //setupNavigationButtons();
                 //setupEngNavigationButtons();
                 //recentEngNCRs();
+            }else if (userRole == "Purchasing") {
+                document.getElementById('onlyQualityDash').style.display = 'none';
             }
-        
         //=======================================================================================================
         //VIEW PAGE
         //=======================================================================================================
@@ -267,18 +270,21 @@ document.addEventListener('DOMContentLoaded', async () => {
         document.getElementById('btnReports').addEventListener('click', () => {
             window.location.href = 'reports.html';
         });
+        document.getElementById('btnMetrics').addEventListener('click', () => {
+            window.location.href = 'metrics.html';
+        });
     }
 
     // Set up navigation buttons on index.html
-    function setupEngNavigationButtons() {
-        document.getElementById('btnEngView').addEventListener('click', () => {
-            window.location.href = 'view.html';
-        });
+    // function setupEngNavigationButtons() {
+    //     document.getElementById('btnEngView').addEventListener('click', () => {
+    //         window.location.href = 'view.html';
+    //     });
 
-        document.getElementById('btnEngReports').addEventListener('click', () => {
-            window.location.href = 'reports.html';
-        });
-    }
+    //     document.getElementById('btnEngReports').addEventListener('click', () => {
+    //         window.location.href = 'reports.html';
+    //     });
+    // }
 
     // Toggle between create and edit modals
     function toggleCreateEditModal(ncrNumber, isEditMode) {
