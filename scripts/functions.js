@@ -435,8 +435,8 @@ function editEntryEng(ncrNumber) {
 // ============================================================
 
 function populateEditPage(ncrNumber) {
-    document.getElementById('createEditNCR').innerHTML = 'Edit NCR';
-    document.getElementById('create-edit')
+    document.getElementById('lblCreateEditNCR').innerHTML = 'Edit NCR';
+    //document.getElementById('create-edit')
     const entry = quality.find(item => item.ncrNumber === ncrNumber);
     if (entry) {
         document.getElementById('ncrNumber').textContent = entry.ncrNumber;
@@ -532,8 +532,8 @@ function resetPagination() {
 }
 
 function performSearch() {
-    
-    
+
+
     const ncrNumber = document.getElementById('ncrNumber').value.trim();
     const supplierName = document.getElementById('supplierName').value;
     const ncrStatus = document.getElementById("ncrStatus").value || "Quality";
@@ -744,7 +744,7 @@ function CreateNCR() {
         dateClosed: "",  // Blank initially
         closedBy: ""     // Blank initially
     };
-    console.log(ncrLogEntry)
+    //console.log(ncrLogEntry)
 
     //console.log("New NCR Log Entry:", ncrLogEntry);
 
@@ -769,8 +769,8 @@ function CreateNCR() {
         ncrNumber: ncrLogEntry.ncrNumber,
         dateCreated: ncrLogEntry.dateCreated,
         createdBy: ncrLogEntry.createdBy,
-        supplierName: ncrLogEntry.supplierName,
-        applicableProcess: ncrLogEntry.applicableProcess,
+        supplierName: supplierName,
+        applicableProcess: applicableProcess,
         poNumber: "",  // Empty for now, to be updated later
         soNumber: "",  // Empty for now, to be updated later
         quantityReceived: "",  // Empty for now
@@ -938,6 +938,7 @@ function saveNCR() {
 // ===================================================================
 function submitNCR() {
     const ncrNumber = document.getElementById('ncrNumber').textContent;
+
     const changedBy = getUserName();
     const date = Timestamp();
 
@@ -946,13 +947,12 @@ function submitNCR() {
     const supplierName = document.getElementById('supplierName')?.value;
     const poNumber = document.getElementById('poNumber')?.value || '';
     const soNumber = document.getElementById('soNumber')?.value || '';
-    const quantityReceivedElement = document.getElementById('quantityReceived');
-    const quantityDefectElement = document.getElementById('quantityDefect');
+    const quantityReceived = document.getElementById('quantityReceived')?.value || '';
+    const quantityDefect = document.getElementById('quantityDefect')?.value || '';
+    const engNeeded = document.getElementById('engNeeded')?.checked ? 'Yes' : 'No';
+    const itemConform = document.getElementById('itemConform')?.checked ? 'Yes' : 'No';
     const itemDescription = document.getElementById('itemDescription')?.value || '';
     const defectDescription = document.getElementById('defectDescription')?.value || '';
-
-    const quantityReceived = quantityReceivedElement?.value || '';
-    const quantityDefect = quantityDefectElement?.value || '';
 
     // Array to store required field validation info
     const fieldsToValidate = [
@@ -969,19 +969,19 @@ function submitNCR() {
         {
             id: 'quantityDefect-exceeds-received', // Unique ID for this rule
             targetId: 'quantityDefect', // The field being validated
-            condition: () => Number(quantityDefectElement.value) > Number(quantityReceivedElement.value),
+            condition: () => Number(document.getElementById('quantityDefect').value) > Number(document.getElementById('quantityReceived').value),
             message: 'Quantity Defective cannot exceed Quantity Received.'
         },
         {
             id: 'quantityReceived-less-than-one', // Unique ID for this rule
             targetId: 'quantityReceived',
-            condition: () => Number(quantityReceivedElement.value) < 1,
+            condition: () => Number(document.getElementById('quantityReceived').value) < 1,
             message: 'Quantity Received cannot be less than 1.'
         },
         {
             id: 'quantityDefect-less-than-one', // Unique ID for this rule
             targetId: 'quantityDefect',
-            condition: () => Number(quantityDefectElement.value) < 1,
+            condition: () => Number(document.getElementById('quantityDefect').value) < 1,
             message: 'Quantity Defective cannot be less than 1.'
         }
     ];
@@ -1065,8 +1065,10 @@ function submitNCR() {
 
     if (!isAdditionalValid) return;
 
+
     const confirmation = confirm("Are you sure you want to submit the NCR?");
     if (confirmation) {
+
         // Update the corresponding NCR in the quality array
         const qualityEntry = quality.find(entry => entry.ncrNumber === ncrNumber);
 
@@ -1090,15 +1092,13 @@ function submitNCR() {
 
             // Mark the NCR as submitted
             qualityEntry.ncrStatus = engNeededCheckbox.checked ? "Engineering" : "Purchasing";
-
-            // Persist updated quality array to localStorage
             localStorage.setItem('quality', JSON.stringify(quality));
+
 
             //make engineering array and push to engineering json
             if (qualityEntry.ncrStatus === "Engineering") {
                 const engineeringEntry = {
                     ncrNumber: ncrNumber,
-                    dateReceived: Timestamp(),
                     ncrStatus: qualityEntry.ncrStatus,
                     reviewByCfEngineering: "",
                     customerNotification: "",
@@ -1127,7 +1127,23 @@ function submitNCR() {
                 localStorage.setItem('history', JSON.stringify(history));
 
             }
-            else {
+            else if (qualityEntry.ncrStatus === "Purchasing") {
+                const purchasingEntry = {
+                    ncrNumber: ncrNumber,
+                    ncrStatus: qualityEntry.ncrStatus,
+                    preliminaryDecision: "",
+                    carRaised: "",
+                    carNumber: "",
+                    Followup: "",
+                    FollowupType: "",
+                    FollowupDate: "",
+                    ncrClosed: "",
+                    CompletedByPch: "",
+                    CompletedOnPch: ""
+                }
+                purchasing.push(purchasingEntry);
+                localStorage.setItem('purchasing', JSON.stringify(purchasing));
+
                 //make history array and push to history json
                 const historyEntry = {
                     ncrNumber: ncrNumber,
@@ -2083,6 +2099,7 @@ function populateEngDetailsPage(ncrNumber) {
 function populateEngEditPage(ncrNumber) {
     //document.getElementById('createEditNCR').innerHTML = 'Edit NCR';
     //document.getElementById('create-edit')
+    document.getElementById('lblCreateEditNCR').innerHTML = 'Edit NCR';
     const entry = engineering.find(item => item.ncrNumber === ncrNumber);
     if (entry) {
 
@@ -2400,8 +2417,6 @@ function submitEngNCR() {
         }
     });
 
-
-
     // If any validation fails, stop the submission
     if (!isValid) return;
 
@@ -2434,6 +2449,23 @@ function submitEngNCR() {
             engineeringEntry.completedOn = date;
         }
         localStorage.setItem('engineering', JSON.stringify(engineering));
+
+        const purchasingEntry = {
+            ncrNumber: ncrNumber,
+            ncrStatus: qualityEntry.ncrStatus,
+            preliminaryDecision: "",
+            carRaised: "",
+            carNumber: "",
+            Followup: "",
+            FollowupType: "",
+            FollowupDate: "",
+            ncrClosed: "",
+            CompletedByPch: "",
+            CompletedOnPch: ""
+        }
+        purchasing.push(purchasingEntry);
+        localStorage.setItem('purchasing', JSON.stringify(purchasing));
+
         //make history array and push to history json
         const historyEntry = {
             ncrNumber: ncrNumber,
@@ -2447,7 +2479,6 @@ function submitEngNCR() {
         localStorage.setItem('history', JSON.stringify(history));
         alert('NCR has been successfully submitted.');
         window.history.back();
-
 
     } else {
         // If the user cancels, do nothing or add custom logic
@@ -2539,8 +2570,8 @@ function performSearchEng() {
         // If ncrStatus is "All", don't filter by status, else filter by the selected ncrStatus
         const isStatusValid = (ncrStatus === "All" || qualityItem && qualityItem.ncrStatus === ncrStatus);
 
-          // Validate supplier name if provided
-          const isSupplierNameValid = supplierName ? item.supplierName === supplierName : true;
+        // Validate supplier name if provided
+        const isSupplierNameValid = supplierName ? item.supplierName === supplierName : true;
 
         const itemDateCreated = new Date(item.dateCreated);
         const isDateCreatedValid = (

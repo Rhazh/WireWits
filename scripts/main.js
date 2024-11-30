@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const roleElement = document.getElementById('userRole');
     const profilePicElement = document.getElementById('profilePic');
     const userRole = loggedInUser.Department_Name;
-    const profilePagePic = document.getElementById('profilePagePic');
+    //const profilePagePic = document.getElementById('profilePagePic');
 
 
     if (loggedInUser && fullNameElement && roleElement) {
@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         document.getElementById('logout').addEventListener('click', function () {
             localStorage.removeItem('loggedInUser');
             //Comment this out to start afresh
-            //localStorage.clear();
+            localStorage.clear();
             alert("Successfully logged out.");
             window.location.href = 'login.html';
         });
@@ -80,7 +80,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     try {
         // If local data is not available, fetch seed data and store it in localStorage
-        if (!ncrLog.length || !quality.length || !history.length || !engineering.length || !purchasing.length || !supplier.length) {
+        if (!ncrLog.length || !quality.length || !history.length || !engineering.length) {
             const [qualityData, ncrData, historyData, engineeringData, purchasingData, supplierData] = await Promise.all([
                 fetchData('seed-data/Quality.json'),
                 fetchData('seed-data/NCRLog.json'),
@@ -112,6 +112,10 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         const urlParams = new URLSearchParams(window.location.search);
         const ncrNumber = urlParams.get('ncr');
+        console.log(ncrLog)
+        console.log(quality)
+        console.log(engineering)
+        console.log(purchasing)
 
 
         // Handle different pages based on the current page name
@@ -162,19 +166,19 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         } else if (ncrNumber && pageName === 'create.html') {
             if (userRole == "Quality") {
-                document.getElementById('secEngineer').style.display = 'none';
+                //document.getElementById('secEngineer').style.display = 'none';
                 toggleCreateEditModal(ncrNumber, true);
-                restrictInputToNumbersAndDashes(["poNumber", "soNumber"]);
+                //restrictInputToNumbersAndDashes(["poNumber", "soNumber"]);
             }
             else if (userRole == "Engineer") {
-                document.getElementById('secQuality').style.display = 'none';
+                document.getElementById('secCreateEditNCR').style.display = 'none';
                 populateNotificationsEng()
                 populateDetailsPageEng(ncrNumber)
                 populateEngEditPage(ncrNumber)
                 document.getElementById('sectionEngineer').checked = true;   
                 setupEngSaveNCR();
                 setupEngSubmitNCR();
-                restrictInputToNumbersAndDashes(["poNumber", "soNumber"]);
+                //restrictInputToNumbersAndDashes(["poNumber", "soNumber"]);
 
             }
 
@@ -183,12 +187,12 @@ document.addEventListener('DOMContentLoaded', async () => {
         //=======================================================================================================
         } else if (pageName === 'create.html') {
             if(userRole == 'Quality'){
-                document.getElementById('secEngineer').style.display = 'none';
+                //document.getElementById('secEngineer').style.display = 'none';
                 toggleCreateEditModal(null, false);
                 setupCreateNCRButton();
-                restrictInputToNumbersAndDashes(["poNumber", "soNumber"]);
+                //restrictInputToNumbersAndDashes(["poNumber", "soNumber"]);
             }else if(userRole == 'Engineer'){
-                document.getElementById('secQuality').style.display = 'none';
+               // document.getElementById('secQuality').style.display = 'none';
                 //restrictInputToNumbersAndDashes(["poNumber", "soNumber"]);
             }
         } else if (ncrNumber && pageName === 'details.html') {
@@ -279,11 +283,13 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Toggle between create and edit modals
     function toggleCreateEditModal(ncrNumber, isEditMode) {
         const createNCRModal = document.getElementById('createNCRModal');
-        const createEditModal = document.getElementById('createEditModal');
+        const qualityEditModal = document.getElementById('formNCR');
+        const engineerEditModal = document.getElementById('formInfo');
 
         if (isEditMode) {
-            createNCRModal.style.visibility = 'hidden';
-            createEditModal.style.visibility = 'visible';
+            createNCRModal.style.display = 'none';
+            engineerEditModal.style.display = 'none';
+            qualityEditModal.style.visibility = 'visible';
             populateNotifications();
             //NavBar();
             populateEditPage(ncrNumber);
@@ -292,7 +298,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             setupSubmitNCR();
         } else {
             createNCRModal.style.visibility = 'visible';
-            createEditModal.style.visibility = 'hidden';
+            qualityEditModal.style.visibility = 'hidden';
             populateSupplierDropdown('nsupplierName');
         }
     }

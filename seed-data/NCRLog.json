@@ -4,8 +4,6 @@
         "dateCreated": "08/30/2024",
         "lastUpdated": "08/30/2024",
         "createdBy": "Cassandra Washington",
-        "supplierName": "Depot Home",
-        "applicableProcess": "Supplier or Rec-Insp",
         "status": "Open",
         "dateClosed": "",
         "closedBy": ""
@@ -15,8 +13,6 @@
         "dateCreated": "08/31/2024",
         "lastUpdated": "08/31/2024",
         "createdBy": "Marcus Allen",
-        "supplierName": "Global Supplies",
-        "applicableProcess": "WIP (Production Order)",
         "status": "Open",
         "dateClosed": "",
         "closedBy": ""
@@ -26,8 +22,6 @@
         "dateCreated": "09/21/2024",
         "lastUpdated": "09/21/2024",
         "createdBy": "Sophia Lee",
-        "supplierName": "Tech Parts Co.",
-        "applicableProcess": "Supplier or Rec-Insp",
         "status": "Open",
         "dateClosed": "",
         "closedBy": ""
@@ -37,8 +31,6 @@
         "dateCreated": "09/22/2024",
         "lastUpdated": "09/22/2024",
         "createdBy": "James Smith",
-        "supplierName": "Home Goods Inc.",
-        "applicableProcess": "WIP (Production Order)",
         "status": "Open",
         "dateClosed": "",
         "closedBy": ""
@@ -48,8 +40,6 @@
         "dateCreated": "09/23/2024",
         "lastUpdated": "09/23/2024",
         "createdBy": "Emily Davis",
-        "supplierName": "Auto Parts Ltd.",
-        "applicableProcess": "Supplier or Rec-Insp",
         "status": "Open",
         "dateClosed": "",
         "closedBy": ""
@@ -59,8 +49,6 @@
         "dateCreated": "09/24/2024",
         "lastUpdated": "09/24/2024",
         "createdBy": "Oliver Brown",
-        "supplierName": "Fresh Foods Co.",
-        "applicableProcess": "WIP (Production Order)",
         "status": "Open",
         "dateClosed": "",
         "closedBy": ""
@@ -70,8 +58,6 @@
         "dateCreated": "09/25/2024",
         "lastUpdated": "09/25/2024",
         "createdBy": "Isabella Johnson",
-        "supplierName": "Textile Supplies",
-        "applicableProcess": "Supplier or Rec-Insp",
         "status": "Open",
         "dateClosed": "",
         "closedBy": ""
@@ -81,8 +67,6 @@
         "dateCreated": "09/26/2024",
         "lastUpdated": "09/26/2024",
         "createdBy": "Liam Miller",
-        "supplierName": "Building Materials Co.",
-        "applicableProcess": "WIP (Production Order)",
         "status": "Open",
         "dateClosed": "",
         "closedBy": ""
@@ -92,8 +76,6 @@
         "dateCreated": "09/27/2024",
         "lastUpdated": "09/27/2024",
         "createdBy": "Mia Wilson",
-        "supplierName": "Cosmetics Corp.",
-        "applicableProcess": "Supplier or Rec-Insp",
         "status": "Open",
         "dateClosed": "",
         "closedBy": ""
@@ -103,8 +85,6 @@
         "dateCreated": "09/28/2024",
         "lastUpdated": "09/28/2024",
         "createdBy": "Noah Martinez",
-        "supplierName": "Medical Supplies Inc.",
-        "applicableProcess": "WIP (Production Order)",
         "status": "Open",
         "dateClosed": "",
         "closedBy": ""
@@ -114,8 +94,6 @@
         "dateCreated": "09/29/2024",
         "lastUpdated": "09/29/2024",
         "createdBy": "Emma Clark",
-        "supplierName": "Safety Gear Inc.",
-        "applicableProcess": "Supplier or Rec-Insp",
         "status": "Open",
         "dateClosed": "",
         "closedBy": ""
@@ -125,8 +103,6 @@
         "dateCreated": "09/30/2024",
         "lastUpdated": "09/30/2024",
         "createdBy": "James Taylor",
-        "supplierName": "Office Supplies Ltd.",
-        "applicableProcess": "WIP (Production Order)",
         "status": "Open",
         "dateClosed": "",
         "closedBy": ""
@@ -136,8 +112,6 @@
         "dateCreated": "10/01/2024",
         "lastUpdated": "10/01/2024",
         "createdBy": "Olivia Wright",
-        "supplierName": "Electrical Components Co.",
-        "applicableProcess": "Supplier or Rec-Insp",
         "status": "Open",
         "dateClosed": "",
         "closedBy": ""
@@ -147,8 +121,6 @@
         "dateCreated": "10/02/2024",
         "lastUpdated": "10/02/2024",
         "createdBy": "Liam Johnson",
-        "supplierName": "Packaging Solutions Inc.",
-        "applicableProcess": "WIP (Production Order)",
         "status": "Open",
         "dateClosed": "",
         "closedBy": ""
@@ -158,8 +130,6 @@
         "dateCreated": "10/03/2024",
         "lastUpdated": "10/03/2024",
         "createdBy": "Sophia White",
-        "supplierName": "Pharmaceuticals Ltd.",
-        "applicableProcess": "Supplier or Rec-Insp",
         "status": "Open",
         "dateClosed": "",
         "closedBy": ""
@@ -169,8 +139,6 @@
         "dateCreated": "10/04/2024",
         "lastUpdated": "10/04/2024",
         "createdBy": "Ethan Lee",
-        "supplierName": "Beverage Suppliers Inc.",
-        "applicableProcess": "WIP (Production Order)",
         "status": "Open",
         "dateClosed": "",
         "closedBy": ""
@@ -180,8 +148,6 @@
         "dateCreated": "10/05/2024",
         "lastUpdated": "10/05/2024",
         "createdBy": "Ava Taylor",
-        "supplierName": "Cleaning Products Co.",
-        "applicableProcess": "Supplier or Rec-Insp",
         "status": "Open",
         "dateClosed": "",
         "closedBy": ""
@@ -191,8 +157,6 @@
         "dateCreated": "10/06/2024",
         "lastUpdated": "10/06/2024",
         "createdBy": "Mason Harris",
-        "supplierName": "Furniture Co.",
-        "applicableProcess": "WIP (Production Order)",
         "status": "Open",
         "dateClosed": "",
         "closedBy": ""
@@ -202,8 +166,6 @@
         "dateCreated": "10/07/2024",
         "lastUpdated": "10/07/2024",
         "createdBy": "Aiden Clark",
-        "supplierName": "Jewelry Supplies Inc.",
-        "applicableProcess": "Supplier or Rec-Insp",
         "status": "Open",
         "dateClosed": "",
         "closedBy": ""
@@ -213,8 +175,6 @@
         "dateCreated": "10/08/2024",
         "lastUpdated": "10/08/2024",
         "createdBy": "Lily Scott",
-        "supplierName": "Sporting Goods Ltd.",
-        "applicableProcess": "WIP (Production Order)",
         "status": "Open",
         "dateClosed": "",
         "closedBy": ""
