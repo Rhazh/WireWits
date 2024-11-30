@@ -2706,7 +2706,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 //=================
-//   Acoount Page
+//   Account Page
 //================
 
 // Load user data and populate the profile settings page
@@ -2765,6 +2765,9 @@ function toggleEditMode(loggedInUser) {
 
     const profilePagePic = document.getElementById('profilePagePic');
     tempProfilePicture = profilePagePic.src;
+
+    //initialising the password visibility
+    initializePasswordToggle();
 }
 
 // Save profile changes and persist to localStorage
@@ -2796,6 +2799,8 @@ function saveProfileSettings(loggedInUser) {
     // Update the users array in localStorage
     const users = JSON.parse(localStorage.getItem('users')) || [];
     const userIndex = users.findIndex(user => user.user_name === loggedInUser.user_name);
+
+    
 
     if (userIndex !== -1) {
         // Update the specific user in the users array
@@ -2859,6 +2864,24 @@ function cancelEditMode(loggedInUser) {
     profilePic.src = profilePagePic.src;
 
 }
+
+//Function for the password visibilities.
+function initializePasswordToggle() {
+    const togglePassword = document.getElementById("togglePassword");
+    const passwordField = document.getElementById("passwordInput");
+
+    // Remove previous listeners to avoid duplication
+    togglePassword.replaceWith(togglePassword.cloneNode(true));
+    const newTogglePassword = document.getElementById("togglePassword");
+
+    // Attach click event listener for toggling password visibility
+    newTogglePassword.addEventListener('click', function () {
+        const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordField.setAttribute('type', type);
+        this.style.color = (type === 'text') ? 'black' : 'gray';
+    });
+}
+
 
 function handleProfilePictureChange(loggedInUser) {
     const editIcon = document.getElementById('editIcon'); // The pencil icon
