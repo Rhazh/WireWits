@@ -1011,7 +1011,65 @@
                         <div id="tabPurchasing" class="tab-content">
                             <form id="formSecPurchasing" class="">
                                 <div>
-                                    <p>Should see this tab for purchasing</p>
+                                    <div>
+                                        <label for="preliminaryDecision">Purhasing's Preliminary Decision:</label>
+                                        <select name="preliminaryDecision" id="preliminaryDecision">
+                                            <option value="">Select an option</option>
+                                            <option value="Return">Return to Supplier for either "rework" or "replacement"</option>
+                                            <option value="Rework">Rework "In-House"</option>
+                                            <option value="Scrap">Scrap in House</option>
+                                            <option value="Defer">Defer for HBC Engineering Review</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label for="carRaised">Was a CAR raised?</label>
+                                        <select name="carRaised" id="carRaised">
+                                            <option value="">Select an option</option>
+                                            <option value="Yes">Yes</option>
+                                            <option value="No">No</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label for="carNumber">CAR Number:</label>
+                                        <input type="text" id="carNumber">
+                                    </div>
+                                    <div>
+                                        <label for="followUp">Follow-up Required?</label>
+                                        <select name="followUp" id="followUp">
+                                            <option value="">Select an option</option>
+                                            <option value="Yes">Yes</option>
+                                            <option value="No">No</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label for="followUpType">Follow-up Type:</label>
+                                        <input type="text" id="followUpType">
+                                    </div>
+                                    <div>
+                                        <label for="followUpDate">Follow-up Date:</label>
+                                        <input type="date" id="followUpDate">
+                                    </div>
+                                    <div id="ncrClosedtoggle" class="form-checkbox">
+                                        <input id="ncrClosed" name="ncrClosed" type="checkbox">
+                                        <label for="ncrClosed">NCR Closed:</label>
+                                    </div>
+                                    <div id="completionToggle3" style="display: none">
+                                        <div>
+                                            <label for="completedByPch">Completed By:</label>
+                                            <input type="text" id="completedByPch" disabled> 
+                                        </div>
+                                        <div>
+                                            <label for="completedOnPch">Completed By:</label>
+                                            <input type="text" id="completedOnPch" disabled> 
+                                        </div>
+                                    </div>
+                                    <div class="form-ncr-buttons">
+                                        <button type="button" id="btnPchSave" class="button-primary">Save</button>
+                                        <button type="button" id="btnPchSubmit"
+                                            class="button-secondary btnDisable">Submit</button>
+                                        <button type="button" id="btnPchCancel" class="button-secondary"
+                                            onclick="goBack()">Cancel</button>
+                                    </div>
                                 </div>
                             </form>
                         </div>

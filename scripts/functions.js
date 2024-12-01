@@ -1181,12 +1181,12 @@ function submitNCR() {
                     preliminaryDecision: "",
                     carRaised: "",
                     carNumber: "",
-                    Followup: "",
-                    FollowupType: "",
-                    FollowupDate: "",
+                    followUp: "",
+                    followUpType: "",
+                    followUpDate: "",
                     ncrClosed: "",
-                    CompletedByPch: "",
-                    CompletedOnPch: ""
+                    completedByPch: "",
+                    completedOnPch: ""
                 }
                 purchasing.push(purchasingEntry);
                 localStorage.setItem('purchasing', JSON.stringify(purchasing));
@@ -2503,12 +2503,12 @@ function submitEngNCR() {
             preliminaryDecision: "",
             carRaised: "",
             carNumber: "",
-            Followup: "",
-            FollowupType: "",
-            FollowupDate: "",
+            followUp: "",
+            followUpType: "",
+            followUpDate: "",
             ncrClosed: "",
-            CompletedByPch: "",
-            CompletedOnPch: ""
+            completedByPch: "",
+            completedOnPch: ""
         }
         purchasing.push(purchasingEntry);
         localStorage.setItem('purchasing', JSON.stringify(purchasing));

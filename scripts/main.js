@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         document.getElementById('logout').addEventListener('click', function () {
             localStorage.removeItem('loggedInUser');
             //Comment this out to start afresh
-            localStorage.clear();
+            //localStorage.clear();
             alert("Successfully logged out.");
             window.location.href = 'login.html';
         });
@@ -183,6 +183,14 @@ document.addEventListener('DOMContentLoaded', async () => {
                 setupEngSubmitNCR();
                 //restrictInputToNumbersAndDashes(["poNumber", "soNumber"]);
 
+            }else if (userRole == "Purchasing"){
+                document.getElementById('secCreateEditNCR').style.display = 'none';
+                //populateNotificationsEng()
+                //populateDetailsPageEng(ncrNumber)
+                //populateEngEditPage(ncrNumber)
+                document.getElementById('sectionPurchasing').checked = true;   
+                //setupEngSaveNCR();
+               // setupEngSubmitNCR();
             }
 
          //=======================================================================================================

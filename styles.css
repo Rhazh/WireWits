@@ -845,7 +845,8 @@ table tbody tr:hover {
 
 .tab-head label:hover,
 .tab-cards #sectionQuality:checked ~ .tab-head label[for="sectionQuality"]:hover,
-.tab-cards #sectionEngineer:checked ~ .tab-head label[for="sectionEngineer"]:hover {
+.tab-cards #sectionEngineer:checked ~ .tab-head label[for="sectionEngineer"]:hover,
+.tab-cards #sectionPurchasing:checked ~ .tab-head label[for="sectionPurchasing"]:hover {
     background-color: #0056b3;
     color: #fdfdfd;
     transition: 0.2s ease-in-out;
@@ -858,13 +859,15 @@ table tbody tr:hover {
 }
 
 .tab-cards #sectionQuality:checked ~ .tab-head label[for="sectionQuality"],
-.tab-cards #sectionEngineer:checked ~ .tab-head label[for="sectionEngineer"]  {
+.tab-cards #sectionEngineer:checked ~ .tab-head label[for="sectionEngineer"],
+.tab-cards #sectionPurchasing:checked ~ .tab-head label[for="sectionPurchasing"]  {
     color: #00214d;
     background-color: #fdfdfd;
 }
 
 .tab-cards #sectionQuality:checked ~ #tabQuality,
-.tab-cards #sectionEngineer:checked ~ #tabEngineer {
+.tab-cards #sectionEngineer:checked ~ #tabEngineer,
+.tab-cards #sectionPurchasing:checked ~ #tabPurchasing {
     display: block;
 }
 
