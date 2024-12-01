@@ -140,12 +140,12 @@ document.addEventListener('DOMContentLoaded', async () => {
                 //setupNavigationButtons();
                 //setupEngNavigationButtons();
                 //recentEngNCRs();
-            }else if (userRole == "Purchasing") {
+            } else if (userRole == "Purchasing") {
                 document.getElementById('onlyQualityDash').style.display = 'none';
             }
-        //=======================================================================================================
-        //VIEW PAGE
-        //=======================================================================================================
+            //=======================================================================================================
+            //VIEW PAGE
+            //=======================================================================================================
         } else if (pageName === 'view.html') {
             if (userRole == "Quality") {
                 document.getElementById('secEngineer').style.display = 'none';
@@ -163,9 +163,9 @@ document.addEventListener('DOMContentLoaded', async () => {
                 performSearchEng();
             }
 
-        //=======================================================================================================
-        //CREATE PAGE FOR AN NCR - FOR EDIT NCRS
-        //=======================================================================================================
+            //=======================================================================================================
+            //CREATE PAGE FOR AN NCR - FOR EDIT NCRS
+            //=======================================================================================================
 
         } else if (ncrNumber && pageName === 'create.html') {
             if (userRole == "Quality") {
@@ -178,52 +178,59 @@ document.addEventListener('DOMContentLoaded', async () => {
                 populateNotificationsEng()
                 populateDetailsPageEng(ncrNumber)
                 populateEngEditPage(ncrNumber)
-                document.getElementById('sectionEngineer').checked = true;   
+                document.getElementById('sectionEngineer').checked = true;
                 setupEngSaveNCR();
                 setupEngSubmitNCR();
                 //restrictInputToNumbersAndDashes(["poNumber", "soNumber"]);
 
-            }else if (userRole == "Purchasing"){
+            } else if (userRole == "Purchasing") {
                 document.getElementById('secCreateEditNCR').style.display = 'none';
                 //populateNotificationsEng()
-                //populateDetailsPageEng(ncrNumber)
-                //populateEngEditPage(ncrNumber)
-                document.getElementById('sectionPurchasing').checked = true;   
+                populateDetailsPageEng(ncrNumber)
+                populateEngEditPage(ncrNumber)
+                populatePchEditPage(ncrNumber)
+                document.getElementById('sectionPurchasing').checked = true;
                 //setupEngSaveNCR();
-               // setupEngSubmitNCR();
+                // setupEngSubmitNCR();
             }
 
-         //=======================================================================================================
-        //CREATE PAGE - FOR CREATING AN NCR
-        //=======================================================================================================
+            //=======================================================================================================
+            //CREATE PAGE - FOR CREATING AN NCR
+            //=======================================================================================================
         } else if (pageName === 'create.html') {
-            if(userRole == 'Quality'){
+            if (userRole == 'Quality') {
                 //document.getElementById('secEngineer').style.display = 'none';
                 toggleCreateEditModal(null, false);
                 setupCreateNCRButton();
                 //restrictInputToNumbersAndDashes(["poNumber", "soNumber"]);
-            }else if(userRole == 'Engineer'){
-               // document.getElementById('secQuality').style.display = 'none';
+            } else if (userRole == 'Engineer') {
+                // document.getElementById('secQuality').style.display = 'none';
                 //restrictInputToNumbersAndDashes(["poNumber", "soNumber"]);
             }
         } else if (ncrNumber && pageName === 'details.html') {
+            populateNotifications(userRole);
             populateDetailsPage(ncrNumber);
-            if (userRole == "Quality") {
-                document.getElementById('secEngineer').style.display = 'none';
+            if (userRole === "Quality") {
+                //document.getElementById('formInfo').style.display = 'none';
                 document.getElementById('sectionEngineerlabel').style.display = 'none';
-                document.getElementById('sectionQualitylabel').style.display = 'none';
-                document.getElementById('sectionQuality').checked = true;              
-                populateNotifications();
+                document.getElementById('sectionPurchasinglabel').style.display = 'none';
+                document.getElementById('sectionQuality').checked = true;
+                //populateNotifications();
                 //NavBar();
             }
             else if (userRole == "Engineer") {
                 document.getElementById('editButton').style.display = 'none';
-                populateNotificationsEng()
+                //populateNotificationsEng()
                 populateEngDetailsPage(ncrNumber);
-                document.getElementById('sectionEngineer').checked = true;   
+                document.getElementById('sectionPurchasinglabel').style.display = 'none';
+                document.getElementById('sectionEngineer').checked = true;
                 //popupComment();
                 //closeModal();
                 ;
+            } else if (userRole == "Purchasing") {
+                populateEngDetailsPage(ncrNumber);
+                populatePchDetailsPage(ncrNumber)
+                document.getElementById('sectionPurchasing').checked = true;   
             }
         }
         else if (pageName === 'profile_settings.html') {
@@ -244,7 +251,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             else if (userRole == "Engineer") {
                 populateNotificationsEng()
             }
-        }else if (pageName === 'faqs.html') {
+        } else if (pageName === 'faqs.html') {
             if (userRole == "Quality") {
                 populateNotifications();
                 //NavBar();
@@ -358,11 +365,11 @@ document.addEventListener('DOMContentLoaded', async () => {
         closeModalButton.addEventListener('click', goBack); // Reuse the goBack function
     }
 
-     // Set up the Cancel button for Engineer
-     const cancelEngSubmitButton = document.getElementById('btnEngCancel');
-     if (cancelEngSubmitButton) {
+    // Set up the Cancel button for Engineer
+    const cancelEngSubmitButton = document.getElementById('btnEngCancel');
+    if (cancelEngSubmitButton) {
         cancelEngSubmitButton.addEventListener('click', goBack); // Use event listener instead of inline onclick
-     }
+    }
 
     // Function to go back to the previous page
     function goBack() {
@@ -371,17 +378,17 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     // Set up the Save and Submit NCR functions
-function setupEngSaveNCR() {
-    document.getElementById('btnEngSave').addEventListener('click', () => {
-        saveEngNCR();
-    });
-}
+    function setupEngSaveNCR() {
+        document.getElementById('btnEngSave').addEventListener('click', () => {
+            saveEngNCR();
+        });
+    }
 
-function setupEngSubmitNCR() {
-    document.getElementById('btnEngSubmit').addEventListener('click', () => {
-        submitEngNCR();
-    });
-}
+    function setupEngSubmitNCR() {
+        document.getElementById('btnEngSubmit').addEventListener('click', () => {
+            submitEngNCR();
+        });
+    }
 
     //breadcrumbs
     const breadcrumbMap = {
@@ -459,10 +466,10 @@ function setupEngSubmitNCR() {
 
 
 
-loadProfileSettings(loggedInUser);
-let tempProfilePicture = null; // Temporary storage for the profile picture during edit mode
+    loadProfileSettings(loggedInUser);
+    let tempProfilePicture = null; // Temporary storage for the profile picture during edit mode
 
-handleProfilePictureChange(loggedInUser); // Initialize the profile picture upload functionality
+    handleProfilePictureChange(loggedInUser); // Initialize the profile picture upload functionality
 
 
     // Event listeners for buttons
@@ -473,5 +480,5 @@ handleProfilePictureChange(loggedInUser); // Initialize the profile picture uplo
 
     // Event listener for profile picture upload
     // document.getElementById('imageUpload').addEventListener('change', (e) => handleProfilePictureUpload(e, loggedInUser));
- 
+
 });
