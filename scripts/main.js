@@ -168,6 +168,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             //=======================================================================================================
 
         } else if (ncrNumber && pageName === 'create.html') {
+            document.getElementById('lblCreateEditNCR').innerHTML = 'Edit NCR';
             if (userRole == "Quality") {
                 //document.getElementById('secEngineer').style.display = 'none';
                 toggleCreateEditModal(ncrNumber, true);
@@ -176,8 +177,8 @@ document.addEventListener('DOMContentLoaded', async () => {
             else if (userRole == "Engineer") {
                 document.getElementById('secCreateEditNCR').style.display = 'none';
                 populateNotificationsEng()
-                populateDetailsPageEng(ncrNumber)
                 populateEngEditPage(ncrNumber)
+                document.getElementById('sectionPurchasinglabel').style.display = 'none';
                 document.getElementById('sectionEngineer').checked = true;
                 setupEngSaveNCR();
                 setupEngSubmitNCR();
@@ -186,10 +187,11 @@ document.addEventListener('DOMContentLoaded', async () => {
             } else if (userRole == "Purchasing") {
                 document.getElementById('secCreateEditNCR').style.display = 'none';
                 //populateNotificationsEng()
-                populateDetailsPageEng(ncrNumber)
-                populateEngEditPage(ncrNumber)
-                populatePchEditPage(ncrNumber)
+                //populateDetailsPageEng(ncrNumber)
+                //populateEngEditPage(ncrNumber)
+                
                 document.getElementById('sectionPurchasing').checked = true;
+                populatePchEditPage(ncrNumber)
                 //setupEngSaveNCR();
                 // setupEngSubmitNCR();
             }

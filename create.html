@@ -698,43 +698,45 @@
                         <input id="sectionEngineer" type="radio" class="tab-selector" name="tabs">
                         <input id="sectionPurchasing" type="radio" class="tab-selector" name="tabs">
                         <div class="tab-head">
-                            <label for="sectionQuality">Quality</label>
-                            <label for="sectionEngineer">Engineer</label>
-                            <label for="sectionPurchasing">Purchasing</label>
+                            <label for="sectionQuality" id="sectionQualitylabel">Quality</label>
+                            <label for="sectionEngineer" id="sectionEngineerlabel">Engineer</label>
+                            <label for="sectionPurchasing" id="sectionPurchasinglabel">Purchasing</label>
                         </div>
 
                         <!--Tab Section: Quality-->
                         <div id="tabQuality" class="tab-content">
-                            <div class="form-ncr-details">
-                                <strong>Item Description:</strong>
-                                <span tabindex="19" id="itemDescriptionE"></span>
-                            </div>
-                            <div class="form-ncr-details">
-                                <strong>Description of Defect:</strong>
-                                <ul tabindex="20" id="defectDescriptionE"></ul>
-                            </div>
-                            <div class="form-ncr-details">
-                                <strong>Uploaded Images/Videos:</strong>
-                                <div id="thumbnailsContainerE" class="thumbnails-container">
-                                    <!-- Thumbnails will be dynamically inserted here -->
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="two-cols">
+                            <div class="form-section">
                                 <div class="form-ncr-details">
-                                    <strong>Completed By:</strong>
-                                    <span tabindex="21" id="completedByQIE"></span>
+                                    <strong>Item Description:</strong>
+                                    <span tabindex="19" id="itemDescriptionE"></span>
                                 </div>
                                 <div class="form-ncr-details">
-                                    <strong>Completed On:</strong>
-                                    <span tabindex="22" id="completedOnQIE"></span>
+                                    <strong>Description of Defect:</strong>
+                                    <ul tabindex="20" id="defectDescriptionE"></ul>
+                                </div>
+                                <div class="form-ncr-details">
+                                    <strong>Uploaded Images/Videos:</strong>
+                                    <div id="thumbnailsContainerE" class="thumbnails-container">
+                                        <!-- Thumbnails will be dynamically inserted here -->
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="two-cols">
+                                    <div class="form-ncr-details">
+                                        <strong>Completed By:</strong>
+                                        <span tabindex="21" id="completedByQIE"></span>
+                                    </div>
+                                    <div class="form-ncr-details">
+                                        <strong>Completed On:</strong>
+                                        <span tabindex="22" id="completedOnQIE"></span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
 
                         <!--Tab Section: Engineer-->
                         <div id="tabEngineer" class="tab-content">
-                            <div class="form-ncr">
+                            <div class="form-ncr" id="engEditModal">
                                 <form id="formSecEngineer" class="form-section">
                                     <!--Took out NCR Number from here as it will show at the top-->
                                     <div class="two-cols">
@@ -822,7 +824,6 @@
                                             <textarea name="disposition" id="disposition"></textarea>
                                         </div>
                                     </div>
-                                    <hr>
                                     <div class="two-cols">
                                         <div class="form-ncr-details">
                                             <div class="two-cols-info">
@@ -1005,6 +1006,87 @@
                                     </div>
                                 </form>
                             </div>
+                            <div id="engDetailsModal" class="form-section">
+                                <div class="two-cols">
+                                    <!--Took out NCR Number from here as it will show at the top-->
+                                    <div class="form-ncr-details">
+
+                                        <strong>Review By CF Engineering:</strong>
+
+                                        <span id="reviewByCfEngineeringP"></span>
+                                    </div>
+                                    <div class="form-ncr-details">
+
+                                        <strong>Does Customer require notification of NCR?</strong>
+
+                                        <span id="customerNotificationP"></span>
+                                    </div>
+                                    <div class="form-ncr-details">
+
+                                        <strong>Disposition:</strong>
+
+                                        <span id="dispositionP"></span>
+                                    </div>
+                                </div>
+                                <div class="one-col">
+                                    <div class="form-ncr-details">
+
+                                        <strong>Does the drawing require updating?</strong>
+
+                                        <span id="drawingUpdateP"></span>
+                                    </div>
+                                </div>
+                                <div class="two-cols">
+                                    <div class="form-ncr-details drawingUpdateToggleP">
+
+                                        <strong>Original Revision Number:</strong>
+
+                                        <span id="originalRevNumberP"></span>
+                                    </div>
+                                    <div class="form-ncr-details drawingUpdateToggleP">
+
+                                        <strong>Updated Revision Number:</strong>
+
+                                        <span id="updatedRevNumberP"></span>
+                                    </div>
+                                </div>
+                                <div class="two-cols bottom-margin drawingUpdateToggleP">
+                                    <div class="form-ncr-details">
+
+                                        <strong>Revision Date:</strong>
+
+                                        <span id="revisionDateP"></span>
+                                    </div>
+                                    <div class="form-ncr-details drawingUpdateToggleP">
+
+                                        <strong>Name of Engineer:</strong>
+
+                                        <span id="engineerNameP"></span>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="two-cols">
+                                    <div class="form-ncr-details">
+
+                                        <strong>Completed By:</strong>
+
+                                        <span id="completedByEngP"></span>
+                                    </div>
+                                    <div class="form-ncr-details">
+
+                                        <strong>Completed On:</strong>
+
+                                        <span id="completedOnEngP"></span>
+                                    </div>
+                                </div>
+
+                                <!-- <div class="form-ncr-buttons">
+                                    <button id="printButton" class="button-primary" tabindex="23"
+                                        onclick="printPdf()">Download as PDF</button>
+                                    <button id="editButton" class="button-primary" tabindex="22"
+                                        onclick="window.location.href='create.html?ncr=' + document.getElementById('ncrNumber').textContent;">Edit</button>
+                                </div> -->
+                            </div>
                         </div>
 
                         <!--Tab Section: Purchasing-->
@@ -1015,7 +1097,8 @@
                                         <label for="preliminaryDecision">Purhasing's Preliminary Decision:</label>
                                         <select name="preliminaryDecision" id="preliminaryDecision">
                                             <option value="">Select an option</option>
-                                            <option value="Return">Return to Supplier for either "rework" or "replacement"</option>
+                                            <option value="Return">Return to Supplier for either "rework" or
+                                                "replacement"</option>
                                             <option value="Rework">Rework "In-House"</option>
                                             <option value="Scrap">Scrap in House</option>
                                             <option value="Defer">Defer for HBC Engineering Review</option>
@@ -1056,17 +1139,17 @@
                                     <div id="completionToggle3" style="display: none">
                                         <div>
                                             <label for="completedByPch">Completed By:</label>
-                                            <input type="text" id="completedByPch" disabled> 
+                                            <input type="text" id="completedByPch" disabled>
                                         </div>
                                         <div>
                                             <label for="completedOnPch">Completed By:</label>
-                                            <input type="text" id="completedOnPch" disabled> 
+                                            <input type="text" id="completedOnPch" disabled>
                                         </div>
                                     </div>
                                     <div class="form-ncr-buttons">
                                         <button type="button" id="btnPchSave" class="button-primary">Save</button>
-                                        <button type="button" id="btnPchClose"
-                                            class="button-secondary btnDisable">Close NCR</button>
+                                        <button type="button" id="btnPchClose" class="button-secondary btnDisable">Close
+                                            NCR</button>
                                         <button type="button" id="btnPchCancel" class="button-secondary"
                                             onclick="goBack()">Cancel</button>
                                     </div>

@@ -482,7 +482,6 @@ function editEntryEng(ncrNumber) {
 // ============================================================
 
 function populateEditPage(ncrNumber) {
-    document.getElementById('lblCreateEditNCR').innerHTML = 'Edit NCR';
     //document.getElementById('create-edit')
     const entry = quality.find(item => item.ncrNumber === ncrNumber);
     if (entry) {
@@ -2147,7 +2146,10 @@ function populateEngDetailsPage(ncrNumber) {
 function populateEngEditPage(ncrNumber) {
     //document.getElementById('createEditNCR').innerHTML = 'Edit NCR';
     //document.getElementById('create-edit')
-    document.getElementById('lblCreateEditNCR').innerHTML = 'Edit NCR';
+    //document.getElementById('lblCreateEditNCR').innerHTML = 'Edit NCR';
+    populateDetailsPageEng(ncrNumber)
+    document.getElementById('engDetailsModal').style.display = 'none'
+    
     const entry = engineering.find(item => item.ncrNumber === ncrNumber);
     if (entry) {
 
@@ -3062,18 +3064,40 @@ document.addEventListener("DOMContentLoaded", () => {
 //POPULATE EDIT PAGE OF ENGINEER'S PORTION OF NCR
 //
 //=================================================================================================================
+function populateEngDetailsPagePch(ncrNumber) {
+    document.getElementById('engEditModal').style.display = 'none'
+    const entry = engineering.find(item => item.ncrNumber === ncrNumber);
+    if (entry) {
+        document.getElementById('reviewByCfEngineeringP').textContent = entry.reviewByCfEngineering || "-";
+        document.getElementById('customerNotificationP').textContent = entry.customerNotification || "-";
+        document.getElementById('dispositionP').innerHTML = entry.disposition.replace(/\n/g, '<br/>') || "-";
+        document.getElementById('drawingUpdateP').textContent = entry.drawingUpdate || "-";
+        document.getElementById('originalRevNumberP').textContent = entry.originalRevNumber || "-";
+        document.getElementById('updatedRevNumberP').textContent = entry.updatedRevNumber || "-";
+        document.getElementById('revisionDateP').textContent = entry.revisionDate ? formatDate(entry.revisionDate) : "-";
+        document.getElementById('engineerNameP').textContent = entry.engineerName || "-";
+        document.getElementById('completedByEngP').textContent = entry.completedBy ?? "";
+        document.getElementById('completedOnEngP').textContent = entry.completedOn ? formatDate(entry.completedOn) : "";
+        if (entry.drawingUpdate == "No") {
+            Array.from(document.getElementsByClassName('drawingUpdateToggleP')).forEach(element => {
+                element.style.display = 'none';
+            });
+        }        
+    }
+}
+
+
 function populatePchEditPage(ncrNumber) {
-    //document.getElementById('createEditNCR').innerHTML = 'Edit NCR';
-    //document.getElementById('create-edit')
-    document.getElementById('lblCreateEditNCR').innerHTML = 'Edit NCR';
+    //populateEngEditPage(ncrNumber)
+    populateDetailsPageEng(ncrNumber)
+    populateEngDetailsPagePch(ncrNumber)
     const entry = purchasing.find(item => item.ncrNumber === ncrNumber);
     if (entry) {
-
         //document.getElementById('ncrNumberEng').textContent = entry.ncrNumber;
         document.getElementById('preliminaryDecision').value = entry.preliminaryDecision;
         document.getElementById('carRaised').value = entry.carRaised;
         document.getElementById('followUp').textContent = entry.followUp;
-        document.getElementById('ncrClosed').value = entry.ncrClosed;
+        //document.getElementById('ncrClosed').value = entry.ncrClosed;
         document.getElementById('completedByPch').value = entry.completedBy ? entry.completedBy : "";
         document.getElementById('completedOnPch').value = entry.completedOn ? formatDate(entry.completedOn) : "";
 
@@ -3106,6 +3130,10 @@ function populatePchEditPage(ncrNumber) {
     //console.log(entry);
 }
 
+
+//========================================================================================================================
+//DETAILS PAGE
+//========================================================================================================================
 function populatePchDetailsPage(ncrNumber) {
     const entry = purchasing.find(item => item.ncrNumber === ncrNumber);
     if (entry) {
@@ -3115,7 +3143,7 @@ function populatePchDetailsPage(ncrNumber) {
         document.getElementById('followUp').textContent = entry.followUp || "-";
         document.getElementById('followUpType').textContent = entry.followUpType || "-";
         document.getElementById('followUpDate').textContent = entry.followUpDate ? formatDate(entry.followUpDate) : "-";
-        document.getElementById('ncrClosed').textContent = entry.ncrClosed || "No";
+        //document.getElementById('ncrClosed').textContent = entry.ncrClosed || "No";
         document.getElementById('completedByPch').textContent = entry.completedBy ?? "";
         document.getElementById('completedOnPch').textContent = entry.completedOn ? formatDate(entry.completedOn) : "";
         
