@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         // Logout functionality
         document.getElementById('logout').addEventListener('click', function () {
             localStorage.removeItem('loggedInUser');
-            //Comment this out to start afresh
+            //Uncomment the code below to start afresh
             //localStorage.clear();
             alert("Successfully logged out.");
             window.location.href = 'login.html';
@@ -192,7 +192,8 @@ document.addEventListener('DOMContentLoaded', async () => {
                 
                 document.getElementById('sectionPurchasing').checked = true;
                 populatePchEditPage(ncrNumber)
-                //setupEngSaveNCR();
+                setupPchSaveNCR()
+                setupCloseNCR()
                 // setupEngSubmitNCR();
             }
 
@@ -391,6 +392,19 @@ document.addEventListener('DOMContentLoaded', async () => {
             submitEngNCR();
         });
     }
+
+    // Set up the Save and Submit/Close NCR functions for Purchasing
+    function setupPchSaveNCR() {
+        document.getElementById('btnPchSave').addEventListener('click', () => {
+            savePchNCR();
+        });
+    }
+
+     function setupCloseNCR() {
+         document.getElementById('btnPchClose').addEventListener('click', () => {
+             closeNCR();
+         });
+     }
 
     //breadcrumbs
     const breadcrumbMap = {

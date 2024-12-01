@@ -2149,7 +2149,7 @@ function populateEngEditPage(ncrNumber) {
     //document.getElementById('lblCreateEditNCR').innerHTML = 'Edit NCR';
     populateDetailsPageEng(ncrNumber)
     document.getElementById('engDetailsModal').style.display = 'none'
-    
+
     const entry = engineering.find(item => item.ncrNumber === ncrNumber);
     if (entry) {
 
@@ -3082,7 +3082,7 @@ function populateEngDetailsPagePch(ncrNumber) {
             Array.from(document.getElementsByClassName('drawingUpdateToggleP')).forEach(element => {
                 element.style.display = 'none';
             });
-        }        
+        }
     }
 }
 
@@ -3096,7 +3096,7 @@ function populatePchEditPage(ncrNumber) {
         //document.getElementById('ncrNumberEng').textContent = entry.ncrNumber;
         document.getElementById('preliminaryDecision').value = entry.preliminaryDecision;
         document.getElementById('carRaised').value = entry.carRaised;
-        document.getElementById('followUp').textContent = entry.followUp;
+        document.getElementById('followUp').value = entry.followUp;
         //document.getElementById('ncrClosed').value = entry.ncrClosed;
         document.getElementById('completedByPch').value = entry.completedBy ? entry.completedBy : "";
         document.getElementById('completedOnPch').value = entry.completedOn ? formatDate(entry.completedOn) : "";
@@ -3139,18 +3139,18 @@ function populatePchDetailsPage(ncrNumber) {
     if (entry) {
         document.getElementById('preliminaryDecision').textContent = entry.preliminaryDecision || "-";
         document.getElementById('carRaised').textContent = entry.carRaised || "-";
-        document.getElementById('carNumber').textContent = entry.carRaised || "-";
+        document.getElementById('carNumber').textContent = entry.carNumber || "-";
         document.getElementById('followUp').textContent = entry.followUp || "-";
         document.getElementById('followUpType').textContent = entry.followUpType || "-";
         document.getElementById('followUpDate').textContent = entry.followUpDate ? formatDate(entry.followUpDate) : "-";
         //document.getElementById('ncrClosed').textContent = entry.ncrClosed || "No";
         document.getElementById('completedByPch').textContent = entry.completedBy ?? "";
         document.getElementById('completedOnPch').textContent = entry.completedOn ? formatDate(entry.completedOn) : "";
-        
-        if(entry.carRaised == "No"){
+
+        if (entry.carRaised == "No") {
             document.getElementById('toggleCarNumber').style.display = 'none';
         }
-        if(entry.followUp == "No"){
+        if (entry.followUp == "No") {
             document.getElementById('toggleFollowUpType').style.display = 'none';
             document.getElementById('toggleFollowUpDate').style.display = 'none';
         }
@@ -3159,6 +3159,283 @@ function populatePchDetailsPage(ncrNumber) {
         }
     }
 }
+
+//================================================================================================================
+//SAVE PURCHASING'S PORTION OF NCR
+//
+//=================================================================================================================
+function savePchNCR() {
+    const ncrNumber = document.getElementById('ncrNumberE').textContent;
+    const changedBy = getUserName();
+    const preliminaryDecision = document.getElementById('preliminaryDecision').value;
+    const carRaised = document.getElementById('carRaised').value;
+    const carNumber = document.getElementById('carNumber').value;
+    const followUp = document.getElementById('followUp').value;
+    const followUpType = document.getElementById('followUpType').value;
+    const followUpDateRaw = document.getElementById('followUpDate').value;
+    const followUpDate = followUpDateRaw ? correctDate(followUpDateRaw) : "";
+
+    const purchasingEntry = purchasing.find(entry => entry.ncrNumber === ncrNumber);
+
+
+    if (purchasingEntry) {
+        // Check for changes in all relevant fields
+        const noChanges = (
+            purchasingEntry.preliminaryDecision === preliminaryDecision &&
+            purchasingEntry.carRaised === carRaised &&
+            purchasingEntry.carNumber === carNumber &&
+            purchasingEntry.followUp === followUp &&
+            purchasingEntry.followUpType === followUpType &&
+            purchasingEntry.followUpDate === followUpDate
+        );
+
+        if (noChanges) {
+            alert('No changes were made.');
+            return;
+        }
+
+        const confirmation = confirm("Are you sure you want to save the NCR?");
+        if (confirmation) {
+            purchasingEntry.preliminaryDecision = preliminaryDecision;
+            purchasingEntry.carRaised = carRaised;
+            purchasingEntry.followUp = followUp;
+
+            if (carRaised == "Yes") {
+                purchasingEntry.carNumber = carNumber;
+            }
+            else {
+                purchasingEntry.carNumber = "";
+            }
+            if (followUp == "Yes") {
+                purchasingEntry.followUpType = followUpType;
+                purchasingEntry.followUpDate = followUpDate;
+            }
+            else {
+                purchasingEntry.followUpType = "";
+                purchasingEntry.followUpDate = "";
+            }
+            localStorage.setItem('purchasing', JSON.stringify(purchasing));
+
+            const historyEntry = {
+                ncrNumber: ncrNumber,
+                actionType: "Edit",
+                status: 'Open',
+                actionDescription: `NCR edited by ${getUserRole()}`,
+                changedBy: changedBy,
+                changedOn: Timestamp()
+            };
+
+            history.push(historyEntry);
+            localStorage.setItem('history', JSON.stringify(history));
+
+            alert('Your changes have been saved. You can continue later.');
+            window.history.back();
+            //console.log(typeof (revisionDate), revisionDate)
+        } else {
+            alert("Save operation cancelled.");
+        }
+    } else {
+        alert('NCR not found. Please check the NCR number.');
+    }
+    //console.log(engineering);
+    //console.log(typeof(revisionDate), revisionDate)
+}
+
+//================================================================================================================
+//SUBMIT/CLOSE PURCHASING'S PORTION OF NCR
+//
+//=================================================================================================================
+function closeNCR() {
+
+    const ncrNumber = document.getElementById('ncrNumberE').textContent;
+    const changedBy = getUserName();
+    const date = Timestamp();
+    const preliminaryDecision = document.getElementById('preliminaryDecision').value;
+    const carRaised = document.getElementById('carRaised').value;
+    const carNumber = document.getElementById('carNumber').value;
+    const followUp = document.getElementById('followUp').value;
+    const followUpType = document.getElementById('followUpType').value;
+    const followUpDateRaw = document.getElementById('followUpDate').value;
+    const followUpDate = followUpDateRaw ? correctDate(followUpDateRaw) : "";
+
+    /*
+    // Validation rules for the form fields
+    const validationRules = [
+        {
+            id: 'reviewByCfEngineering-error',
+            targetId: 'reviewByCfEngineering',
+            condition: () => reviewByCfEngineering === '', // Check if dropdown is empty
+            message: 'Review by CF Engineering is required.',
+            eventType: 'change' // Dropdown: listen for 'change'
+        },
+        {
+            id: 'disposition-error',
+            targetId: 'disposition',
+            condition: () => !disposition, // Check if disposition is empty
+            message: 'Disposition is required.',
+            eventType: 'input' // Dropdown: listen for 'change'
+        },
+        {
+            id: 'originalRevNumber-error',
+            targetId: 'originalRevNumber',
+            condition: () => drawingUpdate === "Yes" && !originalRevNumber, // Check if original revision number is missing
+            message: 'Original Revision number is required.',
+            eventType: 'input' // Textbox: listen for 'input'
+        },
+        {
+            id: 'updatedRevNumber-error',
+            targetId: 'updatedRevNumber',
+            condition: () => drawingUpdate === "Yes" && !updatedRevNumber, // Check if updated revision number is missing
+            message: 'Updated Revision Number is required.',
+            eventType: 'input' // Textbox: listen for 'input'
+        },
+        {
+            id: 'revisionDate-error',
+            targetId: 'revisionDate',
+            condition: () => drawingUpdate === "Yes" && revisionDate === "", // Check if revision date is missing
+            message: 'Revision Date is required.',
+            eventType: 'input' // Textbox: listen for 'input'
+        },
+        {
+            id: 'engineerName-error',
+            targetId: 'engineerName',
+            condition: () => drawingUpdate === "Yes" && !engineerName, // Check if engineer name is missing
+            message: 'Name of the Engineer is required.',
+            eventType: 'input' // Textbox: listen for 'input'
+        }
+    ];
+
+    // Perform validation
+    let isValid = true;
+
+    validationRules.forEach(validation => {
+        const fieldElement = document.getElementById(validation.targetId);
+        const errorElement = document.getElementById(validation.id);
+
+        // Clear previous messages and styles
+        if (errorElement) errorElement.remove();
+        if (fieldElement) fieldElement.style.border = '';
+
+        // Apply validation
+        if (validation.condition()) {
+            isValid = false;
+
+            // Display error message
+            const errorDiv = document.createElement('div');
+            errorDiv.id = validation.id;
+            errorDiv.style.color = '#B22222';
+            errorDiv.style.fontSize = '16px';
+            errorDiv.textContent = validation.message;
+            fieldElement.parentNode.appendChild(errorDiv);
+
+            // Highlight border
+            fieldElement.style.border = '3px solid #B22222';
+
+            // Add real-time error clearing for dropdowns and text fields
+            if (validation.eventType === 'change') {
+                fieldElement.addEventListener('change', function clearError() {
+                    const fieldValue = fieldElement.value;
+                    if (fieldValue !== '' && fieldValue !== 'default') { // Adjust 'default' as needed
+                        const errorElement = document.getElementById(validation.id);
+                        if (errorElement) errorElement.remove();
+                        fieldElement.style.border = '';
+                        fieldElement.removeEventListener('change', clearError);
+                    }
+                });
+
+            }
+            // For textboxes (input event)
+            else if (validation.eventType === 'input') {
+                fieldElement.addEventListener('input', function clearError() {
+                    const fieldValue = fieldElement.value;
+                    if (fieldValue !== '' && fieldValue !== 'default') { // Adjust 'default' as needed
+                        const errorElement = document.getElementById(validation.id);
+                        if (errorElement) errorElement.remove();
+                        fieldElement.style.border = '';
+                        fieldElement.removeEventListener('input', clearError);
+                    }
+                });
+            }
+        }
+    });
+
+    // If any validation fails, stop the submission
+    if (!isValid) return;
+*/
+    const confirmation = confirm("Are you sure you want to close the NCR?");
+    if (confirmation) {
+        // Update the corresponding NCR in the quality array
+
+        // Update the corresponding NCR in the quality array
+        const ncrLogEntry = ncrLog.find(entry => entry.ncrNumber === ncrNumber);
+        const qualityEntry = quality.find(entry => entry.ncrNumber === ncrNumber);
+        const engineeringEntry = engineering.find(entry => entry.ncrNumber === ncrNumber);
+
+        if (ncrLogEntry) { ncrLogEntry.status = "Closed" }
+        if (qualityEntry) { qualityEntry.ncrStatus = "Closed"; }
+        if (engineeringEntry) { engineeringEntry.ncrStatus = "Closed"; }
+        localStorage.setItem('ncrLog', JSON.stringify(ncrLog));
+        localStorage.setItem('quality', JSON.stringify(quality));
+        localStorage.setItem('engineering', JSON.stringify(engineering));
+
+
+
+
+
+
+        //ncrLogItem = ncrLog.find(nItem => nItem.ncrNumber === ncrNumber)?.status = "Closed";
+        // qualityItem = quality.find(nItem => nItem.ncrNumber === ncrNumber)?.ncrStatus = "Closed";
+        // engineeringItem = engineering.find(nItem => nItem.ncrNumber === ncrNumber)?.ncrStatus = "Closed";
+
+
+
+        const purchasingEntry = purchasing.find(entry => entry.ncrNumber === ncrNumber);
+
+        if (purchasingEntry) {
+            purchasingEntry.preliminaryDecision = preliminaryDecision;
+            purchasingEntry.carRaised = carRaised;
+            purchasingEntry.followUp = followUp;
+            purchasingEntry.ncrStatus = quality.find(item => item.ncrNumber === ncrNumber)?.ncrStatus;
+            purchasingEntry.ncrClosed = "Yes"
+
+            if (carRaised == "Yes") {
+                purchasingEntry.carNumber = carNumber;
+            }
+            else {
+                purchasingEntry.carNumber = "";
+            }
+            if (followUp == "Yes") {
+                purchasingEntry.followUpType = followUpType;
+                purchasingEntry.followUpDate = followUpDate;
+            }
+            else {
+                purchasingEntry.followUpType = "";
+                purchasingEntry.followUpDate = "";
+            }
+            localStorage.setItem('purchasing', JSON.stringify(purchasing));
+
+            //make history array and push to history json
+            const historyEntry = {
+                ncrNumber: ncrNumber,
+                actionType: "Close",
+                status: 'Close',
+                actionDescription: "NCR closed by Purchasing",
+                changedBy: changedBy,
+                changedOn: date
+            }
+            history.push(historyEntry);
+            localStorage.setItem('history', JSON.stringify(history));
+            alert('NCR has been successfully closed.');
+            window.history.back();
+        }
+    } else {
+        // If the user cancels, do nothing or add custom logic
+        alert("NCR Close operation cancelled.");
+        // Redirect or perform other actions as needed
+        return;
+    }
+}
+
 
 
 //===================================================================================================
