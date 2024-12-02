@@ -4,48 +4,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="View and manage NCR (Non-Conformance Reports) efficiently with our easy-to-use dashboard and reporting system.">
+    <meta name="description"
+        content="View and manage NCR (Non-Conformance Reports) efficiently with our easy-to-use dashboard and reporting system.">
 
     <title>Metrics</title>
-    
+
     <link href="styles.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&display=swap"
+        rel="stylesheet">
     <link rel="icon" type="image/x-icon" href="images/favicon.png">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            padding: 20px;
-            background-color: #f9f9f9;
-        }
-        h1 {
-            text-align: center;
-        }
-        .chart-container {
-            width: 80%;
-            margin: auto;
-            margin-bottom: 40px;
-        }
-        table {
-            width: 80%;
-            margin: auto;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-        }
-        table, th, td {
-            border: 1px solid #ddd;
-        }
-        th, td {
-            padding: 10px;
-            text-align: center;
-        }
-        th {
-            background-color: #f4f4f4;
-        }
-    </style>
 </head>
 
 
@@ -55,7 +24,8 @@
             <div class="header-col-left">
                 <!--mobile navigation menu-->
                 <div class="mob-nav" id="mobNav">
-                    <button id="toggleNavButton" class="mob-nav-icon" aria-label="Toggle Navigation Menu" onclick="toggleDropdown()"></button>
+                    <button id="toggleNavButton" class="mob-nav-icon" aria-label="Toggle Navigation Menu"
+                        onclick="toggleDropdown()"></button>
                 </div>
                 <!--logo-->
                 <div class="logo">
@@ -68,12 +38,14 @@
                     <ul>
                         <li id="homeLi"><a href="index.html" class="nav-active" id="home" aria-current="page"
                                 aria-label="Dashboard page" tabindex="0">Dashboard</a></li>
-                        <li id="createLi"><a href="create.html" id="create" aria-label="Create new Non-Conformance Report"
-                                tabindex="0">Create <abbr title="Non-Conformance Report">NCR</abbr></a></li>
+                        <li id="createLi"><a href="create.html" id="create"
+                                aria-label="Create new Non-Conformance Report" tabindex="0">Create <abbr
+                                    title="Non-Conformance Report">NCR</abbr></a></li>
                         <li id="viewLi"><a href="view.html" id="view" tabindex="0"
                                 aria-label="View existing Non-Conformance Reports"><abbr
                                     title="Non-Conformance Reports">NCR</abbr> Log </a></li>
-                        <li id="reportsLi"><a href="reports.html" id="reports" aria-label="View Reports" tabindex="0">Reports</a></li>
+                        <li id="reportsLi"><a href="reports.html" id="reports" aria-label="View Reports"
+                                tabindex="0">Reports</a></li>
                     </ul>
                 </nav>
             </div>
@@ -92,8 +64,9 @@
                     </div>
                     <div class="notification">
                         <div class="notif-button-container">
-                            <button id="btnNotification" title="Notifications" aria-haspopup="true" aria-expanded="false"
-                                tabindex="0" aria-controls="notifDisplay" onclick="toggleDropdown()">
+                            <button id="btnNotification" title="Notifications" aria-haspopup="true"
+                                aria-expanded="false" tabindex="0" aria-controls="notifDisplay"
+                                onclick="toggleDropdown()">
                                 <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="none"
                                     viewBox="0 0 24 24">
@@ -175,34 +148,42 @@
         <div class="container">
             <div class="breadcrumb-container">
                 <div aria-label="Breadcrumb">
-                    <ol class="breadcrumb-list" tabindex="0"></ol> <!-- Breadcrumbs will be dynamically populated here -->
+                    <ol class="breadcrumb-list" tabindex="0"></ol>
+                    <!-- Breadcrumbs will be dynamically populated here -->
                 </div>
             </div>
-        </div>
-        <h1>Metrics</h1>
+            <div class="page-title">
+                <h1>Metrics</h1>
+            </div>
+            <!-- Bar Chart Container -->
+            <div class="chart-container">
+                <canvas id="supplierChart"></canvas>
+            </div>
 
-        <!-- Bar Chart Container -->
-        <div class="chart-container">
-            <canvas id="supplierChart"></canvas>
+            <!-- Supplier Defect Table -->
+            <div class="div-container">
+                <div class="table-title" aria-label="Supplier Metrics">
+                    <h2 id="supplierMetrics">Supplier Metrics</h2> <!--Heading may change-->
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Supplier Name</th>
+                            <th>Accummulated Quantity Received</th>
+                            <th>Accummulated Quantity Defective</th>
+                            <th>Defect Percentage</th>
+                        </tr>
+                    </thead>
+                    <tbody id="supplierTableBody"></tbody>
+                </table>
+            </div>
         </div>
-    
-        <!-- Supplier Defect Table -->
-        <table>
-            <thead>
-                <tr>
-                    <th>Supplier Name</th>
-                    <th>Accummulated Quantity Received</th>
-                    <th>Accummulated Quantity Defective</th>
-                    <th>Defect Percentage</th>
-                </tr>
-            </thead>
-            <tbody id="supplierTableBody"></tbody>
-        </table>       
     </main>
 
     <footer>
         <p><small>&copy; 2024 Copyright. QCision - WireWits. All rights reserved.</small></p>
     </footer>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         // Fetch data from the Quality.json file
         fetch('./seed-data/Quality.json')
@@ -253,82 +234,82 @@
 
                 // Step 3: Render the bar chart
                 const ctx = document.getElementById('supplierChart').getContext('2d');
-const cumulativeDefectPercentage = supplierNames.map(
-    (supplier, index) =>
-        ((supplierStats[supplier].totalDefect / supplierStats[supplier].totalReceived) * 100).toFixed(2)
-);
+                const cumulativeDefectPercentage = supplierNames.map(
+                    (supplier, index) =>
+                        ((supplierStats[supplier].totalDefect / supplierStats[supplier].totalReceived) * 100).toFixed(2)
+                );
 
-new Chart(ctx, {
-    type: 'bar', // Base type of the chart
-    data: {
-        labels: supplierNames,
-        datasets: [
-            {
-                label: 'Number of NCR Records', // Bar chart dataset
-                type: 'bar',
-                data: ncrCounts,
-                backgroundColor: 'rgba(54, 162, 235, 0.5)',
-                borderColor: 'rgba(54, 162, 235, 1)',
-                borderWidth: 1
-            },
-            {
-                label: 'Cumulative Defect Percentage (%)', // Line chart dataset
-                type: 'line',
-                data: cumulativeDefectPercentage,
-                backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                borderColor: 'rgba(255, 99, 132, 1)',
-                borderWidth: 2,
-                yAxisID: 'y1', // Assign this dataset to the secondary Y-axis
-                tension: 0.4 // Smooth the line
-            }
-        ]
-    },
-    options: {
-        responsive: true,
-        plugins: {
-            legend: {
-                display: true,
-                position: 'top'
-            },
-            tooltip: {
-                callbacks: {
-                    label: (context) => {
-                        if (context.dataset.type === 'line') {
-                            return `Cumulative Defect Percentage: ${context.raw}%`;
+                new Chart(ctx, {
+                    type: 'bar', // Base type of the chart
+                    data: {
+                        labels: supplierNames,
+                        datasets: [
+                            {
+                                label: 'Number of NCR Records', // Bar chart dataset
+                                type: 'bar',
+                                data: ncrCounts,
+                                backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                                borderColor: 'rgba(54, 162, 235, 1)',
+                                borderWidth: 1
+                            },
+                            {
+                                label: 'Cumulative Defect Percentage (%)', // Line chart dataset
+                                type: 'line',
+                                data: cumulativeDefectPercentage,
+                                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                                borderColor: 'rgba(255, 99, 132, 1)',
+                                borderWidth: 2,
+                                yAxisID: 'y1', // Assign this dataset to the secondary Y-axis
+                                tension: 0.4 // Smooth the line
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: {
+                                display: true,
+                                position: 'top'
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: (context) => {
+                                        if (context.dataset.type === 'line') {
+                                            return `Cumulative Defect Percentage: ${context.raw}%`;
+                                        }
+                                        return `${context.raw} NCRs`;
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                title: {
+                                    display: true,
+                                    text: 'Number of NCR Records'
+                                }
+                            },
+                            y1: {
+                                beginAtZero: true,
+                                position: 'right', // Secondary Y-axis on the right
+                                title: {
+                                    display: true,
+                                    text: 'Cumulative Defect Percentage (%)'
+                                },
+                                grid: {
+                                    drawOnChartArea: false // Don't show grid lines for this axis
+                                }
+                            },
+                            x: {
+                                title: {
+                                    display: true,
+                                    text: 'Suppliers'
+                                }
+                            }
                         }
-                        return `${context.raw} NCRs`;
                     }
-                }
-            }
-        },
-        scales: {
-            y: {
-                beginAtZero: true,
-                title: {
-                    display: true,
-                    text: 'Number of NCR Records'
-                }
-            },
-            y1: {
-                beginAtZero: true,
-                position: 'right', // Secondary Y-axis on the right
-                title: {
-                    display: true,
-                    text: 'Cumulative Defect Percentage (%)'
-                },
-                grid: {
-                    drawOnChartArea: false // Don't show grid lines for this axis
-                }
-            },
-            x: {
-                title: {
-                    display: true,
-                    text: 'Suppliers'
-                }
-            }
-        }
-    }
-});
+                });
             })
             .catch(error => {
                 console.error('Error fetching the Quality.json file:', error);
@@ -336,5 +317,6 @@ new Chart(ctx, {
     </script>
     <script src="scripts/functions.js"></script>
     <script src="scripts/main.js"></script>
-    </body>
-    </html>
+</body>
+
+</html>

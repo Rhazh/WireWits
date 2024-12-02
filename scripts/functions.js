@@ -2758,7 +2758,7 @@ function updateNavLinks(userRole) {
     //const reportsLink = document.getElementById('reports');
 
     // Hide link if the user is not an admin
-    if (userRole != "Quality" || userRole != "Admin") {
+    if (userRole == "Engineer" || userRole == "Purchasing") {
         createLink.classList = 'nav-hide';
     }
 }
