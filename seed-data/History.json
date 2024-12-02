@@ -320,164 +320,195 @@
         "changedOn": "10/08/2024"
     },
     {
-      "ncrNumber": "2024-001",
-      "actionType": "Submit",
-      "status": "Open",
-      "actionDescription": "NCR submitted from Quality to Engineering",
-      "changedBy": "Cassandra Washington",
-      "changedOn": "11/01/2024"
-  },
-  {
-      "ncrNumber": "2024-002",
-      "actionType": "Submit",
-      "status": "Open",
-      "actionDescription": "NCR submitted from Quality to Engineering",
-      "changedBy": "Marcus Allen",
-      "changedOn": "11/01/2024"
-  },
-  {
-      "ncrNumber": "2024-003",
-      "actionType": "Submit",
-      "status": "Open",
-      "actionDescription": "NCR submitted from Quality to Engineering",
-      "changedBy": "Cassandra Washington",
-      "changedOn": "11/02/2024"
-  },
-  {
-      "ncrNumber": "2024-004",
-      "actionType": "Submit",
-      "status": "Open",
-      "actionDescription": "NCR submitted from Quality to Engineering",
-      "changedBy": "Marcus Allen",
-      "changedOn": "11/02/2024"
-  },
-  {
-      "ncrNumber": "2024-005",
-      "actionType": "Submit",
-      "status": "Open",
-      "actionDescription": "NCR submitted from Quality to Engineering",
-      "changedBy": "Cassandra Washington",
-      "changedOn": "11/02/2024"
-  },
-  {
-      "ncrNumber": "2024-006",
-      "actionType": "Submit",
-      "status": "Open",
-      "actionDescription": "NCR submitted from Quality to Engineering",
-      "changedBy": "Marcus Allen",
-      "changedOn": "11/03/2024"
-  },
-  {
-      "ncrNumber": "2024-007",
-      "actionType": "Submit",
-      "status": "Open",
-      "actionDescription": "NCR submitted from Quality to Engineering",
-      "changedBy": "Cassandra Washington",
-      "changedOn": "11/03/2024"
-  },
-  {
-      "ncrNumber": "2024-008",
-      "actionType": "Submit",
-      "status": "Open",
-      "actionDescription": "NCR submitted from Quality to Engineering",
-      "changedBy": "Marcus Allen",
-      "changedOn": "11/03/2024"
-  },
-  {
-      "ncrNumber": "2024-009",
-      "actionType": "Submit",
-      "status": "Open",
-      "actionDescription": "NCR submitted from Quality to Engineering",
-      "changedBy": "Cassandra Washington",
-      "changedOn": "11/04/2024"
-  },
-  {
-      "ncrNumber": "2024-010",
-      "actionType": "Submit",
-      "status": "Open",
-      "actionDescription": "NCR submitted from Quality to Engineering",
-      "changedBy": "Marcus Allen",
-      "changedOn": "11/04/2024"
-  },
-  {
-    "ncrNumber": "2024-001",
-    "actionType": "Edit",
-    "status": "Open",
-    "actionDescription": "NCR edited by Engineer",
-    "changedBy": "Sophie Lee",
-    "changedOn": "11/05/2024"
-},
-{
-    "ncrNumber": "2024-002",
-    "actionType": "Edit",
-    "status": "Open",
-    "actionDescription": "NCR edited by Engineer",
-    "changedBy": "James Smith",
-    "changedOn": "11/05/2024"
-},
-{
-    "ncrNumber": "2024-003",
-    "actionType": "Edit",
-    "status": "Open",
-    "actionDescription": "NCR edited by Engineer",
-    "changedBy": "Sophie Lee",
-    "changedOn": "11/06/2024"
-},
-{
-    "ncrNumber": "2024-004",
-    "actionType": "Edit",
-    "status": "Open",
-    "actionDescription": "NCR edited by Engineer",
-    "changedBy": "James Smith",
-    "changedOn": "11/06/2024"
-},
-{
-    "ncrNumber": "2024-005",
-    "actionType": "Edit",
-    "status": "Open",
-    "actionDescription": "NCR edited by Engineer",
-    "changedBy": "Sophie Lee",
-    "changedOn": "11/07/2024"
-},
-{
-    "ncrNumber": "2024-006",
-    "actionType": "Edit",
-    "status": "Open",
-    "actionDescription": "NCR edited by Engineer",
-    "changedBy": "James Smith",
-    "changedOn": "11/07/2024"
-},
-{
-    "ncrNumber": "2024-007",
-    "actionType": "Edit",
-    "status": "Open",
-    "actionDescription": "NCR edited by Engineer",
-    "changedBy": "Sophie Lee",
-    "changedOn": "11/08/2024"
-},
-{
-    "ncrNumber": "2024-008",
-    "actionType": "Edit",
-    "status": "Open",
-    "actionDescription": "NCR edited by Engineer",
-    "changedBy": "James Smith",
-    "changedOn": "11/08/2024"
-},
-{
-    "ncrNumber": "2024-009",
-    "actionType": "Edit",
-    "status": "Open",
-    "actionDescription": "NCR edited by Engineer",
-    "changedBy": "Sophie Lee",
-    "changedOn": "11/09/2024"
-},
-{
-    "ncrNumber": "2024-010",
-    "actionType": "Edit",
-    "status": "Open",
-    "actionDescription": "NCR edited by Engineer",
-    "changedBy": "James Smith",
-    "changedOn": "11/09/2024"
-}
-  ]
-  
+        "ncrNumber": "2024-001",
+        "actionType": "Submit",
+        "status": "Open",
+        "actionDescription": "NCR submitted from Quality to Engineering",
+        "changedBy": "Cassandra Washington",
+        "changedOn": "11/01/2024"
+    },
+    {
+        "ncrNumber": "2024-002",
+        "actionType": "Submit",
+        "status": "Open",
+        "actionDescription": "NCR submitted from Quality to Engineering",
+        "changedBy": "Marcus Allen",
+        "changedOn": "11/01/2024"
+    },
+    {
+        "ncrNumber": "2024-003",
+        "actionType": "Submit",
+        "status": "Open",
+        "actionDescription": "NCR submitted from Quality to Engineering",
+        "changedBy": "Cassandra Washington",
+        "changedOn": "11/02/2024"
+    },
+    {
+        "ncrNumber": "2024-004",
+        "actionType": "Submit",
+        "status": "Open",
+        "actionDescription": "NCR submitted from Quality to Engineering",
+        "changedBy": "Marcus Allen",
+        "changedOn": "11/02/2024"
+    },
+    {
+        "ncrNumber": "2024-005",
+        "actionType": "Submit",
+        "status": "Open",
+        "actionDescription": "NCR submitted from Quality to Engineering",
+        "changedBy": "Cassandra Washington",
+        "changedOn": "11/02/2024"
+    },
+    {
+        "ncrNumber": "2024-006",
+        "actionType": "Submit",
+        "status": "Open",
+        "actionDescription": "NCR submitted from Quality to Engineering",
+        "changedBy": "Marcus Allen",
+        "changedOn": "11/03/2024"
+    },
+    {
+        "ncrNumber": "2024-007",
+        "actionType": "Submit",
+        "status": "Open",
+        "actionDescription": "NCR submitted from Quality to Engineering",
+        "changedBy": "Cassandra Washington",
+        "changedOn": "11/03/2024"
+    },
+    {
+        "ncrNumber": "2024-008",
+        "actionType": "Submit",
+        "status": "Open",
+        "actionDescription": "NCR submitted from Quality to Engineering",
+        "changedBy": "Marcus Allen",
+        "changedOn": "11/03/2024"
+    },
+    {
+        "ncrNumber": "2024-009",
+        "actionType": "Submit",
+        "status": "Open",
+        "actionDescription": "NCR submitted from Quality to Engineering",
+        "changedBy": "Cassandra Washington",
+        "changedOn": "11/04/2024"
+    },
+    {
+        "ncrNumber": "2024-010",
+        "actionType": "Submit",
+        "status": "Open",
+        "actionDescription": "NCR submitted from Quality to Engineering",
+        "changedBy": "Marcus Allen",
+        "changedOn": "11/04/2024"
+    },
+    {
+        "ncrNumber": "2024-001",
+        "actionType": "Edit",
+        "status": "Open",
+        "actionDescription": "NCR edited by Engineer",
+        "changedBy": "Sophie Lee",
+        "changedOn": "11/05/2024"
+    },
+    {
+        "ncrNumber": "2024-002",
+        "actionType": "Edit",
+        "status": "Open",
+        "actionDescription": "NCR edited by Engineer",
+        "changedBy": "James Smith",
+        "changedOn": "11/05/2024"
+    },
+    {
+        "ncrNumber": "2024-003",
+        "actionType": "Edit",
+        "status": "Open",
+        "actionDescription": "NCR edited by Engineer",
+        "changedBy": "Sophie Lee",
+        "changedOn": "11/06/2024"
+    },
+    {
+        "ncrNumber": "2024-004",
+        "actionType": "Edit",
+        "status": "Open",
+        "actionDescription": "NCR edited by Engineer",
+        "changedBy": "James Smith",
+        "changedOn": "11/06/2024"
+    },
+    {
+        "ncrNumber": "2024-005",
+        "actionType": "Edit",
+        "status": "Open",
+        "actionDescription": "NCR edited by Engineer",
+        "changedBy": "Sophie Lee",
+        "changedOn": "11/07/2024"
+    },
+    {
+        "ncrNumber": "2024-006",
+        "actionType": "Edit",
+        "status": "Open",
+        "actionDescription": "NCR edited by Engineer",
+        "changedBy": "James Smith",
+        "changedOn": "11/07/2024"
+    },
+    {
+        "ncrNumber": "2024-007",
+        "actionType": "Edit",
+        "status": "Open",
+        "actionDescription": "NCR edited by Engineer",
+        "changedBy": "Sophie Lee",
+        "changedOn": "11/08/2024"
+    },
+    {
+        "ncrNumber": "2024-008",
+        "actionType": "Edit",
+        "status": "Open",
+        "actionDescription": "NCR edited by Engineer",
+        "changedBy": "James Smith",
+        "changedOn": "11/08/2024"
+    },
+    {
+        "ncrNumber": "2024-009",
+        "actionType": "Edit",
+        "status": "Open",
+        "actionDescription": "NCR edited by Engineer",
+        "changedBy": "Sophie Lee",
+        "changedOn": "11/09/2024"
+    },
+    {
+        "ncrNumber": "2024-010",
+        "actionType": "Edit",
+        "status": "Open",
+        "actionDescription": "NCR edited by Engineer",
+        "changedBy": "James Smith",
+        "changedOn": "11/09/2024"
+    },
+    {
+        "ncrNumber": "2024-001",
+        "actionType": "Submit",
+        "status": "Open",
+        "actionDescription": "NCR submitted from Engineering to Purchasing",
+        "changedBy": "Sophie Lee",
+        "changedOn": "11/29/2024"
+    },
+    {
+        "ncrNumber": "2024-002",
+        "actionType": "Submit",
+        "status": "Open",
+        "actionDescription": "NCR submitted from Engineering to Purchasing",
+        "changedBy": "James Smith",
+        "changedOn": "11/30/2024"
+    },
+    {
+        "ncrNumber": "2024-001",
+        "actionType": "Edit",
+        "status": "Open",
+        "actionDescription": "NCR edited by Purchasing",
+        "changedBy": "Sandra Crispin",
+        "changedOn": "11/29/2024"
+    },
+    {
+        "ncrNumber": "2024-002",
+        "actionType": "Submit",
+        "status": "Open",
+        "actionDescription": "NCR edited by Purchasing",
+        "changedBy": "Sandra Crispin",
+        "changedOn": "11/30/2024"
+    }
+]

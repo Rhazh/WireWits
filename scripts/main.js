@@ -489,8 +489,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     });
 
-
-
     loadProfileSettings(loggedInUser);
     let tempProfilePicture = null; // Temporary storage for the profile picture during edit mode
 

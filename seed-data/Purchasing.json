@@ -1,1 +1,28 @@
-[]
+[
+    {
+        "ncrNumber" : "2024-001",
+        "ncrStatus" : "Purchasing",
+        "preliminaryDecision" : "Scrap in House",
+        "carRaised": "Yes",
+        "carNumber": "677",
+        "followUp": "No",
+        "followUpType": "",
+        "followUpDate": "",
+        "ncrClosed": "",
+        "completedBy": "",
+        "completedOn": ""
+    },
+    {
+        "ncrNumber" : "2024-002",
+        "ncrStatus" : "Purchasing",
+        "preliminaryDecision" : "Return to Supplier for either \"rework\" or \"replacement\"",
+        "carRaised": "No",
+        "carNumber": "",
+        "followUp": "No",
+        "followUpType": "",
+        "followUpDate": "",
+        "ncrClosed": "",
+        "completedBy": "",
+        "completedOn": ""
+    }
+]

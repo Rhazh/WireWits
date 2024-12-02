@@ -68,10 +68,10 @@
         {
             "user_Id": "6",
             "user_name": "jsmith",
-            "user_Firstname": "John",
+            "user_Firstname": "Joshua",
             "user_Middlename": "D.",
             "user_Lastname": "Smith",
-            "email": "john.smith@example.com",
+            "email": "joshua.smith@example.com",
             "password": "Purchase1234",
             "created_on": "2024-03-05T14:30:00Z",
             "Department_Name": "Purchasing",
@@ -80,7 +80,7 @@
         },
         {
             "user_Id": "7",
-            "user_name": "dcrispin",
+            "user_name": "scrispin",
             "user_Firstname": "Sandra",
             "user_Middlename": "",
             "user_Lastname": "Crispin",
