@@ -3143,7 +3143,7 @@ function populatePchDetailsPage(ncrNumber) {
         document.getElementById('followUp').textContent = entry.followUp || "-";
         document.getElementById('followUpType').textContent = entry.followUpType || "-";
         document.getElementById('followUpDate').textContent = entry.followUpDate ? formatDate(entry.followUpDate) : "-";
-        //document.getElementById('ncrClosed').textContent = entry.ncrClosed || "No";
+        document.getElementById('ncrClosed').textContent = entry.ncrClosed || "No";
         document.getElementById('completedByPch').textContent = entry.completedBy ?? "";
         document.getElementById('completedOnPch').textContent = entry.completedOn ? formatDate(entry.completedOn) : "";
 
@@ -3154,7 +3154,7 @@ function populatePchDetailsPage(ncrNumber) {
             document.getElementById('toggleFollowUpType').style.display = 'none';
             document.getElementById('toggleFollowUpDate').style.display = 'none';
         }
-        if (entry.ncrStatus != "Purchasing") {
+        if (entry.ncrStatus == "Closed") {
             document.getElementById('completionToggle3').style.display = 'grid';
         }
     }
@@ -3258,50 +3258,50 @@ function closeNCR() {
     const followUpDateRaw = document.getElementById('followUpDate').value;
     const followUpDate = followUpDateRaw ? correctDate(followUpDateRaw) : "";
 
-    /*
+    
     // Validation rules for the form fields
     const validationRules = [
         {
-            id: 'reviewByCfEngineering-error',
-            targetId: 'reviewByCfEngineering',
-            condition: () => reviewByCfEngineering === '', // Check if dropdown is empty
-            message: 'Review by CF Engineering is required.',
+            id: 'preliminaryDecision-error',
+            targetId: 'preliminaryDecision',
+            condition: () => preliminaryDecision === '', // Check if dropdown is empty
+            message: "Purchasing's Preliminary Decision is required.",
             eventType: 'change' // Dropdown: listen for 'change'
         },
         {
-            id: 'disposition-error',
-            targetId: 'disposition',
-            condition: () => !disposition, // Check if disposition is empty
-            message: 'Disposition is required.',
+            id: 'carRaised-error',
+            targetId: 'carRaised',
+            condition: () => carRaised === '', // Check if dropdown is empty
+            message: "Was a CAR raised is required.",
+            eventType: 'change' // Dropdown: listen for 'change'
+        },
+        {
+            id: 'followUp-error',
+            targetId: 'followUp',
+            condition: () => followUp === '', // Check if dropdown is empty
+            message: "Follow-up Required is required.",
+            eventType: 'change' // Dropdown: listen for 'change'
+        },
+        {
+            id: 'carNumber-error',
+            targetId: 'carNumber',
+            condition: () => carRaised === "Yes" && !carNumber, // Check if carNumber is empty
+            message: 'CAR Number is required.',
             eventType: 'input' // Dropdown: listen for 'change'
         },
         {
-            id: 'originalRevNumber-error',
-            targetId: 'originalRevNumber',
-            condition: () => drawingUpdate === "Yes" && !originalRevNumber, // Check if original revision number is missing
-            message: 'Original Revision number is required.',
-            eventType: 'input' // Textbox: listen for 'input'
+            id: 'followUpType-error',
+            targetId: 'followUpType',
+            condition: () => followUp === "Yes" && !followUpType, // Check if followUpType is empty
+            message: 'Follow-up Type is required.',
+            eventType: 'input' // Dropdown: listen for 'change'
         },
         {
-            id: 'updatedRevNumber-error',
-            targetId: 'updatedRevNumber',
-            condition: () => drawingUpdate === "Yes" && !updatedRevNumber, // Check if updated revision number is missing
-            message: 'Updated Revision Number is required.',
-            eventType: 'input' // Textbox: listen for 'input'
-        },
-        {
-            id: 'revisionDate-error',
-            targetId: 'revisionDate',
-            condition: () => drawingUpdate === "Yes" && revisionDate === "", // Check if revision date is missing
-            message: 'Revision Date is required.',
-            eventType: 'input' // Textbox: listen for 'input'
-        },
-        {
-            id: 'engineerName-error',
-            targetId: 'engineerName',
-            condition: () => drawingUpdate === "Yes" && !engineerName, // Check if engineer name is missing
-            message: 'Name of the Engineer is required.',
-            eventType: 'input' // Textbox: listen for 'input'
+            id: 'followUpDate-error',
+            targetId: 'followUpDate',
+            condition: () => followUp === "Yes" && !followUpDate, // Check if followUpDate is empty
+            message: 'Follow-up Date is required.',
+            eventType: 'input' // Dropdown: listen for 'change'
         }
     ];
 
@@ -3361,12 +3361,10 @@ function closeNCR() {
 
     // If any validation fails, stop the submission
     if (!isValid) return;
-*/
+
     const confirmation = confirm("Are you sure you want to close the NCR?");
     if (confirmation) {
-        // Update the corresponding NCR in the quality array
-
-        // Update the corresponding NCR in the quality array
+        // Update the corresponding NCR in the ncrLog, quality and engineering arrays
         const ncrLogEntry = ncrLog.find(entry => entry.ncrNumber === ncrNumber);
         const qualityEntry = quality.find(entry => entry.ncrNumber === ncrNumber);
         const engineeringEntry = engineering.find(entry => entry.ncrNumber === ncrNumber);
@@ -3378,17 +3376,6 @@ function closeNCR() {
         localStorage.setItem('quality', JSON.stringify(quality));
         localStorage.setItem('engineering', JSON.stringify(engineering));
 
-
-
-
-
-
-        //ncrLogItem = ncrLog.find(nItem => nItem.ncrNumber === ncrNumber)?.status = "Closed";
-        // qualityItem = quality.find(nItem => nItem.ncrNumber === ncrNumber)?.ncrStatus = "Closed";
-        // engineeringItem = engineering.find(nItem => nItem.ncrNumber === ncrNumber)?.ncrStatus = "Closed";
-
-
-
         const purchasingEntry = purchasing.find(entry => entry.ncrNumber === ncrNumber);
 
         if (purchasingEntry) {
@@ -3396,7 +3383,9 @@ function closeNCR() {
             purchasingEntry.carRaised = carRaised;
             purchasingEntry.followUp = followUp;
             purchasingEntry.ncrStatus = quality.find(item => item.ncrNumber === ncrNumber)?.ncrStatus;
-            purchasingEntry.ncrClosed = "Yes"
+            purchasingEntry.ncrClosed = "Yes";
+            purchasingEntry.completedBy = changedBy;
+            purchasingEntry.completedOn = date;
 
             if (carRaised == "Yes") {
                 purchasingEntry.carNumber = carNumber;
@@ -3412,6 +3401,7 @@ function closeNCR() {
                 purchasingEntry.followUpType = "";
                 purchasingEntry.followUpDate = "";
             }
+
             localStorage.setItem('purchasing', JSON.stringify(purchasing));
 
             //make history array and push to history json
