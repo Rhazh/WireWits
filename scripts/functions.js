@@ -41,7 +41,7 @@ function populateNotifications(userRole) {
             console.warn('No quality data available to display.');
             return;
         }
-    
+
         const dropdown = document.getElementById('notifList');
         const dropdownDesc = document.getElementById('notifDesc');
         if (!dropdown) {
@@ -115,7 +115,7 @@ function populateNotifications(userRole) {
         dropdown.style.overflowY = 'auto';
         dropdown.style.maxHeight = '200px'; // Set the height limit for scrolling
 
-    }else if (userRole == "Engineer") {
+    } else if (userRole == "Engineer") {
         if (!engineering.length) {
             console.warn('No engineering data available to display.');
             return;
@@ -193,7 +193,7 @@ function populateNotifications(userRole) {
         // Add a style to make the dropdown scrollable
         dropdown.style.overflowY = 'auto';
         dropdown.style.maxHeight = '200px'; // Set the height limit for scrolling
-    }else if (userRole == "Purchasing") {
+    } else if (userRole == "Purchasing") {
         if (!purchasing.length) {
             console.warn('No purchasing data available to display.');
             return;
@@ -298,23 +298,23 @@ function getOldNotifications(userRole) {
         return quality.filter(item => new Date(item.dateCreated) < fourteenDaysAgo && item.ncrStatus === "Quality")
             .map(item => item.ncrNumber);
 
-    }else if (userRole == "Engineer") {
+    } else if (userRole == "Engineer") {
 
         if (!engineering.length) {
             console.warn('No engineering data available to display.');
             return;
         }
         return engineering.filter(item => item.ncrStatus === "Engineering")
-        .map(item => item.ncrNumber);
+            .map(item => item.ncrNumber);
 
-    }else if (userRole == "Purchasing") {
+    } else if (userRole == "Purchasing") {
 
         if (!purchasing.length) {
             console.warn('No purchasing data available to display.');
             return;
         }
         return purchasing.filter(item => item.ncrStatus === "Purchasing")
-        .map(item => item.ncrNumber);
+            .map(item => item.ncrNumber);
 
     }
 
@@ -1069,6 +1069,7 @@ function saveNCR() {
     const ncrNumber = document.getElementById('ncrNumber').textContent;
 
     const changedBy = getUserName();
+    const date = Timestamp();
 
     // Collect current form values
     const applicableProcess = document.getElementById('applicableProcess')?.value;
@@ -1146,6 +1147,11 @@ function saveNCR() {
             // Persist updated quality array to localStorage
             localStorage.setItem('quality', JSON.stringify(quality));
 
+            //update lastUpdated in NCRLog
+            const ncrLogEntry = ncrLog.find(entry => entry.ncrNumber === ncrNumber);
+            if (ncrLogEntry) { ncrLogEntry.lastUpdated = date }
+            localStorage.setItem('ncrLog', JSON.stringify(ncrLog));
+
             // Create a history entry and add it to the history array
             const historyEntry = {
                 ncrNumber: ncrNumber,
@@ -1153,7 +1159,7 @@ function saveNCR() {
                 status: 'Open',
                 actionDescription: `NCR edited by ${getUserRole()}`,
                 changedBy: changedBy,  // This should be dynamically set to the actual user
-                changedOn: Timestamp() // Use function timestamp
+                changedOn: date // Use function timestamp
             };
 
             // Push the history entry and save it in localStorage
@@ -1383,6 +1389,11 @@ function submitNCR() {
                 }
                 purchasing.push(purchasingEntry);
                 localStorage.setItem('purchasing', JSON.stringify(purchasing));
+
+                //update lastUpdated in NCRLog
+                const ncrLogEntry = ncrLog.find(entry => entry.ncrNumber === ncrNumber);
+                if (ncrLogEntry) { ncrLogEntry.lastUpdated = date }
+                localStorage.setItem('ncrLog', JSON.stringify(ncrLog));
 
                 //make history array and push to history json
                 const historyEntry = {
@@ -2515,6 +2526,11 @@ function saveEngNCR() {
             }
             localStorage.setItem('engineering', JSON.stringify(engineering));
 
+            //update lastUpdated in NCRLog
+            const ncrLogEntry = ncrLog.find(entry => entry.ncrNumber === ncrNumber);
+            if (ncrLogEntry) { ncrLogEntry.lastUpdated = date }
+            localStorage.setItem('ncrLog', JSON.stringify(ncrLog));
+
             const historyEntry = {
                 ncrNumber: ncrNumber,
                 actionType: "Edit",
@@ -2708,6 +2724,11 @@ function submitEngNCR() {
         }
         purchasing.push(purchasingEntry);
         localStorage.setItem('purchasing', JSON.stringify(purchasing));
+
+         //update lastUpdated in NCRLog
+         const ncrLogEntry = ncrLog.find(entry => entry.ncrNumber === ncrNumber);
+         if (ncrLogEntry) { ncrLogEntry.lastUpdated = date }
+         localStorage.setItem('ncrLog', JSON.stringify(ncrLog));
 
         //make history array and push to history json
         const historyEntry = {
@@ -3360,6 +3381,7 @@ function populatePchDetailsPage(ncrNumber) {
 function savePchNCR() {
     const ncrNumber = document.getElementById('ncrNumberE').textContent;
     const changedBy = getUserName();
+    const date = Timestamp();
     const preliminaryDecision = document.getElementById('preliminaryDecision').value;
     const carRaised = document.getElementById('carRaised').value;
     const carNumber = document.getElementById('carNumber').value;
@@ -3409,6 +3431,11 @@ function savePchNCR() {
             }
             localStorage.setItem('purchasing', JSON.stringify(purchasing));
 
+             //update lastUpdated in NCRLog
+             const ncrLogEntry = ncrLog.find(entry => entry.ncrNumber === ncrNumber);
+             if (ncrLogEntry) { ncrLogEntry.lastUpdated = date }
+             localStorage.setItem('ncrLog', JSON.stringify(ncrLog));
+
             const historyEntry = {
                 ncrNumber: ncrNumber,
                 actionType: "Edit",
@@ -3420,6 +3447,8 @@ function savePchNCR() {
 
             history.push(historyEntry);
             localStorage.setItem('history', JSON.stringify(history));
+
+            console.log(ncrLog)
 
             alert('Your changes have been saved. You can continue later.');
             window.history.back();
@@ -3451,7 +3480,7 @@ function closeNCR() {
     const followUpDateRaw = document.getElementById('followUpDate').value;
     const followUpDate = followUpDateRaw ? correctDate(followUpDateRaw) : "";
 
-    
+
     // Validation rules for the form fields
     const validationRules = [
         {
@@ -3596,6 +3625,11 @@ function closeNCR() {
             }
 
             localStorage.setItem('purchasing', JSON.stringify(purchasing));
+
+             //update lastUpdated in NCRLog
+             const ncrLogEntry = ncrLog.find(entry => entry.ncrNumber === ncrNumber);
+             if (ncrLogEntry) { ncrLogEntry.lastUpdated = date }
+             localStorage.setItem('ncrLog', JSON.stringify(ncrLog));
 
             //make history array and push to history json
             const historyEntry = {
