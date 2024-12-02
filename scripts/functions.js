@@ -2341,7 +2341,7 @@ function populateEngEditPage(ncrNumber) {
     //document.getElementById('create-edit')
     //document.getElementById('lblCreateEditNCR').innerHTML = 'Edit NCR';
     populateDetailsPageEng(ncrNumber)
-    document.getElementById('engDetailsModal').style.display = 'none'
+    document.getElementById('engDetailsForm').style.display = 'none'
 
     const entry = engineering.find(item => item.ncrNumber === ncrNumber);
     if (entry) {
@@ -3258,7 +3258,7 @@ document.addEventListener("DOMContentLoaded", () => {
 //
 //=================================================================================================================
 function populateEngDetailsPagePch(ncrNumber) {
-    document.getElementById('engEditModal').style.display = 'none'
+    document.getElementById('engEditForm').style.display = 'none'
     const entry = engineering.find(item => item.ncrNumber === ncrNumber);
     if (entry) {
         document.getElementById('reviewByCfEngineeringP').textContent = entry.reviewByCfEngineering || "-";
