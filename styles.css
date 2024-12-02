@@ -1123,6 +1123,8 @@ label {
 
 .two-cols-info {
     grid-template-columns: auto auto;
+    justify-content: start;
+    column-gap: 5px;
 }
 
 .two-cols {
