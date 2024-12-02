@@ -204,6 +204,7 @@
                                     <option value="Quality">Quality</option>
                                     <option value="Engineering">Engineering</option>
                                     <option value="Purchasing">Purchasing</option>
+                                    <option value="Closed">Closed</option>
                                 </select>
                             </div>
                         </div>             
@@ -285,6 +286,7 @@
                                         <option value="Quality">Quality</option>
                                         <option value="Engineering">Engineering</option>
                                         <option value="Purchasing">Purchasing</option>
+                                        <option value="Closed">Closed</option>
                                     </select>
                                 </div>
                             </div>             
@@ -327,6 +329,89 @@
                             </tbody>
                         </table>
                         <div id="paginationEng" class="pagination-container">
+                            <!-- Pagination buttons will be populated here -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!--For PURCHASING-->
+            <section id="secPurchasing">
+                <!--filter by NCR Number, the status, Date Range, Supplier-->
+                <div class="search-section">
+                    <div class="div-container" >
+                        <div class="div-section" aria-label="Filter by inputs">
+                            <div class="three-cols">
+                                <div>
+                                    <label for="ncrNumberPch" >Filter By NCR Number:</label>
+                                    <input type="text"  aria-label="Filter by NCR Number" id="ncrNumberPch" placeholder="2024-001">
+                                </div>
+                                <div>
+                                    <label for="fromDatePch" >From:</label>
+                                    <input type="date" aria-label="Filter from a Start Date" id="fromDatePch" tabindex="0">
+                                </div>
+                                <div>
+                                    <label for="toDatePch" >To:</label>
+                                    <input type="date" aria-label="Filter from an End Date"  id="toDatePch" tabindex="0">
+                                </div>
+                                <div>
+                                    <label for="supplierNamePch" >Supplier Name:</label>
+                                    <!--performSearch may not work in this case so change-->
+                                    <select id="supplierNamePch" tabindex="0" aria-label="Filter By Supplier Name">
+                                        <option value="" disabled selected>Select Supplier</option>
+                                        <!-- Options will be populated dynamically -->
+                                    </select>
+                                </div>
+                                <div>
+                                    <label for="ncrStatusPch" >Department:</label>
+                                    <!--performSearch may not work in this case so change-->
+                                    <select id="ncrStatusPch" tabindex="0" aria-label="Filter by Department">
+                                        <option value="All">All</option>
+                                        <option value="Quality">Quality</option>
+                                        <option value="Engineering">Engineering</option>
+                                        <option value="Purchasing">Purchasing</option>
+                                        <option value="Closed">Closed</option>
+                                    </select>
+                                </div>
+                            </div>             
+                            <div class="search-section-button">
+                                <div>
+                                    <button type="button" onclick="performSearchPch()" tabindex="0" class="button-primary">Search</button>
+                                </div>
+                                <div>
+                                    <button type="button" onclick="clearSearch()" tabindex="0" class="button-secondary">Clear</button>
+                                </div>
+                                <div>
+                                    <span id="noResultsMessagePch" class="search-error-message" tabindex="0"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="div-table">
+                    <div class="div-container">
+                        <div class="table-title" aria-label="Available Records">
+                            <div class="two-cols">
+                                <div class="search-table-title">
+                                    <h2>Available Records</h2> <!--Heading may change-->
+                                </div>
+                            </div>
+                        </div>
+                        <table id="resultsTablePch" tabindex="0">
+                            <thead>
+                                <tr>
+                                    <th>NCR Number</th>
+                                    <th>Supplier</th>
+                                    <th>Date Created</th>
+                                    <th>Department</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="viewTableContentPch">
+                                <!-- Results will be populated here -->
+                            </tbody>
+                        </table>
+                        <div id="paginationPch" class="pagination-container">
                             <!-- Pagination buttons will be populated here -->
                         </div>
                     </div>

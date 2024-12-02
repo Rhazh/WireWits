@@ -149,6 +149,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             populateNotifications(userRole);
             if (userRole == "Quality") {
                 document.getElementById('secEngineer').style.display = 'none';
+                document.getElementById('secPurchasing').style.display = 'none';
                 populateSupplierDropdownN('supplierName')
                 document.getElementById("ncrStatus").value = "Quality";
                 //NavBar();
@@ -156,9 +157,17 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
             else if (userRole == "Engineer") {
                 document.getElementById('secQuality').style.display = 'none';
+                document.getElementById('secPurchasing').style.display = 'none';
                 populateSupplierDropdownN('supplierNameEng')
                 document.getElementById("ncrStatusEng").value = "Engineering";
                 performSearchEng();
+            }
+            else if (userRole == "Purchasing") {
+                document.getElementById('secQuality').style.display = 'none';
+                document.getElementById('secEngineer').style.display = 'none';
+                //populateSupplierDropdownN('supplierNameEng')
+                document.getElementById("ncrStatusPch").value = "Purchasing";
+                performSearchPch();
             }
 
             //=======================================================================================================
