@@ -424,7 +424,7 @@ function recentNCRs(userRole) {
             return;
         }
 
-        const recentNCRss = [...quality].reverse(); // Clone and reverse to avoid mutating the original array
+        const recentNCRss = [...quality.filter(item => item.ncrStatus === "Quality")].reverse(); // Clone and reverse to avoid mutating the original array
         const recentN = recentNCRss.slice(0, 5);
 
         console.log(recentN);
@@ -472,7 +472,7 @@ function recentNCRs(userRole) {
             return;
         }
 
-        const recentNCRss = [...engineering].reverse(); // Clone and reverse to avoid mutating the original array
+        const recentNCRss = [...engineering.filter(item => item.ncrStatus === "Engineer")].reverse(); // Clone and reverse to avoid mutating the original array
         const recentN = recentNCRss.slice(0, 5);
 
         console.log(recentN);
@@ -521,7 +521,7 @@ function recentNCRs(userRole) {
             return;
         }
 
-        const recentNCRss = [...purchasing].reverse(); // Clone and reverse to avoid mutating the original array
+        const recentNCRss = [...purchasing.filter(item => item.ncrStatus === "Purchasing")].reverse(); // Clone and reverse to avoid mutating the original array
         const recentN = recentNCRss.slice(0, 5);
 
         console.log(recentN);
