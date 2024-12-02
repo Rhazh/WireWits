@@ -126,8 +126,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (pageName === 'index.html') {
             recentNCRs(userRole);
             setupNavigationButtons();
+            populateNotifications(userRole);
             if (userRole == "Quality") {
-                populateNotifications();
                 document.getElementById('onlyPurchasingDash').style.display = 'none';
                 //NavBar(); //commented out because of loading errors.
                 //recentNCRs();
@@ -136,7 +136,6 @@ document.addEventListener('DOMContentLoaded', async () => {
             else if (userRole == "Engineer") {
                 document.getElementById('onlyQualityDash').style.display = 'none';
                 document.getElementById('onlyPurchasingDash').style.display = 'none';
-                populateNotificationsEng();
                 //setupNavigationButtons();
                 //setupEngNavigationButtons();
                 //recentEngNCRs();
@@ -147,9 +146,9 @@ document.addEventListener('DOMContentLoaded', async () => {
             //VIEW PAGE
             //=======================================================================================================
         } else if (pageName === 'view.html') {
+            populateNotifications(userRole);
             if (userRole == "Quality") {
                 document.getElementById('secEngineer').style.display = 'none';
-                populateNotifications();
                 populateSupplierDropdownN('supplierName')
                 document.getElementById("ncrStatus").value = "Quality";
                 //NavBar();
@@ -157,7 +156,6 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
             else if (userRole == "Engineer") {
                 document.getElementById('secQuality').style.display = 'none';
-                populateNotificationsEng();
                 populateSupplierDropdownN('supplierNameEng')
                 document.getElementById("ncrStatusEng").value = "Engineering";
                 performSearchEng();
@@ -168,6 +166,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             //=======================================================================================================
 
         } else if (ncrNumber && pageName === 'create.html') {
+            populateNotifications(userRole);
             document.getElementById('lblCreateEditNCR').innerHTML = 'Edit NCR';
             if (userRole == "Quality") {
                 //document.getElementById('secEngineer').style.display = 'none';
@@ -176,7 +175,6 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
             else if (userRole == "Engineer") {
                 document.getElementById('secCreateEditNCR').style.display = 'none';
-                populateNotificationsEng()
                 populateEngEditPage(ncrNumber)
                 document.getElementById('sectionPurchasinglabel').style.display = 'none';
                 document.getElementById('sectionEngineer').checked = true;
@@ -201,6 +199,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             //CREATE PAGE - FOR CREATING AN NCR
             //=======================================================================================================
         } else if (pageName === 'create.html') {
+            populateNotifications(userRole);
             if (userRole == 'Quality') {
                 //document.getElementById('secEngineer').style.display = 'none';
                 toggleCreateEditModal(null, false);
@@ -237,30 +236,28 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
         }
         else if (pageName === 'profile_settings.html') {
+            populateNotifications(userRole);
             if (userRole == "Quality") {
                 populateNotifications();
                 //NavBar();
             }
             else if (userRole == "Engineer") {
-                populateNotificationsEng()
             }
 
         } else if (pageName === 'reports.html') {
+            populateNotifications(userRole);
             performSearchReports();
             if (userRole == "Quality") {
-                populateNotifications();
                 //NavBar();
             }
             else if (userRole == "Engineer") {
-                populateNotificationsEng()
             }
         } else if (pageName === 'faqs.html') {
+            populateNotifications(userRole);
             if (userRole == "Quality") {
-                populateNotifications();
                 //NavBar();
             }
             else if (userRole == "Engineer") {
-                populateNotificationsEng()
             }
 
         }

@@ -34,79 +34,244 @@ function getUserRole() {
 // ==========================================
 // 1. Populate Notifications - For all pages
 // ==========================================
-function populateNotifications() {
-    const dropdown = document.getElementById('notifList');
-    const dropdownDesc = document.getElementById('notifDesc');
-    if (!dropdown) {
-        console.warn('Dropdown menu element not found.');
-        return;
+function populateNotifications(userRole) {
+
+    if (userRole == "Quality") {
+        if (!quality.length) {
+            console.warn('No quality data available to display.');
+            return;
+        }
+    
+        const dropdown = document.getElementById('notifList');
+        const dropdownDesc = document.getElementById('notifDesc');
+        if (!dropdown) {
+            console.warn('Dropdown menu element not found.');
+            return;
+        }
+        dropdown.innerHTML = ""; // Clear existing notifications
+
+        const oldNotifications = getOldNotifications(userRole);
+        const closedNotifications = JSON.parse(localStorage.getItem('closedNotifications')) || [];
+
+        // Filter out closed notifications
+        const visibleNotifications = oldNotifications.filter(ncr => !closedNotifications.includes(ncr));
+
+        const countLabel = document.getElementById('spnCount');
+        if (countLabel) {
+            countLabel.textContent = `${visibleNotifications.length}`; // Update count label
+        } else {
+            console.warn('Count label element not found.');
+        }
+
+        if (visibleNotifications.length === 0) {
+            dropdown.innerHTML = "<span>No urgent notifications</span>";
+            countLabel.style.opacity = "0%";
+            return;
+        }
+
+        dropdownDesc.innerHTML = "<p>Pending NCRs for Over 7 Days</p>"; // Text explaining urgency
+
+        // Limit the number of notifications shown in the dropdown
+        const notificationsToShow = visibleNotifications; // Show all notifications in the dropdown
+
+        notificationsToShow.forEach(ncrNumber => {
+            const notificationItem = document.createElement('div');
+            notificationItem.classList = 'notif-item'
+
+            const link = document.createElement('a');
+            link.textContent = `NCR Number: ${ncrNumber}`;
+            link.href = `create.html?ncr=${ncrNumber}`;
+            link.style.cursor = 'pointer'; // Change cursor to pointer
+            link.onclick = (e) => {
+                e.preventDefault();
+                editEntry(ncrNumber);
+            };
+
+            const closeButton = document.createElement('button');
+            closeButton.classList.add('notif-button-close');
+            closeButton.title = "Close Notification";
+            closeButton.innerHTML = `<svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="21" height="21" fill="none" viewBox="0 0 24 24">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M6 18 17.94 6M18 18 6.06 6"/>
+            </svg>`
+
+            closeButton.onclick = (e) => {
+                e.preventDefault(); // Prevent default action
+                e.stopPropagation(); // Prevent click from propagating to parent elements
+
+                // Logic to close the notification
+                closedNotifications.push(ncrNumber); // Store the closed notification
+                localStorage.setItem('closedNotifications', JSON.stringify(closedNotifications)); // Save to localStorage
+                notificationItem.remove(); // Remove this notification item
+                updateNotificationCount(); // Update the notification count
+                // Dropdown remains open
+            };
+
+            notificationItem.appendChild(link);
+            notificationItem.appendChild(closeButton);
+            dropdown.appendChild(notificationItem);
+        });
+
+        // Add a style to make the dropdown scrollable
+        dropdown.style.overflowY = 'auto';
+        dropdown.style.maxHeight = '200px'; // Set the height limit for scrolling
+
+    }else if (userRole == "Engineer") {
+        if (!engineering.length) {
+            console.warn('No engineering data available to display.');
+            return;
+        }
+
+        const dropdown = document.getElementById('notifList');
+        const dropdownDesc = document.getElementById('notifDesc');
+        if (!dropdown) {
+            console.warn('Dropdown menu element not found.');
+            return;
+        }
+        dropdown.innerHTML = ""; // Clear existing notifications
+
+        const oldNotifications = getOldNotifications(userRole);
+        const closedNotifications = JSON.parse(localStorage.getItem('closedNotifications')) || [];
+
+        // Filter out closed notifications
+        const visibleNotifications = oldNotifications.filter(ncr => !closedNotifications.includes(ncr));
+
+        const countLabel = document.getElementById('spnCount');
+        if (countLabel) {
+            countLabel.textContent = `${visibleNotifications.length}`; // Update count label
+        } else {
+            console.warn('Count label element not found.');
+        }
+
+        if (visibleNotifications.length === 0) {
+            dropdown.innerHTML = "<span>No urgent notifications</span>";
+            countLabel.style.opacity = "0%";
+            return;
+        }
+
+        dropdownDesc.innerHTML = "<p>Pending NCRs from Quality</p>"; // Text explaining urgency
+
+        // Limit the number of notifications shown in the dropdown
+        const notificationsToShow = visibleNotifications; // Show all notifications in the dropdown
+
+        notificationsToShow.forEach(ncrNumber => {
+            const notificationItem = document.createElement('div');
+            notificationItem.classList = 'notif-item'
+
+            const link = document.createElement('a');
+            link.textContent = `NCR Number: ${ncrNumber}`;
+            link.href = `create.html?ncr=${ncrNumber}`;
+            link.style.cursor = 'pointer'; // Change cursor to pointer
+            link.onclick = (e) => {
+                e.preventDefault();
+                editEntry(ncrNumber);
+            };
+
+            const closeButton = document.createElement('button');
+            closeButton.classList.add('notif-button-close');
+            closeButton.title = "Close Notification";
+            closeButton.innerHTML = `<svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="21" height="21" fill="none" viewBox="0 0 24 24">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M6 18 17.94 6M18 18 6.06 6"/>
+            </svg>`
+
+            closeButton.onclick = (e) => {
+                e.preventDefault(); // Prevent default action
+                e.stopPropagation(); // Prevent click from propagating to parent elements
+
+                // Logic to close the notification
+                closedNotifications.push(ncrNumber); // Store the closed notification
+                localStorage.setItem('closedNotifications', JSON.stringify(closedNotifications)); // Save to localStorage
+                notificationItem.remove(); // Remove this notification item
+                updateNotificationCount(); // Update the notification count
+                // Dropdown remains open
+            };
+
+            notificationItem.appendChild(link);
+            notificationItem.appendChild(closeButton);
+            dropdown.appendChild(notificationItem);
+        });
+
+        // Add a style to make the dropdown scrollable
+        dropdown.style.overflowY = 'auto';
+        dropdown.style.maxHeight = '200px'; // Set the height limit for scrolling
+    }else if (userRole == "Purchasing") {
+        if (!purchasing.length) {
+            console.warn('No purchasing data available to display.');
+            return;
+        }
+
+        const dropdown = document.getElementById('notifList');
+        const dropdownDesc = document.getElementById('notifDesc');
+        if (!dropdown) {
+            console.warn('Dropdown menu element not found.');
+            return;
+        }
+        dropdown.innerHTML = ""; // Clear existing notifications
+
+        const oldNotifications = getOldNotifications(userRole);
+        const closedNotifications = JSON.parse(localStorage.getItem('closedNotifications')) || [];
+
+        // Filter out closed notifications
+        const visibleNotifications = oldNotifications.filter(ncr => !closedNotifications.includes(ncr));
+
+        const countLabel = document.getElementById('spnCount');
+        if (countLabel) {
+            countLabel.textContent = `${visibleNotifications.length}`; // Update count label
+        } else {
+            console.warn('Count label element not found.');
+        }
+
+        if (visibleNotifications.length === 0) {
+            dropdown.innerHTML = "<span>No urgent notifications</span>";
+            countLabel.style.opacity = "0%";
+            return;
+        }
+
+        dropdownDesc.innerHTML = "<p>Pending NCRs from Quality and Engineering</p>"; // Text explaining urgency
+
+        // Limit the number of notifications shown in the dropdown
+        const notificationsToShow = visibleNotifications; // Show all notifications in the dropdown
+
+        notificationsToShow.forEach(ncrNumber => {
+            const notificationItem = document.createElement('div');
+            notificationItem.classList = 'notif-item'
+
+            const link = document.createElement('a');
+            link.textContent = `NCR Number: ${ncrNumber}`;
+            link.href = `create.html?ncr=${ncrNumber}`;
+            link.style.cursor = 'pointer'; // Change cursor to pointer
+            link.onclick = (e) => {
+                e.preventDefault();
+                editEntry(ncrNumber);
+            };
+
+            const closeButton = document.createElement('button');
+            closeButton.classList.add('notif-button-close');
+            closeButton.title = "Close Notification";
+            closeButton.innerHTML = `<svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="21" height="21" fill="none" viewBox="0 0 24 24">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M6 18 17.94 6M18 18 6.06 6"/>
+            </svg>`
+
+            closeButton.onclick = (e) => {
+                e.preventDefault(); // Prevent default action
+                e.stopPropagation(); // Prevent click from propagating to parent elements
+
+                // Logic to close the notification
+                closedNotifications.push(ncrNumber); // Store the closed notification
+                localStorage.setItem('closedNotifications', JSON.stringify(closedNotifications)); // Save to localStorage
+                notificationItem.remove(); // Remove this notification item
+                updateNotificationCount(); // Update the notification count
+                // Dropdown remains open
+            };
+
+            notificationItem.appendChild(link);
+            notificationItem.appendChild(closeButton);
+            dropdown.appendChild(notificationItem);
+        });
+
+        // Add a style to make the dropdown scrollable
+        dropdown.style.overflowY = 'auto';
+        dropdown.style.maxHeight = '200px'; // Set the height limit for scrolling
     }
-    dropdown.innerHTML = ""; // Clear existing notifications
-
-    const oldNotifications = getOldNotifications();
-    const closedNotifications = JSON.parse(localStorage.getItem('closedNotifications')) || [];
-
-    // Filter out closed notifications
-    const visibleNotifications = oldNotifications.filter(ncr => !closedNotifications.includes(ncr));
-
-    const countLabel = document.getElementById('spnCount');
-    if (countLabel) {
-        countLabel.textContent = `${visibleNotifications.length}`; // Update count label
-    } else {
-        console.warn('Count label element not found.');
-    }
-
-    if (visibleNotifications.length === 0) {
-        dropdown.innerHTML = "<span>No urgent notifications</span>";
-        countLabel.style.opacity = "0%";
-        return;
-    }
-
-    dropdownDesc.innerHTML = "<p>Pending NCRs for Over 7 Days</p>"; // Text explaining urgency
-
-    // Limit the number of notifications shown in the dropdown
-    const notificationsToShow = visibleNotifications; // Show all notifications in the dropdown
-
-    notificationsToShow.forEach(ncrNumber => {
-        const notificationItem = document.createElement('div');
-        notificationItem.classList = 'notif-item'
-
-        const link = document.createElement('a');
-        link.textContent = `NCR Number: ${ncrNumber}`;
-        link.href = `create.html?ncr=${ncrNumber}`;
-        link.style.cursor = 'pointer'; // Change cursor to pointer
-        link.onclick = (e) => {
-            e.preventDefault();
-            editEntry(ncrNumber);
-        };
-
-        const closeButton = document.createElement('button');
-        closeButton.classList.add('notif-button-close');
-        closeButton.title = "Close Notification";
-        closeButton.innerHTML = `<svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="21" height="21" fill="none" viewBox="0 0 24 24">
-            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M6 18 17.94 6M18 18 6.06 6"/>
-        </svg>`
-
-        closeButton.onclick = (e) => {
-            e.preventDefault(); // Prevent default action
-            e.stopPropagation(); // Prevent click from propagating to parent elements
-
-            // Logic to close the notification
-            closedNotifications.push(ncrNumber); // Store the closed notification
-            localStorage.setItem('closedNotifications', JSON.stringify(closedNotifications)); // Save to localStorage
-            notificationItem.remove(); // Remove this notification item
-            updateNotificationCount(); // Update the notification count
-            // Dropdown remains open
-        };
-
-        notificationItem.appendChild(link);
-        notificationItem.appendChild(closeButton);
-        dropdown.appendChild(notificationItem);
-    });
-
-    // Add a style to make the dropdown scrollable
-    dropdown.style.overflowY = 'auto';
-    dropdown.style.maxHeight = '200px'; // Set the height limit for scrolling
 }
 
 // Function to update notification count
@@ -118,13 +283,41 @@ function updateNotificationCount() {
 }
 
 // Supporting Function - Get Old Notifications
-function getOldNotifications() {
-    const today = new Date();
-    const fourteenDaysAgo = new Date();
-    fourteenDaysAgo.setDate(today.getDate() - 7);
+function getOldNotifications(userRole) {
 
-    return quality.filter(item => new Date(item.dateCreated) < fourteenDaysAgo && item.ncrStatus === "Quality")
+    if (userRole == "Quality") {
+
+        if (!quality.length) {
+            console.warn('No quality data available to display.');
+            return;
+        }
+        const today = new Date();
+        const fourteenDaysAgo = new Date();
+        fourteenDaysAgo.setDate(today.getDate() - 7);
+
+        return quality.filter(item => new Date(item.dateCreated) < fourteenDaysAgo && item.ncrStatus === "Quality")
+            .map(item => item.ncrNumber);
+
+    }else if (userRole == "Engineer") {
+
+        if (!engineering.length) {
+            console.warn('No engineering data available to display.');
+            return;
+        }
+        return engineering.filter(item => item.ncrStatus === "Engineering")
         .map(item => item.ncrNumber);
+
+    }else if (userRole == "Purchasing") {
+
+        if (!purchasing.length) {
+            console.warn('No purchasing data available to display.');
+            return;
+        }
+        return purchasing.filter(item => item.ncrStatus === "Purchasing")
+        .map(item => item.ncrNumber);
+
+    }
+
 }
 
 
@@ -1956,7 +2149,7 @@ function compressImage(img, width, height) {
 // ==========================================
 // Engineer Populate Notifications - For all pages
 // ==========================================
-function populateNotificationsEng() {
+/*function populateNotificationsEng() {
     const dropdown = document.getElementById('notifList');
     const dropdownDesc = document.getElementById('notifDesc');
     if (!dropdown) {
@@ -2045,7 +2238,7 @@ function getOldNotificationsEng() {
     return engineering.filter(item => item.ncrStatus === "Engineering")
         .map(item => item.ncrNumber);
 
-}
+}*/
 
 
 
