@@ -261,7 +261,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
             else if (userRole == "Engineer") {
             }
-        } else if (pageName === 'faqs.html') {
+       
             populateNotifications(userRole);
             if (userRole == "Quality") {
                 //NavBar();
@@ -269,6 +269,9 @@ document.addEventListener('DOMContentLoaded', async () => {
             else if (userRole == "Engineer") {
             }
 
+        } else if (pageName === 'metrics.html'){
+            populateNotifications(userRole);
+            Metrics();
         }
 
         // Set up the supplierName dropdown
