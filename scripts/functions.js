@@ -561,8 +561,8 @@ function recentNCRs(userRole) {
                          </tr>`;
             tableBody.innerHTML += newRow;
         });
-
     }
+
 
 }
 
@@ -662,8 +662,21 @@ function detailsEntry(ncrNumber) {
 
 //working with
 function editEntryEng(ncrNumber) {
-    window.location.href = `create.html?ncr=${ncrNumber}`; // Redirect to edit page
-    console.log(ncr);
+
+        window.location.href = `create.html?ncr=${ncrNumber}`; // Redirect to edit page
+}
+
+function editEntryPch(ncrNumber) {
+
+        window.location.href = `create.html?ncr=${ncrNumber}`; // Redirect to edit page
+
+}
+
+function downloadEntry(ncrNumber) {
+
+    alert(`NCR Number: ${ncrNumber} has been downloaded.`);
+
+
 }
 
 //FUNCTION USED ON AN EDIT PAGE - HAPPENS AT THE CREATE PAGE
@@ -857,18 +870,24 @@ function performSearch() {
                                         </svg>
                                         Details
                                     </button>
-                                    <button onclick="handleEditEntry('${result.ncrNumber}', '${result.ncrStatus}')">
+                                    ${result.ncrStatus !== 'Closed' && result.ncrStatus !== 'Purchasing' && result.ncrStatus !== 'Engineering' ? `<button onclick="handleEditEntry('${result.ncrNumber}', '${result.ncrStatus}')">
                                         <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"/>
                                         </svg>
                                         Edit
-                                    </button>
+                                    </button>` : ''}
+                                    ${result.ncrStatus === 'Closed' ? `<button onclick="downloadEntry('${result.ncrNumber}')">
+                                    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                        <path stroke="currentColor" stroke-width="2" d="M5 12l7 7 7-7M12 19V5"/>
+                                    </svg>
+                                    Download PDF
+                                </button>` : ''}
                                 </div>
                             </td>
                         </tr>`;
         tableBody.innerHTML += newRow; // Add new row to table
     });
-
+    
     // Setup pagination
     setupPagination(totalResults, performSearch, "viewTableContent", "pagination");
 
@@ -2856,13 +2875,15 @@ function performSearchEng() {
     tableBody.innerHTML = ''; // Clear previous results
 
     paginatedResults.forEach(result => {
+        const ncrStatusEng = quality.find(q => q.ncrNumber === result.ncrNumber)?.ncrStatus || '';
+
         const newRow = `<tr>
                             <td>${result.ncrNumber}</td>
                              <td>${((quality.find(q => q.ncrNumber === result.ncrNumber)?.supplierName)) || ''}</td>
                              <td>
                                 ${formatDate(ncrLog.find(q => q.ncrNumber === result.ncrNumber).dateCreated)}
                             </td>
-                            <td>${((quality.find(q => q.ncrNumber === result.ncrNumber)?.ncrStatus)) || ''}</td>
+                            <td>${ncrStatusEng}</td>
                             <td>
                                 <div>
                                     <button onclick="detailsEntry('${result.ncrNumber}')">
@@ -2872,12 +2893,18 @@ function performSearchEng() {
                                         </svg>
                                         Details
                                     </button>
-                                    <button onclick="editEntryEng('${result.ncrNumber}')">
+                                    ${ncrStatusEng !== 'Closed' && ncrStatusEng !== 'Purchasing' && ncrStatusEng !== 'Quality' ? `<button onclick="editEntryEng('${result.ncrNumber}')">
                                         <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"/>
                                         </svg>
                                         Edit
-                                    </button>
+                                    </button>` : ''}
+                                    ${ncrStatusEng === 'Closed' ? `<button onclick="downloadEntry('${result.ncrNumber}')">
+                                    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                        <path stroke="currentColor" stroke-width="2" d="M5 12l7 7 7-7M12 19V5"/>
+                                    </svg>
+                                    Download PDF
+                                </button>` : ''}
                                 </div>
                             </td>
                         </tr>`;
@@ -3726,13 +3753,15 @@ function performSearchPch() {
     tableBody.innerHTML = ''; // Clear previous results
 
     paginatedResults.forEach(result => {
+        const ncrStatusPch = quality.find(q => q.ncrNumber === result.ncrNumber)?.ncrStatus || '';
+
         const newRow = `<tr>
                             <td>${result.ncrNumber}</td>
                              <td>${((quality.find(q => q.ncrNumber === result.ncrNumber)?.supplierName)) || ''}</td>
                              <td>
                                 ${formatDate(ncrLog.find(q => q.ncrNumber === result.ncrNumber).dateCreated)}
                             </td>
-                            <td>${((quality.find(q => q.ncrNumber === result.ncrNumber)?.ncrStatus)) || ''}</td>
+                            <td>${ncrStatusPch}</td>
                             <td>
                                 <div>
                                     <button onclick="detailsEntry('${result.ncrNumber}')">
@@ -3742,12 +3771,18 @@ function performSearchPch() {
                                         </svg>
                                         Details
                                     </button>
-                                    <button onclick="editEntryEng('${result.ncrNumber}')">
+                                    ${ncrStatusPch !== 'Closed' && ncrStatusPch !== 'Quality' && ncrStatusPch !== 'Engineering' ? `<button onclick="editEntryPch('${result.ncrNumber}', '${result.ncrStatus}')">
                                         <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"/>
                                         </svg>
                                         Edit
-                                    </button>
+                                    </button>` : ''}
+                                    ${ncrStatusPch === 'Closed' ? `<button onclick="downloadEntry('${result.ncrNumber}')">
+                                    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                        <path stroke="currentColor" stroke-width="2" d="M5 12l7 7 7-7M12 19V5"/>
+                                    </svg>
+                                    Download PDF
+                                </button>` : ''}
                                 </div>
                             </td>
                         </tr>`;
