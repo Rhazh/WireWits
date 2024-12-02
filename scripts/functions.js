@@ -3207,7 +3207,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             // Set default positioning
             tooltip.style.position = "fixed";
-            tooltip.style.top = `${iconRect.bottom + 8}px`;
+            tooltip.style.top = `${iconRect.bottom + 2}px`;
             tooltip.style.minWidth = "150px"; // Minimum width
             tooltip.style.maxWidth = "300px"; // Maximum width
 

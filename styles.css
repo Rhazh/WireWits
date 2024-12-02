@@ -928,6 +928,7 @@ table tbody tr:hover {
 }
 
 .info-desc {
+    margin: 0;
     position: fixed;
     background-color: #666;
     color: #fafafa;
@@ -936,23 +937,12 @@ table tbody tr:hover {
     width: 400px;
     white-space: normal;
     text-align: left;
-    font-size: 14px;
+    font-size: 16px;
     z-index: 9999;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     visibility: hidden;
     opacity: 0;
     transition: opacity 0.3s ease, visibility 0.3s ease;
-}
-
-.info-desc:before {
-    content: '';
-    position: absolute;
-    top: -5px;
-    right: 10px;
-    transform: translateX(50%);
-    border-width: 5px;
-    border-style: solid;
-    border-color: transparent transparent #666 transparent;
 }
 
 .info-icon:hover + .info-desc {
