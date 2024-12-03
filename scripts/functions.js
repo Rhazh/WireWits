@@ -77,6 +77,7 @@ function populateNotifications(userRole) {
         notificationsToShow.forEach(ncrNumber => {
             const notificationItem = document.createElement('div');
             notificationItem.classList = 'notif-item'
+            notificationItem.title = "Click to View NCR";
 
             const link = document.createElement('a');
             link.textContent = `NCR Number: ${ncrNumber}`;
@@ -440,28 +441,30 @@ function recentNCRs(userRole) {
         recentN.forEach(result => {
             //const editButtonDisabled = result.ncrStatus !== "Quality" ? "disabled" : "";
             const newRow = `<tr>
-                                 <td>${result.ncrNumber}</td>
-                                 <td>${result.supplierName}</td>
-                                 <td>${formatDate(result.dateCreated)}</td>
-                                 <td>${result.ncrStatus}</td>
-                                 <td>
-                                     <div>
-                                        <button onclick="detailsEntry('${result.ncrNumber}')">
-                                            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                                <path stroke="currentColor" stroke-width="2" d="M21 12c0 1.2-4.03 6-9 6s-9-4.8-9-6c0-1.2 4.03-6 9-6s9 4.8 9 6Z"/>
-                                                <path stroke="currentColor" stroke-width="2" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
-                                            </svg>
-                                            Details
-                                        </button>
-                                        <button onclick="handleEditEntry('${result.ncrNumber}', '${result.ncrStatus}')">
-                                            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"/>
-                                            </svg>
-                                            Edit
-                                        </button>
-                                     </div>
-                                 </td>
-                             </tr>`;
+            <td title="NCR number - ${result.ncrNumber}">${result.ncrNumber}</td>
+            <td title="Supplier - ${result.supplierName}">${result.supplierName}</td>
+            <td title="Date Created - ${formatDate(result.dateCreated)}">${formatDate(result.dateCreated)}</td>
+            <td title="Status - ${result.ncrStatus}">${result.ncrStatus}</td>
+            <td>
+                <div>
+                   <button title="View Details for ${result.ncrNumber}" onclick="detailsEntry('${result.ncrNumber}')">
+                       <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                           <title>Details Icon</title>
+                           <path stroke="currentColor" stroke-width="2" d="M21 12c0 1.2-4.03 6-9 6s-9-4.8-9-6c0-1.2 4.03-6 9-6s9 4.8 9 6Z"/>
+                           <path stroke="currentColor" stroke-width="2" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
+                       </svg>
+                       Details
+                   </button>
+                   <button title="Edit ${result.ncrNumber}" onclick="handleEditEntry('${result.ncrNumber}', '${result.ncrStatus}')">
+                       <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                           <title>Details Icon</title>
+                           <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"/>
+                       </svg>
+                       Edit
+                   </button>
+                </div>
+            </td>
+        </tr>`;
             tableBody.innerHTML += newRow;
         });
     }
@@ -629,6 +632,9 @@ function populateDetailsPage(ncrNumber) {
             document.getElementById('completionToggle1').style.display = 'grid';
         }
 
+
+
+
         // Disable edit button if status is not "Quality"
         const editButton = document.getElementById('editButton'); // Assuming you have an edit button with this ID
 
@@ -713,7 +719,7 @@ function populateEditPage(ncrNumber) {
         uploadedFiles.length = 0; // Clear current files (if any)
         if (entry.documentFiles && entry.documentFiles.length > 0) {
             entry.documentFiles.forEach(file => {
-                const fileObject = { fileName: file.fileName, thumbnail: file.thumbnail };
+                const fileObject = { file, thumbnail: file.thumbnail };
                 uploadedFiles.push(fileObject);
                 displayThumbnail(fileObject);
             });
@@ -2072,85 +2078,26 @@ function displayThumbnail(fileObject) {
     const fileItem = document.createElement('div');
     fileItem.classList.add('file-item');
 
-    const thumbImgContainer = document.createElement('div');
-    thumbImgContainer.classList.add('file-img-container');
-
-    const imageLink = document.createElement('a');
-    imageLink.href = "#";;
-    imageLink.target = '_blank';
-    
     const thumbnailImage = document.createElement('img');
     thumbnailImage.src = fileObject.thumbnail;
     thumbnailImage.classList.add('thumbnail');
 
-    thumbnailImage.title = "Click here to expand the image";
-    thumbnailImage.setAttribute('aria-label', "Click here to expand the image");
-
     const deleteButton = document.createElement('button');
     deleteButton.textContent = 'Delete';
-    deleteButton.classList.add('file-btn-delete');
-    deleteButton.title = "Click to delete this item";
-
-    const imageName = document.createElement('p');
-    const maxLength = 15;
-    const truncatedName = fileObject.fileName.length > maxLength ? 
-                          fileObject.fileName.substring(0, maxLength) + '...jpg' : 
-                          fileObject.fileName;
-    imageName.textContent = truncatedName;
+    deleteButton.classList.add('delete-button');
 
     // Delete function removes the file item from both array and display
     deleteButton.addEventListener('click', () => {
         deleteFile(fileObject, fileItem);
     });
 
-    imageLink.addEventListener('click', function () {
-        // Open a new window or tab
-        const newWindow = window.open("", "_blank");
-
-        // Write the HTML structure into the new window
-        newWindow.document.write(`
-            <!DOCTYPE html>
-            <html lang="en">
-            <head>
-                <meta charset="UTF-8">
-                <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <title>${fileObject.fileName}</title>
-                <style>
-                    body {
-                        margin: 0;
-                        height: 100vh;
-                        background-color: black;
-                        display: flex;
-                        justify-content: center;
-                        align-items: center;
-                        overflow: hidden;
-                    }
-                    img {
-                        max-width: 90%;
-                        max-height: 90%;
-                        object-fit: contain;
-                    }
-                </style>
-            </head>
-            <body>
-                <img src="${fileObject.thumbnail}" alt="${fileObject.fileName}" style="max-width: 100%; height: auto;">
-            </body>
-            </html>
-        `);
-        newWindow.document.close(); // Close the document stream to complete the rendering
-    });
-
     // Append elements to the file item
-    fileItem.appendChild(imageName);
-    imageLink.appendChild(thumbnailImage);
-    thumbImgContainer.appendChild(imageLink);
-    fileItem.appendChild(thumbImgContainer);
+    fileItem.appendChild(thumbnailImage);
     fileItem.appendChild(deleteButton);
 
     // Append file item to thumbnails container
     thumbnailsContainer.appendChild(fileItem);
-    document.getElementById('fileEmptyDesc').innerHTML = "";
-    document.getElementById('fileEmptyDesc').classList.remove('file-empty-desc');
+    document.getElementById('fileNames').innerHTML = "";
 }
 
 // Function to delete an uploaded file
@@ -2161,8 +2108,7 @@ function deleteFile(fileObject, fileItem) {
     // Remove the file item from the display
     fileItem.remove();
     if (uploadedFiles.length == 0) {
-        document.getElementById('fileEmptyDesc').innerHTML = "No files uploaded yet!";
-        document.getElementById('fileEmptyDesc').classList.add('file-empty-desc');
+        document.getElementById('fileNames').innerHTML = "No files uploaded yet!";
     }
 }
 
@@ -2196,9 +2142,9 @@ document.getElementById('attachedDocument').addEventListener('change', function 
             const img = new Image();
             img.src = imageData;
             img.onload = () => {
-                const thumbnailData = compressImage(img, 300, 300);
+                const thumbnailData = compressImage(img, 200, 200);
 
-                const fileObject = { fileName: file.name, thumbnail: thumbnailData };
+                const fileObject = { file, thumbnail: thumbnailData };
                 uploadedFiles.push(fileObject);
 
                 // Display the new thumbnail
@@ -2214,22 +2160,14 @@ document.getElementById('attachedDocument').addEventListener('change', function 
 });
 
 // Function to compress the image and return thumbnail data
-function compressImage(img, maxWidth, maxHeight) {
+function compressImage(img, width, height) {
     const canvas = document.createElement('canvas');
     const ctx = canvas.getContext('2d');
-
-    const aspectRatio = img.width / img.height;
-
-    if (img.width > img.height) {
-        canvas.width = maxWidth;
-        canvas.height = maxWidth / aspectRatio;
-    } else {
-        canvas.height = maxHeight;
-        canvas.width = maxHeight * aspectRatio;
-    }
+    canvas.width = width;
+    canvas.height = height;
 
     // Draw the image scaled to fit the thumbnail dimensions
-    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+    ctx.drawImage(img, 0, 0, width, height);
 
     // Return the thumbnail data URL (compressed as JPEG, adjust quality as needed)
     return canvas.toDataURL('image/jpeg', 0.6); // 0.7 is a good balance of quality and size
