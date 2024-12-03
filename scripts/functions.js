@@ -858,15 +858,15 @@ function performSearch() {
         //resultsCountMessage.style.display = 'inline';
         //return;
 
-        showToast("Start date must be earlier than or equal to end date.")
-        location.reload();
+        showToast("Start date must be earlier than or equal to end date.", "error")
+        //location.reload();
         return;
     }
     if (ncrNumber && /[a-zA-Z]/.test(ncrNumber)) {
         //resultsCountMessage.textContent = 'NCR Number must not contain alphabetic characters.';
         //resultsCountMessage.style.display = 'inline';
 
-        showToast("NCR Number must not contain alphabetic characters.", "warning")
+        showToast("NCR Number must not contain alphabetic characters.", "error")
         return;
     } /*else {
         resultsCountMessage.style.display = 'none';
@@ -1597,6 +1597,16 @@ function performSearchReports() {
         filteredReports = filteredReports.filter(report => new Date(report.dateCreated) <= toDate);
     }
 
+    // Check if NCR number contains any alphabetic characters
+    if (ncrNumber && /[a-zA-Z]/.test(ncrNumber)) {
+        //noResultsMessage.textContent = 'NCR Number must not contain alphabetic characters.';
+        //noResultsMessage.style.display = 'inline';
+
+        showToast("NCR Number must not contain alphabetic characters.", "error")
+        //location.reload();
+        return;
+    }
+
     // Sort filtered reports by NCRNumber in descending order
     filteredReports.sort((a, b) => {
         const [yearA, seqA] = a.ncrNumber.split('-').map(Number);
@@ -1650,16 +1660,8 @@ function performSearchReports() {
 
     // Show or hide "no results" message
     //const noResultsMessage = document.getElementById('noResultsMessage');
-    // Check if NCR number contains any alphabetic characters
-    if (ncrNumber && /[a-zA-Z]/.test(ncrNumber)) {
-        //noResultsMessage.textContent = 'NCR Number must not contain alphabetic characters.';
-        //noResultsMessage.style.display = 'inline';
-
-        showToast("NCR Number must not contain alphabetic characters.")
-        location.reload();
-        return;
-    }
-    else if (filteredReports.length === 0) {
+    
+    if (filteredReports.length === 0) {
         //noResultsMessage.textContent = 'No results found.';
         //noResultsMessage.style.display = 'block';
 
@@ -3025,16 +3027,16 @@ function performSearchEng() {
         //resultsCountMessage.style.display = 'inline';
         //return;
 
-        showToast("Start date must be earlier than or equal to end date.")
-        location.reload();
+        showToast("Start date must be earlier than or equal to end date.", "error")
+        //();
         return;
     }
     if (ncrNumber && /[a-zA-Z]/.test(ncrNumber)) {
         //resultsCountMessage.textContent = 'NCR Number must not contain alphabetic characters.';
         //resultsCountMessage.style.display = 'inline';
 
-        showToast("NCR Number must not contain alphabetic characters.")
-        location.reload();
+        showToast("NCR Number must not contain alphabetic characters.", "error")
+        //location.reload();
         return;
     } /*else {
         resultsCountMessage.style.display = 'none';
@@ -3906,16 +3908,16 @@ function performSearchPch() {
         //resultsCountMessage.style.display = 'inline';
         //return;
 
-        showToast("Start date must be earlier than or equal to end date.")
-        location.reload();
+        showToast("Start date must be earlier than or equal to end date.", "error")
+        //location.reload();
         return;
     }
     if (ncrNumber && /[a-zA-Z]/.test(ncrNumber)) {
         //resultsCountMessage.textContent = 'NCR Number must not contain alphabetic characters.';
         //resultsCountMessage.style.display = 'inline';
 
-        showToast("NCR Number must not contain alphabetic characters.")
-        location.reload();
+        showToast("NCR Number must not contain alphabetic characters.", "error")
+        //location.reload();
         return;
     } /*else {
         resultsCountMessage.style.display = 'none';
