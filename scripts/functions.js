@@ -3572,9 +3572,8 @@ function populatePchEditPage(ncrNumber) {
             document.getElementById('carNumber').value = entry.carNumber;
         } else {
             document.getElementById('carNumber').value = '';
-            // Array.from(document.getElementsByClassName('drawingUpdateToggle2')).forEach(element => {
-            //     element.style.display = 'none';
-            // });
+            
+            document.getElementById('carRaisedToggle').style.display = 'none';
         }
 
         if (entry.followUp === "Yes") {
@@ -3584,9 +3583,7 @@ function populatePchEditPage(ncrNumber) {
             document.getElementById('followUpType').value = '';
             document.getElementById('followUpDate').value = '';
 
-            // Array.from(document.getElementsByClassName('drawingUpdateToggle2')).forEach(element => {
-            //     element.style.display = 'none';
-            // });
+            document.getElementById('followUpToggle').style.display = 'none';
         }
     }
     //console.log(entry);
@@ -4303,4 +4300,59 @@ function Metrics() {
     });
 }
 
+
+//================================================================================================================
+//EVENT LISTENER FOR YES/NO TO CAR RAISED AND FOLLOW-UP
+//
+//=================================================================================================================
+let prevCarNumber = "";
+let prevFollowUpType = "";
+let prevFollowUpDate = "";
+
+// Event listener for carRaised
+document.getElementById('carRaised')?.addEventListener('change', (event) => {
+    const carRaised = event.target.value;
+
+    if (carRaised === "No") {
+        // Store the current values before clearing them
+        prevCarNumber = document.getElementById('carNumber').value;
+
+        document.getElementById('carRaisedToggle').style.display = 'none';
+
+        // Clear the fields
+        document.getElementById('carNumber').value = "";
+
+    } else if (carRaised === "Yes") {
+
+        document.getElementById('carRaisedToggle').style.display = 'grid';
+        // Restore previous values if "Yes" is selected
+        document.getElementById('carNumber').value = prevCarNumber;
+    }
+});
+
+// Event listener for followupType
+document.getElementById('followUp')?.addEventListener('change', (event) => {
+    const followUp = event.target.value;
+
+    if (followUp === "No") {
+        // Store the current values before clearing them
+        prevFollowUpType = document.getElementById('followUpType').value;
+        const prevFollowUpDateRaw = document.getElementById('followUpDate').value;
+        prevFollowUpDate = prevFollowUpDateRaw ? correctDate(prevFollowUpDateRaw) : "";
+
+        document.getElementById('followUpToggle').style.display = 'none';
+
+        // Clear the fields
+        document.getElementById('followUpType').value = "";
+        document.getElementById('followUpDate').value = "";
+    } else if (followUp === "Yes") {
+
+        document.getElementById('followUpToggle').style.display = 'grid';
+
+
+        // Restore previous values if "Yes" is selected
+        document.getElementById('followUpType').value = prevFollowUpType;
+        document.getElementById('followUpDate').value = setDate(prevFollowUpDate);
+    }
+});
 
