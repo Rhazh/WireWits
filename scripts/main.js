@@ -497,6 +497,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             const link = document.createElement('a');
             link.href = page;
             link.textContent = breadcrumbMap[page];
+            link.title=breadcrumbMap[page];
             listItem.appendChild(link);
         }
 
