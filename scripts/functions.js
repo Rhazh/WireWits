@@ -1503,13 +1503,9 @@ function submitNCR() {
             // Send email to Engineers department from Marcus Allen
             sendEmailToDepartment('Engineer', ncrDetails);
 
-<<<<<<< Updated upstream
+
             showToast('NCR has been successfully submitted.');
 
-=======
-            alert('NCR has been successfully submitted.');
-            
->>>>>>> Stashed changes
             // Redirect or perform other actions as needed
             //window.history.back();
             window.location.href = "index.html"; // Redirect to edit page
@@ -4022,7 +4018,6 @@ function performSearchPch() {
 
 }
 
-<<<<<<< Updated upstream
 //===================================================================================================
 // Toast Messages - apvarun.github.io
 //==================================================================================================
@@ -4040,7 +4035,7 @@ function showToast(message, type = 'info', duration = 7000) {
                          "#0056b3",
     }).showToast();
 }
-=======
+
 //================================================================================================================
 //EMAIL
 //
@@ -4106,8 +4101,6 @@ async function sendEmailToDepartment(departmentName, ncrDetails) {
 
 
 
-
->>>>>>> Stashed changes
 
 // showToast('This is an alert message!', 'info');
 // options: success / error / warning / info (default)
