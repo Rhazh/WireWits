@@ -8,6 +8,17 @@ let supplier = [];
 let uploadedFiles = [];
 
 document.addEventListener('DOMContentLoaded', async () => {
+
+    //Email checking
+    const mailtoLink = localStorage.getItem('pendingMailto');
+    if (mailtoLink) {
+        // Open the mail client
+        window.location.href = mailtoLink;
+
+        // Clear the stored mailto link
+        localStorage.removeItem('pendingMailto');
+    }
+    
     // Check if the user is logged in
     const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
 
@@ -515,5 +526,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Event listener for profile picture upload
     // document.getElementById('imageUpload').addEventListener('change', (e) => handleProfilePictureUpload(e, loggedInUser));
+    
+
 
 });

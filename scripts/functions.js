@@ -1275,6 +1275,23 @@ function submitNCR() {
     const itemDescription = document.getElementById('itemDescription')?.value || '';
     const defectDescription = document.getElementById('defectDescription')?.value || '';
 
+    //Email Details
+    const ncrDetails = {
+        ncrNumber: ncrNumber,
+        changedBy: changedBy,
+        date: date,
+        applicableProcess: applicableProcess,
+        supplierName: supplierName,
+        poNumber: poNumber,
+        soNumber: soNumber,
+        quantityReceived: quantityReceived,
+        quantityDefect: quantityDefect,
+        engNeeded: engNeeded,
+        itemConform: itemConform,
+        itemDescription: itemDescription,
+        defectDescription: defectDescription
+    };
+
     // Array to store required field validation info
     const fieldsToValidate = [
         { id: 'poNumber', value: poNumber, message: 'Prod. Number is required.' },
@@ -1483,14 +1500,24 @@ function submitNCR() {
                 history.push(historyEntry);
                 localStorage.setItem('history', JSON.stringify(history));
             }
+            // Send email to Engineers department from Marcus Allen
+            sendEmailToDepartment('Engineer', ncrDetails);
 
+<<<<<<< Updated upstream
             showToast('NCR has been successfully submitted.');
 
+=======
+            alert('NCR has been successfully submitted.');
+            
+>>>>>>> Stashed changes
             // Redirect or perform other actions as needed
             //window.history.back();
             window.location.href = "index.html"; // Redirect to edit page
+
+            
             /*ncrNumber = ncrNumber;
             populateDetailsPage(ncrNumber); */
+            
         }
 
     } else {
@@ -3995,6 +4022,7 @@ function performSearchPch() {
 
 }
 
+<<<<<<< Updated upstream
 //===================================================================================================
 // Toast Messages - apvarun.github.io
 //==================================================================================================
@@ -4012,6 +4040,74 @@ function showToast(message, type = 'info', duration = 7000) {
                          "#0056b3",
     }).showToast();
 }
+=======
+//================================================================================================================
+//EMAIL
+//
+//=================================================================================================================
+async function sendEmailToDepartment(departmentName, ncrDetails) {
+    try {
+        // Fetch user data from the JSON file or API endpoint
+        const response = await fetch('seed-data/login.json');
+        if (!response.ok) {
+            throw new Error(`Failed to fetch users: ${response.statusText}`);
+        }
+        const { users } = await response.json();
+
+        // Filter users by department
+        const departmentUsers = users.filter(user => user.Department_Name === departmentName);
+
+        // Extract email addresses
+        const emailAddresses = departmentUsers.map(user => user.email);
+
+        if (emailAddresses.length === 0) {
+            console.error(`No users found in the department: ${departmentName}`);
+            return;
+        }
+
+        // Validate NCR details
+        if (!ncrDetails.ncrNumber || !ncrDetails.changedBy || !ncrDetails.date) {
+            console.error("NCR details are incomplete.");
+            return;
+        }
+
+        // Construct the email subject and body
+        const subject = `NCR Submission: ${ncrDetails.ncrNumber}`;
+        const body = `
+            NCR Number: ${ncrDetails.ncrNumber}
+            Submitted By: ${ncrDetails.changedBy}
+            Submission Date: ${ncrDetails.date}
+            Applicable Process: ${ncrDetails.applicableProcess}
+            Supplier Name: ${ncrDetails.supplierName}
+            PO Number: ${ncrDetails.poNumber}
+            SO Number: ${ncrDetails.soNumber}
+            Quantity Received: ${ncrDetails.quantityReceived}
+            Quantity Defective: ${ncrDetails.quantityDefect}
+            Engineering Needed: ${ncrDetails.engNeeded}
+            Item Conform: ${ncrDetails.itemConform}
+            Item Description: ${ncrDetails.itemDescription}
+            Defect Description: ${ncrDetails.defectDescription}
+
+            Please review the details above and take necessary action.
+        `;
+
+        // Encode subject and body
+        const mailtoLink = `mailto:${emailAddresses.join(',')}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+        // Store the mailto link in localStorage
+        localStorage.setItem('pendingMailto', mailtoLink);
+
+        // Redirect to the index page
+        window.location.href = "index.html";
+    } catch (error) {
+        console.error("Error:", error.message);
+    }
+}
+
+
+
+
+>>>>>>> Stashed changes
 
 // showToast('This is an alert message!', 'info');
 // options: success / error / warning / info (default)
