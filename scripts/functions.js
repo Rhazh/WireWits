@@ -540,21 +540,23 @@ function recentNCRs(userRole) {
         recentN.forEach(result => {
             //const editButtonDisabled = result.ncrStatus !== "Quality" ? "disabled" : "";
             const newRow = `<tr>
-                             <td>${result.ncrNumber}</td>
-                             <td>${((quality.find(q => q.ncrNumber === result.ncrNumber)?.supplierName)) || ''}</td>
-                             <td>${formatDate(quality.find(q => q.ncrNumber === result.ncrNumber)?.dateCreated)}</td>
-                             <td>${result.ncrStatus}</td>
+                             <td title="NCR Number - ${result.ncrNumber}">${result.ncrNumber}</td>
+                             <td title="Supplier - ${((quality.find(q => q.ncrNumber === result.ncrNumber)?.supplierName)) || ''}">${((quality.find(q => q.ncrNumber === result.ncrNumber)?.supplierName)) || ''}</td>
+                             <td title="Date Created - ${formatDate(quality.find(q => q.ncrNumber === result.ncrNumber)?.dateCreated)}">${formatDate(quality.find(q => q.ncrNumber === result.ncrNumber)?.dateCreated)}</td>
+                             <td title="Status - ${result.ncrStatus}">${result.ncrStatus}</td>
                               <td>
                                 <div>
-                                    <button onclick="detailsEntry('${result.ncrNumber}')">
+                                    <button title="Details for ${result.ncrNumber}" onclick="detailsEntry('${result.ncrNumber}')">
                                         <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                            <title>Details Icon</title>
                                             <path stroke="currentColor" stroke-width="2" d="M21 12c0 1.2-4.03 6-9 6s-9-4.8-9-6c0-1.2 4.03-6 9-6s9 4.8 9 6Z"/>
                                             <path stroke="currentColor" stroke-width="2" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
                                         </svg>
                                         Details
                                     </button>
-                                    <button onclick="editEntryEng('${result.ncrNumber}')">
+                                    <button title="Edit ${result.ncrNumber}" onclick="editEntryEng('${result.ncrNumber}')">
                                         <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                            <title>Edit Icon</title>
                                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"/>
                                         </svg>
                                         Edit
@@ -920,24 +922,24 @@ function performSearch() {
                             <td title="Status - ${result.ncrStatus}">${result.ncrStatus}</td>
                             <td>
                                 <div>
-                                    <button onclick="detailsEntry('${result.ncrNumber}')">
+                                    <button title="Details for ${result.ncrNumber}" onclick="detailsEntry('${result.ncrNumber}')">
                                         <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                            <title>Details for ${result.ncrNumber}</title>
+                                            <title>Details Icon</title>
                                             <path stroke="currentColor" stroke-width="2" d="M21 12c0 1.2-4.03 6-9 6s-9-4.8-9-6c0-1.2 4.03-6 9-6s9 4.8 9 6Z"/>
                                             <path stroke="currentColor" stroke-width="2" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
                                         </svg>
                                         Details
                                     </button>
-                                    ${result.ncrStatus !== 'Closed' && result.ncrStatus !== 'Purchasing' && result.ncrStatus !== 'Engineering' ? `<button onclick="handleEditEntry('${result.ncrNumber}', '${result.ncrStatus}')">
+                                    ${result.ncrStatus !== 'Closed' && result.ncrStatus !== 'Purchasing' && result.ncrStatus !== 'Engineering' ? `<button title="Edit ${result.ncrNumber}" onclick="handleEditEntry('${result.ncrNumber}', '${result.ncrStatus}')">
                                         <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                            <title>Edit ${result.ncrNumber}</title>
+                                            <title>Edit Icon</title>
                                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"/>
                                         </svg>
                                         Edit
                                     </button>` : ''}
-                                    ${result.ncrStatus === 'Closed' ? `<button onclick="downloadEntry('${result.ncrNumber}')">
+                                    ${result.ncrStatus === 'Closed' ? `<button title="Download PDF for ${result.ncrNumber}" onclick="downloadEntry('${result.ncrNumber}')">
                                     <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                        <title>Download PDF for ${result.ncrNumber}</title>
+                                        <title>Download PDF Icon</title>
                                         <path stroke="currentColor" stroke-width="2" d="M5 12l7 7 7-7M12 19V5"/>
                                     </svg>
                                     Download PDF
@@ -1536,12 +1538,12 @@ function populateRecordsTable(data) {
     data.forEach(record => {
         const row = document.createElement('tr');
         row.innerHTML = `
-        <td>${record.ncrNumber}</td>    
-        <td>${formatDate(record.changedOn)}</td>
-            <td>${record.actionType}</td>
-            <td>${record.status}</td>
-            <td>${record.actionDescription}</td>
-            <td>${record.changedBy}</td>
+        <td title="NCR Number - ${record.ncrNumber}">${record.ncrNumber}</td>    
+        <td title="Changed On - ${formatDate(record.changedOn)}">${formatDate(record.changedOn)}</td>
+            <td title="Action Type - ${record.actionType}">${record.actionType}</td>
+            <td title="Status - ${record.status}">${record.status}</td>
+            <td title="Action Description - ${record.actionDescription}">${record.actionDescription}</td>
+            <td title="Changed By - ${record.changedBy}">${record.changedBy}</td>
         `;
         tableContent.appendChild(row);
     });
@@ -1640,15 +1642,16 @@ function performSearchReports() {
     paginatedData.forEach(report => {
         const row = document.createElement('tr');
         row.innerHTML = `
-            <td>${report.ncrNumber}</td>
-            <td>${report.createdBy}</td>
-            <td>${report.department}</td>
-            <td>${formatDate(report.dateCreated)}</td>
-            <td>${report.status}</td>
-            <td>${formatDate(report.lastUpdated)}</td>
+            <td title="NCR Number - ${report.ncrNumber}">${report.ncrNumber}</td>
+            <td title="Created By - ${report.createdBy}">${report.createdBy}</td>
+            <td title="Department - ${report.department}">${report.department}</td>
+            <td title="Date Created - ${formatDate(report.dateCreated)}">${formatDate(report.dateCreated)}</td>
+            <td title="Status - ${report.status}">${report.status}</td>
+            <td title="Last Updated - ${formatDate(report.lastUpdated)}">${formatDate(report.lastUpdated)}</td>
             <td>
-                <button onclick="viewReport('${report.ncrNumber}')">
+                <button title="View History for ${report.ncrNumber}" onclick="viewReport('${report.ncrNumber}')">
                     <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                        <title>View History for ${report.ncrNumber}</title>
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
                     </svg>
                     View History
@@ -3098,24 +3101,24 @@ function performSearchEng() {
                             <td title="Status - ${ncrStatusEng}">${ncrStatusEng}</td>
                             <td>
                                 <div>
-                                    <button onclick="detailsEntry('${result.ncrNumber}')">
+                                    <button title="Details for ${result.ncrNumber}" onclick="detailsEntry('${result.ncrNumber}')">
                                         <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                            <title>Details for ${result.ncrNumber}</title>
+                                            <title>Details Icon</title>
                                             <path stroke="currentColor" stroke-width="2" d="M21 12c0 1.2-4.03 6-9 6s-9-4.8-9-6c0-1.2 4.03-6 9-6s9 4.8 9 6Z"/>
                                             <path stroke="currentColor" stroke-width="2" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
                                         </svg>
                                         Details
                                     </button>
-                                    ${ncrStatusEng !== 'Closed' && ncrStatusEng !== 'Purchasing' && ncrStatusEng !== 'Quality' ? `<button onclick="editEntryEng('${result.ncrNumber}')">
+                                    ${ncrStatusEng !== 'Closed' && ncrStatusEng !== 'Purchasing' && ncrStatusEng !== 'Quality' ? `<button title="Edit ${result.ncrNumber}" onclick="editEntryEng('${result.ncrNumber}')">
                                         <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                            <title>Edit ${result.ncrNumber}</title>
+                                            <title>Edit Icon</title>
                                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"/>
                                         </svg>
                                         Edit
                                     </button>` : ''}
-                                    ${ncrStatusEng === 'Closed' ? `<button onclick="downloadEntry('${result.ncrNumber}')">
+                                    ${ncrStatusEng === 'Closed' ? `<button title="Download PDF for ${result.ncrNumber}" onclick="downloadEntry('${result.ncrNumber}')">
                                     <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                        <title>Download PDF for ${result.ncrNumber}</title>
+                                        <title>Download PDF Icon</title>
                                         <path stroke="currentColor" stroke-width="2" d="M5 12l7 7 7-7M12 19V5"/>
                                     </svg>
                                     Download PDF
@@ -3982,24 +3985,24 @@ function performSearchPch() {
                             <td title="Status - ${ncrStatusPch}">${ncrStatusPch}</td>
                             <td>
                                 <div>
-                                    <button onclick="detailsEntry('${result.ncrNumber}')">
+                                    <button title="Details for ${result.ncrNumber}" onclick="detailsEntry('${result.ncrNumber}')">
                                         <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                            <title>Details for ${result.ncrNumber}</title>
+                                            <title>Details Icon</title>
                                             <path stroke="currentColor" stroke-width="2" d="M21 12c0 1.2-4.03 6-9 6s-9-4.8-9-6c0-1.2 4.03-6 9-6s9 4.8 9 6Z"/>
                                             <path stroke="currentColor" stroke-width="2" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
                                         </svg>
                                         Details
                                     </button>
-                                    ${ncrStatusPch !== 'Closed' && ncrStatusPch !== 'Quality' && ncrStatusPch !== 'Engineering' ? `<button onclick="editEntryPch('${result.ncrNumber}', '${result.ncrStatus}')">
+                                    ${ncrStatusPch !== 'Closed' && ncrStatusPch !== 'Quality' && ncrStatusPch !== 'Engineering' ? `<button title="Edit ${result.ncrNumber}" onclick="editEntryPch('${result.ncrNumber}', '${result.ncrStatus}')">
                                         <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                            <title>Edit ${result.ncrNumber}</title>
+                                            <title>Edit Icon</title>
                                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"/>
                                         </svg>
                                         Edit
                                     </button>` : ''}
-                                    ${ncrStatusPch === 'Closed' ? `<button onclick="downloadEntry('${result.ncrNumber}')">
+                                    ${ncrStatusPch === 'Closed' ? `<button title="Download PDF for ${result.ncrNumber}" onclick="downloadEntry('${result.ncrNumber}')">
                                     <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                        <title>Download PDF for ${result.ncrNumber}</title>
+                                        <title>Download PDF Icon</title>
                                         <path stroke="currentColor" stroke-width="2" d="M5 12l7 7 7-7M12 19V5"/>
                                     </svg>
                                     Download PDF
@@ -4208,11 +4211,11 @@ function Metrics() {
         const defectPercentage = ((stats.totalDefect / stats.totalReceived) * 100).toFixed(2);
         tableRows.push(`
                         <tr>
-                            <td>${supplier}</td>
-                            <td>${stats.ncrCount}</td>
-                            <td>${stats.totalReceived}</td>
-                            <td>${stats.totalDefect}</td>
-                            <td>${defectPercentage}%</td>
+                            <td title="Supplier Name - ${supplier}">${supplier}</td>
+                            <td title="Number of NCRS - ${stats.ncrCount}">${stats.ncrCount}</td>
+                            <td title="Total quantity recieved - ${stats.totalReceived}">${stats.totalReceived}</td>
+                            <td title="Total quantity defective - ${stats.totalDefect}">${stats.totalDefect}</td>
+                            <td title="Defective percentage - ${defectPercentage}%">${defectPercentage}%</td>
                         </tr>
                     `);
     });

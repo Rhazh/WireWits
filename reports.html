@@ -32,17 +32,17 @@
                 <!--navigation menu-->
                 <nav aria-label="Main Navigation" id="mainNav">
                     <ul>
-                        <li id="homeLi"><a href="index.html"  id="home" aria-current="page" aria-label="Dashboard page" tabindex="0">Dashboard</a></li>
-                        <li id="createLi"><a href="create.html" id="create"  aria-label="Create new Non-Conformance Report" tabindex="0">Create <abbr title="Non-Conformance Report">NCR</abbr></a></li>
-                        <li id="viewLi"><a href="view.html" id="view" tabindex="0" aria-label="View existing Non-Conformance Reports" ><abbr title="Non-Conformance Reports">NCR</abbr> Log</a></li>
-                        <li id="reportsLi"><a href="reports.html" id="reports" class="nav-active" aria-label="View Reports" tabindex="0">Reports</a></li>
+                        <li id="homeLi"><a href="index.html"  id="home" title="Dashboard" aria-current="page" aria-label="Dashboard page" tabindex="0">Dashboard</a></li>
+                        <li id="createLi"><a href="create.html" id="create" title="Create NCR"  aria-label="Create new Non-Conformance Report" tabindex="0">Create <abbr title="Non-Conformance Report">NCR</abbr></a></li>
+                        <li id="viewLi"><a href="view.html" id="view" title="NCR Log" tabindex="0" aria-label="View existing Non-Conformance Reports" ><abbr title="Non-Conformance Reports">NCR</abbr> Log</a></li>
+                        <li id="reportsLi"><a href="reports.html" id="reports" title="Reports" class="nav-active" aria-label="View Reports" tabindex="0">Reports</a></li>
                     </ul>
                 </nav>
             </div>
             <div class="header-col-right">
                 <div class="header-col-right">
                     <div class="faqs-button-container">
-                        <a href="faqs.html" aria-label="Navigate to FAQs Page" tabindex="0">
+                        <a href="faqs.html" aria-label="Navigate to FAQs Page" title="Frequently asked questions" tabindex="0">
                             <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
                                 xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
                                 viewBox="0 0 24 24">
@@ -54,11 +54,13 @@
                     </div>
                     <div class="notification">
                         <div class="notif-button-container">
-                            <button id="btnNotification" title="Notifications" aria-haspopup="true" aria-expanded="false"
-                                tabindex="0" aria-controls="notifDisplay" onclick="toggleDropdown()">
+                            <button id="btnNotification" title="Notifications" aria-haspopup="true"
+                                aria-expanded="false" tabindex="0" aria-controls="notifDisplay"
+                                onclick="toggleDropdown()">
                                 <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="none"
                                     viewBox="0 0 24 24">
+                                    <desc>Image depiction for FAQ Page</desc>
                                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
                                         stroke-width="1.75"
                                         d="M12 5.365V3m0 2.365a5.338 5.338 0 0 1 5.133 5.368v1.8c0 2.386 1.867 2.982 1.867 4.175 0 .593 0 1.292-.538 1.292H5.538C5 18 5 17.301 5 16.708c0-1.193 1.867-1.789 1.867-4.175v-1.8A5.338 5.338 0 0 1 12 5.365ZM8.733 18c.094.852.306 1.54.944 2.112a3.48 3.48 0 0 0 4.646 0c.638-.572 1.236-1.26 1.33-2.112h-6.92Z" />
@@ -81,7 +83,7 @@
                 </div>
                 <div class="profile">
                     <div class="user-container">
-                        <button id="btnProfile" aria-label="Click to view profile" aria-haspopup="true" tabindex="0"
+                        <button id="btnProfile" aria-label="Click to view profile" title="Profile Menu" aria-haspopup="true" tabindex="0"
                             aria-expanded="false" aria-controls="profileDropdown" onclick="toggleProfileDropdown()">
                             <span class="user-avatar">
                                 <img id="profilePic" src="images/user-profile.png" alt="User profile image"
@@ -97,42 +99,23 @@
                         aria-labelledby="btnProfile">
                         <ul>
                             <li>
-                                <a href="profile_settings.html" aria-label="Navigate to Profile Page" tabindex="0">
+                                <a href="profile_settings.html" title="Account Settings" aria-label="Navigate to Profile Page" tabindex="0">
                                     <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
                                         xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
                                         viewBox="0 0 24 24">
+                                        <title>Account Settings Icon</title>
                                         <path stroke="currentColor" stroke-width="2"
                                             d="M7 17v1a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1a3 3 0 0 0-3-3h-4a3 3 0 0 0-3 3Zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
                                     </svg>
                                     Account Settings
                                 </a>
                             </li>
-                            <!-- <li>
-                                <a href="underdevelopment.html" aria-label="Navigate to Settings Page" tabindex="0">
-                                    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13v-2a1 1 0 0 0-1-1h-.757l-.707-1.707.535-.536a1 1 0 0 0 0-1.414l-1.414-1.414a1 1 0 0 0-1.414 0l-.536.535L14 4.757V4a1 1 0 0 0-1-1h-2a1 1 0 0 0-1 1v.757l-1.707.707-.536-.535a1 1 0 0 0-1.414 0L4.929 6.343a1 1 0 0 0 0 1.414l.536.536L4.757 10H4a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h.757l.707 1.707-.535.536a1 1 0 0 0 0 1.414l1.414 1.414a1 1 0 0 0 1.414 0l.536-.535 1.707.707V20a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-.757l1.707-.708.536.536a1 1 0 0 0 1.414 0l1.414-1.414a1 1 0 0 0 0-1.414l-.535-.536.707-1.707H20a1 1 0 0 0 1-1Z"/>
-                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/>
-                                    </svg>
-                                    Settings
-                                </a>
-                            </li> -->
-                            <!-- <li>
-                                <a href="faqs.html" aria-label="Navigate to FAQs Page" tabindex="0">
-                                    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
-                                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
-                                        viewBox="0 0 24 24">
-                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                            stroke-width="2"
-                                            d="M9.529 9.988a2.502 2.502 0 1 1 5 .191A2.441 2.441 0 0 1 12 12.582V14m-.01 3.008H12M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                                    </svg>
-                                    FAQs
-                                </a>
-                            </li> -->
                             <li>
-                                <a id="logout" href="login.html" aria-label="Navigate to Logout Page" tabindex="0">
+                                <a id="logout" href="login.html" title="Logout" aria-label="Navigate to Logout Page" tabindex="0">
                                     <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
                                         xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
                                         viewBox="0 0 24 24">
+                                        <title>Logout Icon</title>
                                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
                                             stroke-width="2"
                                             d="M20 12H8m12 0-4 4m4-4-4-4M9 4H7a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h2" />
@@ -146,10 +129,10 @@
             </div>
         </div>
         <div class="skip-links-div">
-            <a href="#search" class="skip-link" aria-label="Skip to Search NCR">Skip to Search NCR</a>
-            <a href="#resultsTable" class="skip-link" aria-label="Skip to NCR table ">Skip to NCR table</a>
-            <a href="#reportsTable" class="skip-link" aria-label="Skip to NCR Report ">Skip to NCR Report</a>
-            <a href="#footer" class="skip-link" aria-label="Skip to Footer">Skip to Footer</a>
+            <a href="#search" class="skip-link" aria-label="Skip to Search NCR" title="Skip to Search NCR">Skip to Search NCR</a>
+            <a href="#resultsTable" class="skip-link" aria-label="Skip to NCR table " title="Skip to NCR table ">Skip to NCR table</a>
+            <a href="#reportsTable" class="skip-link" aria-label="Skip to NCR Report " title="Skip to NCR Report ">Skip to NCR Report</a>
+            <a href="#footer" class="skip-link" aria-label="Skip to Footer" title="Skip to Footer">Skip to Footer</a>
         </div>
     </header>
     <main>
@@ -171,43 +154,43 @@
                         <div class="three-cols">
                             <div>
                                 <label for="ncrNumber" >Filter By NCR Number:</label>
-                                <input type="text" id="ncrNumber" aria-label="Filter by NCR Number" placeholder="2024-001">
+                                <input type="text" id="ncrNumber" aria-label="Filter by NCR Number" title="Filter by NCR Number" placeholder="2024-001">
                             </div>
                             <div>
                                 <label for="ncrStatus" >Filter by Status:</label>
                                 <!--performSearch may not work in this case so change-->
-                                <select id="ncrStatus" aria-label="Filter By Status">
-                                    <option value="All">All</option>
-                                    <option value="Open">Open</option>
-                                    <option value="Closed">Closed</option>
-                                    <option value="Archived">Archived</option>
+                                <select id="ncrStatus" aria-label="Filter By Status" title="Filter By Status">
+                                    <option value="All" title="All">All</option>
+                                    <option value="Open" title="Open">Open</option>
+                                    <option value="Closed" title="Closed">Closed</option>
+                                    <option value="Archived" title="Archived">Archived</option>
                                 </select>
                             </div>
                             <div>
                                 <label for="ncrDepartment">Department:</label>
-                                <select id="ncrDepartment" tabindex="0" aria-label="Filter by Department">
-                                    <option value="All">All</option>  <!-- Option to show all departments -->
-                                    <option value="Quality">Quality</option>
-                                    <option value="Engineering">Engineering</option>
-                                    <option value="Purchasing">Purchasing</option>
-                                    <option value="Closed">Closed</option>
+                                <select id="ncrDepartment" tabindex="0" aria-label="Filter by Department" title="Filter by Department">
+                                    <option value="All" title="All">All</option>  <!-- Option to show all departments -->
+                                    <option value="Quality" title="Quality">Quality</option>
+                                    <option value="Engineering" title="Engineering">Engineering</option>
+                                    <option value="Purchasing" title="Purchasing">Purchasing</option>
+                                    <option value="Closed" title="Closed">Closed</option>
                                 </select>
                             </div>  
                             <div>
                                 <label for="fromDate" >From:</label>
-                                <input type="date" aria-label="Filter From a Start Date" id="fromDate">
+                                <input type="date" aria-label="Filter From a Start Date" title="Filter From a Start Date" id="fromDate">
                             </div>
                             <div>
                                 <label for="toDate">To:</label>
-                                <input type="date" aria-label="Filter From an End Date" id="toDate">
+                                <input type="date" aria-label="Filter From an End Date" title="Filter From an End Date" id="toDate">
                             </div>
                         </div>
                         <div class="search-section-button">
                             <div>
-                                <button tabindex="11" id="searchButton" class="button-primary" type="button" onclick="performSearchReports()">Search</button>
+                                <button tabindex="11" id="searchButton" title="Search" class="button-primary" type="button" onclick="performSearchReports()">Search</button>
                             </div>
                             <div>
-                                <button tabindex="12" class="button-secondary" type="button" onclick="clearSearch()">Clear</button>
+                                <button tabindex="12" class="button-secondary" title="Clear" type="button" onclick="clearSearch()">Clear</button>
                             </div>
                             <div>
                                 <span id="noResultsMessage" class="search-error-message"></span>
@@ -225,13 +208,13 @@
                     <table id="resultsTable">
                         <thead>
                             <tr>
-                                <th>NCR Number</th>
-                                <th>Created By</th>
-                                <th>Department</th>
-                                <th>Date Created</th>
-                                <th>Status</th>
-                                <th>Last Updated</th>
-                                <th >Action</th>
+                                <th title="NCR Number">NCR Number</th>
+                                <th title="Created By">Created By</th>
+                                <th title="Department">Department</th>
+                                <th title="Date Created">Date Created</th>
+                                <th title="Status">Status</th>
+                                <th title="Last Updated">Last Updated</th>
+                                <th title="Action">Action</th>
                             </tr>
                         </thead>
                         <tbody id="tableContent">
@@ -249,6 +232,7 @@
                     <div class="modal-top">
                         <span class="btn-close" onclick="closeModal()">
                             <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="none" viewBox="0 0 24 24">
+                                <title>Close</title>
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18 17.94 6M18 18 6.06 6"/>
                             </svg>
                         </span>
@@ -259,12 +243,12 @@
                     <table>
                         <thead>
                             <tr>
-                                <th>NCR Number</th>
-                                <th>Date</th>
-                                <th>Action Type</th>
-                                <th>Status</th>
-                                <th>Action Description</th>
-                                <th>Changed By</th>
+                                <th title="NCR Number">NCR Number</th>
+                                <th title="Date">Date</th>
+                                <th title="Action Type">Action Type</th>
+                                <th title="Status">Status</th>
+                                <th title="Action Description">Action Description</th>
+                                <th title="Changed By">Changed By</th>
                             </tr>
                         </thead>
                         <tbody id="reportsTableContent">
@@ -279,7 +263,7 @@
         </div>
     </main>
     <footer id="footer">
-        <p><small>&copy; 2024 Copyright. QCision - WireWits. All rights reserved.</small></p>
+        <p title="Copyright Information"><small>&copy; 2024 Copyright. QCision - WireWits. All rights reserved.</small></p>
     </footer>
     <script src="scripts/functions.js"></script>
     <script src="scripts/main.js"></script>

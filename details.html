@@ -36,15 +36,15 @@
                 <!--navigation menu-->
                 <nav aria-label="Main Navigation" id="mainNav">
                     <ul>
-                        <li id="homeLi"><a href="index.html" id="home" aria-current="page" aria-label="Dashboard page"
+                        <li id="homeLi"><a href="index.html" id="home" title="Dashboard" aria-current="page" aria-label="Dashboard page"
                                 tabindex="0">Dashboard</a></li>
-                        <li id="createLi"><a href="create.html" id="create"
+                        <li id="createLi"><a href="create.html" id="create" title="Create NCR"
                                 aria-label="Create new Non-Conformance Report" tabindex="0">Create <abbr
                                     title="Non-Conformance Report">NCR</abbr></a></li>
-                        <li id="viewLi"><a href="view.html" class="nav-active" id="view" tabindex="0"
+                        <li id="viewLi"><a href="view.html" class="nav-active" id="view" title="NCR Log" tabindex="0"
                                 aria-label="View existing Non-Conformance Reports"><abbr
                                     title="Non-Conformance Reports">NCR</abbr> Log</a></li>
-                        <li id="reportsLi"><a href="reports.html" id="reports" aria-label="View Reports"
+                        <li id="reportsLi"><a href="reports.html" id="reports" title="Reports" aria-label="View Reports"
                                 tabindex="0">Reports</a></li>
                     </ul>
                 </nav>
@@ -52,7 +52,7 @@
             <div class="header-col-right">
                 <div class="header-col-right">
                     <div class="faqs-button-container">
-                        <a href="faqs.html" aria-label="Navigate to FAQs Page" tabindex="0">
+                        <a href="faqs.html" aria-label="Navigate to FAQs Page" title="Frequently asked questions" tabindex="0">
                             <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
                                 xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
                                 viewBox="0 0 24 24">
@@ -70,6 +70,7 @@
                                 <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="none"
                                     viewBox="0 0 24 24">
+                                    <desc>Image depiction for FAQ Page</desc>
                                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
                                         stroke-width="1.75"
                                         d="M12 5.365V3m0 2.365a5.338 5.338 0 0 1 5.133 5.368v1.8c0 2.386 1.867 2.982 1.867 4.175 0 .593 0 1.292-.538 1.292H5.538C5 18 5 17.301 5 16.708c0-1.193 1.867-1.789 1.867-4.175v-1.8A5.338 5.338 0 0 1 12 5.365ZM8.733 18c.094.852.306 1.54.944 2.112a3.48 3.48 0 0 0 4.646 0c.638-.572 1.236-1.26 1.33-2.112h-6.92Z" />
@@ -92,7 +93,7 @@
                 </div>
                 <div class="profile">
                     <div class="user-container">
-                        <button id="btnProfile" aria-label="Click to view profile" aria-haspopup="true" tabindex="0"
+                        <button id="btnProfile" aria-label="Click to view profile" title="Profile Menu" aria-haspopup="true" tabindex="0"
                             aria-expanded="false" aria-controls="profileDropdown" onclick="toggleProfileDropdown()">
                             <span class="user-avatar">
                                 <img id="profilePic" src="images/user-profile.png" alt="User profile image"
@@ -108,42 +109,23 @@
                         aria-labelledby="btnProfile">
                         <ul>
                             <li>
-                                <a href="profile_settings.html" aria-label="Navigate to Profile Page" tabindex="0">
+                                <a href="profile_settings.html" title="Account Settings" aria-label="Navigate to Profile Page" tabindex="0">
                                     <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
                                         xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
                                         viewBox="0 0 24 24">
+                                        <title>Account Settings Icon</title>
                                         <path stroke="currentColor" stroke-width="2"
                                             d="M7 17v1a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1a3 3 0 0 0-3-3h-4a3 3 0 0 0-3 3Zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
                                     </svg>
                                     Account Settings
                                 </a>
                             </li>
-                            <!-- <li>
-                                <a href="underdevelopment.html" aria-label="Navigate to Settings Page" tabindex="0">
-                                    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13v-2a1 1 0 0 0-1-1h-.757l-.707-1.707.535-.536a1 1 0 0 0 0-1.414l-1.414-1.414a1 1 0 0 0-1.414 0l-.536.535L14 4.757V4a1 1 0 0 0-1-1h-2a1 1 0 0 0-1 1v.757l-1.707.707-.536-.535a1 1 0 0 0-1.414 0L4.929 6.343a1 1 0 0 0 0 1.414l.536.536L4.757 10H4a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h.757l.707 1.707-.535.536a1 1 0 0 0 0 1.414l1.414 1.414a1 1 0 0 0 1.414 0l.536-.535 1.707.707V20a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-.757l1.707-.708.536.536a1 1 0 0 0 1.414 0l1.414-1.414a1 1 0 0 0 0-1.414l-.535-.536.707-1.707H20a1 1 0 0 0 1-1Z"/>
-                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/>
-                                    </svg>
-                                    Settings
-                                </a>
-                            </li> -->
-                            <!-- <li>
-                                <a href="faqs.html" aria-label="Navigate to FAQs Page" tabindex="0">
-                                    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
-                                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
-                                        viewBox="0 0 24 24">
-                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                            stroke-width="2"
-                                            d="M9.529 9.988a2.502 2.502 0 1 1 5 .191A2.441 2.441 0 0 1 12 12.582V14m-.01 3.008H12M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                                    </svg>
-                                    FAQs
-                                </a>
-                            </li> -->
                             <li>
-                                <a id="logout" href="login.html" aria-label="Navigate to Logout Page" tabindex="0">
+                                <a id="logout" href="login.html" title="Logout" aria-label="Navigate to Logout Page" tabindex="0">
                                     <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
                                         xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
                                         viewBox="0 0 24 24">
+                                        <title>Logout Icon</title>
                                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
                                             stroke-width="2"
                                             d="M20 12H8m12 0-4 4m4-4-4-4M9 4H7a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h2" />
@@ -157,9 +139,9 @@
             </div>
         </div>
         <div class="skip-links-div">
-            <a href="#search" class="skip-link" aria-label="Skip to Search NCR">Skip to Search NCR</a>
-            <a href="#ncr-info" class="skip-link" aria-label="Skip to NCR Details ">Skip to NCR Details</a>
-            <a href="#footer" class="skip-link" aria-label="Skip to Footer">Skip to Footer</a>
+            <a href="#search" class="skip-link" aria-label="Skip to Search NCR" title="Skip to Search NCR">Skip to Search NCR</a>
+            <a href="#ncr-info" class="skip-link" aria-label="Skip to NCR Details " title="Skip to NCR Details ">Skip to NCR Details</a>
+            <a href="#footer" class="skip-link" aria-label="Skip to Footer" title="Skip to Footer">Skip to Footer</a>
         </div>
     </header>
 
@@ -286,9 +268,9 @@
                                     </div>
                                     <hr>
                                     <div class="form-ncr-buttons">
-                                        <button id="editButton" class="button-primary" tabindex="22"
+                                        <button id="editButton" title="Edit" class="button-primary" tabindex="22"
                                             onclick="window.location.href='create.html?ncr=' + document.getElementById('ncrNumber').textContent;">Edit</button>
-                                        <button id="printButton" class="button-primary" tabindex="23"
+                                        <button id="printButton" title="Download as PDF" class="button-primary" tabindex="23"
                                             onclick="printPdf()">Download as PDF</button>
                                         <!-- <button id="revertButton" class="button-primary" tabindex="22" onclick="popupComment()">Revert to Quality</button> -->
                                     </div>
@@ -382,7 +364,7 @@
                                     
                                     <hr>
                                     <div class="form-ncr-buttons">
-                                        <button id="printButton" class="button-primary" tabindex="23"
+                                        <button id="printButton" title="Download as PDF" class="button-primary" tabindex="23"
                                             onclick="printPdf()">Download as PDF</button>
                                         <button id="editButton" class="button-primary" tabindex="22"
                                             onclick="window.location.href='create.html?ncr=' + document.getElementById('ncrNumber').textContent;">Edit</button>
@@ -449,7 +431,7 @@
                                         <hr>
                                     </div>
                                     <div class="form-ncr-buttons">
-                                        <button id="printButton" class="button-primary" tabindex="23"
+                                        <button id="printButton" title="Download as PDF" class="button-primary" tabindex="23"
                                             onclick="printPdf()">Download as PDF</button>
                                         <button id="editButton" class="button-primary" tabindex="22"
                                             onclick="window.location.href='create.html?ncr=' + document.getElementById('ncrNumber').textContent;">Edit</button>
@@ -464,7 +446,7 @@
     </main>
 
     <footer id="footer">
-        <p><small>&copy; 2024 Copyright. QCision - WireWits. All rights reserved.</small></p>
+        <p title="Copyright Information"><small>&copy; 2024 Copyright. QCision - WireWits. All rights reserved.</small></p>
     </footer>
     <script src="scripts/functions.js"></script>
     <script src="scripts/main.js"></script>
