@@ -36,16 +36,28 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         // Logout functionality
         document.getElementById('logout').addEventListener('click', function () {
-            localStorage.removeItem('loggedInUser');
             //Uncomment the code below to start afresh
             //localStorage.clear();
-            alert("Successfully logged out.");
-            window.location.href = 'login.html';
-        });
+            const userConfirmed =confirm("Are you sure you want to Log out?");
+            if (userConfirmed) {
+                localStorage.removeItem('loggedInUser');
+                alert("Successfully logged out.");
+
+                window.location.href = 'login.html';              
+            } else {
+                //console.log("Logout cancelled.");
+               // alert("Operation cancelled.");
+                // Redirect or perform other actions as needed
+                //return;
+            }
+                });
     } else {
         console.error("Profile elements not found or no user logged in.");
     }
 
+   
+    
+        
     initializeNotificationToggle(); // Initialize notification toggle
 
 

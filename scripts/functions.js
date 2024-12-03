@@ -3311,6 +3311,7 @@ function initializePasswordToggle() {
 }
 
 
+
 function handleProfilePictureChange(loggedInUser) {
     const editIcon = document.getElementById('editIcon'); // The pencil icon
     const imageUpload = document.getElementById('imageUpload'); // The hidden file input
@@ -3341,6 +3342,8 @@ function handleProfilePictureChange(loggedInUser) {
             reader.readAsDataURL(file); // Read the file as a Data URL
         }
     });
+     
+    
 }
 
 //======================
