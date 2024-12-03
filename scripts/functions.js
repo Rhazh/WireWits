@@ -4032,13 +4032,19 @@ function performSearchPch() {
 //===================================================================================================
 // Toast Messages - apvarun.github.io
 //==================================================================================================
-let toastTimeout;
-
 function showToast(message, type = 'info', duration = 5000) {
-    if (toastTimeout) return;
+    const existingToast = document.querySelector('.toastify');
+    if (existingToast) {
+        const closeButton = existingToast.querySelector('.toastify-close');
+        if (closeButton) {
+            closeButton.addEventListener('click', () => {
+                existingToast.remove();
+            });
+        }
+        return;
+    }
 
-    // Display the toast
-    const toast = Toastify({
+    Toastify({
         text: message,
         duration: duration,
         close: true,
@@ -4048,24 +4054,11 @@ function showToast(message, type = 'info', duration = 5000) {
             color: "#fdfdfd",
             background: type === 'success' ? "#007a33" :
                         type === 'error' ? "#B22222" :
-                        type === 'warning' ? "#B22222" :
+                        type === 'warning' ? "#FF8C00" :
                         "#0056b3",
         },
-        onClose: () => {
-            clearTimeout(toastTimeout);
-            toastTimeout = null;
-        }
-    });
-
-    toast.showToast();
-
-    // Set timeout to reset visibility after the toast duration
-    toastTimeout = setTimeout(() => {
-        toastTimeout = null; 
-    }, duration);
+    }).showToast();
 }
-
-
 //================================================================================================================
 //EMAIL
 //
