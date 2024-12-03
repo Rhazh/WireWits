@@ -4032,32 +4032,39 @@ function performSearchPch() {
 //===================================================================================================
 // Toast Messages - apvarun.github.io
 //==================================================================================================
-let toastVisible = false; // Track if a toast is currently visible
+let toastTimeout;
 
-function showToast(message, type = 'info', duration = 7000) {
-    // Prevent showing a new toast if one is already visible
-    if (toastVisible) return;
+function showToast(message, type = 'info', duration = 5000) {
+    if (toastTimeout) return;
 
-    toastVisible = true; // Mark a toast as visible
-
-    Toastify({
+    // Display the toast
+    const toast = Toastify({
         text: message,
         duration: duration,
         close: true,
         gravity: "top",
         position: "center",
         style: {
-            color: "#fdfdfd", // Text color
+            color: "#fdfdfd",
             background: type === 'success' ? "#007a33" :
                         type === 'error' ? "#B22222" :
                         type === 'warning' ? "#B22222" :
-                        "#0056b3", // Default for 'info'
+                        "#0056b3",
         },
         onClose: () => {
-            toastVisible = false; // Reset flag when toast is closed
+            clearTimeout(toastTimeout);
+            toastTimeout = null;
         }
-    }).showToast();
+    });
+
+    toast.showToast();
+
+    // Set timeout to reset visibility after the toast duration
+    toastTimeout = setTimeout(() => {
+        toastTimeout = null; 
+    }, duration);
 }
+
 
 //================================================================================================================
 //EMAIL
