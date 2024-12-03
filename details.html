@@ -14,6 +14,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&display=swap"
         rel="stylesheet">
     <link rel="icon" type="image/x-icon" href="images/favicon.png">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
 </head>
 
@@ -254,36 +255,36 @@
                             <!--Tab Section: Quantity-->
                             <div id="tabQuality" class="tab-content">
                                 <div class="form-section">
-                                    <div class="form-ncr-details">
-                                        <strong>Item Description:</strong>
-                                        <span tabindex="19" id="itemDescription"></span>
-                                    </div>
-                                    <div class="form-ncr-details">
-                                        <strong>Description of Defect:</strong>
-                                        <ul tabindex="20" id="defectDescription"></ul>
-                                    </div>
-                                    <div class="form-ncr-details">
-                                        <strong>Uploaded Images/Videos:</strong>
-                                        <div id="thumbnailsContainer" class="thumbnail-container">
-                                            <!-- Thumbnails will be dynamically inserted here -->
+                                    <div class="one-col">
+                                        <div class="form-ncr-details">
+                                            <strong>Item Description:</strong>
+                                            <span tabindex="19" id="itemDescription"></span>
+                                        </div>
+                                        <div class="form-ncr-details">
+                                            <strong>Description of Defect:</strong>
+                                            <ul tabindex="20" id="defectDescription"></ul>
+                                        </div>
+                                        <div class="form-ncr-details one-col-form">
+                                            <strong>Uploaded Images/Videos:</strong>
+                                            <div id="thumbnailsContainer" class="thumbnails-container">
+                                                <!-- Thumbnails will be dynamically inserted here -->
+                                            </div>
+                                        </div>
+                                        <div id="qCompletionToggle" class="one-col non">
+                                            <hr>
+                                            <div class="two-cols">
+                                                <div class="form-ncr-details">
+                                                    <strong>Completed By:</strong>
+                                                    <span tabindex="21" id="completedByQI"></span>
+                                                </div>
+                                                <div class="form-ncr-details">
+                                                    <strong>Completed On:</strong>
+                                                    <span tabindex="22" id="completedOnQI"></span>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                     <hr>
-                                    <div id="completionToggle1" class="two-cols" style="display:none">
-                                        <div class="form-ncr-details">
-
-                                            <strong>Completed By:</strong>
-
-                                            <span tabindex="21" id="completedByQI"></span>
-                                        </div>
-                                        <div class="form-ncr-details">
-
-                                            <strong>Completed On:</strong>
-
-                                            <span tabindex="22" id="completedOnQI"></span>
-                                        </div>
-                                    </div>
-
                                     <div class="form-ncr-buttons">
                                         <button id="editButton" class="button-primary" tabindex="22"
                                             onclick="window.location.href='create.html?ncr=' + document.getElementById('ncrNumber').textContent;">Edit</button>
@@ -317,81 +318,69 @@
                                 </div> -->
                             </div>
 
+                            <!--Tab Section: Engineer-->
                             <div id="tabEngineer" class="tab-content">
-                                <div id="createEditModal" class="form-section">
+                                <div class="form-section" id="createEditModal">
                                     <div class="two-cols">
-                                        <!--Took out NCR Number from here as it will show at the top-->
                                         <div class="form-ncr-details">
-
                                             <strong>Review By CF Engineering:</strong>
-
                                             <span id="reviewByCfEngineering"></span>
                                         </div>
                                         <div class="form-ncr-details">
-
                                             <strong>Does Customer require notification of NCR?</strong>
-
                                             <span id="customerNotification"></span>
-                                        </div>
-                                        <div class="form-ncr-details">
-
-                                            <strong>Disposition:</strong>
-
-                                            <span id="disposition"></span>
                                         </div>
                                     </div>
                                     <div class="one-col">
+                                        <hr>
                                         <div class="form-ncr-details">
-
+                                            <strong>Disposition:</strong>
+                                            <span id="disposition"></span>
+                                        </div>
+                                        <hr>
+                                        <div class="form-ncr-details">
                                             <strong>Does the drawing require updating?</strong>
-
                                             <span id="drawingUpdate"></span>
                                         </div>
                                     </div>
-                                    <div class="two-cols">
-                                        <div class="form-ncr-details drawingUpdateToggle">
-
-                                            <strong>Original Revision Number:</strong>
-
-                                            <span id="originalRevNumber"></span>
+                                    <div class="one-col" id="eDrawingUpdateToggle">
+                                        <div class="two-cols">
+                                            <div class="form-ncr-details">
+                                                <strong>Original Revision Number:</strong>
+                                                <span id="originalRevNumber"></span>
+                                            </div>
+                                            <div class="form-ncr-details">
+                                                <strong>Updated Revision Number:</strong>
+                                                <span id="updatedRevNumber"></span>
+                                            </div>
                                         </div>
-                                        <div class="form-ncr-details drawingUpdateToggle">
-
-                                            <strong>Updated Revision Number:</strong>
-
-                                            <span id="updatedRevNumber"></span>
-                                        </div>
-                                    </div>
-                                    <div class="two-cols bottom-margin drawingUpdateToggle">
-                                        <div class="form-ncr-details">
-
-                                            <strong>Revision Date:</strong>
-
-                                            <span id="revisionDate"></span>
-                                        </div>
-                                        <div class="form-ncr-details drawingUpdateToggle">
-
-                                            <strong>Name of Engineer:</strong>
-
-                                            <span id="engineerName"></span>
+                                        <div class="two-cols bottom-margin">
+                                            <div class="form-ncr-details">
+                                                <strong>Revision Date:</strong>
+                                                <span id="revisionDate"></span>
+                                            </div>
+                                            <div class="form-ncr-details">
+                                                <strong>Name of Engineer:</strong>
+                                                <span id="engineerName"></span>
+                                            </div>
                                         </div>
                                     </div>
+
+                                    <div id="eCompletionToggle" class="one-col non">
+                                        <hr>
+                                        <div class="two-cols">
+                                            <div class="form-ncr-details">
+                                                <strong>Completed By:</strong>
+                                                <span id="completedByEng"></span>
+                                            </div>
+                                            <div class="form-ncr-details">
+                                                <strong>Completed On:</strong>
+                                                <span id="completedOnEng"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
                                     <hr>
-                                    <div id="completionToggle2" class="two-cols" style="display: none">
-                                        <div class="form-ncr-details">
-
-                                            <strong>Completed By:</strong>
-
-                                            <span id="completedByEng"></span>
-                                        </div>
-                                        <div class="form-ncr-details">
-
-                                            <strong>Completed On:</strong>
-
-                                            <span id="completedOnEng"></span>
-                                        </div>
-                                    </div>
-
                                     <div class="form-ncr-buttons">
                                         <button id="printButton" class="button-primary" tabindex="23"
                                             onclick="printPdf()">Download as PDF</button>
@@ -401,13 +390,17 @@
                                 </div>
                             </div>
 
+                            <!--Tab Section: Purchasing-->
                             <div id="tabPurchasing" class="tab-content">
-                                <div id="createEditModal" class="form-section">
+                                <div class="form-section" id="createEditModal">
                                     <div class="two-cols">
                                         <div class="form-ncr-details">
                                             <strong>Purchasing's Preliminary Decision:</strong>
                                             <span id="preliminaryDecision"></span>
                                         </div>
+                                    </div>
+                                    <hr>
+                                    <div class="two-cols">
                                         <div class="form-ncr-details">
                                             <strong>Was a CAR raised?</strong>
                                             <span id="carRaised"></span>
@@ -416,10 +409,15 @@
                                             <strong>CAR Number:</strong>
                                             <span id="carNumber"></span>
                                         </div>
+                                    </div>
+                                    <hr>
+                                    <div class="two-cols">
                                         <div class="form-ncr-details">
                                             <strong>Follow-up Required?</strong>
                                             <span id="followUp"></span>
                                         </div>
+                                    </div>
+                                    <div class="two-cols">
                                         <div id="toggleFollowUpType" class="form-ncr-details">
                                             <strong>Follow-up Type:</strong>
                                             <span id="followUpType"></span>
@@ -428,12 +426,17 @@
                                             <strong>Follow-up Date:</strong>
                                             <span id="followUpDate"></span>
                                         </div>
+                                    </div>
+                                    <hr>
+                                    <div class="one-col">
                                         <div class="form-ncr-details">
                                             <strong>NCR Closed:</strong>
                                             <span id="ncrClosed"></span>
                                         </div>
                                         <hr>
-                                        <div id="completionToggle3" class="two-cols" style="display: none">
+                                    </div>
+                                    <div class="one-col non" id="completionToggle3">
+                                        <div class="two-cols">
                                             <div class="form-ncr-details">
                                                 <strong>Completed By:</strong>
                                                 <span id="completedByPch"></span>
@@ -443,6 +446,13 @@
                                                 <span id="completedOnPch"></span>
                                             </div>
                                         </div>
+                                        <hr>
+                                    </div>
+                                    <div class="form-ncr-buttons">
+                                        <button id="printButton" class="button-primary" tabindex="23"
+                                            onclick="printPdf()">Download as PDF</button>
+                                        <button id="editButton" class="button-primary" tabindex="22"
+                                            onclick="window.location.href='create.html?ncr=' + document.getElementById('ncrNumber').textContent;">Edit</button>
                                     </div>
                                 </div>
                             </div>
@@ -458,6 +468,7 @@
     </footer>
     <script src="scripts/functions.js"></script>
     <script src="scripts/main.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 </body>
 
 </html>

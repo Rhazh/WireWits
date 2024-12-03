@@ -616,12 +616,69 @@ function populateDetailsPage(ncrNumber) {
                 const fileItem = document.createElement('div');
                 fileItem.classList.add('file-item');
 
-                const thumbnailImage = document.createElement('img');
-                thumbnailImage.src = file.thumbnail; // Assuming file.thumbnail contains the image data
-                thumbnailImage.classList.add('thumbnail');
+                const thumbImgContainer = document.createElement('div');
+                thumbImgContainer.classList.add('file-img-container');
+                
+                const imageLink = document.createElement('a');
+                imageLink.href = "#";
+                imageLink.target = '_blank';
+                
+                const thumbImage = document.createElement('img');
+                thumbImage.src = file.thumbnail;
+                thumbImage.classList.add('thumbnail');
+
+                thumbImage.title = "Click here to expand the image";
+                thumbImage.setAttribute('aria-label', "Click here to expand the image");
+
+                
+                const imageName = document.createElement('p');
+                const maxLength = 15;
+                const truncatedName = file.fileName.length > maxLength ? 
+                                      file.fileName.substring(0, maxLength) + '...jpg' : 
+                                      file.fileName;
+                imageName.textContent = truncatedName;
+
+                imageLink.addEventListener('click', function () {
+                    const newWindow = window.open("", "_blank");
+            
+                    newWindow.document.write(`
+                        <!DOCTYPE html>
+                        <html lang="en">
+                        <head>
+                            <meta charset="UTF-8">
+                            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                            <title>${file.fileName}</title>
+                            <style>
+                                body {
+                                    margin: 0;
+                                    height: 100vh;
+                                    background-color: black;
+                                    display: flex;
+                                    justify-content: center;
+                                    align-items: center;
+                                    overflow: hidden;
+                                }
+                                img {
+                                    max-width: 90%;
+                                    max-height: 90%;
+                                    object-fit: contain;
+                                }
+                            </style>
+                        </head>
+                        <body>
+                            <img src="${file.thumbnail}" alt="${file.fileName}" style="max-width: 100%; height: auto;">
+                        </body>
+                        </html>
+                    `);
+                    newWindow.document.close();
+                });
 
                 // Append elements to the file item
-                fileItem.appendChild(thumbnailImage);
+                fileItem.appendChild(imageName);
+                imageLink.appendChild(thumbImage);
+                thumbImgContainer.appendChild(imageLink);
+                fileItem.appendChild(thumbImgContainer);
+
                 documentFilesList.appendChild(fileItem); // Append file item to the container
             });
         } else {
@@ -629,11 +686,8 @@ function populateDetailsPage(ncrNumber) {
         }
 
         if (entry.ncrStatus != "Quality") {
-            document.getElementById('completionToggle1').style.display = 'grid';
+            document.getElementById('qCompletionToggle').classList.add("non");
         }
-
-
-
 
         // Disable edit button if status is not "Quality"
         const editButton = document.getElementById('editButton'); // Assuming you have an edit button with this ID
@@ -643,7 +697,7 @@ function populateDetailsPage(ncrNumber) {
                 const ncrStatus = entry.ncrStatus; // Get the NCR status from the entry object
 
                 if (ncrStatus !== "Quality") {
-                    alert(`This NCR is already submitted to ${ncrStatus}. You can make and save changes, except to 'Item Marked Conforming' and 'Engineering Needed' fields.`);
+                    showToast(`This NCR is already submitted to ${ncrStatus}. You can make and save changes, except to 'Item Marked Conforming' and 'Engineering Needed' fields.`);
                     window.location.href = `create.html?ncr=${ncrNumber}`; // Redirect to edit page
                 } else {
                     window.location.href = `create.html?ncr=${ncrNumber}`; // Redirect to edit page
@@ -677,7 +731,7 @@ function editEntryPch(ncrNumber) {
 
 function downloadEntry(ncrNumber) {
 
-    alert(`NCR Number: ${ncrNumber} has been downloaded.`);
+    showToast(`NCR Number: ${ncrNumber} has been downloaded.`);
 
 
 }
@@ -725,15 +779,14 @@ function populateEditPage(ncrNumber) {
             });
         } 
         else {
-            thumbnailsContainer.innerHTML = `<p class="file-empty-desc">No files uploaded yet!</p>`;
-
+            thumbnailsContainer.innerHTML = `<p id="fileEmptyDesc" class="file-empty-desc">No files uploaded yet!</p>`;
         }
 
         if (entry.ncrStatus != "Quality") {
             document.getElementById('btnSubmit').style.display = 'none';
             document.getElementById('engNeeded').disabled = true;
             document.getElementById('itemConform').disabled = true;
-            document.getElementById('completionToggle1').style.display = 'block'
+            document.getElementById('qCompletionToggle').classList.remove('non');
         }
     }
 }
@@ -747,7 +800,7 @@ function editEntry(ncrNumber) {
 // Supporting Function - Redirection to Edit an NCR when Edit button is clicked
 function handleEditEntry(ncrNumber, ncrStatus) {
     if (ncrStatus !== "Quality") {
-        alert(`This NCR is already submitted to ${ncrStatus}. You can make and save changes, except to 'Item Marked Conforming' and 'Engineering Needed' fields.`);
+        showToast(`This NCR is already submitted to ${ncrStatus}. You can make and save changes, except to 'Item Marked Conforming' and 'Engineering Needed' fields.`);
         window.location.href = `create.html?ncr=${ncrNumber}`; // Redirect to edit page
     } else {
         window.location.href = `create.html?ncr=${ncrNumber}`; // Redirect to edit page
@@ -791,8 +844,6 @@ function resetPagination() {
 }
 
 function performSearch() {
-
-
     const ncrNumber = document.getElementById('ncrNumber').value.trim();
     const supplierName = document.getElementById('supplierName').value;
     const ncrStatus = document.getElementById("ncrStatus").value || "Quality";
@@ -807,7 +858,7 @@ function performSearch() {
         //resultsCountMessage.style.display = 'inline';
         //return;
 
-        alert("Start date must be earlier than or equal to end date.")
+        showToast("Start date must be earlier than or equal to end date.")
         location.reload();
         return;
     }
@@ -815,8 +866,7 @@ function performSearch() {
         //resultsCountMessage.textContent = 'NCR Number must not contain alphabetic characters.';
         //resultsCountMessage.style.display = 'inline';
 
-        alert("NCR Number must not contain alphabetic characters.")
-        location.reload();
+        showToast("NCR Number must not contain alphabetic characters.", "warning")
         return;
     } /*else {
         resultsCountMessage.style.display = 'none';
@@ -1058,7 +1108,7 @@ function CreateNCR() {
     localStorage.setItem('history', JSON.stringify(history));
     localStorage.setItem('quality', JSON.stringify(quality));
 
-    alert(`NCR Number ${ncrNumber} successfully generated. You may continue to provide additional information now or later`);
+    showToast(`NCR Number ${ncrNumber} successfully generated. You may continue to provide additional information now or later`);
     //const createNCRModal = document.getElementById('createNCRModal');
     //const createEditModal = document.getElementById('createEditModal');
 
@@ -1131,26 +1181,26 @@ function saveNCR() {
         );
 
         if (noChanges) {
-            alert('No changes were made.');
+            showToast('No changes were made.');
             return;
         }
 
         if (quantityReceived != "") {
             if (parsedQuantityReceived < 1) {
-                alert('Quantity Received cannot be less than 1')
+                showToast('Quantity Received cannot be less than 1')
                 return;
             }
         }
 
         if (quantityDefect != "") {
             if (parsedQuantityDefect < 1) {
-                alert('Quantity Defective cannot be less than 1')
+                showToast('Quantity Defective cannot be less than 1')
                 return
             }
         }
 
         if (Number(quantityDefect) > Number(quantityReceived)) {
-            alert('The number of defects cannot exceed the quantity received.')
+            showToast('The number of defects cannot exceed the quantity received.')
             return;
         }
 
@@ -1192,15 +1242,15 @@ function saveNCR() {
             history.push(historyEntry);
             localStorage.setItem('history', JSON.stringify(history));
 
-            alert('Your changes have been saved. You can continue later.');
+            showToast('Your changes have been saved. You can continue later.');
             window.history.back();
         } else {
             // If the user cancels, do nothing or add custom logic
-            alert("Save operation cancelled.");
+            showToast("Save operation cancelled.");
         }
 
     } else {
-        alert('NCR not found. Please check the NCR number.');
+        showToast('NCR not found. Please check the NCR number.');
     }
 }
 
@@ -1434,7 +1484,7 @@ function submitNCR() {
                 localStorage.setItem('history', JSON.stringify(history));
             }
 
-            alert('NCR has been successfully submitted.');
+            showToast('NCR has been successfully submitted.');
 
             // Redirect or perform other actions as needed
             //window.history.back();
@@ -1445,7 +1495,7 @@ function submitNCR() {
 
     } else {
         // If the user cancels, do nothing or add custom logic
-        alert("Submit operation cancelled.");
+        showToast("Submit operation cancelled.");
         // Redirect or perform other actions as needed
         return;
 
@@ -1510,7 +1560,7 @@ function performSearchReports() {
 
     // Date validation
     if (fromDateValue && toDateValue && new Date(fromDateValue) > new Date(toDateValue)) {
-        alert("Start date must be earlier than or equal to end date.");
+        showToast("Start date must be earlier than or equal to end date.");
         return;
     }
 
@@ -1582,7 +1632,7 @@ function performSearchReports() {
         //noResultsMessage.textContent = 'NCR Number must not contain alphabetic characters.';
         //noResultsMessage.style.display = 'inline';
 
-        alert("NCR Number must not contain alphabetic characters.")
+        showToast("NCR Number must not contain alphabetic characters.")
         location.reload();
         return;
     }
@@ -2193,7 +2243,7 @@ document.getElementById('attachedDocument').addEventListener('change', function 
     });
 
     if (invalidFiles.length > 0) {
-        alert(`These files are not allowed: ${invalidFiles.join(', ')}. Please upload only images.`);
+        showToast(`These files are not allowed: ${invalidFiles.join(', ')}. Please upload only images.`);
         fileInput.value = '';
         return;
     }
@@ -2237,9 +2287,6 @@ function compressImage(img, maxWidth, maxHeight) {
         canvas.height = maxHeight;
         canvas.width = maxHeight * aspectRatio;
     }
-
-    canvas.width = width;
-    canvas.height = height;
 
     // Draw the image scaled to fit the thumbnail dimensions
     ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
@@ -2392,12 +2439,69 @@ function populateDetailsPageEng(ncrNumber) {
                 const fileItem = document.createElement('div');
                 fileItem.classList.add('file-item');
 
-                const thumbnailImage = document.createElement('img');
-                thumbnailImage.src = file.thumbnail; // Assuming file.thumbnail contains the image data
-                thumbnailImage.classList.add('thumbnail');
+                const thumbImgContainer = document.createElement('div');
+                thumbImgContainer.classList.add('file-img-container');
+                
+                const imageLink = document.createElement('a');
+                imageLink.href = "#";
+                imageLink.target = '_blank';
+                
+                const thumbImage = document.createElement('img');
+                thumbImage.src = file.thumbnail;
+                thumbImage.classList.add('thumbnail');
+
+                thumbImage.title = "Click here to expand the image";
+                thumbImage.setAttribute('aria-label', "Click here to expand the image");
+
+                
+                const imageName = document.createElement('p');
+                const maxLength = 15;
+                const truncatedName = file.fileName.length > maxLength ? 
+                                      file.fileName.substring(0, maxLength) + '...jpg' : 
+                                      file.fileName;
+                imageName.textContent = truncatedName;
+
+                imageLink.addEventListener('click', function () {
+                    const newWindow = window.open("", "_blank");
+            
+                    newWindow.document.write(`
+                        <!DOCTYPE html>
+                        <html lang="en">
+                        <head>
+                            <meta charset="UTF-8">
+                            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                            <title>${file.fileName}</title>
+                            <style>
+                                body {
+                                    margin: 0;
+                                    height: 100vh;
+                                    background-color: black;
+                                    display: flex;
+                                    justify-content: center;
+                                    align-items: center;
+                                    overflow: hidden;
+                                }
+                                img {
+                                    max-width: 90%;
+                                    max-height: 90%;
+                                    object-fit: contain;
+                                }
+                            </style>
+                        </head>
+                        <body>
+                            <img src="${file.thumbnail}" alt="${file.fileName}" style="max-width: 100%; height: auto;">
+                        </body>
+                        </html>
+                    `);
+                    newWindow.document.close();
+                });
 
                 // Append elements to the file item
-                fileItem.appendChild(thumbnailImage);
+                fileItem.appendChild(imageName);
+                imageLink.appendChild(thumbImage);
+                thumbImgContainer.appendChild(imageLink);
+                fileItem.appendChild(thumbImgContainer);
+
                 documentFilesList.appendChild(fileItem); // Append file item to the container
             });
         } else {
@@ -2426,16 +2530,18 @@ function populateEngDetailsPage(ncrNumber) {
         document.getElementById('revisionDate').textContent = entry.revisionDate ? formatDate(entry.revisionDate) : "-";
         document.getElementById('engineerName').textContent = entry.engineerName || "-";
         if (entry.drawingUpdate == "No") {
-            Array.from(document.getElementsByClassName('drawingUpdateToggle')).forEach(element => {
-                element.style.display = 'none';
-            });
+            // Array.from(document.getElementsByClassName('drawingUpdateToggle')).forEach(element => {
+            //     element.classList.add('non');
+            // });
+
+            document.getElementById('eDrawingUpdateToggle').classList.add('non')
         }
 
         document.getElementById('completedByEng').textContent = entry.completedBy ?? "";
         document.getElementById('completedOnEng').textContent = entry.completedOn ? formatDate(entry.completedOn) : "";
 
         if (entry.ncrStatus != "Engineering") {
-            document.getElementById('completionToggle2').style.display = 'grid';
+            document.getElementById('eCompletionToggle').classList.add("non");
         }
     }
 }
@@ -2464,7 +2570,7 @@ function populateEngEditPage(ncrNumber) {
 
 
         if (entry.ncrStatus != "Engineering") {
-            document.getElementById('completionToggle2').style.display = 'block'
+            document.getElementById('eCompletionToggle').classList.remove("non");
             document.getElementById('btnEngSubmit').style.display = 'none';
         }
 
@@ -2599,7 +2705,7 @@ function saveEngNCR() {
         );
 
         if (noChanges) {
-            alert('No changes were made.');
+            showToast('No changes were made.');
             return;
         }
 
@@ -2640,14 +2746,14 @@ function saveEngNCR() {
             history.push(historyEntry);
             localStorage.setItem('history', JSON.stringify(history));
 
-            alert('Your changes have been saved. You can continue later.');
+            showToast('Your changes have been saved. You can continue later.');
             window.history.back();
             console.log(typeof (revisionDate), revisionDate)
         } else {
-            alert("Save operation cancelled.");
+            showToast("Save operation cancelled.");
         }
     } else {
-        alert('NCR not found. Please check the NCR number.');
+        showToast('NCR not found. Please check the NCR number.');
     }
     //console.log(engineering);
     //console.log(typeof(revisionDate), revisionDate)
@@ -2838,12 +2944,12 @@ function submitEngNCR() {
         }
         history.push(historyEntry);
         localStorage.setItem('history', JSON.stringify(history));
-        alert('NCR has been successfully submitted.');
+        showToast('NCR has been successfully submitted.');
         window.history.back();
 
     } else {
         // If the user cancels, do nothing or add custom logic
-        alert("Submit operation cancelled.");
+        showToast("Submit operation cancelled.");
         // Redirect or perform other actions as needed
         return;
     }
@@ -2896,7 +3002,7 @@ function performSearchEng() {
         //resultsCountMessage.style.display = 'inline';
         //return;
 
-        alert("Start date must be earlier than or equal to end date.")
+        showToast("Start date must be earlier than or equal to end date.")
         location.reload();
         return;
     }
@@ -2904,7 +3010,7 @@ function performSearchEng() {
         //resultsCountMessage.textContent = 'NCR Number must not contain alphabetic characters.';
         //resultsCountMessage.style.display = 'inline';
 
-        alert("NCR Number must not contain alphabetic characters.")
+        showToast("NCR Number must not contain alphabetic characters.")
         location.reload();
         return;
     } /*else {
@@ -3108,7 +3214,7 @@ function saveProfileSettings(loggedInUser) {
 
     // Validate required fields
     if (!updatedUser.user_Firstname || !updatedUser.user_Lastname || !updatedUser.email || !updatedUser.password || !updatedUser.user_name) {
-        alert("Please fill in all required fields.");
+        showToast("Please fill in all required fields.");
         return;
     }
     const profilePagePic = document.getElementById('profilePagePic');
@@ -3135,7 +3241,7 @@ function saveProfileSettings(loggedInUser) {
     // Save the updated users array back to localStorage
     localStorage.setItem('users', JSON.stringify(users));
 
-    alert("Profile updated successfully!");
+    showToast("Profile updated successfully!");
     location.reload();
 }
 
@@ -3510,7 +3616,7 @@ function savePchNCR() {
         );
 
         if (noChanges) {
-            alert('No changes were made.');
+            showToast('No changes were made.');
             return;
         }
 
@@ -3555,14 +3661,14 @@ function savePchNCR() {
 
             console.log(ncrLog)
 
-            alert('Your changes have been saved. You can continue later.');
+            showToast('Your changes have been saved. You can continue later.');
             window.history.back();
             //console.log(typeof (revisionDate), revisionDate)
         } else {
-            alert("Save operation cancelled.");
+            showToast("Save operation cancelled.");
         }
     } else {
-        alert('NCR not found. Please check the NCR number.');
+        showToast('NCR not found. Please check the NCR number.');
     }
     //console.log(engineering);
     //console.log(typeof(revisionDate), revisionDate)
@@ -3747,12 +3853,12 @@ function closeNCR() {
             }
             history.push(historyEntry);
             localStorage.setItem('history', JSON.stringify(history));
-            alert('NCR has been successfully closed.');
+            showToast('NCR has been successfully closed.');
             window.history.back();
         }
     } else {
         // If the user cancels, do nothing or add custom logic
-        alert("NCR Close operation cancelled.");
+        showToast("NCR Close operation cancelled.");
         // Redirect or perform other actions as needed
         return;
     }
@@ -3774,7 +3880,7 @@ function performSearchPch() {
         //resultsCountMessage.style.display = 'inline';
         //return;
 
-        alert("Start date must be earlier than or equal to end date.")
+        showToast("Start date must be earlier than or equal to end date.")
         location.reload();
         return;
     }
@@ -3782,7 +3888,7 @@ function performSearchPch() {
         //resultsCountMessage.textContent = 'NCR Number must not contain alphabetic characters.';
         //resultsCountMessage.style.display = 'inline';
 
-        alert("NCR Number must not contain alphabetic characters.")
+        showToast("NCR Number must not contain alphabetic characters.")
         location.reload();
         return;
     } /*else {
@@ -3886,7 +3992,26 @@ function performSearchPch() {
 
 }
 
+//===================================================================================================
+// Toast Messages - apvarun.github.io
+//==================================================================================================
+function showToast(message, type = 'info', duration = 5000) {
+    Toastify({
+        text: message,
+        duration: duration,
+        close: true,
+        gravity: "top",
+        position: "center",
+        color: "#fdfdfd",
+        backgroundColor: type === 'success' ? "#0056b3" :
+                         type === 'error' ? "#B22222" :
+                         type === 'warning' ? "#B22222" :
+                         "#0056b3",
+    }).showToast();
+}
 
+// showToast('This is an alert message!', 'info');
+// options: success / error / warning / info (default)
 
 //===================================================================================================
 //UNUSED FUNCTIONS

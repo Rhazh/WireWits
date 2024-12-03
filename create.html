@@ -14,6 +14,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&display=swap"
         rel="stylesheet">
     <link rel="icon" type="image/x-icon" href="images/favicon.png">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 </head>
 
 <body>
@@ -552,7 +553,6 @@
                                         <p class="file-title">Uploaded Files:</p>
                                         <div id="thumbnailsContainer" class="thumbnails-container">
                                             <!-- Thumbnails will be dynamically inserted here -->
-                                            <p id="fileEmptyDesc" class="file-empty-desc">No files uploaded yet!</p>
                                         </div>
                                     </div>
                                 </div>
@@ -567,7 +567,7 @@
                                     </div>
                                 </div>
                                 <hr>
-                                <div id="completionToggle1" style="display: none">
+                                <div hidden>
                                     <div class="two-cols bottom-margin">
                                         <div class="form-ncr-details drawingUpdateToggle3">
                                             <div class="two-cols-info">
@@ -714,7 +714,7 @@
                                     <strong>Description of Defect:</strong>
                                     <ul tabindex="20" id="defectDescriptionE"></ul>
                                 </div>
-                                <div class="form-ncr-details">
+                                <div class="form-ncr-details one-col-form">
                                     <strong>Uploaded Images/Videos:</strong>
                                     <div id="thumbnailsContainerE" class="thumbnails-container">
                                         <!-- Thumbnails will be dynamically inserted here -->
@@ -800,6 +800,7 @@
                                         </div>
                                     </div>
                                     <div class="one-col">
+                                        <hr>
                                         <div class="form-ncr-details">
                                             <div class="two-cols-info">
                                                 <label for="disposition">Disposition:<span
@@ -822,10 +823,9 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <textarea name="disposition" id="disposition"></textarea>
+                                            <textarea name="disposition" id="disposition" rows="5"></textarea>
                                         </div>
                                     </div>
-                                    <hr>
                                     <div class="two-cols">
                                         <div class="form-ncr-details">
                                             <div class="two-cols-info">
@@ -1256,6 +1256,7 @@
     <!-- Link to the JavaScript file -->
     <script src="scripts/functions.js"></script>
     <script src="scripts/main.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 </body>
 
 </html>
