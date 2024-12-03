@@ -629,9 +629,6 @@ function populateDetailsPage(ncrNumber) {
             document.getElementById('completionToggle1').style.display = 'grid';
         }
 
-
-
-
         // Disable edit button if status is not "Quality"
         const editButton = document.getElementById('editButton'); // Assuming you have an edit button with this ID
 
@@ -716,7 +713,7 @@ function populateEditPage(ncrNumber) {
         uploadedFiles.length = 0; // Clear current files (if any)
         if (entry.documentFiles && entry.documentFiles.length > 0) {
             entry.documentFiles.forEach(file => {
-                const fileObject = { file, thumbnail: file.thumbnail };
+                const fileObject = { fileName: file.fileName, thumbnail: file.thumbnail };
                 uploadedFiles.push(fileObject);
                 displayThumbnail(fileObject);
             });
@@ -2075,26 +2072,85 @@ function displayThumbnail(fileObject) {
     const fileItem = document.createElement('div');
     fileItem.classList.add('file-item');
 
+    const thumbImgContainer = document.createElement('div');
+    thumbImgContainer.classList.add('file-img-container');
+
+    const imageLink = document.createElement('a');
+    imageLink.href = "#";;
+    imageLink.target = '_blank';
+    
     const thumbnailImage = document.createElement('img');
     thumbnailImage.src = fileObject.thumbnail;
     thumbnailImage.classList.add('thumbnail');
 
+    thumbnailImage.title = "Click here to expand the image";
+    thumbnailImage.setAttribute('aria-label', "Click here to expand the image");
+
     const deleteButton = document.createElement('button');
     deleteButton.textContent = 'Delete';
-    deleteButton.classList.add('delete-button');
+    deleteButton.classList.add('file-btn-delete');
+    deleteButton.title = "Click to delete this item";
+
+    const imageName = document.createElement('p');
+    const maxLength = 15;
+    const truncatedName = fileObject.fileName.length > maxLength ? 
+                          fileObject.fileName.substring(0, maxLength) + '...jpg' : 
+                          fileObject.fileName;
+    imageName.textContent = truncatedName;
 
     // Delete function removes the file item from both array and display
     deleteButton.addEventListener('click', () => {
         deleteFile(fileObject, fileItem);
     });
 
+    imageLink.addEventListener('click', function () {
+        // Open a new window or tab
+        const newWindow = window.open("", "_blank");
+
+        // Write the HTML structure into the new window
+        newWindow.document.write(`
+            <!DOCTYPE html>
+            <html lang="en">
+            <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>${fileObject.fileName}</title>
+                <style>
+                    body {
+                        margin: 0;
+                        height: 100vh;
+                        background-color: black;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        overflow: hidden;
+                    }
+                    img {
+                        max-width: 90%;
+                        max-height: 90%;
+                        object-fit: contain;
+                    }
+                </style>
+            </head>
+            <body>
+                <img src="${fileObject.thumbnail}" alt="${fileObject.fileName}" style="max-width: 100%; height: auto;">
+            </body>
+            </html>
+        `);
+        newWindow.document.close(); // Close the document stream to complete the rendering
+    });
+
     // Append elements to the file item
-    fileItem.appendChild(thumbnailImage);
+    fileItem.appendChild(imageName);
+    imageLink.appendChild(thumbnailImage);
+    thumbImgContainer.appendChild(imageLink);
+    fileItem.appendChild(thumbImgContainer);
     fileItem.appendChild(deleteButton);
 
     // Append file item to thumbnails container
     thumbnailsContainer.appendChild(fileItem);
-    document.getElementById('fileNames').innerHTML = "";
+    document.getElementById('fileEmptyDesc').innerHTML = "";
+    document.getElementById('fileEmptyDesc').classList.remove('file-empty-desc');
 }
 
 // Function to delete an uploaded file
@@ -2105,7 +2161,8 @@ function deleteFile(fileObject, fileItem) {
     // Remove the file item from the display
     fileItem.remove();
     if (uploadedFiles.length == 0) {
-        document.getElementById('fileNames').innerHTML = "No files uploaded yet!";
+        document.getElementById('fileEmptyDesc').innerHTML = "No files uploaded yet!";
+        document.getElementById('fileEmptyDesc').classList.add('file-empty-desc');
     }
 }
 
@@ -2139,9 +2196,9 @@ document.getElementById('attachedDocument').addEventListener('change', function 
             const img = new Image();
             img.src = imageData;
             img.onload = () => {
-                const thumbnailData = compressImage(img, 200, 200);
+                const thumbnailData = compressImage(img, 300, 300);
 
-                const fileObject = { file, thumbnail: thumbnailData };
+                const fileObject = { fileName: file.name, thumbnail: thumbnailData };
                 uploadedFiles.push(fileObject);
 
                 // Display the new thumbnail
@@ -2157,14 +2214,22 @@ document.getElementById('attachedDocument').addEventListener('change', function 
 });
 
 // Function to compress the image and return thumbnail data
-function compressImage(img, width, height) {
+function compressImage(img, maxWidth, maxHeight) {
     const canvas = document.createElement('canvas');
     const ctx = canvas.getContext('2d');
-    canvas.width = width;
-    canvas.height = height;
+
+    const aspectRatio = img.width / img.height;
+
+    if (img.width > img.height) {
+        canvas.width = maxWidth;
+        canvas.height = maxWidth / aspectRatio;
+    } else {
+        canvas.height = maxHeight;
+        canvas.width = maxHeight * aspectRatio;
+    }
 
     // Draw the image scaled to fit the thumbnail dimensions
-    ctx.drawImage(img, 0, 0, width, height);
+    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
 
     // Return the thumbnail data URL (compressed as JPEG, adjust quality as needed)
     return canvas.toDataURL('image/jpeg', 0.6); // 0.7 is a good balance of quality and size

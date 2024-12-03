@@ -166,7 +166,6 @@
     </header>
 
     <main>
-        <!--Sample HTML Structure-->
         <div class="container">
             <div class="breadcrumb-container">
                 <div>
@@ -178,6 +177,7 @@
                 <h1 id="lblCreateEditNCR">Create NCR</h1> <!--title may change depending on user actions-->
             </div>
 
+            <!--Create NCR-->
             <div id="secCreateEditNCR">
                 <!--Modal-->
                 <div id="createNCRModal" class="modal" role="dialog" aria-labelledby="create-edit-NCR">
@@ -263,8 +263,8 @@
                     </div>
                 </div>
 
+                <!--Create NCR-->
                 <div id="formNCR" class="form-ncr">
-                    <!--Create NCR-->
                     <section id="createFormNCR" class="form-ncr">
                         <!--Generative-->
                         <div class="div-container">
@@ -462,7 +462,7 @@
 
                         <div class="div-container">
                             <div class="form-section">
-                                <div>
+                                <div class="one-col-form">
                                     <div class="two-cols-info">
                                         <label for="itemDescription" aria-label="Item Description, required">Item
                                             Description:<span class="required">*</span></label>
@@ -486,7 +486,7 @@
                                     <textarea id="itemDescription" name="itemDescription" rows="2"
                                         placeholder="Describe the item" required></textarea>
                                 </div>
-                                <div>
+                                <div class="one-col-form">
                                     <div class="two-cols-info">
                                         <label for="defectDescription"
                                             aria-label="Description of Defect, required">Description of Defect:<span
@@ -513,7 +513,7 @@
                                         placeholder="Describe the defect in as much detail as possible"
                                         required></textarea>
                                 </div>
-                                <div>
+                                <div class="one-col-form">
                                     <div class="two-cols-info">
                                         <label for="attachedDocument">Upload image(s)/video(s):</label>
                                         <div class="form-info">
@@ -548,12 +548,12 @@
                                             <p>Drop a file here to upload, or<br>click here to browse</p>
                                         </div>
                                     </div>
-                                    <div class="file-upload-details">
-                                        <p id="fileSummary">Uploaded Files:</p>
+                                    <div class="file-container">
+                                        <p class="file-title">Uploaded Files:</p>
                                         <div id="thumbnailsContainer" class="thumbnails-container">
                                             <!-- Thumbnails will be dynamically inserted here -->
                                         </div>
-                                        <p id="fileNames">No files uploaded yet!</p>
+                                        <p id="fileEmptyDesc" class="file-empty-desc">No files uploaded yet!</p>
                                     </div>
                                 </div>
                                 <div class="form-checkbox-container">
