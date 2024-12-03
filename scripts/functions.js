@@ -723,6 +723,10 @@ function populateEditPage(ncrNumber) {
                 uploadedFiles.push(fileObject);
                 displayThumbnail(fileObject);
             });
+        } 
+        else {
+            thumbnailsContainer.innerHTML = `<p class="file-empty-desc">No files uploaded yet!</p>`;
+
         }
 
         if (entry.ncrStatus != "Quality") {
@@ -2074,6 +2078,11 @@ function populateSupplierDropdownN(elementID) {
 function displayThumbnail(fileObject) {
     const thumbnailsContainer = document.getElementById('thumbnailsContainer');
 
+    const fileEmptyDesc = document.getElementById('fileEmptyDesc');
+    if (fileEmptyDesc) {
+        fileEmptyDesc.remove();
+    }
+
     // Create elements for each thumbnail and delete button
     const fileItem = document.createElement('div');
     fileItem.classList.add('file-item');
@@ -2153,8 +2162,6 @@ function displayThumbnail(fileObject) {
 
     // Append file item to thumbnails container
     thumbnailsContainer.appendChild(fileItem);
-    document.getElementById('fileEmptyDesc').innerHTML = "";
-    document.getElementById('fileEmptyDesc').classList.remove('file-empty-desc');
 }
 
 // Function to delete an uploaded file
@@ -2165,8 +2172,7 @@ function deleteFile(fileObject, fileItem) {
     // Remove the file item from the display
     fileItem.remove();
     if (uploadedFiles.length == 0) {
-        document.getElementById('fileEmptyDesc').innerHTML = "No files uploaded yet!";
-        document.getElementById('fileEmptyDesc').classList.add('file-empty-desc');
+        document.getElementById('thumbnailsContainer').innerHTML = `<p id="fileEmptyDesc" class="file-empty-desc">No files uploaded yet!</p>`;
     }
 }
 
