@@ -33,21 +33,21 @@
                 <!--navigation menu-->
                 <nav aria-label="Main Navigation" id="mainNav">
                     <ul>
-                        <li id="homeLi"><a href="index.html" class="nav-active" id="home" aria-current="page"
+                        <li id="homeLi"><a href="index.html" class="nav-active" id="home" title="Dashboard" aria-current="page"
                                 aria-label="Dashboard page" tabindex="0">Dashboard</a></li>
-                        <li id="createLi"><a href="create.html" id="create" aria-label="Create new Non-Conformance Report"
+                        <li id="createLi"><a href="create.html" id="create" title="Create" aria-label="Create new Non-Conformance Report"
                                 tabindex="0">Create <abbr title="Non-Conformance Report">NCR</abbr></a></li>
-                        <li id="viewLi"><a href="view.html" id="view" tabindex="0"
+                        <li id="viewLi"><a href="view.html" id="view" tabindex="0" title="NCR Log"
                                 aria-label="View existing Non-Conformance Reports"><abbr
                                     title="Non-Conformance Reports">NCR</abbr> Log</a></li>
-                        <li id="reportsLi"><a href="reports.html" id="reports" aria-label="View Reports" tabindex="0">Reports</a></li>
+                        <li id="reportsLi"><a href="reports.html" id="reports" title="Reports" aria-label="View Reports" tabindex="0">Reports</a></li>
                     </ul>
                 </nav>
             </div>
             <div class="header-col-right">
                 <div class="header-col-right">
                     <div class="faqs-button-container">
-                        <a href="faqs.html" aria-label="Navigate to FAQs Page" tabindex="0">
+                        <a href="faqs.html" aria-label="Navigate to FAQs Page" title="Frequently asked questions" tabindex="0">
                             <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
                                 xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
                                 viewBox="0 0 24 24">
@@ -59,11 +59,13 @@
                     </div>
                     <div class="notification">
                         <div class="notif-button-container">
-                            <button id="btnNotification" title="Notifications" aria-haspopup="true" aria-expanded="false"
-                                tabindex="0" aria-controls="notifDisplay" onclick="toggleDropdown()">
+                            <button id="btnNotification" title="Notifications" aria-haspopup="true"
+                                aria-expanded="false" tabindex="0" aria-controls="notifDisplay"
+                                onclick="toggleDropdown()">
                                 <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="none"
                                     viewBox="0 0 24 24">
+                                    <desc>Image depiction for FAQ Page</desc>
                                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
                                         stroke-width="1.75"
                                         d="M12 5.365V3m0 2.365a5.338 5.338 0 0 1 5.133 5.368v1.8c0 2.386 1.867 2.982 1.867 4.175 0 .593 0 1.292-.538 1.292H5.538C5 18 5 17.301 5 16.708c0-1.193 1.867-1.789 1.867-4.175v-1.8A5.338 5.338 0 0 1 12 5.365ZM8.733 18c.094.852.306 1.54.944 2.112a3.48 3.48 0 0 0 4.646 0c.638-.572 1.236-1.26 1.33-2.112h-6.92Z" />
@@ -86,7 +88,7 @@
                 </div>
                 <div class="profile">
                     <div class="user-container">
-                        <button id="btnProfile" aria-label="Click to view profile" aria-haspopup="true" tabindex="0"
+                        <button id="btnProfile" aria-label="Click to view profile" title="Profile Menu" aria-haspopup="true" tabindex="0"
                             aria-expanded="false" aria-controls="profileDropdown" onclick="toggleProfileDropdown()">
                             <span class="user-avatar">
                                 <img id="profilePic" src="images/user-profile.png" alt="User profile image"
@@ -102,10 +104,11 @@
                         aria-labelledby="btnProfile">
                         <ul>
                             <li>
-                                <a href="profile_settings.html" aria-label="Navigate to Profile Page" tabindex="0">
+                                <a href="profile_settings.html" title="Account Settings" aria-label="Navigate to Profile Page" tabindex="0">
                                     <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
                                         xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
                                         viewBox="0 0 24 24">
+                                        <title>Account Settings Icon</title>
                                         <path stroke="currentColor" stroke-width="2"
                                             d="M7 17v1a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1a3 3 0 0 0-3-3h-4a3 3 0 0 0-3 3Zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
                                     </svg>
@@ -113,10 +116,11 @@
                                 </a>
                             </li>
                             <li>
-                                <a id="logout" href="login.html" aria-label="Navigate to Logout Page" tabindex="0">
+                                <a id="logout" href="login.html" title="Logout" aria-label="Navigate to Logout Page" tabindex="0">
                                     <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
                                         xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
                                         viewBox="0 0 24 24">
+                                        <title>Logout Icon</title>
                                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
                                             stroke-width="2"
                                             d="M20 12H8m12 0-4 4m4-4-4-4M9 4H7a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h2" />
@@ -129,13 +133,8 @@
                 </div>
             </div>
         </div>
-        <div class="skip-links-div">
-            <a href="#btnCreate" class="skip-link" aria-label="Skip to Create NCR content">Skip to Create NCR</a>
-            <a href="#btnView" class="skip-link" aria-label="Skip to View NCR  content">Skip to View NCR</a>
-            <a href="#btnReports" class="skip-link" aria-label="Skip to NCR Reports content">Skip to Reports</a>
-            <a href="#recentNCRs-table" class="skip-link" aria-label="Skip to Recent NCR content">Skip to Recent
-                NCRs</a>
-            <a href="#footer" class="skip-link" aria-label="Skip to Footer">Skip to Footer</a>
+        <div class="skip-links-div">    
+            <a href="#footer" title="Skip to Footer" class="skip-link" aria-label="Skip to Footer">Skip to Footer</a>
         </div>
     </header>
     <main>
@@ -153,7 +152,7 @@
 
             <div class="faq-item">
                 <input class="faq-checkbox" type="checkbox" id="faq1">
-                <label class="faq-question two-cols" for="faq1">
+                <label class="faq-question two-cols" for="faq1" title="Click to view answer">
                     What is a Non-Conformance Report (NCR)?
                     <span class="faq-icon">+</span>
                 </label>
@@ -165,7 +164,7 @@
             
             <div class="faq-item">
                 <input class="faq-checkbox" type="checkbox" id="faq2">
-                <label class="faq-question two-cols" for="faq2">
+                <label class="faq-question two-cols" for="faq2" title="Click to view answer">
                     How do I submit a Non-Conformance Report?
                     <span class="faq-icon">+</span>
                 </label>
@@ -177,7 +176,7 @@
 
             <div class="faq-item">
                 <input class="faq-checkbox" type="checkbox" id="faq3">
-                <label class="faq-question two-cols" for="faq3">
+                <label class="faq-question two-cols" for="faq3" title="Click to view answer">
                     Can I save my NCR submission and complete it later?
                     <span class="faq-icon">+</span>
                 </label>
@@ -189,7 +188,7 @@
 
             <div class="faq-item">
                 <input class="faq-checkbox" type="checkbox" id="faq4">
-                <label class="faq-question two-cols" for="faq4">
+                <label class="faq-question two-cols" for="faq4" title="Click to view answer">
                     What happens after my NCR is submitted?
                     <span class="faq-icon">+</span>
                 </label>
@@ -201,7 +200,7 @@
 
             <div class="faq-item">
                 <input class="faq-checkbox" type="checkbox" id="faq5">
-                <label class="faq-question two-cols" for="faq5">
+                <label class="faq-question two-cols" for="faq5" title="Click to view answer">
                     Is there a way to search for specific NCRs?
                     <span class="faq-icon">+</span>
                 </label>
@@ -213,7 +212,7 @@
 
             <div class="faq-item">
                 <input class="faq-checkbox" type="checkbox" id="faq6">
-                <label class="faq-question two-cols" for="faq6">
+                <label class="faq-question two-cols" for="faq6" title="Click to view answer">
                     How can I check the Report of an NCR?
                     <span class="faq-icon">+</span>
                 </label>
@@ -227,7 +226,7 @@
     </main>
 
     <footer>
-        <p><small>&copy; 2024 Copyright. QCision - WireWits. All rights reserved.</small></p>
+        <p title="Copyright Information"><small>&copy; 2024 Copyright. QCision - WireWits. All rights reserved.</small></p>
     </footer>
     <script src="scripts/functions.js"></script>
     <script src="scripts/main.js"></script>
