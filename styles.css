@@ -793,6 +793,7 @@ table tbody tr:hover {
     padding: 15px;
     background-color: #eee;
     border-radius: 5px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .thumbnails-container::-webkit-scrollbar {
