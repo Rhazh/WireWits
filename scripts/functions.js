@@ -3998,7 +3998,7 @@ function performSearchPch() {
 //===================================================================================================
 // Toast Messages - apvarun.github.io
 //==================================================================================================
-function showToast(message, type = 'info', duration = 5000) {
+function showToast(message, type = 'info', duration = 7000) {
     Toastify({
         text: message,
         duration: duration,
