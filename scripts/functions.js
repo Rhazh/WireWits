@@ -1108,7 +1108,7 @@ function CreateNCR() {
     localStorage.setItem('history', JSON.stringify(history));
     localStorage.setItem('quality', JSON.stringify(quality));
 
-    showToast(`NCR Number ${ncrNumber} successfully generated. You may continue to provide additional information now or later`);
+    showToast(`NCR Number ${ncrNumber} successfully generated. You may continue to provide additional information now or later`, "success");
     //const createNCRModal = document.getElementById('createNCRModal');
     //const createEditModal = document.getElementById('createEditModal');
 
@@ -4006,7 +4006,7 @@ function showToast(message, type = 'info', duration = 5000) {
         gravity: "top",
         position: "center",
         color: "#fdfdfd",
-        backgroundColor: type === 'success' ? "#0056b3" :
+        backgroundColor: type === 'success' ? "#007a33" :
                          type === 'error' ? "#B22222" :
                          type === 'warning' ? "#B22222" :
                          "#0056b3",

@@ -16,6 +16,14 @@ fetch('seed-data/login.json')
             const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
             passwordField.setAttribute('type', type);
             this.style.color = (type === 'text') ? 'black' : 'gray';
+
+             // Toggle the crossing animation on the icon path
+             if (type === 'text') {
+                iconPath.classList.add('crossed-line');
+            } else {
+                iconPath.classList.remove('crossed-line');
+            }
+
         });
 
         document.getElementById("loginForm").addEventListener("submit", function (event) {
@@ -42,7 +50,7 @@ fetch('seed-data/login.json')
 
                 window.location.href = 'index.html'; // Redirect to index.html
             } else {
-                alert("Invalid credentials or department.");
+                showToast("Invalid credentials or department.", "error");
             }
         });
 

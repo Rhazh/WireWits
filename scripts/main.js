@@ -37,18 +37,18 @@ document.addEventListener('DOMContentLoaded', async () => {
         // Logout functionality
         document.getElementById('logout').addEventListener('click', function () {
             //Uncomment the code below to start afresh
-            //localStorage.clear();
+            localStorage.clear();
             const userConfirmed =confirm("Are you sure you want to Log out?");
             if (userConfirmed) {
                 localStorage.removeItem('loggedInUser');
-                alert("Successfully logged out.");
+                showToast("Successfully logged out.");
 
                 window.location.href = 'login.html';              
             } else {
                 //console.log("Logout cancelled.");
-               // alert("Operation cancelled.");
+                showToast("Operation cancelled.");
                 // Redirect or perform other actions as needed
-                //return;
+                return;
             }
                 });
     } else {
@@ -293,7 +293,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     } catch (error) {
         console.error('Error fetching data:', error);
         if (loadingIndicator) loadingIndicator.style.display = 'none';
-        alert("An error occurred while loading data. Please try again later.");
+        showToast("An error occurred while loading data. Please try again later.");
     }
 
     // Set up navigation buttons on index.html
