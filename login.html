@@ -32,30 +32,31 @@
 </head>
 
 <body>
-    <div class="modal-login">
+    <div class="modal-login" role="dialog">
         <div class="modal-container">
             <div class="modal-logo">
-                <img src="images/logo.png" alt="Crossfire logo" title="Crossfire logo" height="74" width="345" />
+                <img src="images/logo.png" alt="Crossfire logo" title="Crossfire logo" height="74" width="345" >
             </div>
             <form id="loginForm">
                 <div class="modal-form">
                     <div>
                         <label for="username">Username:</label>
-                        <input tabindex="1" id="username" name="username" type="text" placeholder="Enter your Username" required>
+                        <input tabindex="1" id="username" name="username" title="Username input field" type="text" placeholder="Enter your Username" required>
                     </div>
                     <div>
                         <label for="password">Password:</label>
                         <div class="password-container">
-                            <input id="password" tabindex="2" name="password" type="password" placeholder="Enter your Password" required>
+                            <input id="password" tabindex="2" name="password" title="Password input field" type="password" placeholder="Enter your Password" required>
                             <svg id="togglePassword" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
-                                viewBox="0 0 24 24">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                viewBox="0 0 24 24" aria-label="Show or hide password" alt="Show password" >
+                                <title>Show Password</title>
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
                                     d="M12 5c-5.25 0-9.568 3.832-11 7 1.432 3.168 5.75 7 11 7s9.568-3.832 11-7c-1.432-3.168-5.75-7-11-7zm0 4a3 3 0 1 1 0 6 3 3 0 0 1 0-6z" />
                             </svg>
                         </div>
                     </div>
                     <div>
-                        <label for="department" style="display: none">Department:</label>
+                        <label for="department" style="display: none" aria-hidden="true">Department:</label>
                         <select id="department" tabindex="3" style="display: none">
                             <option value="Quality">Quality</option>
                             <option value="Purchasing">Purchasing</option>
@@ -63,8 +64,8 @@
                         </select>
                     </div>
                     <div class="two-cols">
-                        <button class="button-primary" tabindex="4" type="submit" id="btnLogin">Log In</button>
-                        <button class="button-secondary" tabindex="5" type="button" id="btncancel">Cancel</button>
+                        <button class="button-primary" tabindex="4" type="submit" title="Log In" id="btnLogin">Log In</button>
+                        <button class="button-secondary" tabindex="5" type="button" title="Cancel" id="btncancel">Cancel</button>
                     </div>
                 </div>
             </form>
