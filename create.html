@@ -35,8 +35,8 @@
                 <!--navigation menu-->
                 <nav aria-label="Main Navigation" id="mainNav" class="">
                     <ul>
-                        <li id="homeLi"><a href="index.html" id="home" title="Dashboard" aria-current="page" aria-label="Dashboard page"
-                                tabindex="0">Dashboard</a></li>
+                        <li id="homeLi"><a href="index.html" id="home" title="Dashboard" aria-current="page"
+                                aria-label="Dashboard page" tabindex="0">Dashboard</a></li>
                         <li id="createLi"><a href="create.html" id="create" title="Create" class="nav-active"
                                 aria-label="Create new Non-Conformance Report" tabindex="0">Create <abbr
                                     title="Non-Conformance Report">NCR</abbr></a></li>
@@ -45,13 +45,16 @@
                                     title="Non-Conformance Reports">NCR</abbr> Log</a></li>
                         <li id="reportsLi"><a href="reports.html" id="reports" title="Reports" aria-label="View Reports"
                                 tabindex="0">Reports</a></li>
+                        <li id="metricsLi"><a href="metrics.html" id="metrics" title="Metric" aria-label="View Metrics"
+                                tabindex="0">Metrics</a></li>
                     </ul>
                 </nav>
             </div>
             <div class="header-col-right">
                 <div class="header-col-right">
                     <div class="faqs-button-container">
-                        <a href="faqs.html" aria-label="Navigate to FAQs Page" title="Frequently asked questions" tabindex="0">
+                        <a href="faqs.html" aria-label="Navigate to FAQs Page" title="Frequently asked questions"
+                            tabindex="0">
                             <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
                                 xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
                                 viewBox="0 0 24 24">
@@ -92,8 +95,9 @@
                 </div>
                 <div class="profile">
                     <div class="user-container">
-                        <button id="btnProfile" aria-label="Click to view profile" title="Profile Menu" aria-haspopup="true" tabindex="0"
-                            aria-expanded="false" aria-controls="profileDropdown" onclick="toggleProfileDropdown()">
+                        <button id="btnProfile" aria-label="Click to view profile" title="Profile Menu"
+                            aria-haspopup="true" tabindex="0" aria-expanded="false" aria-controls="profileDropdown"
+                            onclick="toggleProfileDropdown()">
                             <span class="user-avatar">
                                 <img id="profilePic" src="images/user-profile.png" alt="User profile image"
                                     title="User profile image" height="50" width="50">
@@ -108,7 +112,8 @@
                         aria-labelledby="btnProfile">
                         <ul>
                             <li>
-                                <a href="profile_settings.html" title="Account Settings" aria-label="Navigate to Profile Page" tabindex="0">
+                                <a href="profile_settings.html" title="Account Settings"
+                                    aria-label="Navigate to Profile Page" tabindex="0">
                                     <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
                                         xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
                                         viewBox="0 0 24 24">
@@ -138,12 +143,16 @@
             </div>
         </div>
         <div class="skip-links-div">
-            <a href="#createEditModal" class="skip-link" title="Skip to Create NCR Form" aria-label="Skip to Create NCR Form">Skip to NCR from</a>
-            <a href="#quantityReceived" class="skip-link" title="Skip to Quantity details" aria-label="Skip to Quantity details">Skip to Quantity
+            <a href="#createEditModal" class="skip-link" title="Skip to Create NCR Form"
+                aria-label="Skip to Create NCR Form">Skip to NCR from</a>
+            <a href="#quantityReceived" class="skip-link" title="Skip to Quantity details"
+                aria-label="Skip to Quantity details">Skip to Quantity
                 details</a>
-            <a href="#itemDescription" class="skip-link" title="Skip to Item and defect description" aria-label="Skip to Item and defect description">Skip to
+            <a href="#itemDescription" class="skip-link" title="Skip to Item and defect description"
+                aria-label="Skip to Item and defect description">Skip to
                 Descriptions</a>
-            <a href="#btnSave" class="skip-link" title="Skip to Buttons" aria-label="Skip to Buttons ">Skip to Buttons</a>
+            <a href="#btnSave" class="skip-link" title="Skip to Buttons" aria-label="Skip to Buttons ">Skip to
+                Buttons</a>
             <a href="#footer" class="skip-link" title="Skip to Footer" aria-label="Skip to Footer">Skip to Footer</a>
         </div>
     </header>
@@ -203,7 +212,8 @@
                                         </div>
                                     </div>
                                 </div>
-                                <select id="napplicableProcess" name="napplicableProcess" title="Applicable Process" aria-label="required field">
+                                <select id="napplicableProcess" name="napplicableProcess" title="Applicable Process"
+                                    aria-label="required field">
                                     <option value="" disabled selected>Select a process</option>
                                     <!-- Added value="" and selected attribute -->
                                     <option value="Supplier or Rec-Insp">Supplier or Rec-Insp</option>
@@ -232,16 +242,17 @@
                                         </div>
                                     </div>
                                 </div>
-                                <select id="nsupplierName" name="nsupplierName" title="Select a Supplier" aria-label="required field">
-                                    <option value="" disabled  selected>Select a Supplier</option>
+                                <select id="nsupplierName" name="nsupplierName" title="Select a Supplier"
+                                    aria-label="required field">
+                                    <option value="" disabled selected>Select a Supplier</option>
                                     <!-- Added value="" and selected attribute -->
                                 </select>
                             </div>
                             <div class="two-cols">
                                 <button type="button" id="btnCreateNCR" title="Create" class="button-primary"
                                     tabindex="4">Create</button>
-                                <button type="button" id="btnCancelNCR" title="Cancel" tabindex="5" class="button-secondary"
-                                    onclick="goBack()">Cancel</button>
+                                <button type="button" id="btnCancelNCR" title="Cancel" tabindex="5"
+                                    class="button-secondary" onclick="goBack()">Cancel</button>
                             </div>
                         </form>
                     </div>
@@ -352,8 +363,8 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <input id="poNumber" name="poNumber" title="Production Number" type="text" pattern="[0-9-]*"
-                                            placeholder="Example: 000-00">
+                                        <input id="poNumber" name="poNumber" title="Production Number" type="text"
+                                            pattern="[0-9-]*" placeholder="Example: 000-00">
                                         <!--include regex for pattern: digits-->
                                     </div>
                                     <div>
@@ -378,8 +389,8 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <input id="soNumber" name="soNumber" title="Sales Order number" type="text" pattern="[0-9-]*"
-                                            placeholder="Example: 000-00" required>
+                                        <input id="soNumber" name="soNumber" title="Sales Order number" type="text"
+                                            pattern="[0-9-]*" placeholder="Example: 000-00" required>
                                         <!--include regex for pattern: digits-->
                                     </div>
                                 </div>
@@ -413,8 +424,8 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <input id="quantityReceived" title="Quantity Recieved" name="quantityReceived" type="number"
-                                            placeholder="Example : 100" required min="1">
+                                        <input id="quantityReceived" title="Quantity Recieved" name="quantityReceived"
+                                            type="number" placeholder="Example : 100" required min="1">
                                     </div>
                                     <div>
                                         <div class="two-cols-info">
@@ -437,8 +448,8 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <input id="quantityDefect" title="Quantity Defective" name="quantityDefect" type="number"
-                                            placeholder="Example : 50" required min="1">
+                                        <input id="quantityDefect" title="Quantity Defective" name="quantityDefect"
+                                            type="number" placeholder="Example : 50" required min="1">
                                     </div>
                                 </div>
                             </div>
@@ -467,8 +478,8 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <textarea id="itemDescription" title="Item Description" name="itemDescription" rows="2"
-                                        placeholder="Describe the item" required></textarea>
+                                    <textarea id="itemDescription" title="Item Description" name="itemDescription"
+                                        rows="2" placeholder="Describe the item" required></textarea>
                                 </div>
                                 <div class="one-col-form">
                                     <div class="two-cols-info">
@@ -493,8 +504,8 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <textarea id="defectDescription" title="Defect Description" name="defectDescription" rows="5"
-                                        placeholder="Describe the defect in as much detail as possible"
+                                    <textarea id="defectDescription" title="Defect Description" name="defectDescription"
+                                        rows="5" placeholder="Describe the defect in as much detail as possible"
                                         required></textarea>
                                 </div>
                                 <div class="one-col-form">
@@ -542,11 +553,13 @@
                                 <div class="form-checkbox-container">
                                     <div class="form-checkbox">
                                         <input id="itemConform" name="itemConform" type="checkbox">
-                                        <label for="itemConform" title="Item marked conforming?">Item marked conforming?</label>
+                                        <label for="itemConform" title="Item marked conforming?">Item marked
+                                            conforming?</label>
                                     </div>
                                     <div id="engNeededtoggle" class="form-checkbox">
                                         <input id="engNeeded" name="engNeeded" type="checkbox">
-                                        <label for="engNeeded" title="Forward to Engineering?">Forward to Engineering?</label>
+                                        <label for="engNeeded" title="Forward to Engineering?">Forward to
+                                            Engineering?</label>
                                     </div>
                                 </div>
                                 <hr>
@@ -683,7 +696,8 @@
                         <div class="tab-head">
                             <label for="sectionQuality" title="Quality" id="sectionQualitylabel">Quality</label>
                             <label for="sectionEngineer" title="Engineer" id="sectionEngineerlabel">Engineer</label>
-                            <label for="sectionPurchasing" title="Purchasing" id="sectionPurchasinglabel">Purchasing</label>
+                            <label for="sectionPurchasing" title="Purchasing"
+                                id="sectionPurchasinglabel">Purchasing</label>
                         </div>
 
                         <!--Tab Section: Quality (Static)-->
@@ -719,7 +733,7 @@
 
                         <!--Tab Section: Engineer-->
                         <div id="tabEngineer" class="tab-content">
-                            
+
                             <!--Engineer (Edit)-->
                             <div class="form-ncr" id="engEditForm">
                                 <form id="formSecEngineer" class="form-section">
@@ -745,8 +759,10 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <select name="CFEngineering" id="reviewByCfEngineering" title="Review By CF Engineering" required>
-                                                <option value="" title="Select an option" disabled selected>Select an option </option>
+                                            <select name="CFEngineering" id="reviewByCfEngineering"
+                                                title="Review By CF Engineering" required>
+                                                <option value="" title="Select an option" disabled selected>Select an
+                                                    option </option>
                                                 <option value="Use As Is" title="Use As Is">Use As Is</option>
                                                 <option value="Repair" title="Repair">Repair</option>
                                                 <option value="Rework" title="Rework">Rework</option>
@@ -755,7 +771,8 @@
                                         </div>
                                         <div class="form-ncr-details">
                                             <div class="two-cols-info">
-                                                <label for="customerNotification">Does Customer require notification of NCR?</label>
+                                                <label for="customerNotification">Does Customer require notification of
+                                                    NCR?</label>
                                                 <div class="form-info">
                                                     <div class="info-icon">
                                                         <svg class="w-6 h-6 text-gray-800 dark:text-white"
@@ -774,7 +791,8 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <select name="customerNot" id="customerNotification" title="Does Customer require notification of NCR?">
+                                            <select name="customerNot" id="customerNotification"
+                                                title="Does Customer require notification of NCR?">
                                                 <option value="" title="Select an option">Select an option</option>
                                                 <option value="Yes" title="Yes">Yes</option>
                                                 <option value="No" title="No">No</option>
@@ -805,7 +823,8 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <textarea name="disposition" id="disposition" title="Disposition" rows="5"></textarea>
+                                            <textarea name="disposition" id="disposition" title="Disposition"
+                                                rows="5"></textarea>
                                         </div>
                                     </div>
                                     <div class="two-cols">
@@ -830,7 +849,8 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <select name="drawingUpdate" id="drawingUpdate" title="Does the drawing require updating?">
+                                            <select name="drawingUpdate" id="drawingUpdate"
+                                                title="Does the drawing require updating?">
                                                 <option value="" title="Select an option">Select an option</option>
                                                 <option value="Yes" title="Yes">Yes</option>
                                                 <option value="No" title="No">No</option>
@@ -860,7 +880,8 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <input type="text" id="originalRevNumber" title="Original Revision Number:">
+                                                <input type="text" id="originalRevNumber"
+                                                    title="Original Revision Number:">
                                             </div>
                                             <div class="form-ncr-details">
                                                 <div class="two-cols-info">
@@ -883,7 +904,8 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <input type="text" id="updatedRevNumber" title="Updated Revision Number:">
+                                                <input type="text" id="updatedRevNumber"
+                                                    title="Updated Revision Number:">
                                             </div>
                                             <div class="form-ncr-details">
                                                 <div class="two-cols-info">
@@ -933,7 +955,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                        
+
                                     <div hidden id="completionToggle2">
                                         <div class="two-cols">
                                             <div class="form-ncr-details drawingUpdateToggle3">
@@ -985,15 +1007,16 @@
                                     </div>
                                     <hr>
                                     <div class="form-ncr-buttons">
-                                        <button type="button" id="btnEngSave" title="Save" class="button-primary">Save</button>
-                                        <button type="button" id="btnEngSubmit"
-                                            class="button-secondary btnDisable" title="Submit">Submit</button>
+                                        <button type="button" id="btnEngSave" title="Save"
+                                            class="button-primary">Save</button>
+                                        <button type="button" id="btnEngSubmit" class="button-secondary btnDisable"
+                                            title="Submit">Submit</button>
                                         <button type="button" id="btnEngCancel" title="Cancel" class="button-secondary"
                                             onclick="goBack()">Cancel</button>
                                     </div>
                                 </form>
                             </div>
-                            
+
                             <!--Engineer (Static)-->
                             <div id="engDetailsForm" class="form-section">
                                 <div class="two-cols">
@@ -1061,27 +1084,33 @@
                                             <div class="form-info">
                                                 <div class="info-icon">
                                                     <svg class="w-6 h-6 text-gray-800 dark:text-white"
-                                                        aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                                        width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                                        aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
+                                                        height="24" fill="none" viewBox="0 0 24 24">
                                                         <path stroke="currentColor" stroke-linecap="round"
                                                             stroke-linejoin="round" stroke-width="2"
                                                             d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                                                     </svg>
                                                 </div>
                                                 <div class="info-desc">
-                                                    <p>Initial decision made by the Purchasing department regarding the issue or non-conformance.</p>
+                                                    <p>Initial decision made by the Purchasing department regarding the
+                                                        issue or non-conformance.</p>
                                                 </div>
                                             </div>
                                         </div>
-                                        <select name="preliminaryDecision" id="preliminaryDecision" title="Purchasing's Preliminary Decision">
+                                        <select name="preliminaryDecision" id="preliminaryDecision"
+                                            title="Purchasing's Preliminary Decision">
                                             <option value="" title="Select an option">Select an option</option>
                                             <option value='Return to Supplier for either "rework" or
                                             "replacement"' title='Return to Supplier for either "rework" or
                                                 "replacement"'>Return to Supplier for either "rework" or
                                                 "replacement"</option>
-                                            <option value='Rework "In-House"' title='Rework "In-House"'>Rework "In-House"</option>
-                                            <option value="Scrap in House" title="Scrap in House">Scrap in House</option>
-                                            <option value="Defer for HBC Engineering Review" title="Defer for HBC Engineering Review">Defer for HBC Engineering Review</option>
+                                            <option value='Rework "In-House"' title='Rework "In-House"'>Rework
+                                                "In-House"</option>
+                                            <option value="Scrap in House" title="Scrap in House">Scrap in House
+                                            </option>
+                                            <option value="Defer for HBC Engineering Review"
+                                                title="Defer for HBC Engineering Review">Defer for HBC Engineering
+                                                Review</option>
                                         </select>
                                     </div>
                                 </div>
@@ -1094,15 +1123,16 @@
                                             <div class="form-info">
                                                 <div class="info-icon">
                                                     <svg class="w-6 h-6 text-gray-800 dark:text-white"
-                                                        aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                                        width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                                        aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
+                                                        height="24" fill="none" viewBox="0 0 24 24">
                                                         <path stroke="currentColor" stroke-linecap="round"
                                                             stroke-linejoin="round" stroke-width="2"
                                                             d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                                                     </svg>
                                                 </div>
                                                 <div class="info-desc">
-                                                    <p>Indicate whether a Corrective Action Request (CAR) was created to address the issue.</p>
+                                                    <p>Indicate whether a Corrective Action Request (CAR) was created to
+                                                        address the issue.</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -1114,20 +1144,20 @@
                                     </div>
                                     <div class="form-ncr-details" id="carRaisedToggle">
                                         <div class="two-cols-info">
-                                            <label for="carRaised">CAR Number:<span
-                                                    class="required">*</span></label>
+                                            <label for="carRaised">CAR Number:<span class="required">*</span></label>
                                             <div class="form-info">
                                                 <div class="info-icon">
                                                     <svg class="w-6 h-6 text-gray-800 dark:text-white"
-                                                        aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                                        width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                                        aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
+                                                        height="24" fill="none" viewBox="0 0 24 24">
                                                         <path stroke="currentColor" stroke-linecap="round"
                                                             stroke-linejoin="round" stroke-width="2"
                                                             d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                                                     </svg>
                                                 </div>
                                                 <div class="info-desc">
-                                                    <p>The unique number assigned to the Corrective Action Request (CAR).</p>
+                                                    <p>The unique number assigned to the Corrective Action Request
+                                                        (CAR).</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -1143,15 +1173,16 @@
                                             <div class="form-info">
                                                 <div class="info-icon">
                                                     <svg class="w-6 h-6 text-gray-800 dark:text-white"
-                                                        aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                                        width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                                        aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
+                                                        height="24" fill="none" viewBox="0 0 24 24">
                                                         <path stroke="currentColor" stroke-linecap="round"
                                                             stroke-linejoin="round" stroke-width="2"
                                                             d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                                                     </svg>
                                                 </div>
                                                 <div class="info-desc">
-                                                    <p>Indicate if further action is needed to address the issue after the initial correction</p>
+                                                    <p>Indicate if further action is needed to address the issue after
+                                                        the initial correction</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -1169,15 +1200,16 @@
                                             <div class="form-info">
                                                 <div class="info-icon">
                                                     <svg class="w-6 h-6 text-gray-800 dark:text-white"
-                                                        aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                                        width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                                        aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
+                                                        height="24" fill="none" viewBox="0 0 24 24">
                                                         <path stroke="currentColor" stroke-linecap="round"
                                                             stroke-linejoin="round" stroke-width="2"
                                                             d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                                                     </svg>
                                                 </div>
                                                 <div class="info-desc">
-                                                    <p>Specify the type of follow-up action required, such as a review or verification</p>
+                                                    <p>Specify the type of follow-up action required, such as a review
+                                                        or verification</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -1189,15 +1221,16 @@
                                             <div class="form-info">
                                                 <div class="info-icon">
                                                     <svg class="w-6 h-6 text-gray-800 dark:text-white"
-                                                        aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                                        width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                                        aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
+                                                        height="24" fill="none" viewBox="0 0 24 24">
                                                         <path stroke="currentColor" stroke-linecap="round"
                                                             stroke-linejoin="round" stroke-width="2"
                                                             d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                                                     </svg>
                                                 </div>
                                                 <div class="info-desc">
-                                                    <p>Indicate the date by which the follow-up action should be completed</p>
+                                                    <p>Indicate the date by which the follow-up action should be
+                                                        completed</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -1218,8 +1251,10 @@
                                 </div>
 
                                 <div class="form-ncr-buttons">
-                                    <button type="button" id="btnPchSave" title="Save" class="button-primary">Save</button>
-                                    <button type="button" id="btnPchClose" title="Close" class="button-secondary btnDisable">Close
+                                    <button type="button" id="btnPchSave" title="Save"
+                                        class="button-primary">Save</button>
+                                    <button type="button" id="btnPchClose" title="Close"
+                                        class="button-secondary btnDisable">Close
                                         NCR</button>
                                     <button type="button" id="btnPchCancel" title="Cancel" class="button-secondary"
                                         onclick="goBack()">Cancel</button>
@@ -1233,7 +1268,8 @@
     </main>
 
     <footer id="footer">
-        <p title="Copyright Information"><small>&copy; 2024 Copyright. QCision - WireWits. All rights reserved.</small></p>
+        <p title="Copyright Information"><small>&copy; 2024 Copyright. QCision - WireWits. All rights reserved.</small>
+        </p>
     </footer>
     <!-- Link to the JavaScript file -->
     <script src="scripts/functions.js"></script>

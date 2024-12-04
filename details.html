@@ -36,8 +36,8 @@
                 <!--navigation menu-->
                 <nav aria-label="Main Navigation" id="mainNav">
                     <ul>
-                        <li id="homeLi"><a href="index.html" id="home" title="Dashboard" aria-current="page" aria-label="Dashboard page"
-                                tabindex="0">Dashboard</a></li>
+                        <li id="homeLi"><a href="index.html" id="home" title="Dashboard" aria-current="page"
+                                aria-label="Dashboard page" tabindex="0">Dashboard</a></li>
                         <li id="createLi"><a href="create.html" id="create" title="Create NCR"
                                 aria-label="Create new Non-Conformance Report" tabindex="0">Create <abbr
                                     title="Non-Conformance Report">NCR</abbr></a></li>
@@ -46,13 +46,16 @@
                                     title="Non-Conformance Reports">NCR</abbr> Log</a></li>
                         <li id="reportsLi"><a href="reports.html" id="reports" title="Reports" aria-label="View Reports"
                                 tabindex="0">Reports</a></li>
+                        <li id="metricsLi"><a href="metrics.html" id="metrics" title="Metric" aria-label="View Metrics"
+                                tabindex="0">Metrics</a></li>
                     </ul>
                 </nav>
             </div>
             <div class="header-col-right">
                 <div class="header-col-right">
                     <div class="faqs-button-container">
-                        <a href="faqs.html" aria-label="Navigate to FAQs Page" title="Frequently asked questions" tabindex="0">
+                        <a href="faqs.html" aria-label="Navigate to FAQs Page" title="Frequently asked questions"
+                            tabindex="0">
                             <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
                                 xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
                                 viewBox="0 0 24 24">
@@ -93,8 +96,9 @@
                 </div>
                 <div class="profile">
                     <div class="user-container">
-                        <button id="btnProfile" aria-label="Click to view profile" title="Profile Menu" aria-haspopup="true" tabindex="0"
-                            aria-expanded="false" aria-controls="profileDropdown" onclick="toggleProfileDropdown()">
+                        <button id="btnProfile" aria-label="Click to view profile" title="Profile Menu"
+                            aria-haspopup="true" tabindex="0" aria-expanded="false" aria-controls="profileDropdown"
+                            onclick="toggleProfileDropdown()">
                             <span class="user-avatar">
                                 <img id="profilePic" src="images/user-profile.png" alt="User profile image"
                                     title="User profile image" height="50" width="50">
@@ -109,7 +113,8 @@
                         aria-labelledby="btnProfile">
                         <ul>
                             <li>
-                                <a href="profile_settings.html" title="Account Settings" aria-label="Navigate to Profile Page" tabindex="0">
+                                <a href="profile_settings.html" title="Account Settings"
+                                    aria-label="Navigate to Profile Page" tabindex="0">
                                     <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
                                         xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
                                         viewBox="0 0 24 24">
@@ -121,7 +126,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a id="logout"  title="Logout" aria-label="Navigate to Logout Page" tabindex="0">
+                                <a id="logout" title="Logout" aria-label="Navigate to Logout Page" tabindex="0">
                                     <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
                                         xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
                                         viewBox="0 0 24 24">
@@ -139,8 +144,10 @@
             </div>
         </div>
         <div class="skip-links-div">
-            <a href="#search" class="skip-link" aria-label="Skip to Search NCR" title="Skip to Search NCR">Skip to Search NCR</a>
-            <a href="#ncr-info" class="skip-link" aria-label="Skip to NCR Details " title="Skip to NCR Details ">Skip to NCR Details</a>
+            <a href="#search" class="skip-link" aria-label="Skip to Search NCR" title="Skip to Search NCR">Skip to
+                Search NCR</a>
+            <a href="#ncr-info" class="skip-link" aria-label="Skip to NCR Details " title="Skip to NCR Details ">Skip to
+                NCR Details</a>
             <a href="#footer" class="skip-link" aria-label="Skip to Footer" title="Skip to Footer">Skip to Footer</a>
         </div>
     </header>
@@ -268,8 +275,8 @@
                                     </div>
                                     <hr>
                                     <div class="form-ncr-buttons">
-                                        <button id="printButton" title="Download as PDF" class="button-primary" tabindex="23"
-                                            onclick="printPdf()">Download as PDF</button>
+                                        <button id="printButton" title="Download as PDF" class="button-primary"
+                                            tabindex="23" onclick="printPdf()">Download as PDF</button>
                                         <button id="editButton" title="Edit" class="button-primary" tabindex="22"
                                             onclick="window.location.href='create.html?ncr=' + document.getElementById('ncrNumber').textContent;">Edit</button>
                                         <!-- <button id="revertButton" class="button-primary" tabindex="22" onclick="popupComment()">Revert to Quality</button> -->
@@ -361,11 +368,11 @@
                                             </div>
                                         </div>
                                     </div>
-                                    
+
                                     <hr>
                                     <div class="form-ncr-buttons">
-                                        <button id="printButton" title="Download as PDF" class="button-primary" tabindex="23"
-                                            onclick="printPdf()">Download as PDF</button>
+                                        <button id="printButton" title="Download as PDF" class="button-primary"
+                                            tabindex="23" onclick="printPdf()">Download as PDF</button>
                                         <button id="editButton" class="button-primary" tabindex="22"
                                             onclick="window.location.href='create.html?ncr=' + document.getElementById('ncrNumber').textContent;">Edit</button>
                                     </div>
@@ -431,8 +438,8 @@
                                         <hr>
                                     </div>
                                     <div class="form-ncr-buttons">
-                                        <button id="printButton" title="Download as PDF" class="button-primary" tabindex="23"
-                                            onclick="printPdf()">Download as PDF</button>
+                                        <button id="printButton" title="Download as PDF" class="button-primary"
+                                            tabindex="23" onclick="printPdf()">Download as PDF</button>
                                         <button id="editButton" class="button-primary" tabindex="22"
                                             onclick="window.location.href='create.html?ncr=' + document.getElementById('ncrNumber').textContent;">Edit</button>
                                     </div>
@@ -446,7 +453,8 @@
     </main>
 
     <footer id="footer">
-        <p title="Copyright Information"><small>&copy; 2024 Copyright. QCision - WireWits. All rights reserved.</small></p>
+        <p title="Copyright Information"><small>&copy; 2024 Copyright. QCision - WireWits. All rights reserved.</small>
+        </p>
     </footer>
     <script src="scripts/functions.js"></script>
     <script src="scripts/main.js"></script>

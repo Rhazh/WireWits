@@ -36,8 +36,8 @@
                 <!--navigation menu-->
                 <nav aria-label="Main Navigation" id="mainNav">
                     <ul>
-                        <li id="homeLi"><a href="index.html" title="Dashboard" class="nav-active" id="home" aria-current="page"
-                                aria-label="Dashboard page" tabindex="0">Dashboard</a></li>
+                        <li id="homeLi"><a href="index.html" title="Dashboard" class="nav-active" id="home"
+                                aria-current="page" aria-label="Dashboard page" tabindex="0">Dashboard</a></li>
                         <li id="createLi"><a href="create.html" title="Create NCR" id="create"
                                 aria-label="Create new Non-Conformance Report" tabindex="0">Create <abbr
                                     title="Non-Conformance Report">NCR</abbr></a></li>
@@ -46,13 +46,16 @@
                                     title="Non-Conformance Reports">NCR</abbr> Log </a></li>
                         <li id="reportsLi"><a href="reports.html" title="Reports" id="reports" aria-label="View Reports"
                                 tabindex="0">Reports</a></li>
+                        <li id="metricsLi"><a href="metrics.html" id="metrics" title="Metric" aria-label="View Metrics"
+                                tabindex="0">Metrics</a></li>
                     </ul>
                 </nav>
             </div>
             <div class="header-col-right">
                 <div class="header-col-right">
                     <div class="faqs-button-container">
-                        <a href="faqs.html" aria-label="Navigate to FAQs Page" title="Frequently asked questions" tabindex="0">
+                        <a href="faqs.html" aria-label="Navigate to FAQs Page" title="Frequently asked questions"
+                            tabindex="0">
                             <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
                                 xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
                                 viewBox="0 0 24 24">
@@ -93,8 +96,9 @@
                 </div>
                 <div class="profile">
                     <div class="user-container">
-                        <button id="btnProfile" aria-label="Click to view profile" title="Profile Menu" aria-haspopup="true" tabindex="0"
-                            aria-expanded="false" aria-controls="profileDropdown" onclick="toggleProfileDropdown()">
+                        <button id="btnProfile" aria-label="Click to view profile" title="Profile Menu"
+                            aria-haspopup="true" tabindex="0" aria-expanded="false" aria-controls="profileDropdown"
+                            onclick="toggleProfileDropdown()">
                             <span class="user-avatar">
                                 <img id="profilePic" src="images/user-profile.png" alt="User profile image"
                                     title="User profile image" height="50" width="50">
@@ -109,7 +113,8 @@
                         aria-labelledby="btnProfile">
                         <ul>
                             <li>
-                                <a href="profile_settings.html" title="Account Settings" aria-label="Navigate to Profile Page" tabindex="0">
+                                <a href="profile_settings.html" title="Account Settings"
+                                    aria-label="Navigate to Profile Page" tabindex="0">
                                     <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
                                         xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
                                         viewBox="0 0 24 24">
@@ -167,7 +172,7 @@
                         <input id="sectionMetricAll" type="radio" class="tab-selector" name="tabs" checked>
                         <input id="sectionMetricRecord" type="radio" class="tab-selector" name="tabs">
                         <input id="sectionMetricDefect" type="radio" class="tab-selector" name="tabs">
-                        
+
                         <!-- Tab Contents -->
                         <div id="tabMetricAll" class="tab-content form-section">
                             <strong>Supplier NCR and Defect Metrics Chart</strong>
@@ -181,16 +186,17 @@
                             <strong>Cumulative Defect Percentage Metrics Chart</strong>
                             <canvas id="metricChartDefect"></canvas>
                         </div>
-                        
+
                         <!--Tab Header Selector-->
                         <div class="tab-head">
                             <label for="sectionMetricAll" title="Supplier NCR and Defect Metrics">Show All</label>
                             <label for="sectionMetricRecord" title="Number of NCR Records">Supplier Records</label>
-                            <label for="sectionMetricDefect" title="Cumulative Defect Percentage (%)">Cumulative Defects</label>
+                            <label for="sectionMetricDefect" title="Cumulative Defect Percentage (%)">Cumulative
+                                Defects</label>
                         </div>
                     </div>
                 </div>
-    
+
                 <!-- Supplier Defect Table -->
                 <div class="div-container" style="display:none">
                     <div class="table-title" aria-label="Supplier Metrics">
@@ -213,11 +219,13 @@
         </div>
     </main>
     <footer>
-        <p title="Copyright Information"><small>&copy; 2024 Copyright. QCision - WireWits. All rights reserved.</small></p>
+        <p title="Copyright Information"><small>&copy; 2024 Copyright. QCision - WireWits. All rights reserved.</small>
+        </p>
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="scripts/functions.js"></script>
     <script src="scripts/main.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 </body>
+
 </html>

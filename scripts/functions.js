@@ -3080,12 +3080,17 @@ function correctDate(dateString) {
 function updateNavLinks(userRole) {
     //const homeLink = document.getElementById('homeLi');
     const createLink = document.getElementById('createLi');
+    const metricsLink = document.getElementById('metricsLi');
     //const viewLink = document.getElementById('viewLi');
     //const reportsLink = document.getElementById('reports');
 
     // Hide link if the user is not an admin
     if (userRole == "Engineer" || userRole == "Purchasing") {
         createLink.classList = 'nav-hide';
+    }
+    if (userRole != "Purchasing"){
+        metricsLink.classList = 'nav-hide';
+
     }
 }
 
