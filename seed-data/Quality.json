@@ -15,7 +15,7 @@
         "defectDescription": "Color mismatch: The final paint color differs from the intended or specified shade.\nBubbling or blistering: Air bubbles form on the paint surface, affecting the finish.",
         "documentFiles": [
         ],
-        "ncrStatus": "Engineering",
+        "ncrStatus": "Purchasing",
         "completedBy" : "Cassandra Washington",
         "completedOn" : "11/05/2024"
     },
@@ -35,7 +35,7 @@
         "defectDescription": "Incorrect labeling: Labels do not match the contents.\nSeal failure: Packaging seals are compromised.",
         "documentFiles": [
         ],
-        "ncrStatus": "Engineering",
+        "ncrStatus": "Purchasing",
         "completedBy" : "Marcus Allen",
         "completedOn" : "11/05/2024"
     },

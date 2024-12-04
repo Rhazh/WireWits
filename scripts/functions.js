@@ -4310,12 +4310,14 @@ function Metrics() {
                 {
                     label: 'Cumulative Defect Percentage (%)', // Line chart dataset
                     data: cumulativeDefectPercentage,
-                    backgroundColor: 'rgba(0, 86, 179, 0.7)'
+                    backgroundColor: 'rgba(0, 86, 179, 0.7)',
+                    isCumulativePercentage: true
                 },
                 {
                     label: 'Number of NCR Records', // Bar chart dataset
                     data: ncrCounts,
-                    backgroundColor: 'rgba(0, 122, 51, 0.7)'
+                    backgroundColor: 'rgba(0, 122, 51, 0.7)',
+                    isCumulativePercentage: false
                 },
             ]
         },
@@ -4342,8 +4344,9 @@ function Metrics() {
                 tooltip: {
                     callbacks: {
                         label: (context) => {
-                            if (context.dataset.type === 'line') {
-                                return `Cumulative Defect Percentage: ${context.raw}%`;
+                            // Use the custom property to determine label behavior
+                            if (context.dataset.isCumulativePercentage) {
+                                return `${context.raw}% Defective`;
                             }
                             return `${context.raw} NCRs`;
                         }
@@ -4398,7 +4401,8 @@ function Metrics() {
                 {
                     label: 'Number of NCR Records', // Bar chart dataset
                     data: ncrCounts,
-                    backgroundColor: 'rgba(0, 122, 51, 0.7)'
+                    backgroundColor: 'rgba(0, 122, 51, 0.7)',
+                    isCumulativePercentage: false
                 }
             ]
         },
@@ -4425,8 +4429,9 @@ function Metrics() {
                 tooltip: {
                     callbacks: {
                         label: (context) => {
-                            if (context.dataset.type === 'line') {
-                                return `Cumulative Defect Percentage: ${context.raw}%`;
+                            // Use the custom property to determine label behavior
+                            if (context.dataset.isCumulativePercentage) {
+                                return `${context.raw}% Defective`;
                             }
                             return `${context.raw} NCRs`;
                         }
@@ -4481,7 +4486,8 @@ function Metrics() {
                 {
                     label: 'Cumulative Defect Percentage (%)', // Line chart dataset
                     data: cumulativeDefectPercentage,
-                    backgroundColor: 'rgba(0, 86, 179, 0.7)'
+                    backgroundColor: 'rgba(0, 86, 179, 0.7)',
+                    isCumulativePercentage: true
                 }
             ]
         },
@@ -4508,8 +4514,9 @@ function Metrics() {
                 tooltip: {
                     callbacks: {
                         label: (context) => {
-                            if (context.dataset.type === 'line') {
-                                return `Cumulative Defect Percentage: ${context.raw}%`;
+                            // Use the custom property to determine label behavior
+                            if (context.dataset.isCumulativePercentage) {
+                                return `${context.raw}% Defective`;
                             }
                             return `${context.raw} NCRs`;
                         }

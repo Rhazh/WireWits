@@ -1,7 +1,7 @@
 [
   {
     "ncrNumber": "2024-001",
-    "ncrStatus": "Engineering",
+    "ncrStatus": "Purchasing",
     "reviewByCfEngineering": "Use As Is",
     "customerNotification": "Yes",
     "disposition": "No issues found. Approved for use.",
@@ -15,7 +15,7 @@
   },
   {
     "ncrNumber": "2024-002",
-    "ncrStatus": "Engineering",
+    "ncrStatus": "Purchasing",
     "reviewByCfEngineering": "Repair",
     "customerNotification": "No",
     "disposition": "Minor repairs required.",
