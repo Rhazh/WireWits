@@ -17,12 +17,7 @@ fetch('seed-data/login.json')
             passwordField.setAttribute('type', type);
             this.style.color = (type === 'text') ? 'black' : 'gray';
 
-             // Toggle the crossing animation on the icon path
-             if (type === 'text') {
-                iconPath.classList.add('crossed-line');
-            } else {
-                iconPath.classList.remove('crossed-line');
-            }
+            
 
         });
 

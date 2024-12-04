@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                     window.location.href = 'login.html';
                 } else {
                     //console.log("Logout cancelled.");
-                    showToast("Operation cancelled.");
+                    showToast("Logout cancelled.");
                     location.back();
                     // Redirect or perform other actions as needed
                     //return;
@@ -70,7 +70,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         console.error("Profile elements not found or no user logged in.");
     }
 
-        
+    logout();
     initializeNotificationToggle(); // Initialize notification toggle
 
 
