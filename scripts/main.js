@@ -453,6 +453,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         'settings.html': 'Settings',
         'underdevelopment.html': 'Under Development',
         'profile_settings.html': 'Profile & Settings',
+        'metrics.html' : 'Metrics'
 
     };
 
@@ -480,6 +481,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
     else if (currentPage === 'profile_settings.html') {
         derivedPath.push('index.html', 'profile_settings.html');
+    }
+    else if (currentPage === 'metrics.html') {
+        derivedPath.push('index.html', 'metrics.html');
     }
     else {
         derivedPath.push('index.html'); // Default case for the homepage
