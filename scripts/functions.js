@@ -823,26 +823,56 @@ function setupPagination(totalResults, displayResultsFunc, tableBodyId, paginati
     const paginationContainer = document.getElementById(paginationContainerId);
     paginationContainer.innerHTML = ''; // Clear previous pagination
 
-    for (let page = 1; page <= totalPages; page++) {
+    // Add "Back" button
+    const prevButton = document.createElement('button');
+    prevButton.textContent = 'Back';
+    prevButton.disabled = currentPage === 1; // Disable if on the first page
+    prevButton.onclick = () => {
+        if (currentPage > 1) {
+            currentPage--;
+            updatePagination(totalResults, displayResultsFunc, tableBodyId, paginationContainerId);
+        }
+    };
+    paginationContainer.appendChild(prevButton);
+
+    // Calculate the range of pages to display
+    const startPage = Math.max(1, currentPage - 1); // Start one page before the current page, but not less than 1
+    const endPage = Math.min(totalPages, startPage + 2); // Show up to 3 pages total
+
+    for (let page = startPage; page <= endPage; page++) {
         const pageButton = document.createElement('button');
         pageButton.textContent = page;
+        pageButton.classList.toggle('active', page === currentPage); // Highlight the active page
         pageButton.onclick = () => {
-            currentPage = page; // Set current page to the clicked page
-            displayResultsFunc(currentPage, resultsPerPage, tableBodyId); // Update results based on current page
+            currentPage = page;
+            updatePagination(totalResults, displayResultsFunc, tableBodyId, paginationContainerId);
         };
-
-        // Highlight the active page
-        if (page === currentPage) {
-            pageButton.classList.add('active');
-        }
-
-        paginationContainer.appendChild(pageButton); // Add button to pagination
+        paginationContainer.appendChild(pageButton);
     }
+
+    // Add "Next" button
+    const nextButton = document.createElement('button');
+    nextButton.textContent = 'Next';
+    nextButton.disabled = currentPage === totalPages; // Disable if on the last page
+    nextButton.onclick = () => {
+        if (currentPage < totalPages) {
+            currentPage++;
+            updatePagination(totalResults, displayResultsFunc, tableBodyId, paginationContainerId);
+        }
+    };
+    paginationContainer.appendChild(nextButton);
+}
+
+function updatePagination(totalResults, displayResultsFunc, tableBodyId, paginationContainerId) {
+    displayResultsFunc(currentPage, resultsPerPage, tableBodyId); // Update the displayed results
+    setupPagination(totalResults, displayResultsFunc, tableBodyId, paginationContainerId); // Re-render pagination
 }
 
 function resetPagination() {
     currentPage = 1; // Reset to the first page
 }
+
+
 
 function performSearch() {
     const ncrNumber = document.getElementById('ncrNumber').value.trim();
@@ -910,6 +940,7 @@ function performSearch() {
     // Display results based on current page
     const tableBody = document.getElementById("viewTableContent");
     const paginatedResults = filteredResults.slice((currentPage - 1) * resultsPerPage, currentPage * resultsPerPage);
+    const paginationContainer = document.getElementById("pagination");
 
     tableBody.innerHTML = ''; // Clear previous results
 
@@ -954,6 +985,8 @@ function performSearch() {
 
     if (totalResults === 0) {
         // Show a placeholder row in the table with a magnifying glass icon
+        
+
         tableBody.innerHTML = `
             <tr>
                 <td colspan="5" style="text-align: center; padding: 20px; color: #666; font-style: italic; font-size: 16px; background-color: #f9f9f9;">
@@ -963,7 +996,9 @@ function performSearch() {
                     No results found.
                 </td>
             </tr>`;
+            paginationContainer.style.display = 'none'; // Hide pagination
         return;
+        
     }
 }
 
@@ -1623,6 +1658,7 @@ function performSearchReports() {
     // Setup pagination
     const startIndex = (currentPage - 1) * resultsPerPage;
     const paginatedData = filteredReports.slice(startIndex, startIndex + resultsPerPage);
+    const paginationContainer = document.getElementById("paginationControls");
 
     // Populate the table
     const tableContent = document.getElementById('tableContent');
@@ -1680,6 +1716,7 @@ function performSearchReports() {
                 No results found.
             </td>
         </tr>`;
+        paginationContainer.style.display = 'none'; // Hide pagination
         return;
     } /*else {
         noResultsMessage.style.display = 'none';
@@ -3162,6 +3199,7 @@ function performSearchEng() {
     // Display results based on current page
     const tableBody = document.getElementById("viewTableContentEng");
     const paginatedResults = filteredResults.slice((currentPage - 1) * resultsPerPage, currentPage * resultsPerPage);
+    const paginationContainer = document.getElementById("paginationEng");
 
     tableBody.innerHTML = ''; // Clear previous results
 
@@ -3219,6 +3257,7 @@ function performSearchEng() {
                    No results found.
                </td>
            </tr>`;
+           paginationContainer.style.display = 'none'; // Hide pagination
         return;
     }
 
@@ -3977,7 +4016,7 @@ function closeNCR() {
 //PerformSearch for Purchasing
 function performSearchPch() {
     const ncrNumber = document.getElementById('ncrNumberPch').value.trim();
-    const ncrStatus = document.getElementById("ncrStatusPch").value || "Engineering";
+    const ncrStatus = document.getElementById("ncrStatusPch").value || "Purchasing";
     const fromDate = document.getElementById('fromDatePch').value;
     const toDate = document.getElementById('toDatePch').value;
     const supplierName = document.getElementById('supplierNamePch').value;
@@ -4043,6 +4082,7 @@ function performSearchPch() {
     // Display results based on current page
     const tableBody = document.getElementById("viewTableContentPch");
     const paginatedResults = filteredResults.slice((currentPage - 1) * resultsPerPage, currentPage * resultsPerPage);
+    const paginationContainer = document.getElementById("paginationPch");
 
     tableBody.innerHTML = ''; // Clear previous results
 
@@ -4100,6 +4140,7 @@ function performSearchPch() {
                    No results found.
                </td>
            </tr>`;
+           paginationContainer.style.display = 'none'; // Hide pagination
         return;
     }
 
