@@ -1738,7 +1738,17 @@ function printPdf() {
     var updatedRevNumber = document.getElementById("updatedRevNumber").textContent.trim();
     var revisionDate = document.getElementById("revisionDate").textContent.trim();
     var engineerName = document.getElementById("engineerName").textContent.trim();
-
+    var preliminaryDecision = document.getElementById("preliminaryDecision").textContent.trim();
+    var carRaised = document.getElementById("carRaised").textContent.trim();
+    var carNumber = document.getElementById("carNumber").textContent.trim();
+    var followUp = document.getElementById("followUp").textContent.trim();
+    var followUpType = document.getElementById("followUpType").textContent.trim();
+    var followUpDate = document.getElementById("followUpDate").textContent.trim();
+    var ncrClosed = document.getElementById("ncrClosed").textContent.trim();
+    var completedByPch = document.getElementById("completedByPch").textContent.trim();
+    var completedOnPch = document.getElementById("completedOnPch").textContent.trim();
+    var engNeeded = document.getElementById("engNeeded");
+    var isChecked = engNeeded.checked;
 
     // Quality-specific fields
     var itemDescription = document.getElementById("itemDescription").textContent.trim();
@@ -1813,7 +1823,7 @@ function printPdf() {
                     </div>
     `;
 
-    if (userRole === "Quality" || userRole === "Engineer") {
+    if (userRole === "Quality" || userRole === "Engineer" || userRole === "Purchasing") {
         content += `
         <br>
 
@@ -1842,7 +1852,8 @@ function printPdf() {
         `;
     }
 
-    if (userRole === "Engineer") {
+    
+    if ((userRole === "Engineer" || userRole === "Purchasing")) {
         content += `
             <br>
             <div class="div-container-print">
@@ -1865,6 +1876,16 @@ function printPdf() {
                             <strong for="drawingUpdate">Does the drawing require updating?</strong>
                             <span id="drawingUpdate" class="inputs">${drawingUpdate}</span>
                         </div>
+                        
+                        </div>
+                    </div>                        
+                    </div>
+                </div>
+                </div>
+        `;
+        if (drawingUpdate !== "No") {
+        content += `
+                    <div id="engCondition">
                         <div class="form-ncr-details-print">
                             <strong>Original Revision Number:</strong>
                             <span id="originalRevNumber" class="inputs">${originalRevNumber}</span>
@@ -1878,8 +1899,56 @@ function printPdf() {
                             <span id="revisionDate" class="inputs">${revisionDate}</span>
                         </div>
                         <div class="form-ncr-details-print">
-                            <strong>Engineer Name:</label>
-                                <span id="engineerName" class="inputs">${engineerName}</span>
+                            <strong>Engineer Name:</strong>
+                            <span id="engineerName" class="inputs">${engineerName}</span>
+                        </div>
+                    </div>
+        `;
+    }
+    }
+
+    if (userRole === "Purchasing") {
+        content += `
+            <br>
+            <div class="div-container-print">
+                    <div class="form-section-print purchasing-section">
+                        <h2>Purchasing Section</h2>
+                        <div class="four-cols-print">
+                        <div class="form-ncr-details-print">
+                            <strong>Purchasing's Preliminary Decision:</strong>
+                            <span class="inputs">${preliminaryDecision}<span class="inputs">
+                        </div>
+                        <div class="form-ncr-details-print">
+                            <strong>Was a CAR raised?</strong>
+                            <span id="carRaised" class="inputs">${carRaised}</span>
+                        </div>
+                        <div class="form-ncr-details-print">
+                            <strong for="carNumber">CAR Number:</strong>
+                            <span id="carNumber" class="inputs">${carNumber}</span>
+                        </div>
+                        <div class="form-ncr-details-print">
+                            <strong for="followUp">Follow-up Required?</strong>
+                            <span id="followUp" class="inputs">${followUp}</span>
+                        </div>
+                        <div class="form-ncr-details-print">
+                            <strong>Follow-up Type:</strong>
+                            <span id="followUpType" class="inputs">${followUpType}</span>
+                        </div>
+                        <div class="form-ncr-details-print">
+                            <strong>Follow-up Date:</strong>
+                            <span id="followUpDate" class="inputs">${followUpDate}</span>
+                        </div>
+                        <div class="form-ncr-details-print">
+                            <strong>NCR Closed:</strong>
+                            <span id="ncrClosed" class="inputs">${ncrClosed}</span>
+                        </div>
+                        <div class="form-ncr-details-print">
+                            <strong>Completed By:</label>
+                                <span id="completedByPch" class="inputs">${completedByPch}</span>
+                        </div>
+                        <div class="form-ncr-details-print">
+                            <strong>Completed On</label>
+                                <span id="completedOnPch" class="inputs">${completedOnPch}</span>
                         </div>
                     </div>                        
                     </div>
@@ -1901,7 +1970,8 @@ function printPdf() {
             <style>
             body{
                 background-color: white;
-                font-size:14px;            }
+                font-size:14px; 
+            margin-top:50px;          }
             h1,h2{
                 font-size:22px;
                 text-align: center;
@@ -1927,6 +1997,7 @@ function printPdf() {
                 grid-gap: 15px;
                 padding: 30px;
             }
+                       
             .form-section-print {
                 display: grid;
                 grid-gap: 30px;
@@ -1953,7 +2024,7 @@ function printPdf() {
         display: block;
         position: fixed;
         top: 0;
-        left: 0;
+        left: 10;
         width: 100%;
         padding: 10px;
         background: white;
