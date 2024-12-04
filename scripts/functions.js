@@ -4306,6 +4306,10 @@ function Metrics() {
             ((supplierStats[supplier].totalDefect / supplierStats[supplier].totalReceived) * 100).toFixed(2)
     );
 
+    Chart.defaults.font.size = 18;
+    Chart.defaults.font.family = "'Instrument Sans', 'sans-serif'";
+    Chart.defaults.color = '00214d';
+
     new Chart(metricAll, {
         type: 'bar', // Base type of the chart
         data: {
@@ -4331,19 +4335,11 @@ function Metrics() {
             plugins: {
                 legend: {
                     display: true,
-                    position: 'bottom',
-                    labels: {
-                        font: {
-                            size: 18
-                        }
-                    }
+                    position: 'bottom'
                 },
                 subtitle: {
                     display: true,
-                    text: 'Analysis of NCR Count and Defect Percentage per Supplier', // Additional context
-                    font: {
-                        size: 18
-                    }
+                    text: 'Analysis of NCR Count and Defect Percentage per Supplier'
                 },
                 tooltip: {
                     callbacks: {
@@ -4354,43 +4350,21 @@ function Metrics() {
                             }
                             return `${context.raw} NCRs`;
                         }
-                    },
-                    bodyFont: {
-                        size: 18 
-                    },
-                    titleFont: {
-                        size: 18
                     }
                 }
             },
             scales: {
                 x: {
-                    ticks: {
-                        font: {
-                            size: 18
-                        }
-                    },
                     title: {
                         display: true,
-                        text: 'Suppliers',
-                        font: {
-                            size: 18
-                        }
+                        text: 'Suppliers'
                     }
                 },
                 y: {
-                    ticks: {
-                        font: {
-                            size: 18
-                        }
-                    },
                     beginAtZero: true,
                     title: {
                         display: true,
-                        text: 'Number of NCR Records',
-                        font: {
-                            size: 18
-                        }
+                        text: 'Number of NCR Records'
                     }
                 }
             }
@@ -4416,19 +4390,11 @@ function Metrics() {
             plugins: {
                 legend: {
                     display: true,
-                    position: 'bottom',
-                    labels: {
-                        font: {
-                            size: 18
-                        }
-                    }
+                    position: 'bottom'
                 },
                 subtitle: {
                     display: true,
-                    text: 'Analysis of NCR Count per Supplier', // Additional context
-                    font: {
-                        size: 18
-                    }
+                    text: 'Analysis of NCR Count per Supplier'
                 },
                 tooltip: {
                     callbacks: {
@@ -4439,43 +4405,21 @@ function Metrics() {
                             }
                             return `${context.raw} NCRs`;
                         }
-                    },
-                    bodyFont: {
-                        size: 18
-                    },
-                    titleFont: {
-                        size: 18
                     }
                 }
             },
             scales: {
                 x: {
-                    ticks: {
-                        font: {
-                            size: 18
-                        }
-                    },
                     title: {
                         display: true,
-                        text: 'Suppliers',
-                        font: {
-                            size: 18
-                        }
+                        text: 'Suppliers'
                     }
                 },
                 y: {
-                    ticks: {
-                        font: {
-                            size: 18
-                        }
-                    },
                     beginAtZero: true,
                     title: {
                         display: true,
-                        text: 'Number of NCR Records',
-                        font: {
-                            size: 18
-                        }
+                        text: 'Number of NCR Records'
                     }
                 }
             }
@@ -4501,19 +4445,11 @@ function Metrics() {
             plugins: {
                 legend: {
                     display: true,
-                    position: 'bottom',
-                    labels: {
-                        font: {
-                            size: 18
-                        }
-                    }
+                    position: 'bottom'
                 },
                 subtitle: {
                     display: true,
-                    text: 'Analysis of Defect Percentage per Supplier', // Additional context
-                    font: {
-                        size: 18
-                    }
+                    text: 'Analysis of Defect Percentage per Supplier'
                 },
                 tooltip: {
                     callbacks: {
@@ -4524,43 +4460,21 @@ function Metrics() {
                             }
                             return `${context.raw} NCRs`;
                         }
-                    },
-                    bodyFont: {
-                        size: 18
-                    },
-                    titleFont: {
-                        size: 18 
                     }
                 }
             },
             scales: {
                 x: {
-                    ticks: {
-                        font: {
-                            size: 18
-                        }
-                    },
                     title: {
                         display: true,
-                        text: 'Suppliers',
-                        font: {
-                            size: 18 
-                        }
+                        text: 'Suppliers'
                     }
                 },
                 y: {
-                    ticks: {
-                        font: {
-                            size: 18
-                        }
-                    },
                     beginAtZero: true,
                     title: {
                         display: true,
-                        text: 'Number of NCR Records',
-                        font: {
-                            size: 18 
-                        }
+                        text: 'Number of NCR Records'
                     }
                 }
             }
