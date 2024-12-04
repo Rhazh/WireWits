@@ -1549,9 +1549,6 @@ input:checked + .slider:before {
     border-radius: 50%;
 }
 
-
-
-
 /* Style for password container in  login page*/
 .password-container {
     position: relative;
@@ -1568,7 +1565,7 @@ input:checked + .slider:before {
     top: 50%;
     transform: translateY(-50%);
     cursor: pointer;
-    color: gray;
+    color: #333;
 }
 
 
@@ -1586,7 +1583,9 @@ hr {
     display: none;
 }
 
-
+.metrics-canvas {
+    padding: 30px 0 0;
+}
 
 /* -------------------------------------------------------------- */
 /* -------------------------------------------------------------- */
