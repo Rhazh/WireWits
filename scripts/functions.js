@@ -4293,43 +4293,51 @@ function Metrics() {
     document.getElementById('supplierTableBody').innerHTML = tableRows.join('');
 
     // Step 3: Render the bar chart
-    const ctx = document.getElementById('supplierChart').getContext('2d');
+    const metricAll = document.getElementById('metricChartAll').getContext('2d');
+    const metricRecord = document.getElementById('metricChartRecord').getContext('2d');
+    const metricDefect = document.getElementById('metricChartDefect').getContext('2d');
+
     const cumulativeDefectPercentage = supplierNames.map(
         (supplier, index) =>
             ((supplierStats[supplier].totalDefect / supplierStats[supplier].totalReceived) * 100).toFixed(2)
     );
 
-    new Chart(ctx, {
+    new Chart(metricAll, {
         type: 'bar', // Base type of the chart
         data: {
             labels: supplierNames,
             datasets: [
                 {
-                    label: 'Number of NCR Records', // Bar chart dataset
-                    type: 'bar',
-                    data: ncrCounts,
-                    backgroundColor: 'rgba(54, 162, 235, 0.5)',
-                    borderColor: 'rgba(54, 162, 235, 1)',
-                    borderWidth: 1
+                    label: 'Cumulative Defect Percentage (%)', // Line chart dataset
+                    data: cumulativeDefectPercentage,
+                    backgroundColor: 'rgba(0, 86, 179, 0.7)'
                 },
                 {
-                    label: 'Cumulative Defect Percentage (%)', // Line chart dataset
-                    type: 'line',
-                    data: cumulativeDefectPercentage,
-                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                    borderColor: 'rgba(255, 99, 132, 1)',
-                    borderWidth: 2,
-                    yAxisID: 'y1', // Assign this dataset to the secondary Y-axis
-                    tension: 0.4 // Smooth the line
-                }
+                    label: 'Number of NCR Records', // Bar chart dataset
+                    data: ncrCounts,
+                    backgroundColor: 'rgba(0, 122, 51, 0.7)'
+                },
             ]
         },
         options: {
+            indexAxis: 'y',
             responsive: true,
             plugins: {
                 legend: {
                     display: true,
-                    position: 'top'
+                    position: 'bottom',
+                    labels: {
+                        font: {
+                            size: 18
+                        }
+                    }
+                },
+                subtitle: {
+                    display: true,
+                    text: 'Analysis of NCR Count and Defect Percentage per Supplier', // Additional context
+                    font: {
+                        size: 18
+                    }
                 },
                 tooltip: {
                     callbacks: {
@@ -4339,32 +4347,209 @@ function Metrics() {
                             }
                             return `${context.raw} NCRs`;
                         }
+                    },
+                    bodyFont: {
+                        size: 18 
+                    },
+                    titleFont: {
+                        size: 18
                     }
                 }
             },
             scales: {
-                y: {
-                    beginAtZero: true,
-                    title: {
-                        display: true,
-                        text: 'Number of NCR Records'
-                    }
-                },
-                y1: {
-                    beginAtZero: true,
-                    position: 'right', // Secondary Y-axis on the right
-                    title: {
-                        display: true,
-                        text: 'Cumulative Defect Percentage (%)'
-                    },
-                    grid: {
-                        drawOnChartArea: false // Don't show grid lines for this axis
-                    }
-                },
                 x: {
+                    ticks: {
+                        font: {
+                            size: 18
+                        }
+                    },
                     title: {
                         display: true,
-                        text: 'Suppliers'
+                        text: 'Suppliers',
+                        font: {
+                            size: 18
+                        }
+                    }
+                },
+                y: {
+                    ticks: {
+                        font: {
+                            size: 18
+                        }
+                    },
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'Number of NCR Records',
+                        font: {
+                            size: 18
+                        }
+                    }
+                }
+            }
+        }
+    });
+    
+    new Chart(metricRecord, {
+        type: 'bar', // Base type of the chart
+        data: {
+            labels: supplierNames,
+            datasets: [
+                {
+                    label: 'Number of NCR Records', // Bar chart dataset
+                    data: ncrCounts,
+                    backgroundColor: 'rgba(0, 122, 51, 0.7)'
+                }
+            ]
+        },
+        options: {
+            indexAxis: 'y',
+            responsive: true,
+            plugins: {
+                legend: {
+                    display: true,
+                    position: 'bottom',
+                    labels: {
+                        font: {
+                            size: 18
+                        }
+                    }
+                },
+                subtitle: {
+                    display: true,
+                    text: 'Analysis of NCR Count per Supplier', // Additional context
+                    font: {
+                        size: 18
+                    }
+                },
+                tooltip: {
+                    callbacks: {
+                        label: (context) => {
+                            if (context.dataset.type === 'line') {
+                                return `Cumulative Defect Percentage: ${context.raw}%`;
+                            }
+                            return `${context.raw} NCRs`;
+                        }
+                    },
+                    bodyFont: {
+                        size: 18
+                    },
+                    titleFont: {
+                        size: 18
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    ticks: {
+                        font: {
+                            size: 18
+                        }
+                    },
+                    title: {
+                        display: true,
+                        text: 'Suppliers',
+                        font: {
+                            size: 18
+                        }
+                    }
+                },
+                y: {
+                    ticks: {
+                        font: {
+                            size: 18
+                        }
+                    },
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'Number of NCR Records',
+                        font: {
+                            size: 18
+                        }
+                    }
+                }
+            }
+        }
+    });
+
+    new Chart(metricDefect, {
+        type: 'bar', // Base type of the chart
+        data: {
+            labels: supplierNames,
+            datasets: [
+                {
+                    label: 'Cumulative Defect Percentage (%)', // Line chart dataset
+                    data: cumulativeDefectPercentage,
+                    backgroundColor: 'rgba(0, 86, 179, 0.7)'
+                }
+            ]
+        },
+        options: {
+            indexAxis: 'y',
+            responsive: true,
+            plugins: {
+                legend: {
+                    display: true,
+                    position: 'bottom',
+                    labels: {
+                        font: {
+                            size: 18
+                        }
+                    }
+                },
+                subtitle: {
+                    display: true,
+                    text: 'Analysis of Defect Percentage per Supplier', // Additional context
+                    font: {
+                        size: 18
+                    }
+                },
+                tooltip: {
+                    callbacks: {
+                        label: (context) => {
+                            if (context.dataset.type === 'line') {
+                                return `Cumulative Defect Percentage: ${context.raw}%`;
+                            }
+                            return `${context.raw} NCRs`;
+                        }
+                    },
+                    bodyFont: {
+                        size: 18
+                    },
+                    titleFont: {
+                        size: 18 
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    ticks: {
+                        font: {
+                            size: 18
+                        }
+                    },
+                    title: {
+                        display: true,
+                        text: 'Suppliers',
+                        font: {
+                            size: 18 
+                        }
+                    }
+                },
+                y: {
+                    ticks: {
+                        font: {
+                            size: 18
+                        }
+                    },
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'Number of NCR Records',
+                        font: {
+                            size: 18 
+                        }
                     }
                 }
             }

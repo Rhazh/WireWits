@@ -854,6 +854,9 @@ table tbody tr:hover {
 
 .tab-head {
     min-width: 300px;
+    width: 100%;
+    background: #d3d3d3;
+    box-sizing: border-box;
 }
 
 .tab-head label {
@@ -867,10 +870,15 @@ table tbody tr:hover {
     transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out;
 }
 
+/*--- Create/Details Page ---*/
 .tab-head label:hover,
 .tab-cards #sectionQuality:checked ~ .tab-head label[for="sectionQuality"]:hover,
 .tab-cards #sectionEngineer:checked ~ .tab-head label[for="sectionEngineer"]:hover,
-.tab-cards #sectionPurchasing:checked ~ .tab-head label[for="sectionPurchasing"]:hover {
+.tab-cards #sectionPurchasing:checked ~ .tab-head label[for="sectionPurchasing"]:hover,
+/*--- Metrics Page ---*/
+.tab-cards #sectionMetricAll:checked ~ .tab-head label[for="sectionMetricAll"]:hover,
+.tab-cards #sectionMetricRecord:checked ~ .tab-head label[for="sectionMetricRecord"]:hover,
+.tab-cards #sectionMetricDefect:checked ~ .tab-head label[for="sectionMetricDefect"]:hover {
     background-color: #0056b3;
     color: #fdfdfd;
     transition: 0.2s ease-in-out;
@@ -882,24 +890,29 @@ table tbody tr:hover {
     display: none;
 }
 
+/*--- Create/Details Page ---*/
 .tab-cards #sectionQuality:checked ~ .tab-head label[for="sectionQuality"],
 .tab-cards #sectionEngineer:checked ~ .tab-head label[for="sectionEngineer"],
-.tab-cards #sectionPurchasing:checked ~ .tab-head label[for="sectionPurchasing"]  {
+.tab-cards #sectionPurchasing:checked ~ .tab-head label[for="sectionPurchasing"],
+/*--- Metrics Page ---*/
+.tab-cards #sectionMetricAll:checked ~ .tab-head label[for="sectionMetricAll"],
+.tab-cards #sectionMetricRecord:checked ~ .tab-head label[for="sectionMetricRecord"],
+.tab-cards #sectionMetricDefect:checked ~ .tab-head label[for="sectionMetricDefect"]  {
     color: #00214d;
     background-color: #fdfdfd;
 }
 
+/*--- Create/Details Page ---*/
 .tab-cards #sectionQuality:checked ~ #tabQuality,
 .tab-cards #sectionEngineer:checked ~ #tabEngineer,
-.tab-cards #sectionPurchasing:checked ~ #tabPurchasing {
+.tab-cards #sectionPurchasing:checked ~ #tabPurchasing,
+/*--- Metrics Page ---*/
+.tab-cards #sectionMetricAll:checked ~ #tabMetricAll,
+.tab-cards #sectionMetricRecord:checked ~ #tabMetricRecord,
+.tab-cards #sectionMetricDefect:checked ~ #tabMetricDefect {
     display: block;
 }
 
-.tab-head {
-    width: 100%;
-    background: #d3d3d3;
-    box-sizing: border-box;
-}
 
 /* -------------------------------------------------------------- */
 /* -------------------------------------------------------------- */

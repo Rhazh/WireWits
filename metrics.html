@@ -158,28 +158,57 @@
             <div class="page-title">
                 <h1>Metrics</h1>
             </div>
-            <!-- Bar Chart Container -->
-            <div class="chart-container">
-                <canvas id="supplierChart"></canvas>
-            </div>
+            <div class="one-col">
+                <div class="div-container">
+                    <!-- Bar Chart Container -->
+                    <div class="tab-cards">
 
-            <!-- Supplier Defect Table -->
-            <div class="div-container">
-                <div class="table-title" aria-label="Supplier Metrics">
-                    <h2 id="supplierMetrics">Supplier Metrics</h2> <!--Heading may change-->
+                        <!--Tab Header Inputs-->
+                        <input id="sectionMetricAll" type="radio" class="tab-selector" name="tabs" checked>
+                        <input id="sectionMetricRecord" type="radio" class="tab-selector" name="tabs">
+                        <input id="sectionMetricDefect" type="radio" class="tab-selector" name="tabs">
+                        
+                        <!-- Tab Contents -->
+                        <div id="tabMetricAll" class="tab-content form-section">
+                            <strong>Supplier NCR and Defect Metrics Chart</strong>
+                            <canvas id="metricChartAll"></canvas>
+                        </div>
+                        <div id="tabMetricRecord" class="tab-content form-section">
+                            <strong>Number of NCR Records Metrics Chart</strong>
+                            <canvas id="metricChartRecord"></canvas>
+                        </div>
+                        <div id="tabMetricDefect" class="tab-content form-section">
+                            <strong>Cumulative Defect Percentage Metrics Chart</strong>
+                            <canvas id="metricChartDefect"></canvas>
+                        </div>
+                        
+                        <!--Tab Header Selector-->
+                        <div class="tab-head">
+                            <label for="sectionMetricAll" title="Supplier NCR and Defect Metrics">Show All</label>
+                            <label for="sectionMetricRecord" title="Number of NCR Records">Supplier Records</label>
+                            <label for="sectionMetricDefect" title="Cumulative Defect Percentage (%)">Cumulative Defects</label>
+                        </div>
+                    </div>
                 </div>
-                <table>
-                    <thead>
-                        <tr>
-                            <th title="Supplier Name">Supplier</th>
-                            <th title="Number of NCRs">NCRs</th>
-                            <th title="Total quantity received">Total Received</th>
-                            <th title="Total quantity defective">Total Defective</th>
-                            <th title="Defect percentage (%)">Defect %</th>
-                        </tr>
-                    </thead>
-                    <tbody id="supplierTableBody"></tbody>
-                </table>
+    
+                <!-- Supplier Defect Table -->
+                <div class="div-container">
+                    <div class="table-title" aria-label="Supplier Metrics">
+                        <h2 id="supplierMetrics">Supplier Metrics</h2> <!--Heading may change-->
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th title="Supplier Name">Supplier</th>
+                                <th title="Number of NCRs">NCRs</th>
+                                <th title="Total quantity received">Total Received</th>
+                                <th title="Total quantity defective">Total Defective</th>
+                                <th title="Defect percentage (%)">Defect %</th>
+                            </tr>
+                        </thead>
+                        <tbody id="supplierTableBody"></tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </main>
