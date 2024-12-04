@@ -823,17 +823,18 @@ function setupPagination(totalResults, displayResultsFunc, tableBodyId, paginati
     const paginationContainer = document.getElementById(paginationContainerId);
     paginationContainer.innerHTML = ''; // Clear previous pagination
 
-    // Add "Back" button
-    const prevButton = document.createElement('button');
-    prevButton.textContent = 'Back';
-    prevButton.disabled = currentPage === 1; // Disable if on the first page
-    prevButton.onclick = () => {
-        if (currentPage > 1) {
-            currentPage--;
-            updatePagination(totalResults, displayResultsFunc, tableBodyId, paginationContainerId);
-        }
-    };
-    paginationContainer.appendChild(prevButton);
+    // Add "Back" button only if on the second page or beyond
+    if (currentPage > 1) {
+        const prevButton = document.createElement('button');
+        prevButton.textContent = 'Back';
+        prevButton.onclick = () => {
+            if (currentPage > 1) {
+                currentPage--;
+                updatePagination(totalResults, displayResultsFunc, tableBodyId, paginationContainerId);
+            }
+        };
+        paginationContainer.appendChild(prevButton);
+    }
 
     // Calculate the range of pages to display
     const startPage = Math.max(1, currentPage - 1); // Start one page before the current page, but not less than 1
@@ -850,18 +851,21 @@ function setupPagination(totalResults, displayResultsFunc, tableBodyId, paginati
         paginationContainer.appendChild(pageButton);
     }
 
-    // Add "Next" button
-    const nextButton = document.createElement('button');
-    nextButton.textContent = 'Next';
-    nextButton.disabled = currentPage === totalPages; // Disable if on the last page
-    nextButton.onclick = () => {
-        if (currentPage < totalPages) {
-            currentPage++;
-            updatePagination(totalResults, displayResultsFunc, tableBodyId, paginationContainerId);
-        }
-    };
-    paginationContainer.appendChild(nextButton);
+    // Add "Next" button only if there are more pages
+    if (currentPage < totalPages) {
+        const nextButton = document.createElement('button');
+        nextButton.textContent = 'Next';
+        nextButton.onclick = () => {
+            if (currentPage < totalPages) {
+                currentPage++;
+                updatePagination(totalResults, displayResultsFunc, tableBodyId, paginationContainerId);
+            }
+        };
+        paginationContainer.appendChild(nextButton);
+    }
 }
+
+
 
 function updatePagination(totalResults, displayResultsFunc, tableBodyId, paginationContainerId) {
     displayResultsFunc(currentPage, resultsPerPage, tableBodyId); // Update the displayed results
@@ -4324,18 +4328,32 @@ function Metrics() {
 
         const defectPercentage = ((stats.totalDefect / stats.totalReceived) * 100).toFixed(2);
         tableRows.push(`
-                        <tr>
-                            <td title="Supplier Name - ${supplier}">${supplier}</td>
-                            <td title="Number of NCRS - ${stats.ncrCount}">${stats.ncrCount}</td>
-                            <td title="Total quantity recieved - ${stats.totalReceived}">${stats.totalReceived}</td>
-                            <td title="Total quantity defective - ${stats.totalDefect}">${stats.totalDefect}</td>
-                            <td title="Defective percentage - ${defectPercentage}%">${defectPercentage}%</td>
-                        </tr>
-                    `);
+            <tr>
+                <td title="Supplier Name - ${supplier}">${supplier}</td>
+                <td title="Number of NCRS - ${stats.ncrCount}">${stats.ncrCount}</td>
+                <td title="Total quantity received - ${stats.totalReceived}">${stats.totalReceived}</td>
+                <td title="Total quantity defective - ${stats.totalDefect}">${stats.totalDefect}</td>
+                <td title="Defective percentage - ${defectPercentage}%">${defectPercentage}%</td>
+            </tr>
+        `);
     });
 
-    // Insert rows into the table
-    document.getElementById('supplierTableBody').innerHTML = tableRows.join('');
+    // Pagination setup
+    const totalResults = tableRows.length;
+    const tableBodyId = 'supplierTableBody';
+    const paginationContainerId = 'paginationContainer';
+
+    function displayResults(page, resultsPerPage, tableBodyId) {
+        const tableBody = document.getElementById(tableBodyId);
+        const start = (page - 1) * resultsPerPage;
+        const end = page * resultsPerPage;
+        tableBody.innerHTML = tableRows.slice(start, end).join('');
+    }
+
+    resetPagination(); // Reset to the first page
+    setupPagination(totalResults, displayResults, tableBodyId, paginationContainerId);
+    displayResults(currentPage, resultsPerPage, tableBodyId); // Populate table for the first page
+
 
     // Step 3: Render the bar chart
     const metricAll = document.getElementById('metricChartAll').getContext('2d');
