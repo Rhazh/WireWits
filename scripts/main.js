@@ -46,28 +46,30 @@ document.addEventListener('DOMContentLoaded', async () => {
         //profilePicElement.src = loggedInUser.gender === 'male' ? 'images/user-profile_v1.png' : 'images/user-profile.png';
 
         // Logout functionality
-        document.getElementById('logout').addEventListener('click', function () {
-            //Uncomment the code below to start afresh
-            localStorage.clear();
-            const userConfirmed =confirm("Are you sure you want to Log out?");
-            if (userConfirmed) {
-                localStorage.removeItem('loggedInUser');
-                showToast("Successfully logged out.");
-
-                window.location.href = 'login.html';              
-            } else {
-                //console.log("Logout cancelled.");
-                showToast("Operation cancelled.");
-                // Redirect or perform other actions as needed
-                return;
-            }
-                });
+        function logout() {
+            document.getElementById('logout').addEventListener('click', function () {
+                //Uncomment the code below to start afresh
+                const userConfirmed = confirm("Are you sure you want to Log out?");
+                if (userConfirmed) {
+                    localStorage.clear();
+                    localStorage.removeItem('loggedInUser');
+                    showToast("Successfully logged out.");      
+                    window.location.href = 'login.html';
+                } else {
+                    //console.log("Logout cancelled.");
+                    showToast("Operation cancelled.");
+                    location.back();
+                    // Redirect or perform other actions as needed
+                    //return;
+                }
+            });
+        }
+        
+       
     } else {
         console.error("Profile elements not found or no user logged in.");
     }
 
-   
-    
         
     initializeNotificationToggle(); // Initialize notification toggle
 

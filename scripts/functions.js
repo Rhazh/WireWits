@@ -5,7 +5,6 @@
 
 //FUNCTIONS USED ON DASHBOARD/HOME PAGE
 
-
 // Retrieve and return the logged-in user's name
 function getUserName() {
     const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
