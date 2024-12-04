@@ -1,0 +1,13 @@
+{
+  "name": "wirewits",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "build:css": "sass ../styles.scss ../styles.css",
+    "watch:css": "sass --watch ../styles.scss:../styles.css"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
