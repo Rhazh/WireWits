@@ -4597,3 +4597,50 @@ document.getElementById('followUp')?.addEventListener('change', (event) => {
     }
 });
 
+//Code to enable/disable dark mode
+// Function to toggle dark mode and update the message
+function toggleDarkMode() {
+    const body = document.body;
+    const header = document.querySelector("header"); // Corrected to select the header element
+    const darkModeSettingsMessage = document.getElementById("darkModeSettingsMessage");
+    const toggleSwitch = document.getElementById("toggleSwitch1");
+
+    const isDarkMode = toggleSwitch.checked;
+    body.classList.toggle("dark-mode", isDarkMode); // Add/remove dark-mode class
+    header.classList.toggle("dark-mode",isDarkMode );
+    
+
+    // Update the message based on the toggle state
+    darkModeSettingsMessage.textContent = isDarkMode
+        ? "Dark Mode enabled"
+        : "Dark Mode disabled";
+
+    // Save the state to localStorage
+    localStorage.setItem("darkMode", isDarkMode);
+}
+
+// Function to initialize dark mode state on page load
+function initializeDarkMode() {
+    const toggleSwitch = document.getElementById("toggleSwitch1");
+    const darkModeSettingsMessage = document.getElementById("darkModeSettingsMessage");
+
+    // Get saved dark mode state from localStorage
+    const savedState = localStorage.getItem("darkMode") === "true";
+
+    // Apply the saved state
+    document.body.classList.toggle("dark-mode", savedState);
+    document.querySelector("header").classList.toggle("dark-mode", savedState); // Apply to header
+
+    toggleSwitch.checked = savedState;
+
+    // Update the message
+    darkModeSettingsMessage.textContent = savedState
+        ? "Dark Mode enabled"
+        : "Dark Mode disabled";
+
+    // Add event listener for the toggle switch
+    toggleSwitch.addEventListener("change", toggleDarkMode);
+}
+
+// Call the initialization function on page load
+initializeDarkMode();

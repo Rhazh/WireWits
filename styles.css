@@ -1882,3 +1882,24 @@ hr {
 }
 
 /*# sourceMappingURL=styles.css.map */
+
+
+/*Styles for dark mode*/
+
+body.dark-mode {
+  background-color: #0b1c33;
+  color: #fdfdfd;
+}
+
+header.dark-mode {
+  background-color: #0b1c33;
+  color: #fdfdfd;
+}
+
+header.dark-mode a {
+  color: #fdfdfd;
+}
+
+header.dark-mode a:hover {
+  color: #76baff;
+}
