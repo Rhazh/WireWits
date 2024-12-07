@@ -731,11 +731,13 @@ function editEntryPch(ncrNumber) {
 }
 
 function downloadEntry(ncrNumber) {
+    const currentPage = window.location.href; // Save the current page URL
+    const detailsPage = `details.html?ncr=${ncrNumber}&action=print&returnUrl=${encodeURIComponent(currentPage)}`;
+    window.location.href = detailsPage; // Redirect to details page
 
-    showToast(`NCR Number: ${ncrNumber} has been downloaded.`,'success',5000);
+    }
+    //showToast(`NCR Number: ${ncrNumber} has been downloaded.`,'success',5000);
 
-
-}
 
 //FUNCTION USED ON AN EDIT PAGE - HAPPENS AT THE CREATE PAGE
 
@@ -1757,7 +1759,7 @@ function printPdf() {
     const userRole = loggedInUser ? loggedInUser.Department_Name : null; // "Quality" or "Engineer"
 
     // Get the common NCR fields
-    var ncrNumber = document.getElementById("ncrNumber").textContent.trim();
+    var ncrNumber1 = document.getElementById("ncrNumber").textContent.trim();
     var dateCreated = document.getElementById("dateCreated").textContent.trim();
     var createdBy = document.getElementById("createdBy").textContent.trim();
     var ncrStatus = document.getElementById("ncrStatus").textContent.trim();
@@ -1812,7 +1814,7 @@ function printPdf() {
                             <div class="four-cols-print">
                              <div class="form-ncr-details-print">
                                 <strong>NCR Number:</strong>
-                                <span id="ncrNumber" class="inputs">${ncrNumber}</span>
+                                <span id="ncrNumber1" class="inputs">${ncrNumber1}</span>
                             </div>
                             <div class="form-ncr-details-print">
                                 <strong>Date Created:</strong>
@@ -1863,25 +1865,27 @@ function printPdf() {
                     </div>
     `;
 
-    if (userRole === "Quality" || userRole === "Engineer" || userRole === "Purchasing") {
+    if (userRole === "Quality" || userRole === "Engineer" || userRole === "Purchasing" || ncrClosed === "Yes") {
         content += `
-        <br>
-
             <div class="div-container-print">
                 <div class = "quality-section">
+
                     <div class="form-section-print">
+                    <div class="four-cols-print">
+
                         <div class="form-ncr-details-print">
                             <strong>Item Description:</strong>
                             <span class="inputs">${itemDescription}</span>
                         </div>
-                        <div class="form-ncr-details-print">
+                        <div class="form-ncr-details-print" style="grid-column: span 3;">
                             <strong>Defect Description:</strong>
                             <span class="inputs"><ul>${defectDescription}</ul></span>
                         </div>
-                        
+                        </div>
+
                         <div class="form-ncr-details-print">
                         <strong>    Uploaded Images/Videos:</strong>
-                                <div id="thumbnailsContainer" class="thumbnails-container">
+                                <div id="thumbnailsContainer1" class="thumbnails-container1">
                                 ${thumbnail}
                                  </div>
                     </div>
@@ -1893,12 +1897,13 @@ function printPdf() {
     }
 
     
-    if ((userRole === "Engineer" || userRole === "Purchasing")) {
+    if ((userRole === "Engineer" || userRole === "Purchasing" || ncrClosed === "Yes")) {
         content += `
             <br>
             <div class="div-container-print">
+            <h2>Engineering Section</h2>
+
                     <div class="form-section-print">
-                        <h2>Engineering Section</h2>
                         <div class="four-cols-print">
                         <div class="form-ncr-details-print">
                             <strong>Review by CF Engineering:</strong>
@@ -1925,7 +1930,10 @@ function printPdf() {
         `;
         if (drawingUpdate !== "No") {
         content += `
+        
+        <div class="form-section-print">
                     <div id="engCondition">
+                    <div class="four-cols-print">
                         <div class="form-ncr-details-print">
                             <strong>Original Revision Number:</strong>
                             <span id="originalRevNumber" class="inputs">${originalRevNumber}</span>
@@ -1943,16 +1951,47 @@ function printPdf() {
                             <span id="engineerName" class="inputs">${engineerName}</span>
                         </div>
                     </div>
+                    </div>
+                    </div>
         `;
     }
     }
 
-    if (userRole === "Purchasing") {
+    if (userRole === "Purchasing" || ncrClosed === "Yes") {
+
+        if(carRaised === "No"){
+
+        
         content += `
             <br>
             <div class="div-container-print">
+            <h2>Purchasing Section</h2>
                     <div class="form-section-print purchasing-section">
-                        <h2>Purchasing Section</h2>
+                        
+                        <div class="four-cols-print">
+                        <div class="form-ncr-details-print">
+                            <strong>Purchasing's Preliminary Decision:</strong>
+                            <span class="inputs">${preliminaryDecision}<span class="inputs">
+                        </div>
+                        <div class="form-ncr-details-print">
+                            <strong>Was a CAR raised?</strong>
+                            <span id="carRaised" class="inputs">${carRaised}</span>
+                        </div>
+                        
+                    </div>                        
+                    </div>
+                </div>
+                </div>
+        `;
+
+    }else{
+
+        content += `
+            <br>
+            <div class="div-container-print">
+            <h2>Purchasing Section</h2>
+                    <div class="form-section-print purchasing-section">
+                        
                         <div class="four-cols-print">
                         <div class="form-ncr-details-print">
                             <strong>Purchasing's Preliminary Decision:</strong>
@@ -1966,7 +2005,23 @@ function printPdf() {
                             <strong for="carNumber">CAR Number:</strong>
                             <span id="carNumber" class="inputs">${carNumber}</span>
                         </div>
-                        <div class="form-ncr-details-print">
+                        
+                    </div>                        
+                    </div>
+                </div>
+                </div>
+        `;
+    }
+
+    if(followUp !== "No"){
+
+        content += `
+        
+
+                <div class="form-section-print purchasing-section">
+                    
+                    <div class="four-cols-print">
+                    <div class="form-ncr-details-print">
                             <strong for="followUp">Follow-up Required?</strong>
                             <span id="followUp" class="inputs">${followUp}</span>
                         </div>
@@ -1982,19 +2037,24 @@ function printPdf() {
                             <strong>NCR Closed:</strong>
                             <span id="ncrClosed" class="inputs">${ncrClosed}</span>
                         </div>
-                        <div class="form-ncr-details-print">
-                            <strong>Completed By:</label>
-                                <span id="completedByPch" class="inputs">${completedByPch}</span>
-                        </div>
-                        <div class="form-ncr-details-print">
-                            <strong>Completed On</label>
-                                <span id="completedOnPch" class="inputs">${completedOnPch}</span>
-                        </div>
-                    </div>                        
+                        
                     </div>
+                    </div>`;
+    }else{
+
+        content += `        
+
+        <div class="form-section-print purchasing-section">
+            
+            <div class="four-cols-print">
+            <div class="form-ncr-details-print">
+                    <strong for="followUp">Follow-up Required?</strong>
+                    <span id="followUp" class="inputs">${followUp}</span>
                 </div>
                 </div>
-        `;
+                </div>`;
+
+    }
     }
 
     // Write the content and styles to the new window
@@ -2005,7 +2065,7 @@ function printPdf() {
         <head>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>NCR - ${ncrNumber}</title>
+            <title>NCR - ${ncrNumber1}</title>
             <link href="styles.css" rel="stylesheet">
             <style>
             body{
@@ -2025,12 +2085,26 @@ function printPdf() {
                 margin-top:20px;
                 font-size:20px;
                 margin-bottom:20px;
+                border: 2px solid black;
+                padding-top: 10px;
+                background-color:#e3e7f2;
+                padding-bottom: 10px;
             }
             .form-ncr-details-print {
                 display: flex;
                 flex-direction: column;
                 gap: 5px;
             }
+            .thumbnails-container1{
+                display: grid;
+                grid-template-columns:1fr 1fr 1fr 1fr;
+                gap: 10px;
+                padding: 10px;
+                width:70%;
+                height:70%;
+                border-radius: 5px;
+            }
+
             .form-header-print {
                 display: grid;
                 grid-template-columns: 1fr 1fr 1fr 1fr;
@@ -2057,6 +2131,12 @@ function printPdf() {
             .inputs{
                 font-size: 14px;
             }
+            .form-section-print purchasing-section, .form-section-print{
+                border:2px solid black;
+                padding:10px;
+                background-color:#EFEFEF;
+
+            }
 
 @media print {
     /* Show header only in print */
@@ -2068,9 +2148,17 @@ function printPdf() {
         width: 100%;
         padding: 10px;
         background: white;
+        z-index:-1000;
         border-bottom: 1px solid #ddd;
     }
 
+    .form-section-print {
+        page-break-inside: avoid; /* Keep the section content together */
+    }
+    /* Prevent splitting specific elements */
+    .form-ncr-details-print {
+        page-break-inside: avoid; /* Keep detail elements together */
+    }
     .logo {
         height: 20px;
         width: auto;
@@ -2097,7 +2185,7 @@ function printPdf() {
         <p class="document-number" >Document Number: OPS-00011</p>
     </div>
         <br>
-        <h1>NCR Information : ${ncrNumber}</h1>
+        <h1>NCR Information : ${ncrNumber1}</h1>
             ${content}
         </body>
         </html>
@@ -2114,7 +2202,6 @@ function printPdf() {
     // Close the print window only after printing is complete
     printWindow.onafterprint = function () {
         printWindow.close();
-        downloadEntry(ncrNumber);
     };
 }
 

@@ -460,5 +460,21 @@
     <script src="scripts/main.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 </body>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+    const params = new URLSearchParams(window.location.search);
+    const action = params.get("action");
+    const returnUrl = params.get("returnUrl");
 
+    if (action === "print") {
+        printPdf(); // Call the print function
+        setTimeout(() => {
+            if (returnUrl) {
+                window.location.href = returnUrl; // Redirect back to the previous page
+            }
+        }, 1000); // Delay to allow the print dialog to open
+    }
+});
+
+</script>
 </html>
