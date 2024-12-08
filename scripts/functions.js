@@ -4689,13 +4689,24 @@ document.getElementById('followUp')?.addEventListener('change', (event) => {
 function toggleDarkMode() {
     const body = document.body;
     const header = document.querySelector("header"); // Corrected to select the header element
+    const h1 = document.querySelector("h1"); // Corrected to select the header element
+    const h2 = document.querySelector("h2"); // Corrected to select the header element
+    const a = document.querySelector("a"); // Corrected to select the header element
+    const p = document.querySelector("p"); // Corrected to select the header element
+    const svg = document.querySelector("svg"); // Corrected to select the header element
+    const footer = document.querySelector("footer"); // Corrected to select the header element
     const darkModeSettingsMessage = document.getElementById("darkModeSettingsMessage");
     const toggleSwitch = document.getElementById("toggleSwitch1");
 
     const isDarkMode = toggleSwitch.checked;
     body.classList.toggle("dark-mode", isDarkMode); // Add/remove dark-mode class
     header.classList.toggle("dark-mode",isDarkMode );
-    
+    h1.classList.toggle("dark-mode",isDarkMode );
+    h2.classList.toggle("dark-mode",isDarkMode );
+    a.classList.toggle("dark-mode",isDarkMode );
+    p.classList.toggle("dark-mode",isDarkMode );
+    svg.classList.toggle("dark-mode",isDarkMode );    
+    footer.classList.toggle("dark-mode",isDarkMode );    
 
     // Update the message based on the toggle state
     darkModeSettingsMessage.textContent = isDarkMode
@@ -4717,6 +4728,12 @@ function initializeDarkMode() {
     // Apply the saved state
     document.body.classList.toggle("dark-mode", savedState);
     document.querySelector("header").classList.toggle("dark-mode", savedState); // Apply to header
+    document.querySelector("h1").classList.toggle("dark-mode", savedState); // Apply to header
+    document.querySelector("h2").classList.toggle("dark-mode", savedState); // Apply to header
+    document.querySelector("p").classList.toggle("dark-mode", savedState); // Apply to header
+    document.querySelector("a").classList.toggle("dark-mode", savedState); // Apply to header
+    document.querySelector("svg").classList.toggle("dark-mode", savedState); // Apply to header
+    document.querySelector("footer").classList.toggle("dark-mode", savedState); // Apply to header
 
     toggleSwitch.checked = savedState;
 
