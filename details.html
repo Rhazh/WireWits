@@ -29,7 +29,7 @@
                 </div>
                 <!--logo-->
                 <div class="logo">
-                    <a href="index.html">
+                    <a href="index.html"tabindex="5">
                         <img src="images/logo.png" alt="Crossfire logo" title="Crossfire logo" height="74" width="345">
                     </a>
                 </div>
@@ -37,17 +37,17 @@
                 <nav aria-label="Main Navigation" id="mainNav">
                     <ul>
                         <li id="homeLi"><a href="index.html" id="home" title="Dashboard" aria-current="page"
-                                aria-label="Dashboard page" tabindex="0">Dashboard</a></li>
+                                aria-label="Dashboard page" tabindex="10">Dashboard</a></li>
                         <li id="createLi"><a href="create.html" id="create" title="Create NCR"
-                                aria-label="Create new Non-Conformance Report" tabindex="0">Create <abbr
+                                aria-label="Create new Non-Conformance Report" tabindex="15">Create <abbr
                                     title="Non-Conformance Report">NCR</abbr></a></li>
-                        <li id="viewLi"><a href="view.html" class="nav-active" id="view" title="NCR Log" tabindex="0"
+                        <li id="viewLi"><a href="view.html" class="nav-active" id="view" title="NCR Log" tabindex="20"
                                 aria-label="View existing Non-Conformance Reports"><abbr
                                     title="Non-Conformance Reports">NCR</abbr> Log</a></li>
                         <li id="reportsLi"><a href="reports.html" id="reports" title="Reports" aria-label="View Reports"
-                                tabindex="0">Reports</a></li>
+                                tabindex="25">Audits</a></li>
                         <li id="metricsLi"><a href="metrics.html" id="metrics" title="Metric" aria-label="View Metrics"
-                                tabindex="0">Metrics</a></li>
+                                tabindex="30">Reports</a></li>
                     </ul>
                 </nav>
             </div>
@@ -55,7 +55,7 @@
                 <div class="header-col-right">
                     <div class="faqs-button-container">
                         <a href="faqs.html" aria-label="Navigate to FAQs Page" title="Frequently asked questions"
-                            tabindex="0">
+                            tabindex="35">
                             <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
                                 xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
                                 viewBox="0 0 24 24">
@@ -68,7 +68,7 @@
                     <div class="notification">
                         <div class="notif-button-container">
                             <button id="btnNotification" title="Notifications" aria-haspopup="true"
-                                aria-expanded="false" tabindex="0" aria-controls="notifDisplay"
+                                aria-expanded="false" tabindex="40" aria-controls="notifDisplay"
                                 onclick="toggleDropdown()">
                                 <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="none"
@@ -97,7 +97,7 @@
                 <div class="profile">
                     <div class="user-container">
                         <button id="btnProfile" aria-label="Click to view profile" title="Profile Menu"
-                            aria-haspopup="true" tabindex="0" aria-expanded="false" aria-controls="profileDropdown"
+                            aria-haspopup="true" tabindex="45" aria-expanded="false" aria-controls="profileDropdown"
                             onclick="toggleProfileDropdown()">
                             <span class="user-avatar">
                                 <img id="profilePic" src="images/user-profile.png" alt="User profile image"
@@ -156,7 +156,7 @@
         <div class="container">
             <div class="breadcrumb-container">
                 <div aria-label="Breadcrumb">
-                    <ol class="breadcrumb-list" tabindex="6"></ol>
+                    <ol class="breadcrumb-list" ></ol>
                     <!-- Breadcrumbs will be dynamically populated here -->
                 </div>
             </div>
@@ -172,19 +172,19 @@
                         <div class="form-header">
                             <div class="form-ncr-details">
                                 <strong>NCR Number:</strong>
-                                <span tabindex="7" id="ncrNumber"></span>
+                                <span  id="ncrNumber"></span>
                             </div>
                             <div class="form-ncr-details">
                                 <strong>Date Created:</strong>
-                                <span tabindex="8" id="dateCreated"></span>
+                                <span  id="dateCreated"></span>
                             </div>
                             <div class="form-ncr-details">
                                 <strong>Created By:</strong>
-                                <span tabindex="9" id="createdBy"></span>
+                                <span  id="createdBy"></span>
                             </div>
                             <div class="form-ncr-details">
                                 <strong>Department:</strong>
-                                <span tabindex="10" id="ncrStatus"></span>
+                                <span  id="ncrStatus"></span>
                             </div>
                         </div>
                     </div>
@@ -194,35 +194,35 @@
                             <div class="four-cols">
                                 <div class="form-ncr-details">
                                     <strong>Supplier Name:</strong>
-                                    <span tabindex="11" id="supplierNameD"></span>
+                                    <span  id="supplierNameD"></span>
                                 </div>
                                 <div class="form-ncr-details">
                                     <strong>Production Number:</strong>
-                                    <span tabindex="12" id="poNumber"></span>
+                                    <span  id="poNumber"></span>
                                 </div>
                                 <div class="form-ncr-details">
                                     <strong>Quantity Received:</strong>
-                                    <span tabindex="13" id="quantityReceived"></span>
+                                    <span  id="quantityReceived"></span>
                                 </div>
                                 <div class="form-ncr-details">
                                     <strong>Forward to Engineering:</strong>
-                                    <span tabindex="14" id="engNeeded"></span>
+                                    <span  id="engNeeded"></span>
                                 </div>
                                 <div class="form-ncr-details">
                                     <strong>Applicable Process:</strong>
-                                    <span tabindex="15" id="applicableProcess"></span>
+                                    <span  id="applicableProcess"></span>
                                 </div>
                                 <div class="form-ncr-details">
                                     <strong>Sales Order Number:</strong>
-                                    <span tabindex="16" id="soNumber"></span>
+                                    <span  id="soNumber"></span>
                                 </div>
                                 <div class="form-ncr-details">
                                     <strong>Quantity Defective:</strong>
-                                    <span tabindex="17" id="quantityDefect"></span>
+                                    <span  id="quantityDefect"></span>
                                 </div>
                                 <div class="form-ncr-details">
                                     <strong>Item marked conforming:</strong>
-                                    <span tabindex="18" id="itemConform"></span>
+                                    <span  id="itemConform"></span>
                                 </div>
                             </div>
                         </div>
@@ -247,11 +247,11 @@
                                     <div class="one-col">
                                         <div class="form-ncr-details">
                                             <strong>Item Description:</strong>
-                                            <span tabindex="19" id="itemDescription"></span>
+                                            <span  id="itemDescription"></span>
                                         </div>
                                         <div class="form-ncr-details">
                                             <strong>Description of Defect:</strong>
-                                            <ul tabindex="20" id="defectDescription"></ul>
+                                            <ul  id="defectDescription"></ul>
                                         </div>
                                         <div class="form-ncr-details one-col-form">
                                             <strong>Uploaded Images/Videos:</strong>
@@ -264,11 +264,11 @@
                                             <div class="two-cols">
                                                 <div class="form-ncr-details">
                                                     <strong>Completed By:</strong>
-                                                    <span tabindex="21" id="completedByQI"></span>
+                                                    <span id="completedByQI"></span>
                                                 </div>
                                                 <div class="form-ncr-details">
                                                     <strong>Completed On:</strong>
-                                                    <span tabindex="22" id="completedOnQI"></span>
+                                                    <span  id="completedOnQI"></span>
                                                 </div>
                                             </div>
                                         </div>
@@ -276,8 +276,8 @@
                                     <hr>
                                     <div class="form-ncr-buttons">
                                         <button id="printButton" title="Download as PDF" class="button-primary"
-                                            tabindex="23" onclick="printPdf()">Download as PDF</button>
-                                        <button id="editButton" title="Edit" class="button-primary" tabindex="22"
+                                            tabindex="50" onclick="printPdf()">Download as PDF</button>
+                                        <button id="editButton" title="Edit" class="button-primary" tabindex="55"
                                             onclick="window.location.href='create.html?ncr=' + document.getElementById('ncrNumber').textContent;">Edit</button>
                                         <!-- <button id="revertButton" class="button-primary" tabindex="22" onclick="popupComment()">Revert to Quality</button> -->
                                     </div>
@@ -461,5 +461,25 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <script src="https://unpkg.com/@popperjs/core@2"></script>
     <script src="https://unpkg.com/tippy.js@6"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+        const params = new URLSearchParams(window.location.search);
+        const action = params.get("action");
+        const returnUrl = params.get("returnUrl");
+    
+        showToast(`If download doesn't starts automatically, manually click on the Download button at the bottom`,'info', 5000);
+
+        
+        if (action === "print") {
+            printPdf(); // Call the print function
+            setTimeout(() => {
+                if (returnUrl) {
+                    window.location.href = returnUrl; // Redirect back to the previous page
+                }
+            }, 1000); // Delay to allow the print dialog to open
+        }
+    });
+    
+    </script>
 </body>
 </html>

@@ -27,7 +27,7 @@
                 </div>
                 <!--logo-->
                 <div class="logo">
-                    <a href="index.html">
+                    <a href="index.html" tabindex="5">
                         <img src="images/logo.png" alt="Crossfire logo" title="Crossfire logo" height="74" width="345">
                     </a>
                 </div>
@@ -35,22 +35,22 @@
                 <nav aria-label="Main Navigation" id="mainNav">
                     <ul>
                         <li id="homeLi"><a href="index.html" class="nav-active" id="home" title="Dashboard" aria-current="page"
-                                aria-label="Dashboard page" tabindex="0">Dashboard</a></li>
+                                aria-label="Dashboard page" tabindex="10">Dashboard</a></li>
                         <li id="createLi"><a href="create.html" id="create" title="Create" aria-label="Create new Non-Conformance Report"
-                                tabindex="0">Create <abbr title="Non-Conformance Report">NCR</abbr></a></li>
-                        <li id="viewLi"><a href="view.html" id="view" tabindex="0" title="NCR Log"
+                                tabindex="15">Create <abbr title="Non-Conformance Report">NCR</abbr></a></li>
+                        <li id="viewLi"><a href="view.html" id="view" tabindex="20" title="NCR Log"
                                 aria-label="View existing Non-Conformance Reports"><abbr
                                     title="Non-Conformance Reports">NCR</abbr> Log</a></li>
-                        <li id="reportsLi"><a href="reports.html" id="reports" title="Reports" aria-label="View Reports" tabindex="0">Reports</a></li>
+                        <li id="reportsLi"><a href="reports.html" id="reports" title="Reports" aria-label="View Reports" tabindex="25">Audits</a></li>
                         <li id="metricsLi"><a href="metrics.html" id="metrics" title="Metric" aria-label="View Metrics"
-                            tabindex="0">Metrics</a></li>
+                            tabindex="30">Reports</a></li>
                     </ul>
                 </nav>
             </div>
             <div class="header-col-right">
                 <div class="header-col-right">
                     <div class="faqs-button-container">
-                        <a href="faqs.html" aria-label="Navigate to FAQs Page" title="Frequently asked questions" tabindex="0">
+                        <a href="faqs.html" aria-label="Navigate to FAQs Page" title="Frequently asked questions" tabindex="35">
                             <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
                                 xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
                                 viewBox="0 0 24 24">
@@ -63,7 +63,7 @@
                     <div class="notification">
                         <div class="notif-button-container">
                             <button id="btnNotification" title="Notifications" aria-haspopup="true"
-                                aria-expanded="false" tabindex="0" aria-controls="notifDisplay"
+                                aria-expanded="false" tabindex="40" aria-controls="notifDisplay"
                                 onclick="toggleDropdown()">
                                 <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="none"
@@ -91,7 +91,7 @@
                 </div>
                 <div class="profile">
                     <div class="user-container">
-                        <button id="btnProfile" aria-label="Click to view profile" title="Profile Menu" aria-haspopup="true" tabindex="0"
+                        <button id="btnProfile" aria-label="Click to view profile" title="Profile Menu" aria-haspopup="true" tabindex="45"
                             aria-expanded="false" aria-controls="profileDropdown" onclick="toggleProfileDropdown()">
                             <span class="user-avatar">
                                 <img id="profilePic" src="images/user-profile.png" alt="User profile image"
@@ -155,9 +155,9 @@
 
             <div class="faq-item">
                 <input class="faq-checkbox" type="checkbox" id="faq1">
-                <label class="faq-question two-cols" for="faq1" title="Click to view answer">
+                <label class="faq-question two-cols" for="faq1"tabindex="50" title="Click to view answer">
                     What is a Non-Conformance Report (NCR)?
-                    <span class="faq-icon">+</span>
+                    <span  tabindex="55" class="faq-icon">+</span>
                 </label>
                 
                 <div class="faq-answer">
@@ -167,9 +167,9 @@
             
             <div class="faq-item">
                 <input class="faq-checkbox" type="checkbox" id="faq2">
-                <label class="faq-question two-cols" for="faq2" title="Click to view answer">
+                <label class="faq-question two-cols" for="faq2"tabindex="60" title="Click to view answer">
                     How do I submit a Non-Conformance Report?
-                    <span class="faq-icon">+</span>
+                    <span  tabindex="65" class="faq-icon">+</span>
                 </label>
                 
                 <div class="faq-answer">
@@ -179,9 +179,9 @@
 
             <div class="faq-item">
                 <input class="faq-checkbox" type="checkbox" id="faq3">
-                <label class="faq-question two-cols" for="faq3" title="Click to view answer">
+                <label class="faq-question two-cols" tabindex="70" for="faq3" title="Click to view answer">
                     Can I save my NCR submission and complete it later?
-                    <span class="faq-icon">+</span>
+                    <span tabindex="75" class="faq-icon">+</span>
                 </label>
                 
                 <div class="faq-answer">
@@ -191,9 +191,9 @@
 
             <div class="faq-item">
                 <input class="faq-checkbox" type="checkbox" id="faq4">
-                <label class="faq-question two-cols" for="faq4" title="Click to view answer">
+                <label class="faq-question two-cols" tabindex="80" for="faq4" title="Click to view answer">
                     What happens after my NCR is submitted?
-                    <span class="faq-icon">+</span>
+                    <span tabindex="85" class="faq-icon">+</span>
                 </label>
                 
                 <div class="faq-answer">
@@ -203,9 +203,9 @@
 
             <div class="faq-item">
                 <input class="faq-checkbox" type="checkbox" id="faq5">
-                <label class="faq-question two-cols" for="faq5" title="Click to view answer">
+                <label class="faq-question two-cols" tabindex="90" for="faq5" title="Click to view answer">
                     Is there a way to search for specific NCRs?
-                    <span class="faq-icon">+</span>
+                    <span tabindex="95" class="faq-icon">+</span>
                 </label>
                 
                 <div class="faq-answer">
@@ -215,9 +215,9 @@
 
             <div class="faq-item">
                 <input class="faq-checkbox" type="checkbox" id="faq6">
-                <label class="faq-question two-cols" for="faq6" title="Click to view answer">
+                <label class="faq-question two-cols" tabindex="100" for="faq6" title="Click to view answer">
                     How can I check the Report of an NCR?
-                    <span class="faq-icon">+</span>
+                    <span tabindex="105" class="faq-icon">+</span>
                 </label>
                 
                 <div class="faq-answer">

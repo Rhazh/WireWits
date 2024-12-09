@@ -29,7 +29,7 @@
                 </div>
                 <!--logo-->
                 <div class="logo">
-                    <a href="index.html">
+                    <a href="index.html" tabindex="7">
                         <img src="images/logo.png" alt="Crossfire logo" title="Crossfire logo" height="74" width="345">
                     </a>
                 </div>
@@ -37,17 +37,17 @@
                 <nav aria-label="Main Navigation" id="mainNav" class="">
                     <ul>
                         <li id="homeLi"><a href="index.html" id="home" title="Dashboard" aria-current="page"
-                                aria-label="Dashboard page" tabindex="0">Dashboard</a></li>
+                                aria-label="Dashboard page" tabindex="10">Dashboard</a></li>
                         <li id="createLi"><a href="create.html" id="create" title="Create" class="nav-active"
-                                aria-label="Create new Non-Conformance Report" tabindex="0">Create <abbr
+                                aria-label="Create new Non-Conformance Report" tabindex="15">Create <abbr
                                     title="Non-Conformance Report">NCR</abbr></a></li>
-                        <li id="viewLi"><a href="view.html" id="view" title="NCR Log" tabindex="0"
+                        <li id="viewLi"><a href="view.html" id="view" title="NCR Log" tabindex="20"
                                 aria-label="View existing Non-Conformance Reports"><abbr
                                     title="Non-Conformance Reports">NCR</abbr> Log</a></li>
                         <li id="reportsLi"><a href="reports.html" id="reports" title="Reports" aria-label="View Reports"
-                                tabindex="0">Reports</a></li>
+                                tabindex="25">Audits</a></li>
                         <li id="metricsLi"><a href="metrics.html" id="metrics" title="Metric" aria-label="View Metrics"
-                                tabindex="0">Metrics</a></li>
+                                tabindex="30">Reports</a></li>
                     </ul>
                 </nav>
             </div>
@@ -55,7 +55,7 @@
                 <div class="header-col-right">
                     <div class="faqs-button-container">
                         <a href="faqs.html" aria-label="Navigate to FAQs Page" title="Frequently asked questions"
-                            tabindex="0">
+                            tabindex="35">
                             <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
                                 xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
                                 viewBox="0 0 24 24">
@@ -68,7 +68,7 @@
                     <div class="notification">
                         <div class="notif-button-container">
                             <button id="btnNotification" title="Notifications" aria-haspopup="true"
-                                aria-expanded="false" tabindex="0" aria-controls="notifDisplay"
+                                aria-expanded="false" tabindex="40" aria-controls="notifDisplay"
                                 onclick="toggleDropdown()">
                                 <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="none"
@@ -97,7 +97,7 @@
                 <div class="profile">
                     <div class="user-container">
                         <button id="btnProfile" aria-label="Click to view profile" title="Profile Menu"
-                            aria-haspopup="true" tabindex="0" aria-expanded="false" aria-controls="profileDropdown"
+                            aria-haspopup="true" tabindex="45" aria-expanded="false" aria-controls="profileDropdown"
                             onclick="toggleProfileDropdown()">
                             <span class="user-avatar">
                                 <img id="profilePic" src="images/user-profile.png" alt="User profile image"
@@ -109,7 +109,7 @@
                             </span>
                         </button>
                     </div>
-                    <div id="profileDropdown" class="profile-dropdown" tabindex="0" role="region"
+                    <div id="profileDropdown" class="profile-dropdown"  role="region"
                         aria-labelledby="btnProfile">
                         <ul>
                             <li>
@@ -162,7 +162,7 @@
         <div class="container">
             <div class="breadcrumb-container">
                 <div>
-                    <ol class="breadcrumb-list" tabindex="-1"></ol>
+                    <ol class="breadcrumb-list" tabindex="0"></ol>
                     <!-- Breadcrumbs will be dynamically populated here -->
                 </div>
             </div>
@@ -213,12 +213,12 @@
                                         </div>
                                     </div>
                                 </div>
-                                <select id="napplicableProcess" name="napplicableProcess" title="Applicable Process"
+                                <select id="napplicableProcess" tabindex="2" name="napplicableProcess" title="Applicable Process"
                                     aria-label="required field">
                                     <option value="" disabled selected>Select a process</option>
                                     <!-- Added value="" and selected attribute -->
-                                    <option value="Supplier or Rec-Insp">Supplier or Rec-Insp</option>
-                                    <option value="WIP (Production Order)">WIP (Production Order)</option>
+                                    <option tabindex="0" value="Supplier or Rec-Insp">Supplier or Rec-Insp</option>
+                                    <option tabindex="0"   value="WIP (Production Order)">WIP (Production Order)</option>
                                 </select>
                             </div>
                             <div>
@@ -243,7 +243,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <select id="nsupplierName" name="nsupplierName" title="Select a Supplier"
+                                <select id="nsupplierName" tabindex="3" name="nsupplierName" title="Select a Supplier"
                                     aria-label="required field">
                                     <option value="" disabled selected>Select a Supplier</option>
                                     <!-- Added value="" and selected attribute -->
@@ -311,7 +311,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <select id="applicableProcess" title="Applicable Process" required>
+                                        <select id="applicableProcess" tabindex="50" title="Applicable Process" required>
                                             <option value="" disabled selected>Select a process</option>
                                             <option value="Supplier or Rec-Insp">Supplier or Rec-Insp</option>
                                             <option value="WIP (Production Order)">WIP (Production Order)</option>
@@ -337,7 +337,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <select id="supplierName" title="Supplier" required>
+                                        <select id="supplierName" tabindex="55" title="Supplier" required>
                                             <option value="" disabled selected>Select a Supplier</option>
                                         </select>
                                     </div>
@@ -364,7 +364,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <input id="poNumber" name="poNumber" title="Production Number" type="text"
+                                        <input id="poNumber" tabindex="60"  name="poNumber" title="Production Number" type="text"
                                             pattern="[0-9-]*" placeholder="Example: 000-00">
                                         <!--include regex for pattern: digits-->
                                     </div>
@@ -390,7 +390,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <input id="soNumber" name="soNumber" title="Sales Order number" type="text"
+                                        <input id="soNumber"  tabindex="65"  name="soNumber" title="Sales Order number" type="text"
                                             pattern="[0-9-]*" placeholder="Example: 000-00" required>
                                         <!--include regex for pattern: digits-->
                                     </div>
@@ -425,7 +425,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <input id="quantityReceived" title="Quantity Recieved" name="quantityReceived"
+                                        <input id="quantityReceived" tabindex="70"  title="Quantity Recieved" name="quantityReceived"
                                             type="number" placeholder="Example : 100" required min="1">
                                     </div>
                                     <div>
@@ -449,7 +449,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <input id="quantityDefect" title="Quantity Defective" name="quantityDefect"
+                                        <input id="quantityDefect" tabindex="75"  title="Quantity Defective" name="quantityDefect"
                                             type="number" placeholder="Example : 50" required min="1">
                                     </div>
                                 </div>
@@ -479,7 +479,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <textarea id="itemDescription" title="Item Description" name="itemDescription"
+                                    <textarea id="itemDescription" tabindex="80"   title="Item Description" name="itemDescription"
                                         rows="2" placeholder="Describe the item" required></textarea>
                                 </div>
                                 <div class="one-col-form">
@@ -505,7 +505,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <textarea id="defectDescription" title="Defect Description" name="defectDescription"
+                                    <textarea id="defectDescription" tabindex="85"  title="Defect Description" name="defectDescription"
                                         rows="5" placeholder="Describe the defect in as much detail as possible"
                                         required></textarea>
                                 </div>
@@ -531,7 +531,7 @@
                                         </div>
                                     </div>
                                     <div class="file-upload">
-                                        <input id="attachedDocument" name="attachedDocument" type="file" multiple
+                                        <input id="attachedDocument"  tabindex="90" name="attachedDocument" type="file" multiple
                                             accept="image/*,video/*">
                                         <div class="file-upload-details">
                                             <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
@@ -553,12 +553,12 @@
                                 </div>
                                 <div class="form-checkbox-container">
                                     <div class="form-checkbox">
-                                        <input id="itemConform" name="itemConform" type="checkbox">
+                                        <input id="itemConform" tabindex="95" name="itemConform" type="checkbox">
                                         <label for="itemConform" title="Item marked conforming?">Item marked
                                             conforming?</label>
                                     </div>
                                     <div id="engNeededtoggle" class="form-checkbox">
-                                        <input id="engNeeded" name="engNeeded" type="checkbox">
+                                        <input id="engNeeded" tabindex="100" name="engNeeded" type="checkbox">
                                         <label for="engNeeded" title="Forward to Engineering?">Forward to
                                             Engineering?</label>
                                     </div>
@@ -613,10 +613,10 @@
                                     </div>
                                 </div>
                                 <div class="form-ncr-buttons">
-                                    <button type="button" id="btnSave" title="Save" class="button-primary">Save</button>
-                                    <button type="button" id="btnSubmit" title="Submit"
+                                    <button type="button" tabindex="105" id="btnSave" title="Save" class="button-primary">Save</button>
+                                    <button type="button" tabindex="115" id="btnSubmit" title="Submit"
                                         class="button-secondary btnDisable">Submit</button>
-                                    <button type="button" id="btnCancel" class="button-secondary" title="Cancel"
+                                    <button type="button" tabindex="120" id="btnCancel" class="button-secondary" title="Cancel"
                                         onclick="goBack()">Cancel</button>
                                 </div>
                             </div>
