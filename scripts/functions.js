@@ -3276,6 +3276,10 @@ function submitEngNCR() {
         }
         history.push(historyEntry);
         localStorage.setItem('history', JSON.stringify(history));
+
+        // Send email notification to Purchasing team
+        sendEmailNotification(ncrNumber, 'No'); // 'No' sends email to Purchasing
+
         showToast('NCR has been successfully submitted.', 'success', 5000);
         window.history.back();
 
@@ -4395,8 +4399,28 @@ function showToast(message, type = 'info', duration = 5000) {
 //EMAIL
 //
 //=================================================================================================================
+// Function to retrieve and return the department name based on user role
+
 // Function to send email to the right department
 function sendEmailNotification(ncrNumber, engNeeded) {
+
+    // Get the department name of the logged-in user
+    let departmentName = ""; // Declare an empty string
+    
+    // Check the user role and assign the corresponding department name
+    if(getUserRole() === "Quality") {
+        departmentName = "Quality"; // If user role is "Quality", set department name to "Quality"
+    }
+    else if(getUserRole() === "Engineer") {
+        departmentName = "Engineering"; // If user role is "Engineer", set department name to "Engineering"
+    }
+    else if(getUserRole() === "Purchasing") {
+        departmentName = "Purchasing"; // If user role is "Purchasing", set department name to "Purchasing"
+    }
+    else {
+        departmentName = "Unknown Department"; // Default case if the role doesn't match any above
+    }
+
     const engineerEmails = [
         "wirewits2024@gmail.com",
         "jaynikzgonzales001@gmail.com"  // Example: Add engineering department emails here
@@ -4407,12 +4431,12 @@ function sendEmailNotification(ncrNumber, engNeeded) {
         "jaylordnikkogonzales01@gmail.com"  // Example: Add purchasing department emails here
     ];
 
-    // Check if 'Yes' or 'No' is passed
+    // Determine the email list based on 'engNeeded'
     let emailList = [];
     if (engNeeded === 'Yes') {
-        emailList = engineerEmails;  // Engineering emails
+        emailList = engineerEmails;  // Send to Engineering emails
     } else if (engNeeded === 'No') {
-        emailList = purchasingEmails;  // Purchasing emails
+        emailList = purchasingEmails;  // Send to Purchasing emails
     }
 
     // Send email via EmailJS
@@ -4420,7 +4444,8 @@ function sendEmailNotification(ncrNumber, engNeeded) {
         to_email: emailList.join(','),  // Send to the entire list (comma-separated)
         subject: `NCR Submission - ${ncrNumber}`,
         ncrNumber: ncrNumber,
-        from_name: "NCR System"
+        department_name: departmentName,  // Pass department name in the email body
+        from_name: "Crossfire System"
     })
     .then(response => {
         console.log("Email sent successfully:", response);
@@ -4429,13 +4454,6 @@ function sendEmailNotification(ncrNumber, engNeeded) {
         console.error("Error sending email:", error);
     });
 }
-
-
-
-
-
-
-
 
 // showToast('This is an alert message!', 'info');
 // options: success / error / warning / info (default)
