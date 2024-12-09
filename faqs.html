@@ -15,6 +15,7 @@
     <link rel="icon" type="image/x-icon" href="images/favicon.png">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     <link rel="stylesheet" href="https://unpkg.com/tippy.js@6/dist/tippy.css">
+
 </head>
 
 <body>
@@ -34,15 +35,15 @@
                 <!--navigation menu-->
                 <nav aria-label="Main Navigation" id="mainNav">
                     <ul>
-                        <li id="homeLi"><a href="index.html" class="nav-active" id="home" title="Dashboard" aria-current="page"
+                        <li id="homeLi"><a href="index.html" class="nav-active" id="home" data-tippy-content="Dashboard" aria-current="page"
                                 aria-label="Dashboard page" tabindex="10">Dashboard</a></li>
-                        <li id="createLi"><a href="create.html" id="create" title="Create" aria-label="Create new Non-Conformance Report"
+                        <li id="createLi"><a href="create.html" id="create" data-tippy-content="Create" aria-label="Create new Non-Conformance Report"
                                 tabindex="15">Create <abbr title="Non-Conformance Report">NCR</abbr></a></li>
-                        <li id="viewLi"><a href="view.html" id="view" tabindex="20" title="NCR Log"
+                        <li id="viewLi"><a href="view.html" id="view" tabindex="20" data-tippy-content="NCR Log"
                                 aria-label="View existing Non-Conformance Reports"><abbr
                                     title="Non-Conformance Reports">NCR</abbr> Log</a></li>
-                        <li id="reportsLi"><a href="reports.html" id="reports" title="Reports" aria-label="View Reports" tabindex="25">Audits</a></li>
-                        <li id="metricsLi"><a href="metrics.html" id="metrics" title="Metric" aria-label="View Metrics"
+                        <li id="reportsLi"><a href="reports.html" id="reports" data-tippy-content="Audits" aria-label="View Reports" tabindex="25">Audits</a></li>
+                        <li id="metricsLi"><a href="metrics.html" id="metrics" data-tippy-content="Reports" aria-label="View Metrics"
                             tabindex="30">Reports</a></li>
                     </ul>
                 </nav>
@@ -50,7 +51,7 @@
             <div class="header-col-right">
                 <div class="header-col-right">
                     <div class="faqs-button-container">
-                        <a href="faqs.html" aria-label="Navigate to FAQs Page" title="Frequently asked questions" tabindex="35">
+                        <a href="faqs.html" aria-label="Navigate to FAQs Page" data-tippy-content="FAQs" tabindex="35">
                             <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
                                 xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
                                 viewBox="0 0 24 24">
@@ -62,7 +63,7 @@
                     </div>
                     <div class="notification">
                         <div class="notif-button-container">
-                            <button id="btnNotification" title="Notifications" aria-haspopup="true"
+                            <button id="btnNotification" data-tippy-content="Notifications" aria-haspopup="true"
                                 aria-expanded="false" tabindex="40" aria-controls="notifDisplay"
                                 onclick="toggleDropdown()">
                                 <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
@@ -91,7 +92,7 @@
                 </div>
                 <div class="profile">
                     <div class="user-container">
-                        <button id="btnProfile" aria-label="Click to view profile" title="Profile Menu" aria-haspopup="true" tabindex="45"
+                        <button id="btnProfile" aria-label="Click to view profile" data-tippy-content="Profile Menu" aria-haspopup="true" tabindex="45"
                             aria-expanded="false" aria-controls="profileDropdown" onclick="toggleProfileDropdown()">
                             <span class="user-avatar">
                                 <img id="profilePic" src="images/user-profile.png" alt="User profile image"

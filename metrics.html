@@ -37,17 +37,17 @@
                 <!--navigation menu-->
                 <nav aria-label="Main Navigation" id="mainNav">
                     <ul>
-                        <li id="homeLi"><a href="index.html" title="Dashboard" class="nav-active" id="home"
+                        <li id="homeLi"><a href="index.html" data-tippy-content="Dashboard" class="nav-active" id="home"
                                 aria-current="page" aria-label="Dashboard page" tabindex="0">Dashboard</a></li>
-                        <li id="createLi"><a href="create.html" title="Create NCR" id="create"
+                        <li id="createLi"><a href="create.html" data-tippy-content="Create NCR" id="create"
                                 aria-label="Create new Non-Conformance Report" tabindex="0">Create <abbr
                                     title="Non-Conformance Report">NCR</abbr></a></li>
-                        <li id="viewLi"><a href="view.html" title="NCR Log" id="view" tabindex="0"
+                        <li id="viewLi"><a href="view.html" data-tippy-content="NCR Log" id="view" tabindex="0"
                                 aria-label="View existing Non-Conformance Reports"><abbr
                                     title="Non-Conformance Reports">NCR</abbr> Log </a></li>
-                        <li id="reportsLi"><a href="reports.html" title="Reports" id="reports" aria-label="View Reports"
+                        <li id="reportsLi"><a href="reports.html" data-tippy-content="Audits" id="reports" aria-label="View Audits"
                                 tabindex="0">Audits</a></li>
-                        <li id="metricsLi"><a href="metrics.html" id="metrics" title="Metric" aria-label="View Metrics"
+                        <li id="metricsLi"><a href="metrics.html" id="metrics" data-tippy-content="Reports" aria-label="View ReportS"
                                 tabindex="0">Reports</a></li>
                     </ul>
                 </nav>
@@ -55,7 +55,7 @@
             <div class="header-col-right">
                 <div class="header-col-right">
                     <div class="faqs-button-container">
-                        <a href="faqs.html" aria-label="Navigate to FAQs Page" title="Frequently asked questions"
+                        <a href="faqs.html" aria-label="Navigate to FAQs Page" data-tippy-content="FAQs"
                             tabindex="0">
                             <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
                                 xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
@@ -68,7 +68,7 @@
                     </div>
                     <div class="notification">
                         <div class="notif-button-container">
-                            <button id="btnNotification" title="Notifications" aria-haspopup="true"
+                            <button id="btnNotification" data-tippy-content="Notifications" aria-haspopup="true"
                                 aria-expanded="false" tabindex="0" aria-controls="notifDisplay"
                                 onclick="toggleDropdown()">
                                 <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
@@ -97,7 +97,7 @@
                 </div>
                 <div class="profile">
                     <div class="user-container">
-                        <button id="btnProfile" aria-label="Click to view profile" title="Profile Menu"
+                        <button id="btnProfile" aria-label="Click to view profile" data-tippy-content="Profile Menu"
                             aria-haspopup="true" tabindex="0" aria-expanded="false" aria-controls="profileDropdown"
                             onclick="toggleProfileDropdown()">
                             <span class="user-avatar">
@@ -162,7 +162,7 @@
                 </div>
             </div>
             <div class="page-title">
-                <h1>Metrics</h1>
+                <h1>Reports</h1>
             </div>
             <div class="one-col">
                 <div class="div-container">
@@ -176,17 +176,17 @@
 
                         <!-- Tab Contents -->
                         <div id="tabMetricAll" class="tab-content form-section">
-                            <strong>Supplier NCR and Defect Metrics Chart</strong>
+                            <strong>Supplier NCR and Defect Reports Chart</strong>
                             <canvas id="metricChartAll" class="metrics-canvas"></canvas>
                         </div>
                         <div id="tabMetricRecord" class="tab-content form-section">
-                            <strong>Number of NCR Records Metrics Chart</strong>
+                            <strong>Number of NCR Records Reports Chart</strong>
                             <div class="chart-container">
                                 <canvas id="metricChartRecord" class="metrics-canvas"></canvas>
                             </div>
                         </div>
                         <div id="tabMetricDefect" class="tab-content form-section">
-                            <strong>Cumulative Defect Percentage Metrics Chart</strong>
+                            <strong>Cumulative Defect Percentage Reports Chart</strong>
                             <canvas id="metricChartDefect" class="metrics-canvas"></canvas>
                         </div>
 
@@ -203,7 +203,7 @@
                 <!-- Supplier Defect Table -->
                 <div class="div-container">
                     <div class="table-title" aria-label="Supplier Metrics">
-                        <h2 id="supplierMetrics">Supplier Metrics</h2> <!--Heading may change-->
+                        <h2 id="supplierMetrics">Supplier Reports</h2> <!--Heading may change-->
                     </div>
                     <table>
                         <thead>

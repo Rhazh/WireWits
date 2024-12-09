@@ -42,8 +42,8 @@
                         <li id="viewLi"><a href="view.html" id="view" tabindex="20" data-tippy-content="NCR Log"
                                 aria-label="View existing Non-Conformance Reports"><abbr
                                     title="Non-Conformance Reports">NCR</abbr> Log</a></li>
-                        <li id="reportsLi"><a href="reports.html" id="reports" data-tippy-content="Reports" aria-label="View Reports" tabindex="25">Audits</a></li>
-                        <li id="metricsLi"><a href="metrics.html" id="metrics" data-tippy-content="Metric" aria-label="View Metrics"
+                        <li id="reportsLi"><a href="reports.html" id="reports" data-tippy-content="Audits" aria-label="View Reports" tabindex="25">Audits</a></li>
+                        <li id="metricsLi"><a href="metrics.html" id="metrics" data-tippy-content="Reports" aria-label="View Metrics"
                             tabindex="30">Reports</a></li>
                     </ul>
                 </nav>
@@ -155,7 +155,7 @@
                 <!--dashboard buttons-->
                 <div class="dashboard">
                     <div class="div-container" id="onlyQualityDash">
-                        <button id="btnCreate" class="createNCR" title="Create NCR" aria-label="Click to create a new NCR"
+                        <button id="btnCreate" class="createNCR" data-tippy-content="Create NCR" aria-label="Click to create a new NCR"
                             tabindex="50">
                             <img src="images/icon-create-ncr.svg" alt="Create NCR icon" title="Create NCR icon"
                                 width="95" height="95">
@@ -163,24 +163,24 @@
                         </button>
                     </div>
                     <div class="div-container">
-                        <button id="btnView" aria-label="Click to View existing NCRs" title="NCR Log" tabindex="55">
+                        <button id="btnView" aria-label="Click to View existing NCRs" data-tippy-content="NCR Log" tabindex="55">
                             <img src="images/icon-view-ncrs.svg" alt="NCR Log icon" title="NCR Log icon"
                                 width="95" height="95">
                             NCR Log
                         </button>
                     </div>
                     <div class="div-container">
-                        <button id="btnReports" aria-label="Click to view the reports" title="Reports" tabindex="60">
-                            <img src="images/icon-reports.svg" alt="Reports icon" title="Reports icon" width="95"
+                        <button id="btnReports" aria-label="Click to view the audits" data-tippy-content="Audits" tabindex="60">
+                            <img src="images/icon-reports.svg" alt="Audit icon" title="Audit icon" width="95"
                                 height="95">
                             Audits
                         </button>
                     </div>
                     <div class="div-container" id="onlyPurchasingDash">
-                        <button id="btnMetrics" aria-label="Click to view Metrics" title="Metrics" tabindex="65">
-                            <img src="images/icon-metrics.svg" alt="Metrics icon" title="Metrics icon" width="95"
+                        <button id="btnMetrics" aria-label="Click to view reports" data-tippy-content="Reports" tabindex="65">
+                            <img src="images/icon-metrics.svg" alt="Report icon" title="Report icon" width="95"
                                 height="95">
-                            Report
+                            Reports
                         </button>
                     </div>
                 </div>
