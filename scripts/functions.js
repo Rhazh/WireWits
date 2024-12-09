@@ -440,13 +440,13 @@ function recentNCRs(userRole) {
         recentN.forEach(result => {
             //const editButtonDisabled = result.ncrStatus !== "Quality" ? "disabled" : "";
             const newRow = `<tr>
-            <td title="NCR number - ${result.ncrNumber}">${result.ncrNumber}</td>
-            <td title="Supplier - ${result.supplierName}">${result.supplierName}</td>
-            <td title="Date Created - ${formatDate(result.dateCreated)}">${formatDate(result.dateCreated)}</td>
-            <td title="Status - ${result.ncrStatus}">${result.ncrStatus}</td>
+            <td data-tippy-content="NCR number - ${result.ncrNumber}">${result.ncrNumber}</td>
+            <td data-tippy-content="Supplier - ${result.supplierName}">${result.supplierName}</td>
+            <td data-tippy-content="Date Created - ${formatDate(result.dateCreated)}">${formatDate(result.dateCreated)}</td>
+            <td data-tippy-content="Status - ${result.ncrStatus}">${result.ncrStatus}</td>
             <td>
                 <div>
-                   <button title="View Details for ${result.ncrNumber}" onclick="detailsEntry('${result.ncrNumber}')">
+                   <button data-tippy-content="View Details for ${result.ncrNumber}" onclick="detailsEntry('${result.ncrNumber}')">
                        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                            <title>Details Icon</title>
                            <path stroke="currentColor" stroke-width="2" d="M21 12c0 1.2-4.03 6-9 6s-9-4.8-9-6c0-1.2 4.03-6 9-6s9 4.8 9 6Z"/>
@@ -454,7 +454,7 @@ function recentNCRs(userRole) {
                        </svg>
                        Details
                    </button>
-                   <button title="Edit ${result.ncrNumber}" onclick="handleEditEntry('${result.ncrNumber}', '${result.ncrStatus}')">
+                   <button data-tippy-content="Edit ${result.ncrNumber}" onclick="handleEditEntry('${result.ncrNumber}', '${result.ncrStatus}')">
                        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                            <title>Details Icon</title>
                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"/>
@@ -539,13 +539,13 @@ function recentNCRs(userRole) {
         recentN.forEach(result => {
             //const editButtonDisabled = result.ncrStatus !== "Quality" ? "disabled" : "";
             const newRow = `<tr>
-                             <td title="NCR Number - ${result.ncrNumber}">${result.ncrNumber}</td>
-                             <td title="Supplier - ${((quality.find(q => q.ncrNumber === result.ncrNumber)?.supplierName)) || ''}">${((quality.find(q => q.ncrNumber === result.ncrNumber)?.supplierName)) || ''}</td>
-                             <td title="Date Created - ${formatDate(quality.find(q => q.ncrNumber === result.ncrNumber)?.dateCreated)}">${formatDate(quality.find(q => q.ncrNumber === result.ncrNumber)?.dateCreated)}</td>
-                             <td title="Status - ${result.ncrStatus}">${result.ncrStatus}</td>
+                             <td data-tippy-content="NCR Number - ${result.ncrNumber}">${result.ncrNumber}</td>
+                             <td data-tippy-content="Supplier - ${((quality.find(q => q.ncrNumber === result.ncrNumber)?.supplierName)) || ''}">${((quality.find(q => q.ncrNumber === result.ncrNumber)?.supplierName)) || ''}</td>
+                             <td data-tippy-content="Date Created - ${formatDate(quality.find(q => q.ncrNumber === result.ncrNumber)?.dateCreated)}">${formatDate(quality.find(q => q.ncrNumber === result.ncrNumber)?.dateCreated)}</td>
+                             <td data-tippy-content="Status - ${result.ncrStatus}">${result.ncrStatus}</td>
                               <td>
                                 <div>
-                                    <button title="Details for ${result.ncrNumber}" onclick="detailsEntry('${result.ncrNumber}')">
+                                    <button data-tippy-content="Details for ${result.ncrNumber}" onclick="detailsEntry('${result.ncrNumber}')">
                                         <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                                             <title>Details Icon</title>
                                             <path stroke="currentColor" stroke-width="2" d="M21 12c0 1.2-4.03 6-9 6s-9-4.8-9-6c0-1.2 4.03-6 9-6s9 4.8 9 6Z"/>
@@ -553,7 +553,7 @@ function recentNCRs(userRole) {
                                         </svg>
                                         Details
                                     </button>
-                                    <button title="Edit ${result.ncrNumber}" onclick="editEntryEng('${result.ncrNumber}')">
+                                    <button data-tippy-content="Edit ${result.ncrNumber}" onclick="editEntryEng('${result.ncrNumber}')">
                                         <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                                             <title>Edit Icon</title>
                                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"/>
@@ -952,13 +952,13 @@ function performSearch() {
 
     paginatedResults.forEach(result => {
         const newRow = `<tr>
-                            <td title="NCR Number - ${result.ncrNumber}">${result.ncrNumber}</td>
-                            <td title="Supplier - ${result.supplierName}">${result.supplierName}</td>
-                            <td title="Date Created - ${formatDate(result.dateCreated)}">${formatDate(result.dateCreated)}</td>
-                            <td title="Status - ${result.ncrStatus}">${result.ncrStatus}</td>
+                            <td data-tippy-content="NCR Number - ${result.ncrNumber}">${result.ncrNumber}</td>
+                            <td data-tippy-content="Supplier - ${result.supplierName}">${result.supplierName}</td>
+                            <td data-tippy-content="Date Created - ${formatDate(result.dateCreated)}">${formatDate(result.dateCreated)}</td>
+                            <td data-tippy-content="Status - ${result.ncrStatus}">${result.ncrStatus}</td>
                             <td>
                                 <div>
-                                    <button title="Details for ${result.ncrNumber}" onclick="detailsEntry('${result.ncrNumber}')">
+                                    <button data-tippy-content="Details for ${result.ncrNumber}" onclick="detailsEntry('${result.ncrNumber}')">
                                         <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                                             <title>Details Icon</title>
                                             <path stroke="currentColor" stroke-width="2" d="M21 12c0 1.2-4.03 6-9 6s-9-4.8-9-6c0-1.2 4.03-6 9-6s9 4.8 9 6Z"/>
@@ -966,14 +966,14 @@ function performSearch() {
                                         </svg>
                                         Details
                                     </button>
-                                    ${result.ncrStatus !== 'Closed' && result.ncrStatus !== 'Purchasing' && result.ncrStatus !== 'Engineering' ? `<button title="Edit ${result.ncrNumber}" onclick="handleEditEntry('${result.ncrNumber}', '${result.ncrStatus}')">
+                                    ${result.ncrStatus !== 'Closed' && result.ncrStatus !== 'Purchasing' && result.ncrStatus !== 'Engineering' ? `<button data-tippy-content="Edit ${result.ncrNumber}" onclick="handleEditEntry('${result.ncrNumber}', '${result.ncrStatus}')">
                                         <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                                             <title>Edit Icon</title>
                                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"/>
                                         </svg>
                                         Edit
                                     </button>` : ''}
-                                    ${result.ncrStatus === 'Closed' ? `<button title="Download PDF for ${result.ncrNumber}" onclick="downloadEntry('${result.ncrNumber}')">
+                                    ${result.ncrStatus === 'Closed' ? `<button data-tippy-content="Download PDF for ${result.ncrNumber}" onclick="downloadEntry('${result.ncrNumber}')">
                                     <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                                         <title>Download PDF Icon</title>
                                         <path stroke="currentColor" stroke-width="2" d="M5 12l7 7 7-7M12 19V5"/>
@@ -1578,12 +1578,12 @@ function populateRecordsTable(data) {
     data.forEach(record => {
         const row = document.createElement('tr');
         row.innerHTML = `
-        <td title="NCR Number - ${record.ncrNumber}">${record.ncrNumber}</td>    
-        <td title="Changed On - ${formatDate(record.changedOn)}">${formatDate(record.changedOn)}</td>
-            <td title="Action Type - ${record.actionType}">${record.actionType}</td>
-            <td title="Status - ${record.status}">${record.status}</td>
-            <td title="Action Description - ${record.actionDescription}">${record.actionDescription}</td>
-            <td title="Changed By - ${record.changedBy}">${record.changedBy}</td>
+        <td data-tippy-content="NCR Number - ${record.ncrNumber}">${record.ncrNumber}</td>    
+        <td data-tippy-content="Changed On - ${formatDate(record.changedOn)}">${formatDate(record.changedOn)}</td>
+            <td data-tippy-content="Action Type - ${record.actionType}">${record.actionType}</td>
+            <td data-tippy-content="Status - ${record.status}">${record.status}</td>
+            <td data-tippy-content="Action Description - ${record.actionDescription}">${record.actionDescription}</td>
+            <td data-tippy-content="Changed By - ${record.changedBy}">${record.changedBy}</td>
         `;
         tableContent.appendChild(row);
     });
@@ -1683,14 +1683,14 @@ function performSearchReports() {
     paginatedData.forEach(report => {
         const row = document.createElement('tr');
         row.innerHTML = `
-            <td title="NCR Number - ${report.ncrNumber}">${report.ncrNumber}</td>
-            <td title="Created By - ${report.createdBy}">${report.createdBy}</td>
-            <td title="Department - ${report.department}">${report.department}</td>
-            <td title="Date Created - ${formatDate(report.dateCreated)}">${formatDate(report.dateCreated)}</td>
-            <td title="Status - ${report.status}">${report.status}</td>
-            <td title="Last Updated - ${formatDate(report.lastUpdated)}">${formatDate(report.lastUpdated)}</td>
+            <td data-tippy-content="NCR Number - ${report.ncrNumber}">${report.ncrNumber}</td>
+            <td data-tippy-content="Created By - ${report.createdBy}">${report.createdBy}</td>
+            <td data-tippy-content="Department - ${report.department}">${report.department}</td>
+            <td data-tippy-content="Date Created - ${formatDate(report.dateCreated)}">${formatDate(report.dateCreated)}</td>
+            <td data-tippy-content="Status - ${report.status}">${report.status}</td>
+            <td data-tippy-content="Last Updated - ${formatDate(report.lastUpdated)}">${formatDate(report.lastUpdated)}</td>
             <td>
-                <button title="View History for ${report.ncrNumber}" onclick="viewReport('${report.ncrNumber}')">
+                <button data-tippy-content="View History for ${report.ncrNumber}" onclick="viewReport('${report.ncrNumber}')">
                     <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                         <title>View History for ${report.ncrNumber}</title>
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
@@ -1842,7 +1842,7 @@ function printPdf() {
     const header = `
                     <div class="header">
                         <div class="logo left">
-                            <img src="images/logo.png" alt="Crossfire logo" title="Crossfire logo" height="74" width="345">
+                            <img src="images/logo.png" alt="Crossfire logo" data-tippy-content="Crossfire logo" height="74" width="345">
                         </div>
                         <div class="center">
                             <p class="title">Non-Conformance Report</p>
@@ -3385,15 +3385,15 @@ function performSearchEng() {
         const ncrStatusEng = quality.find(q => q.ncrNumber === result.ncrNumber)?.ncrStatus || '';
 
         const newRow = `<tr>
-                            <td title="NCR Number - ${result.ncrNumber}">${result.ncrNumber}</td>
-                             <td title="Supplier - ${((quality.find(q => q.ncrNumber === result.ncrNumber)?.supplierName)) || ''}">${((quality.find(q => q.ncrNumber === result.ncrNumber)?.supplierName)) || ''}</td>
-                             <td title="Date Created - ${formatDate(ncrLog.find(q => q.ncrNumber === result.ncrNumber).dateCreated)}">
+                            <td data-tippy-content="NCR Number - ${result.ncrNumber}">${result.ncrNumber}</td>
+                             <td data-tippy-content="Supplier - ${((quality.find(q => q.ncrNumber === result.ncrNumber)?.supplierName)) || ''}">${((quality.find(q => q.ncrNumber === result.ncrNumber)?.supplierName)) || ''}</td>
+                             <td data-tippy-content="Date Created - ${formatDate(ncrLog.find(q => q.ncrNumber === result.ncrNumber).dateCreated)}">
                                 ${formatDate(ncrLog.find(q => q.ncrNumber === result.ncrNumber).dateCreated)}
                             </td>
-                            <td title="Status - ${ncrStatusEng}">${ncrStatusEng}</td>
+                            <td data-tippy-content="Status - ${ncrStatusEng}">${ncrStatusEng}</td>
                             <td>
                                 <div>
-                                    <button title="Details for ${result.ncrNumber}" onclick="detailsEntry('${result.ncrNumber}')">
+                                    <button data-tippy-content="Details for ${result.ncrNumber}" onclick="detailsEntry('${result.ncrNumber}')">
                                         <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                                             <title>Details Icon</title>
                                             <path stroke="currentColor" stroke-width="2" d="M21 12c0 1.2-4.03 6-9 6s-9-4.8-9-6c0-1.2 4.03-6 9-6s9 4.8 9 6Z"/>
@@ -3401,14 +3401,14 @@ function performSearchEng() {
                                         </svg>
                                         Details
                                     </button>
-                                    ${ncrStatusEng !== 'Closed' && ncrStatusEng !== 'Purchasing' && ncrStatusEng !== 'Quality' ? `<button title="Edit ${result.ncrNumber}" onclick="editEntryEng('${result.ncrNumber}')">
+                                    ${ncrStatusEng !== 'Closed' && ncrStatusEng !== 'Purchasing' && ncrStatusEng !== 'Quality' ? `<button data-tippy-content="Edit ${result.ncrNumber}" onclick="editEntryEng('${result.ncrNumber}')">
                                         <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                                             <title>Edit Icon</title>
                                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"/>
                                         </svg>
                                         Edit
                                     </button>` : ''}
-                                    ${ncrStatusEng === 'Closed' ? `<button title="Download PDF for ${result.ncrNumber}" onclick="downloadEntry('${result.ncrNumber}')">
+                                    ${ncrStatusEng === 'Closed' ? `<button data-tippy-content="Download PDF for ${result.ncrNumber}" onclick="downloadEntry('${result.ncrNumber}')">
                                     <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                                         <title>Download PDF Icon</title>
                                         <path stroke="currentColor" stroke-width="2" d="M5 12l7 7 7-7M12 19V5"/>
@@ -3809,7 +3809,21 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
-
+// Additional Tooltip
+document.addEventListener("DOMContentLoaded", () => {
+    tippy('[data-tippy-content]', {
+        theme: 'light', // Choose a theme (optional)
+        animation: 'scale', // Animation effect
+        placement: 'top', // Tooltip position
+    });
+    tippy.setDefaultProps({
+        placement: 'top',
+        animation: 'scale',
+        arrow: true,
+        delay: [200, 100],
+        theme: 'dark',
+    });
+});
 
 //=======================================================================================================================================================
 //PURCHASING FUNCTIONS
@@ -4268,15 +4282,15 @@ function performSearchPch() {
         const ncrStatusPch = quality.find(q => q.ncrNumber === result.ncrNumber)?.ncrStatus || '';
 
         const newRow = `<tr>
-                            <td title="NCR Number - ${result.ncrNumber}">${result.ncrNumber}</td>
-                             <td title="Supplier - ${((quality.find(q => q.ncrNumber === result.ncrNumber)?.supplierName)) || ''}">${((quality.find(q => q.ncrNumber === result.ncrNumber)?.supplierName)) || ''}</td>
-                             <td title="Date Created - ${formatDate(ncrLog.find(q => q.ncrNumber === result.ncrNumber).dateCreated)}">
+                            <td data-tippy-content="NCR Number - ${result.ncrNumber}">${result.ncrNumber}</td>
+                             <td data-tippy-content="Supplier - ${((quality.find(q => q.ncrNumber === result.ncrNumber)?.supplierName)) || ''}">${((quality.find(q => q.ncrNumber === result.ncrNumber)?.supplierName)) || ''}</td>
+                             <td data-tippy-content="Date Created - ${formatDate(ncrLog.find(q => q.ncrNumber === result.ncrNumber).dateCreated)}">
                                 ${formatDate(ncrLog.find(q => q.ncrNumber === result.ncrNumber).dateCreated)}
                             </td>
-                            <td title="Status - ${ncrStatusPch}">${ncrStatusPch}</td>
+                            <td data-tippy-content="Status - ${ncrStatusPch}">${ncrStatusPch}</td>
                             <td>
                                 <div>
-                                    <button title="Details for ${result.ncrNumber}" onclick="detailsEntry('${result.ncrNumber}')">
+                                    <button data-tippy-content="Details for ${result.ncrNumber}" onclick="detailsEntry('${result.ncrNumber}')">
                                         <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                                             <title>Details Icon</title>
                                             <path stroke="currentColor" stroke-width="2" d="M21 12c0 1.2-4.03 6-9 6s-9-4.8-9-6c0-1.2 4.03-6 9-6s9 4.8 9 6Z"/>
@@ -4284,14 +4298,14 @@ function performSearchPch() {
                                         </svg>
                                         Details
                                     </button>
-                                    ${ncrStatusPch !== 'Closed' && ncrStatusPch !== 'Quality' && ncrStatusPch !== 'Engineering' ? `<button title="Edit ${result.ncrNumber}" onclick="editEntryPch('${result.ncrNumber}', '${result.ncrStatus}')">
+                                    ${ncrStatusPch !== 'Closed' && ncrStatusPch !== 'Quality' && ncrStatusPch !== 'Engineering' ? `<button data-tippy-content="Edit ${result.ncrNumber}" onclick="editEntryPch('${result.ncrNumber}', '${result.ncrStatus}')">
                                         <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                                             <title>Edit Icon</title>
                                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"/>
                                         </svg>
                                         Edit
                                     </button>` : ''}
-                                    ${ncrStatusPch === 'Closed' ? `<button title="Download PDF for ${result.ncrNumber}" onclick="downloadEntry('${result.ncrNumber}')">
+                                    ${ncrStatusPch === 'Closed' ? `<button data-tippy-content="Download PDF for ${result.ncrNumber}" onclick="downloadEntry('${result.ncrNumber}')">
                                     <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                                         <title>Download PDF Icon</title>
                                         <path stroke="currentColor" stroke-width="2" d="M5 12l7 7 7-7M12 19V5"/>
@@ -4503,11 +4517,11 @@ function Metrics() {
         const defectPercentage = ((stats.totalDefect / stats.totalReceived) * 100).toFixed(2);
         tableRows.push(`
             <tr>
-                <td title="Supplier Name - ${supplier}">${supplier}</td>
-                <td title="Number of NCRS - ${stats.ncrCount}">${stats.ncrCount}</td>
-                <td title="Total quantity received - ${stats.totalReceived}">${stats.totalReceived}</td>
-                <td title="Total quantity defective - ${stats.totalDefect}">${stats.totalDefect}</td>
-                <td title="Defective percentage - ${defectPercentage}%">${defectPercentage}%</td>
+                <td data-tippy-content="Supplier Name - ${supplier}">${supplier}</td>
+                <td data-tippy-content="Number of NCRS - ${stats.ncrCount}">${stats.ncrCount}</td>
+                <td data-tippy-content="Total quantity received - ${stats.totalReceived}">${stats.totalReceived}</td>
+                <td data-tippy-content="Total quantity defective - ${stats.totalDefect}">${stats.totalDefect}</td>
+                <td data-tippy-content="Defective percentage - ${defectPercentage}%">${defectPercentage}%</td>
             </tr>
         `);
     });
@@ -4775,25 +4789,13 @@ document.getElementById('followUp')?.addEventListener('change', (event) => {
 // Function to toggle dark mode and update the message
 function toggleDarkMode() {
     const body = document.body;
-    const header = document.querySelector("header"); // Corrected to select the header element
-    const h1 = document.querySelector("h1"); // Corrected to select the header element
-    const h2 = document.querySelector("h2"); // Corrected to select the header element
-    const a = document.querySelector("a"); // Corrected to select the header element
-    const p = document.querySelector("p"); // Corrected to select the header element
-    const svg = document.querySelector("svg"); // Corrected to select the header element
-    const footer = document.querySelector("footer"); // Corrected to select the header element
     const darkModeSettingsMessage = document.getElementById("darkModeSettingsMessage");
     const toggleSwitch = document.getElementById("toggleSwitch1");
 
     const isDarkMode = toggleSwitch.checked;
-    body.classList.toggle("dark-mode", isDarkMode); // Add/remove dark-mode class
-    header.classList.toggle("dark-mode",isDarkMode );
-    h1.classList.toggle("dark-mode",isDarkMode );
-    h2.classList.toggle("dark-mode",isDarkMode );
-    a.classList.toggle("dark-mode",isDarkMode );
-    p.classList.toggle("dark-mode",isDarkMode );
-    svg.classList.toggle("dark-mode",isDarkMode );    
-    footer.classList.toggle("dark-mode",isDarkMode );    
+
+    // Add/remove the dark-mode class on the body
+    body.classList.toggle("dark-mode", isDarkMode);
 
     // Update the message based on the toggle state
     darkModeSettingsMessage.textContent = isDarkMode
@@ -4812,16 +4814,10 @@ function initializeDarkMode() {
     // Get saved dark mode state from localStorage
     const savedState = localStorage.getItem("darkMode") === "true";
 
-    // Apply the saved state
+    // Apply the saved state to the body
     document.body.classList.toggle("dark-mode", savedState);
-    document.querySelector("header").classList.toggle("dark-mode", savedState); // Apply to header
-    document.querySelector("h1").classList.toggle("dark-mode", savedState); // Apply to header
-    document.querySelector("h2").classList.toggle("dark-mode", savedState); // Apply to header
-    document.querySelector("p").classList.toggle("dark-mode", savedState); // Apply to header
-    document.querySelector("a").classList.toggle("dark-mode", savedState); // Apply to header
-    document.querySelector("svg").classList.toggle("dark-mode", savedState); // Apply to header
-    document.querySelector("footer").classList.toggle("dark-mode", savedState); // Apply to header
 
+    // Set the toggle switch position
     toggleSwitch.checked = savedState;
 
     // Update the message
