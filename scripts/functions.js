@@ -2285,10 +2285,16 @@ function printPdf() {
 
     printWindow.document.close();
 
-    // Wait for the new window to load
-    printWindow.onload = function () {
-        printWindow.print(); // Trigger print dialog
-        printWindow.close(); // Close the print window after printing
+     // Wait for the new window to fully load, then print
+     printWindow.onload = function () {
+        setTimeout(() => {
+            printWindow.print();
+        }, 500);
+    };
+
+    // Close the print window only after printing is complete
+    printWindow.onafterprint = function () {
+        printWindow.close();
     };
 }
 
