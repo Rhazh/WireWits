@@ -15,7 +15,17 @@
         rel="stylesheet">
     <link rel="icon" type="image/x-icon" href="images/favicon.png">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+
     <link rel="stylesheet" href="https://unpkg.com/tippy.js@6/dist/tippy.css">
+
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    
+    <script>
+        // Initialize EmailJS with your public key
+        emailjs.init("VjPiTb6KAesGR-Stz");  // Replace YOUR_PUBLIC_KEY with your actual EmailJS public key
+    </script>
+
 </head>
 
 <body>
@@ -615,7 +625,7 @@
                                 <div class="form-ncr-buttons">
                                     <button type="button" tabindex="105" id="btnSave" title="Save" class="button-primary">Save</button>
                                     <button type="button" tabindex="115" id="btnSubmit" title="Submit"
-                                        class="button-secondary btnDisable">Submit</button>
+                                        class="button-secondary btnDisable" onclick="sendEmailNotification(ncrNumber, engNeeded)">Submit</button>
                                     <button type="button" tabindex="120" id="btnCancel" class="button-secondary" title="Cancel"
                                         onclick="goBack()">Cancel</button>
                                 </div>
