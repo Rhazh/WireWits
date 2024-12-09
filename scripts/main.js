@@ -449,11 +449,11 @@ document.addEventListener('DOMContentLoaded', async () => {
         'details.html': 'NCR Details',
         'faqs.html': 'FAQs',
         'login.html': 'Login',
-        'reports.html': 'Reports',
+        'reports.html': 'Audits',
         'settings.html': 'Settings',
         'underdevelopment.html': 'Under Development',
         'profile_settings.html': 'Profile & Settings',
-        'metrics.html' : 'Metrics'
+        'metrics.html' : 'Reports'
 
     };
 
