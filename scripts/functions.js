@@ -689,6 +689,10 @@ function populateDetailsPage(ncrNumber) {
         if (entry.ncrStatus != "Quality") {
             document.getElementById('qCompletionToggle').classList.add("non");
         }
+        //hide print button unless NCR is closed
+        if (entry.ncrStatus != "Close") {
+            document.getElementById('printButton').classList.add("non");
+        }
 
         // Disable edit button if status is not "Quality"
         const editButton = document.getElementById('editButton'); // Assuming you have an edit button with this ID
@@ -2866,6 +2870,11 @@ function populateEngDetailsPage(ncrNumber) {
         if (entry.ncrStatus != "Engineering") {
             document.getElementById('eCompletionToggle').classList.add("non");
         }
+
+        //hide print button unless NCR is closed
+        if (entry.ncrStatus != "Close") {
+            document.getElementById('printButtonEng').classList.add("non");
+        }
     }
 }
 
@@ -3928,6 +3937,10 @@ function populatePchDetailsPage(ncrNumber) {
         }
         if (entry.ncrStatus == "Closed") {
             document.getElementById('completionToggle3').style.display = 'grid';
+        }
+        //hide print button unless NCR is closed
+        if (entry.ncrStatus != "Close") {
+            document.getElementById('printButtonPch').classList.add("non");
         }
     }
 }
