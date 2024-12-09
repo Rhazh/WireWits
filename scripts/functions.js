@@ -817,9 +817,7 @@ function handleEditEntry(ncrNumber, ncrStatus) {
 //FUNCTION USED ON VIEW NCRS PAGE TO PERFORM SEARCH
 
 // ====================================================================
-//  5. Perform Search - Used for Filtering
-//     sets results to a table
-//     View NCRs page is initialized to show NCRS still with Quality
+// Pagination Controls
 // ====================================================================
 let currentPage = 1; // Initialize the current page
 let resultsPerPage = 5; // Number of results to show per page
@@ -870,9 +868,6 @@ function setupPagination(totalResults, displayResultsFunc, tableBodyId, paginati
         paginationContainer.appendChild(nextButton);
     }
 }
-
-
-
 function updatePagination(totalResults, displayResultsFunc, tableBodyId, paginationContainerId) {
     displayResultsFunc(currentPage, resultsPerPage, tableBodyId); // Update the displayed results
     setupPagination(totalResults, displayResultsFunc, tableBodyId, paginationContainerId); // Re-render pagination
@@ -883,7 +878,11 @@ function resetPagination() {
 }
 
 
-
+// ====================================================================
+//  5. Perform Search - Used for Filtering
+//     sets results to a table
+//     View NCRs page is initialized to show NCRS still with Quality
+// ====================================================================
 function performSearch() {
     const ncrNumber = document.getElementById('ncrNumber').value.trim();
     const supplierName = document.getElementById('supplierName').value;
@@ -1324,23 +1323,6 @@ function submitNCR() {
     const itemDescription = document.getElementById('itemDescription')?.value || '';
     const defectDescription = document.getElementById('defectDescription')?.value || '';
 
-    //Email Details
-    const ncrDetails = {
-        ncrNumber: ncrNumber,
-        changedBy: changedBy,
-        date: date,
-        applicableProcess: applicableProcess,
-        supplierName: supplierName,
-        poNumber: poNumber,
-        soNumber: soNumber,
-        quantityReceived: quantityReceived,
-        quantityDefect: quantityDefect,
-        engNeeded: engNeeded,
-        itemConform: itemConform,
-        itemDescription: itemDescription,
-        defectDescription: defectDescription
-    };
-
     // Array to store required field validation info
     const fieldsToValidate = [
         { id: 'poNumber', value: poNumber, message: 'Prod. Number is required.' },
@@ -1481,7 +1463,6 @@ function submitNCR() {
             qualityEntry.ncrStatus = engNeededCheckbox.checked ? "Engineering" : "Purchasing";
             localStorage.setItem('quality', JSON.stringify(quality));
 
-
             //make engineering array and push to engineering json
             if (qualityEntry.ncrStatus === "Engineering") {
                 const engineeringEntry = {
@@ -1501,6 +1482,9 @@ function submitNCR() {
                 engineering.push(engineeringEntry);
                 localStorage.setItem('engineering', JSON.stringify(engineering));
 
+                // Send email notification
+                // Send email to appropriate department
+                //sendEmailNotification(ncrNumber, 'Yes');
 
                 //make history array and push to history json
                 const historyEntry = {
@@ -1532,6 +1516,10 @@ function submitNCR() {
                 purchasing.push(purchasingEntry);
                 localStorage.setItem('purchasing', JSON.stringify(purchasing));
 
+                // Send email notification
+                // Send email to appropriate department
+                //sendEmailNotification(ncrNumber, 'No');
+
                 //update lastUpdated in NCRLog
                 const ncrLogEntry = ncrLog.find(entry => entry.ncrNumber === ncrNumber);
                 if (ncrLogEntry) { ncrLogEntry.lastUpdated = date }
@@ -1549,9 +1537,21 @@ function submitNCR() {
                 history.push(historyEntry);
                 localStorage.setItem('history', JSON.stringify(history));
             }
-            // Send email to Engineers department from Marcus Allen
-            sendEmailToDepartment('Engineer', ncrDetails);
 
+            //sendEmailToDepartment('Engineer', ncrDetails);
+            
+            if (qualityEntry.ncrStatus === "Engineering") {
+                // Send email to Engineering
+                sendEmailNotification(ncrNumber, 'Yes');  // 'Yes' for Engineering emails
+
+                // Additional logic for Engineering...
+            }
+            else if (qualityEntry.ncrStatus === "Purchasing") {
+                // Send email to Purchasing
+                sendEmailNotification(ncrNumber, 'No');  // 'No' for Purchasing emails
+
+                // Additional logic for Purchasing...
+            }
 
             showToast('NCR has been successfully submitted.', 'success', 5000);
 
@@ -4395,64 +4395,44 @@ function showToast(message, type = 'info', duration = 5000) {
 //EMAIL
 //
 //=================================================================================================================
-async function sendEmailToDepartment(departmentName, ncrDetails) {
-    try {
-        // Fetch user data from the JSON file or API endpoint
-        const response = await fetch('seed-data/login.json');
-        if (!response.ok) {
-            throw new Error(`Failed to fetch users: ${response.statusText}`);
-        }
-        const { users } = await response.json();
+// Function to send email to the right department
+function sendEmailNotification(ncrNumber, engNeeded) {
+    const engineerEmails = [
+        "wirewits2024@gmail.com",
+        "jaynikzgonzales001@gmail.com"  // Example: Add engineering department emails here
+    ];
 
-        // Filter users by department
-        const departmentUsers = users.filter(user => user.Department_Name === departmentName);
+    const purchasingEmails = [
+        "feranmieyitope@gmail.com",
+        "jaylordnikkogonzales01@gmail.com"  // Example: Add purchasing department emails here
+    ];
 
-        // Extract email addresses
-        const emailAddresses = departmentUsers.map(user => user.email);
-
-        if (emailAddresses.length === 0) {
-            console.error(`No users found in the department: ${departmentName}`);
-            return;
-        }
-
-        // Validate NCR details
-        if (!ncrDetails.ncrNumber || !ncrDetails.changedBy || !ncrDetails.date) {
-            console.error("NCR details are incomplete.");
-            return;
-        }
-
-        // Construct the email subject and body
-        const subject = `NCR Submission: ${ncrDetails.ncrNumber}`;
-        const body = `
-            NCR Number: ${ncrDetails.ncrNumber}
-            Submitted By: ${ncrDetails.changedBy}
-            Submission Date: ${ncrDetails.date}
-            Applicable Process: ${ncrDetails.applicableProcess}
-            Supplier Name: ${ncrDetails.supplierName}
-            PO Number: ${ncrDetails.poNumber}
-            SO Number: ${ncrDetails.soNumber}
-            Quantity Received: ${ncrDetails.quantityReceived}
-            Quantity Defective: ${ncrDetails.quantityDefect}
-            Engineering Needed: ${ncrDetails.engNeeded}
-            Item Conform: ${ncrDetails.itemConform}
-            Item Description: ${ncrDetails.itemDescription}
-            Defect Description: ${ncrDetails.defectDescription}
-
-            Please review the details above and take necessary action.
-        `;
-
-        // Encode subject and body
-        const mailtoLink = `mailto:${emailAddresses.join(',')}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-
-        // Store the mailto link in localStorage
-        localStorage.setItem('pendingMailto', mailtoLink);
-
-        // Redirect to the index page
-        window.location.href = "index.html";
-    } catch (error) {
-        console.error("Error:", error.message);
+    // Check if 'Yes' or 'No' is passed
+    let emailList = [];
+    if (engNeeded === 'Yes') {
+        emailList = engineerEmails;  // Engineering emails
+    } else if (engNeeded === 'No') {
+        emailList = purchasingEmails;  // Purchasing emails
     }
+
+    // Send email via EmailJS
+    emailjs.send("service_lr5w72q", "template_pvjf6qr", {
+        to_email: emailList.join(','),  // Send to the entire list (comma-separated)
+        subject: `NCR Submission - ${ncrNumber}`,
+        ncrNumber: ncrNumber,
+        from_name: "NCR System"
+    })
+    .then(response => {
+        console.log("Email sent successfully:", response);
+    })
+    .catch(error => {
+        console.error("Error sending email:", error);
+    });
 }
+
+
+
+
 
 
 
