@@ -466,6 +466,9 @@
         const action = params.get("action");
         const returnUrl = params.get("returnUrl");
     
+        showToast(`If download doesn't starts automatically, manually click on the Download button at the bottom`,'info', 5000);
+
+        
         if (action === "print") {
             printPdf(); // Call the print function
             setTimeout(() => {
