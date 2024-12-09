@@ -277,6 +277,16 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
             else if (userRole == "Engineer") {
             }
+        }
+        else if (pageName === 'faqs.html') {
+            populateNotifications(userRole);
+            if (userRole == "Quality") {
+                //populateNotifications();
+                //NavBar();
+            }
+            else if (userRole == "Engineer") {
+            }
+        
 
         } else if (pageName === 'reports.html') {
             populateNotifications(userRole);
@@ -298,6 +308,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             populateNotifications(userRole);
             Metrics();
         }
+
 
         // Set up the supplierName dropdown
         //populateSupplierDropdown(ncrNumber);
