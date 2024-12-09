@@ -619,11 +619,11 @@ function populateDetailsPage(ncrNumber) {
 
                 const thumbImgContainer = document.createElement('div');
                 thumbImgContainer.classList.add('file-img-container');
-                
+
                 const imageLink = document.createElement('a');
                 imageLink.href = "#";
                 imageLink.target = '_blank';
-                
+
                 const thumbImage = document.createElement('img');
                 thumbImage.src = file.thumbnail;
                 thumbImage.classList.add('thumbnail');
@@ -631,17 +631,17 @@ function populateDetailsPage(ncrNumber) {
                 thumbImage.title = "Click here to expand the image";
                 thumbImage.setAttribute('aria-label', "Click here to expand the image");
 
-                
+
                 const imageName = document.createElement('p');
                 const maxLength = 15;
-                const truncatedName = file.fileName.length > maxLength ? 
-                                      file.fileName.substring(0, maxLength) + '...jpg' : 
-                                      file.fileName;
+                const truncatedName = file.fileName.length > maxLength ?
+                    file.fileName.substring(0, maxLength) + '...jpg' :
+                    file.fileName;
                 imageName.textContent = truncatedName;
 
                 imageLink.addEventListener('click', function () {
                     const newWindow = window.open("", "_blank");
-            
+
                     newWindow.document.write(`
                         <!DOCTYPE html>
                         <html lang="en">
@@ -698,7 +698,7 @@ function populateDetailsPage(ncrNumber) {
                 const ncrStatus = entry.ncrStatus; // Get the NCR status from the entry object
 
                 if (ncrStatus !== "Quality") {
-                    showToast(`This NCR is already submitted to ${ncrStatus}. You can make and save changes, except to 'Item Marked Conforming' and 'Engineering Needed' fields.`,'info', 5000);
+                    showToast(`This NCR is already submitted to ${ncrStatus}. You can make and save changes, except to 'Item Marked Conforming' and 'Engineering Needed' fields.`, 'info', 5000);
                     window.location.href = `create.html?ncr=${ncrNumber}`; // Redirect to edit page
                 } else {
                     window.location.href = `create.html?ncr=${ncrNumber}`; // Redirect to edit page
@@ -721,12 +721,12 @@ function detailsEntry(ncrNumber) {
 //working with
 function editEntryEng(ncrNumber) {
 
-        window.location.href = `create.html?ncr=${ncrNumber}`; // Redirect to edit page
+    window.location.href = `create.html?ncr=${ncrNumber}`; // Redirect to edit page
 }
 
 function editEntryPch(ncrNumber) {
 
-        window.location.href = `create.html?ncr=${ncrNumber}`; // Redirect to edit page
+    window.location.href = `create.html?ncr=${ncrNumber}`; // Redirect to edit page
 
 }
 
@@ -735,8 +735,8 @@ function downloadEntry(ncrNumber) {
     const detailsPage = `details.html?ncr=${ncrNumber}&action=print&returnUrl=${encodeURIComponent(currentPage)}`;
     window.location.href = detailsPage; // Redirect to details page
 
-    }
-    //showToast(`NCR Number: ${ncrNumber} has been downloaded.`,'success',5000);
+}
+//showToast(`NCR Number: ${ncrNumber} has been downloaded.`,'success',5000);
 
 
 //FUNCTION USED ON AN EDIT PAGE - HAPPENS AT THE CREATE PAGE
@@ -780,7 +780,7 @@ function populateEditPage(ncrNumber) {
                 uploadedFiles.push(fileObject);
                 displayThumbnail(fileObject);
             });
-        } 
+        }
         else {
             thumbnailsContainer.innerHTML = `<p id="fileEmptyDesc" class="file-empty-desc">No files uploaded yet!</p>`;
         }
@@ -803,7 +803,7 @@ function editEntry(ncrNumber) {
 // Supporting Function - Redirection to Edit an NCR when Edit button is clicked
 function handleEditEntry(ncrNumber, ncrStatus) {
     if (ncrStatus !== "Quality") {
-        showToast(`This NCR is already submitted to ${ncrStatus}. You can make and save changes, except to 'Item Marked Conforming' and 'Engineering Needed' fields.`,'info', 5000);
+        showToast(`This NCR is already submitted to ${ncrStatus}. You can make and save changes, except to 'Item Marked Conforming' and 'Engineering Needed' fields.`, 'info', 5000);
         window.location.href = `create.html?ncr=${ncrNumber}`; // Redirect to edit page
     } else {
         window.location.href = `create.html?ncr=${ncrNumber}`; // Redirect to edit page
@@ -895,7 +895,7 @@ function performSearch() {
         //resultsCountMessage.style.display = 'inline';
         //return;
 
-        showToast("Start date must be earlier than or equal to end date.", "error",5000)
+        showToast("Start date must be earlier than or equal to end date.", "error", 5000)
         //location.reload();
         return;
     }
@@ -903,7 +903,7 @@ function performSearch() {
         //resultsCountMessage.textContent = 'NCR Number must not contain alphabetic characters.';
         //resultsCountMessage.style.display = 'inline';
 
-        showToast("NCR Number must not contain alphabetic characters.", "error",5000)
+        showToast("NCR Number must not contain alphabetic characters.", "error", 5000)
         return;
     } /*else {
         resultsCountMessage.style.display = 'none';
@@ -985,13 +985,13 @@ function performSearch() {
                         </tr>`;
         tableBody.innerHTML += newRow; // Add new row to table
     });
-    
+
     // Setup pagination
     setupPagination(totalResults, performSearch, "viewTableContent", "pagination");
 
     if (totalResults === 0) {
         // Show a placeholder row in the table with a magnifying glass icon
-        
+
 
         tableBody.innerHTML = `
             <tr>
@@ -1002,9 +1002,9 @@ function performSearch() {
                     No results found.
                 </td>
             </tr>`;
-            paginationContainer.style.display = 'none'; // Hide pagination
+        paginationContainer.style.display = 'none'; // Hide pagination
         return;
-        
+
     }
 }
 
@@ -1153,7 +1153,7 @@ function CreateNCR() {
     localStorage.setItem('history', JSON.stringify(history));
     localStorage.setItem('quality', JSON.stringify(quality));
 
-    showToast(`NCR Number ${ncrNumber} successfully generated. You may continue to provide additional information now or later`, "success",5000);
+    showToast(`NCR Number ${ncrNumber} successfully generated. You may continue to provide additional information now or later`, "success", 5000);
     //const createNCRModal = document.getElementById('createNCRModal');
     //const createEditModal = document.getElementById('createEditModal');
 
@@ -1226,26 +1226,26 @@ function saveNCR() {
         );
 
         if (noChanges) {
-            showToast('No changes were made.','info',5000);
+            showToast('No changes were made.', 'info', 5000);
             return;
         }
 
         if (quantityReceived != "") {
             if (parsedQuantityReceived < 1) {
-                showToast('Quantity Received cannot be less than 1','error',5000)
+                showToast('Quantity Received cannot be less than 1', 'error', 5000)
                 return;
             }
         }
 
         if (quantityDefect != "") {
             if (parsedQuantityDefect < 1) {
-                showToast('Quantity Defective cannot be less than 1','error',5000)
+                showToast('Quantity Defective cannot be less than 1', 'error', 5000)
                 return
             }
         }
 
         if (Number(quantityDefect) > Number(quantityReceived)) {
-            showToast('The number of defects cannot exceed the quantity received.','error',5000)
+            showToast('The number of defects cannot exceed the quantity received.', 'error', 5000)
             return;
         }
 
@@ -1287,15 +1287,15 @@ function saveNCR() {
             history.push(historyEntry);
             localStorage.setItem('history', JSON.stringify(history));
 
-            showToast('Your changes have been saved. You can continue later.','success',5000);
+            showToast('Your changes have been saved. You can continue later.', 'success', 5000);
             window.history.back();
         } else {
             // If the user cancels, do nothing or add custom logic
-            showToast("Save operation cancelled.",'info',5000);
+            showToast("Save operation cancelled.", 'info', 5000);
         }
 
     } else {
-        showToast('NCR not found. Please check the NCR number.','error',5000);
+        showToast('NCR not found. Please check the NCR number.', 'error', 5000);
     }
 }
 
@@ -1549,21 +1549,21 @@ function submitNCR() {
             sendEmailToDepartment('Engineer', ncrDetails);
 
 
-            showToast('NCR has been successfully submitted.','success',5000);
+            showToast('NCR has been successfully submitted.', 'success', 5000);
 
             // Redirect or perform other actions as needed
             //window.history.back();
             window.location.href = "index.html"; // Redirect to edit page
 
-            
+
             /*ncrNumber = ncrNumber;
             populateDetailsPage(ncrNumber); */
-            
+
         }
 
     } else {
         // If the user cancels, do nothing or add custom logic
-        showToast("Submit operation cancelled.",'info',5000);
+        showToast("Submit operation cancelled.", 'info', 5000);
         // Redirect or perform other actions as needed
         return;
 
@@ -1628,7 +1628,7 @@ function performSearchReports() {
 
     // Date validation
     if (fromDateValue && toDateValue && new Date(fromDateValue) > new Date(toDateValue)) {
-        showToast("Start date must be earlier than or equal to end date.",'error',5000);
+        showToast("Start date must be earlier than or equal to end date.", 'error', 5000);
         return;
     }
 
@@ -1647,7 +1647,7 @@ function performSearchReports() {
         //noResultsMessage.textContent = 'NCR Number must not contain alphabetic characters.';
         //noResultsMessage.style.display = 'inline';
 
-        showToast("NCR Number must not contain alphabetic characters.", "error",5000)
+        showToast("NCR Number must not contain alphabetic characters.", "error", 5000)
         //location.reload();
         return;
     }
@@ -1707,7 +1707,7 @@ function performSearchReports() {
 
     // Show or hide "no results" message
     //const noResultsMessage = document.getElementById('noResultsMessage');
-    
+
     if (filteredReports.length === 0) {
         //noResultsMessage.textContent = 'No results found.';
         //noResultsMessage.style.display = 'block';
@@ -1805,7 +1805,7 @@ function printPdf() {
     var thumbnailsContainer = document.getElementById("thumbnailsContainer");
     var thumbnail = thumbnailsContainer ? thumbnailsContainer.innerHTML : "";
     var thumbnailCount = thumbnailsContainer ? thumbnailsContainer.querySelectorAll('img').length : 0;
-    
+
     var fileUploaded = "";
     if (thumbnailCount === 0) {
         fileUploaded = "No uploaded files.";
@@ -1819,7 +1819,7 @@ function printPdf() {
 
     if (thumbnailsContainer) {
         var fileItems = thumbnailsContainer.querySelectorAll(".file-item");
-        
+
         fileItems.forEach((fileItem) => {
             var fileName = fileItem.querySelector("p")?.textContent.trim();
             var imgElement = fileItem.querySelector("img");
@@ -1827,7 +1827,7 @@ function printPdf() {
             thumbnailData.push({ fileName, imgHtml });
         });
     }
-    
+
     // Format the extracted content for use in the template
     var thumbnailContent = thumbnailData.map(
         ({ fileName, imgHtml }) => `
@@ -2285,8 +2285,8 @@ function printPdf() {
 
     printWindow.document.close();
 
-     // Wait for the new window to fully load, then print
-     printWindow.onload = function () {
+    // Wait for the new window to fully load, then print
+    printWindow.onload = function () {
         setTimeout(() => {
             printWindow.print();
         }, 500);
@@ -2481,9 +2481,9 @@ function displayThumbnail(fileObject) {
 
     const imageName = document.createElement('p');
     const maxLength = 15;
-    const truncatedName = fileObject.fileName.length > maxLength ? 
-                          fileObject.fileName.substring(0, maxLength) + '...jpg' : 
-                          fileObject.fileName;
+    const truncatedName = fileObject.fileName.length > maxLength ?
+        fileObject.fileName.substring(0, maxLength) + '...jpg' :
+        fileObject.fileName;
     imageName.textContent = truncatedName;
 
     // Delete function removes the file item from both array and display
@@ -2566,7 +2566,7 @@ document.getElementById('attachedDocument')?.addEventListener('change', function
     });
 
     if (invalidFiles.length > 0) {
-        showToast(`These files are not allowed: ${invalidFiles.join(', ')}. Please upload only images.`,'error',5000);
+        showToast(`These files are not allowed: ${invalidFiles.join(', ')}. Please upload only images.`, 'error', 5000);
         fileInput.value = '';
         return;
     }
@@ -2764,11 +2764,11 @@ function populateDetailsPageEng(ncrNumber) {
 
                 const thumbImgContainer = document.createElement('div');
                 thumbImgContainer.classList.add('file-img-container');
-                
+
                 const imageLink = document.createElement('a');
                 imageLink.href = "#";
                 imageLink.target = '_blank';
-                
+
                 const thumbImage = document.createElement('img');
                 thumbImage.src = file.thumbnail;
                 thumbImage.classList.add('thumbnail');
@@ -2776,17 +2776,17 @@ function populateDetailsPageEng(ncrNumber) {
                 thumbImage.title = "Click here to expand the image";
                 thumbImage.setAttribute('aria-label', "Click here to expand the image");
 
-                
+
                 const imageName = document.createElement('p');
                 const maxLength = 15;
-                const truncatedName = file.fileName.length > maxLength ? 
-                                      file.fileName.substring(0, maxLength) + '...jpg' : 
-                                      file.fileName;
+                const truncatedName = file.fileName.length > maxLength ?
+                    file.fileName.substring(0, maxLength) + '...jpg' :
+                    file.fileName;
                 imageName.textContent = truncatedName;
 
                 imageLink.addEventListener('click', function () {
                     const newWindow = window.open("", "_blank");
-            
+
                     newWindow.document.write(`
                         <!DOCTYPE html>
                         <html lang="en">
@@ -3028,7 +3028,7 @@ function saveEngNCR() {
         );
 
         if (noChanges) {
-            showToast('No changes were made.','info',5000);
+            showToast('No changes were made.', 'info', 5000);
             return;
         }
 
@@ -3069,14 +3069,14 @@ function saveEngNCR() {
             history.push(historyEntry);
             localStorage.setItem('history', JSON.stringify(history));
 
-            showToast('Your changes have been saved. You can continue later.','success',5000);
+            showToast('Your changes have been saved. You can continue later.', 'success', 5000);
             window.history.back();
             console.log(typeof (revisionDate), revisionDate)
         } else {
-            showToast("Save operation cancelled.",'info',5000);
+            showToast("Save operation cancelled.", 'info', 5000);
         }
     } else {
-        showToast('NCR not found. Please check the NCR number.','error',5000);
+        showToast('NCR not found. Please check the NCR number.', 'error', 5000);
     }
     //console.log(engineering);
     //console.log(typeof(revisionDate), revisionDate)
@@ -3251,10 +3251,10 @@ function submitEngNCR() {
         purchasing.push(purchasingEntry);
         localStorage.setItem('purchasing', JSON.stringify(purchasing));
 
-         //update lastUpdated in NCRLog
-         const ncrLogEntry = ncrLog.find(entry => entry.ncrNumber === ncrNumber);
-         if (ncrLogEntry) { ncrLogEntry.lastUpdated = date }
-         localStorage.setItem('ncrLog', JSON.stringify(ncrLog));
+        //update lastUpdated in NCRLog
+        const ncrLogEntry = ncrLog.find(entry => entry.ncrNumber === ncrNumber);
+        if (ncrLogEntry) { ncrLogEntry.lastUpdated = date }
+        localStorage.setItem('ncrLog', JSON.stringify(ncrLog));
 
         //make history array and push to history json
         const historyEntry = {
@@ -3267,12 +3267,12 @@ function submitEngNCR() {
         }
         history.push(historyEntry);
         localStorage.setItem('history', JSON.stringify(history));
-        showToast('NCR has been successfully submitted.','success',5000);
+        showToast('NCR has been successfully submitted.', 'success', 5000);
         window.history.back();
 
     } else {
         // If the user cancels, do nothing or add custom logic
-        showToast("Submit operation cancelled.",'info',5000);
+        showToast("Submit operation cancelled.", 'info', 5000);
         // Redirect or perform other actions as needed
         return;
     }
@@ -3309,7 +3309,7 @@ function updateNavLinks(userRole) {
     if (userRole == "Engineer" || userRole == "Purchasing") {
         createLink.classList = 'nav-hide';
     }
-    if (userRole != "Purchasing"){
+    if (userRole != "Purchasing") {
         metricsLink.classList = 'nav-hide';
 
     }
@@ -3330,7 +3330,7 @@ function performSearchEng() {
         //resultsCountMessage.style.display = 'inline';
         //return;
 
-        showToast("Start date must be earlier than or equal to end date.", "error",5000)
+        showToast("Start date must be earlier than or equal to end date.", "error", 5000)
         //();
         return;
     }
@@ -3338,7 +3338,7 @@ function performSearchEng() {
         //resultsCountMessage.textContent = 'NCR Number must not contain alphabetic characters.';
         //resultsCountMessage.style.display = 'inline';
 
-        showToast("NCR Number must not contain alphabetic characters.", "error",5000)
+        showToast("NCR Number must not contain alphabetic characters.", "error", 5000)
         //location.reload();
         return;
     } /*else {
@@ -3441,7 +3441,7 @@ function performSearchEng() {
                    No results found.
                </td>
            </tr>`;
-           paginationContainer.style.display = 'none'; // Hide pagination
+        paginationContainer.style.display = 'none'; // Hide pagination
         return;
     }
 
@@ -3547,7 +3547,7 @@ function saveProfileSettings(loggedInUser) {
 
     // Validate required fields
     if (!updatedUser.user_Firstname || !updatedUser.user_Lastname || !updatedUser.email || !updatedUser.password || !updatedUser.user_name) {
-        showToast("Please fill in all required fields.",'error',5000);
+        showToast("Please fill in all required fields.", 'error', 5000);
         return;
     }
     const profilePagePic = document.getElementById('profilePagePic');
@@ -3574,7 +3574,7 @@ function saveProfileSettings(loggedInUser) {
     // Save the updated users array back to localStorage
     localStorage.setItem('users', JSON.stringify(users));
 
-    showToast("Profile updated successfully!",'success',5000);
+    showToast("Profile updated successfully!", 'success', 5000);
     location.reload();
 }
 
@@ -3675,8 +3675,8 @@ function handleProfilePictureChange(loggedInUser) {
             reader.readAsDataURL(file); // Read the file as a Data URL
         }
     });
-     
-    
+
+
 }
 
 //======================
@@ -3885,7 +3885,7 @@ function populatePchEditPage(ncrNumber) {
             document.getElementById('carNumber').value = entry.carNumber;
         } else {
             document.getElementById('carNumber').value = '';
-            
+
             document.getElementById('carRaisedToggle').style.display = 'none';
         }
 
@@ -3963,7 +3963,7 @@ function savePchNCR() {
         );
 
         if (noChanges) {
-            showToast('No changes were made.','info',5000);
+            showToast('No changes were made.', 'info', 5000);
             return;
         }
 
@@ -3989,10 +3989,10 @@ function savePchNCR() {
             }
             localStorage.setItem('purchasing', JSON.stringify(purchasing));
 
-             //update lastUpdated in NCRLog
-             const ncrLogEntry = ncrLog.find(entry => entry.ncrNumber === ncrNumber);
-             if (ncrLogEntry) { ncrLogEntry.lastUpdated = date }
-             localStorage.setItem('ncrLog', JSON.stringify(ncrLog));
+            //update lastUpdated in NCRLog
+            const ncrLogEntry = ncrLog.find(entry => entry.ncrNumber === ncrNumber);
+            if (ncrLogEntry) { ncrLogEntry.lastUpdated = date }
+            localStorage.setItem('ncrLog', JSON.stringify(ncrLog));
 
             const historyEntry = {
                 ncrNumber: ncrNumber,
@@ -4008,14 +4008,14 @@ function savePchNCR() {
 
             console.log(ncrLog)
 
-            showToast('Your changes have been saved. You can continue later.','success',5000);
+            showToast('Your changes have been saved. You can continue later.', 'success', 5000);
             window.history.back();
             //console.log(typeof (revisionDate), revisionDate)
         } else {
-            showToast("Save operation cancelled.",'info',5000);
+            showToast("Save operation cancelled.", 'info', 5000);
         }
     } else {
-        showToast('NCR not found. Please check the NCR number.','error',5000);
+        showToast('NCR not found. Please check the NCR number.', 'error', 5000);
     }
     //console.log(engineering);
     //console.log(typeof(revisionDate), revisionDate)
@@ -4184,10 +4184,10 @@ function closeNCR() {
 
             localStorage.setItem('purchasing', JSON.stringify(purchasing));
 
-             //update lastUpdated in NCRLog
-             const ncrLogEntry = ncrLog.find(entry => entry.ncrNumber === ncrNumber);
-             if (ncrLogEntry) { ncrLogEntry.lastUpdated = date }
-             localStorage.setItem('ncrLog', JSON.stringify(ncrLog));
+            //update lastUpdated in NCRLog
+            const ncrLogEntry = ncrLog.find(entry => entry.ncrNumber === ncrNumber);
+            if (ncrLogEntry) { ncrLogEntry.lastUpdated = date }
+            localStorage.setItem('ncrLog', JSON.stringify(ncrLog));
 
             //make history array and push to history json
             const historyEntry = {
@@ -4200,16 +4200,20 @@ function closeNCR() {
             }
             history.push(historyEntry);
             localStorage.setItem('history', JSON.stringify(history));
-            showToast('NCR has been successfully closed.','success',5000);
-            window.history.back();
+            showToast('NCR has been successfully closed.', 'success', 5000);
+            // Delay the execution of detailsEntry to match the toast's duration
+            setTimeout(() => {
+                detailsEntry(ncrNumber);
+            }, 2000); // 5000ms matches the toast duration
         }
     } else {
         // If the user cancels, do nothing or add custom logic
-        showToast("NCR Close operation cancelled.",'info',5000);
+        showToast("NCR Close operation cancelled.", 'info', 5000);
         // Redirect or perform other actions as needed
         return;
     }
 }
+
 
 //PerformSearch for Purchasing
 function performSearchPch() {
@@ -4227,7 +4231,7 @@ function performSearchPch() {
         //resultsCountMessage.style.display = 'inline';
         //return;
 
-        showToast("Start date must be earlier than or equal to end date.", "error",5000)
+        showToast("Start date must be earlier than or equal to end date.", "error", 5000)
         //location.reload();
         return;
     }
@@ -4235,7 +4239,7 @@ function performSearchPch() {
         //resultsCountMessage.textContent = 'NCR Number must not contain alphabetic characters.';
         //resultsCountMessage.style.display = 'inline';
 
-        showToast("NCR Number must not contain alphabetic characters.", "error",5000)
+        showToast("NCR Number must not contain alphabetic characters.", "error", 5000)
         //location.reload();
         return;
     } /*else {
@@ -4338,7 +4342,7 @@ function performSearchPch() {
                    No results found.
                </td>
            </tr>`;
-           paginationContainer.style.display = 'none'; // Hide pagination
+        paginationContainer.style.display = 'none'; // Hide pagination
         return;
     }
 
@@ -4368,8 +4372,8 @@ function showToast(message, type = 'info', duration = 5000) {
         style: {
             color: "#fdfdfd",
             background: type === 'success' ? "#007a33" :
-                        type === 'error' ? "#B22222" :
-                        type === 'warning' ? "#FF8C00" :
+                type === 'error' ? "#B22222" :
+                    type === 'warning' ? "#FF8C00" :
                         "#0056b3",
         },
     }).showToast();
@@ -4623,7 +4627,7 @@ function Metrics() {
             }
         }
     });
-    
+
     new Chart(metricRecord, {
         type: 'bar', // Base type of the chart
         data: {

@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 //Uncomment the code below to start afresh
                 const userConfirmed = confirm("Are you sure you want to Log out?");
                 if (userConfirmed) {
-                    //localStorage.clear();
+                    localStorage.clear();
                     localStorage.removeItem('loggedInUser');
                     showToast("Successfully logged out.");      
                     window.location.href = 'login.html';
