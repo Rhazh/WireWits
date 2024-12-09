@@ -180,7 +180,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             else if (userRole == "Purchasing") {
                 document.getElementById('secQuality').style.display = 'none';
                 document.getElementById('secEngineer').style.display = 'none';
-                //populateSupplierDropdownN('supplierNameEng')
+                populateSupplierDropdownN('supplierNamePch')
                 document.getElementById("ncrStatusPch").value = "Purchasing";
                 performSearchPch();
             }

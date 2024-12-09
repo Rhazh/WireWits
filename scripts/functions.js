@@ -3379,7 +3379,7 @@ function performSearchEng() {
         const isStatusValid = (ncrStatus === "All" || qualityItem && qualityItem.ncrStatus === ncrStatus);
 
         // Validate supplier name if provided
-        const isSupplierNameValid = supplierName ? item.supplierName === supplierName : true;
+        const isSupplierNameValid = supplierName ? qualityItem.supplierName === supplierName : true;
 
         const itemDateCreated = new Date(item.dateCreated);
         const isDateCreatedValid = (
@@ -4284,12 +4284,12 @@ function performSearchPch() {
         const isStatusValid = (ncrStatus === "All" || qualityItem && qualityItem.ncrStatus === ncrStatus);
 
         // Validate supplier name if provided
-        const isSupplierNameValid = supplierName ? item.supplierName === supplierName : true;
+        const isSupplierNameValid = supplierName ? qualityItem.supplierName === supplierName : true;
 
         const itemDateCreated = new Date(item.dateCreated);
         const isDateCreatedValid = (
             (fromDateObj ? itemDateCreated >= fromDateObj : true) &&
-            (toDateObj ? itemDateCreated <= toDateObj : true)
+            (toDateObj ? itemDateCreated <= toDateObj : true) 
         );
 
         // Return true if all conditions are valid
