@@ -168,7 +168,7 @@ table tbody tr {
   transition: background-color 0.2s ease-in-out;
 }
 table tbody tr td {
-  color: var(--color-11);
+  color: var(--color-1);
   padding-right: 20px;
 }
 table tbody tr td:first-child {
