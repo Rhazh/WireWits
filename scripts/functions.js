@@ -1771,10 +1771,7 @@ function printPdf() {
     var qtyDefect = document.getElementById("quantityDefect").textContent.trim();
     var itemConform = document.getElementById("itemConform").textContent.trim();
     var sonumber = document.getElementById("soNumber").textContent.trim();
-    var thumbnailsContainer = document.getElementById("thumbnailsContainer");
-    var thumbnail = thumbnailsContainer ? thumbnailsContainer.innerHTML : "";
-    var customerNotification = document.getElementById("customerNotification").textContent.trim();
-    var disposition = document.getElementById("disposition").textContent.trim();
+    var customerNotif = document.getElementById("customerNotification").textContent.trim();
     var drawingUpdate = document.getElementById("drawingUpdate").textContent.trim();
     var originalRevNumber = document.getElementById("originalRevNumber").textContent.trim();
     var updatedRevNumber = document.getElementById("updatedRevNumber").textContent.trim();
@@ -1795,267 +1792,89 @@ function printPdf() {
     // Quality-specific fields
     var itemDescription = document.getElementById("itemDescription").textContent.trim();
     var defectDescription = document.getElementById("defectDescription").innerHTML.trim();
+    var qualityCompletedBy = document.getElementById("completedByQI").textContent.trim();
+    var qualityCompletedOn = document.getElementById("completedOnQI").textContent.trim();
 
     // Engineer-specific fields
     var reviewByCfEngineering = document.getElementById("reviewByCfEngineering")?.textContent.trim();
     var disposition = document.getElementById("disposition")?.textContent.trim();
     var engineerName = document.getElementById("engineerName")?.textContent.trim();
+    var engCompletedBy = document.getElementById("completedByEng").textContent.trim();
+    var engCompletedOn = document.getElementById("completedOnEng").textContent.trim();
+
+    var thumbnailsContainer = document.getElementById("thumbnailsContainer");
+    var thumbnail = thumbnailsContainer ? thumbnailsContainer.innerHTML : "";
+    var thumbnailCount = thumbnailsContainer ? thumbnailsContainer.querySelectorAll('img').length : 0;
+    
+    var fileUploaded = "";
+    if (thumbnailCount === 0) {
+        fileUploaded = "No uploaded files.";
+    } else if (thumbnailCount === 1) {
+        fileUploaded = "1 file uploaded. See the second page for more.";
+    } else {
+        fileUploaded = `${thumbnailCount} files uploaded. See the second page for more.`;
+    }
+
+    var thumbnailData = [];
+
+    if (thumbnailsContainer) {
+        var fileItems = thumbnailsContainer.querySelectorAll(".file-item");
+        
+        fileItems.forEach((fileItem) => {
+            var fileName = fileItem.querySelector("p")?.textContent.trim();
+            var imgElement = fileItem.querySelector("img");
+            var imgHtml = imgElement ? imgElement.outerHTML : "";
+            thumbnailData.push({ fileName, imgHtml });
+        });
+    }
+    
+    // Format the extracted content for use in the template
+    var thumbnailContent = thumbnailData.map(
+        ({ fileName, imgHtml }) => `
+            <div class="thumbnail-print">
+                <p>${fileName}</p>
+                ${imgHtml}
+            </div>
+        `
+    ).join("");
+
+
+    const header = `
+                    <div class="header">
+                        <div class="logo left">
+                            <img src="images/logo.png" alt="Crossfire logo" title="Crossfire logo" height="74" width="345">
+                        </div>
+                        <div class="center">
+                            <p class="title">Non-Conformance Report</p>
+                        </div>
+                        <div class="paging right">
+                            <span>Page <span id="currentPage" class="current-page"></span> of <span class="page-count"></span></span>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h1>Document No.: <span class="document-number">OPS-00011</span></h1>
+                    </div>`;
+
+    const pageTwo = `
+                <section>
+                    ${header}
+
+                    <div class="print-table">
+                        <div class="ncr-layout-tb">
+                            <div class="ncr-head">
+                                <p>Uploaded Images:</p>
+                            </div>
+                                <div class="ncr-files">
+                                    ${thumbnailContent}
+                                </div>
+                            </div>
+                        </div>
+                </section>
+                `;
 
     // Open a new window
-    var printWindow = window.open("", "_blank", "width=800,height=600");
-
-    // Build the custom content dynamically based on the role
-    let content = `
-       
-
-                    <div class="div-container-print">
-                    <h2>Quality Section</h2>
-                        <div class="form-section-print">
-                            <div class="four-cols-print">
-                             <div class="form-ncr-details-print">
-                                <strong>NCR Number:</strong>
-                                <span id="ncrNumber1" class="inputs">${ncrNumber1}</span>
-                            </div>
-                            <div class="form-ncr-details-print">
-                                <strong>Date Created:</strong>
-                                <span id="dateCreated" class="inputs">${dateCreated}</span>
-                            </div>
-                            <div class="form-ncr-details-print">
-                                <strong>Created By:</strong>
-                                <span id="createdBy" class="inputs">${createdBy}</span>
-                            </div>
-                            <div class="form-ncr-details-print">
-                                <strong>Status:</strong>
-                                <span id="ncrStatus" class="inputs">${ncrStatus}</span>
-                            </div>
-                                <div class="form-ncr-details-print">
-                                    <strong>Supplier Name:</strong>
-                                    <span id="supplierNameD" class="inputs">${supplierName}</span>
-                                </div>
-                                <div class="form-ncr-details-print">
-                                    <strong>Production Number:</strong>
-                                    <span id="poNumber" class="inputs">${productionNumber}</span>
-                                </div>
-                                <div class="form-ncr-details-print">
-                                    <strong>Quantity Received:</strong>
-                                    <span id="quantityReceived" class="inputs">${qtyRecieved}</span>
-                                </div>
-                                <div class="form-ncr-details-print">
-                                    <strong>Forward to Engineering:</strong>
-                                    <span id="engNeeded" class="inputs">${engneeded}</span>
-                                </div>
-                                <div class="form-ncr-details-print">
-                                    <strong>Applicable Process:</strong>
-                                    <span  id="applicableProcess" class="inputs">${appProcess}</span>
-                                </div>
-                                <div class="form-ncr-details-print">
-                                    <strong>Sales Order Number:</strong>
-                                    <span  id="soNumber" class="inputs">${sonumber}</span>
-                                </div>
-                                <div class="form-ncr-details-print">
-                                    <strong>Quantity Defective:</strong>
-                                    <span id="quantityDefect" class="inputs">${qtyDefect}</span>
-                                </div>
-                                <div class="form-ncr-details-print">
-                                    <strong>Item marked conforming:</strong>
-                                    <span id="itemConform" class="inputs">${itemConform}</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-    `;
-
-    if (userRole === "Quality" || userRole === "Engineer" || userRole === "Purchasing" || ncrClosed === "Yes") {
-        content += `
-            <div class="div-container-print">
-                <div class = "quality-section">
-
-                    <div class="form-section-print">
-                    <div class="four-cols-print">
-
-                        <div class="form-ncr-details-print">
-                            <strong>Item Description:</strong>
-                            <span class="inputs">${itemDescription}</span>
-                        </div>
-                        <div class="form-ncr-details-print" style="grid-column: span 3;">
-                            <strong>Defect Description:</strong>
-                            <span class="inputs"><ul>${defectDescription}</ul></span>
-                        </div>
-                        </div>
-
-                        <div class="form-ncr-details-print">
-                        <strong>    Uploaded Images/Videos:</strong>
-                                <div id="thumbnailsContainer1" class="thumbnails-container1">
-                                ${thumbnail}
-                                 </div>
-                    </div>
-                    
-                     </div>
-                </div>
-             </div>
-        `;
-    }
-
-    
-    if ((userRole === "Engineer" || userRole === "Purchasing" || ncrClosed === "Yes")) {
-        content += `
-            <br>
-            <div class="div-container-print">
-            <h2>Engineering Section</h2>
-
-                    <div class="form-section-print">
-                        <div class="four-cols-print">
-                        <div class="form-ncr-details-print">
-                            <strong>Review by CF Engineering:</strong>
-                            <span class="inputs">${reviewByCfEngineering}<span class="inputs">
-                        </div>
-                        <div class="form-ncr-details-print">
-                            <strong>Does Customer require notification of NCR?</strong>
-                            <span id="customerNotification" class="inputs">${customerNotification}</span>
-                        </div>
-                        <div class="form-ncr-details-print">
-                            <strong for="disposition">Disposition:</strong>
-                            <span id="disposition" class="inputs">${disposition}</span>
-                        </div>
-                        <div class="form-ncr-details-print">
-                            <strong for="drawingUpdate">Does the drawing require updating?</strong>
-                            <span id="drawingUpdate" class="inputs">${drawingUpdate}</span>
-                        </div>
-                        
-                        </div>
-                    </div>                        
-                    </div>
-                </div>
-                </div>
-        `;
-        if (drawingUpdate !== "No") {
-        content += `
-        
-        <div class="form-section-print">
-                    <div id="engCondition">
-                    <div class="four-cols-print">
-                        <div class="form-ncr-details-print">
-                            <strong>Original Revision Number:</strong>
-                            <span id="originalRevNumber" class="inputs">${originalRevNumber}</span>
-                        </div>
-                        <div class="form-ncr-details-print">
-                            <strong>Updated Revision Number:</strong>
-                            <span id="updatedRevNumber" class="inputs">${updatedRevNumber}</span>
-                        </div>
-                        <div class="form-ncr-details-print">
-                            <strong>Revision Date:</strong>
-                            <span id="revisionDate" class="inputs">${revisionDate}</span>
-                        </div>
-                        <div class="form-ncr-details-print">
-                            <strong>Engineer Name:</strong>
-                            <span id="engineerName" class="inputs">${engineerName}</span>
-                        </div>
-                    </div>
-                    </div>
-                    </div>
-        `;
-    }
-    }
-
-    if (userRole === "Purchasing" || ncrClosed === "Yes") {
-
-        if(carRaised === "No"){
-
-        
-        content += `
-            <br>
-            <div class="div-container-print">
-            <h2>Purchasing Section</h2>
-                    <div class="form-section-print purchasing-section">
-                        
-                        <div class="four-cols-print">
-                        <div class="form-ncr-details-print">
-                            <strong>Purchasing's Preliminary Decision:</strong>
-                            <span class="inputs">${preliminaryDecision}<span class="inputs">
-                        </div>
-                        <div class="form-ncr-details-print">
-                            <strong>Was a CAR raised?</strong>
-                            <span id="carRaised" class="inputs">${carRaised}</span>
-                        </div>
-                        
-                    </div>                        
-                    </div>
-                </div>
-                </div>
-        `;
-
-    }else{
-
-        content += `
-            <br>
-            <div class="div-container-print">
-            <h2>Purchasing Section</h2>
-                    <div class="form-section-print purchasing-section">
-                        
-                        <div class="four-cols-print">
-                        <div class="form-ncr-details-print">
-                            <strong>Purchasing's Preliminary Decision:</strong>
-                            <span class="inputs">${preliminaryDecision}<span class="inputs">
-                        </div>
-                        <div class="form-ncr-details-print">
-                            <strong>Was a CAR raised?</strong>
-                            <span id="carRaised" class="inputs">${carRaised}</span>
-                        </div>
-                        <div class="form-ncr-details-print">
-                            <strong for="carNumber">CAR Number:</strong>
-                            <span id="carNumber" class="inputs">${carNumber}</span>
-                        </div>
-                        
-                    </div>                        
-                    </div>
-                </div>
-                </div>
-        `;
-    }
-
-    if(followUp !== "No"){
-
-        content += `
-        
-
-                <div class="form-section-print purchasing-section">
-                    
-                    <div class="four-cols-print">
-                    <div class="form-ncr-details-print">
-                            <strong for="followUp">Follow-up Required?</strong>
-                            <span id="followUp" class="inputs">${followUp}</span>
-                        </div>
-                        <div class="form-ncr-details-print">
-                            <strong>Follow-up Type:</strong>
-                            <span id="followUpType" class="inputs">${followUpType}</span>
-                        </div>
-                        <div class="form-ncr-details-print">
-                            <strong>Follow-up Date:</strong>
-                            <span id="followUpDate" class="inputs">${followUpDate}</span>
-                        </div>
-                        <div class="form-ncr-details-print">
-                            <strong>NCR Closed:</strong>
-                            <span id="ncrClosed" class="inputs">${ncrClosed}</span>
-                        </div>
-                        
-                    </div>
-                    </div>`;
-    }else{
-
-        content += `        
-
-        <div class="form-section-print purchasing-section">
-            
-            <div class="four-cols-print">
-            <div class="form-ncr-details-print">
-                    <strong for="followUp">Follow-up Required?</strong>
-                    <span id="followUp" class="inputs">${followUp}</span>
-                </div>
-                </div>
-                </div>`;
-
-    }
-    }
+    var printWindow = window.open("", "_blank");
 
     // Write the content and styles to the new window
     printWindow.document.open();
@@ -2066,142 +1885,410 @@ function printPdf() {
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>NCR - ${ncrNumber1}</title>
-            <link href="styles.css" rel="stylesheet">
+            <link href="styles/styles.css" rel="stylesheet">
             <style>
-            body{
-                background-color: white;
-                font-size:14px; 
-            margin-top:50px;          }
-            h1,h2{
-                font-size:22px;
-                text-align: center;
-            }
-            h1{
-                margin-top:20px;
-                margin-bottom: 20px;
-
-            }
-            h2{
-                margin-top:20px;
-                font-size:20px;
-                margin-bottom:20px;
-                border: 2px solid black;
-                padding-top: 10px;
-                background-color:#e3e7f2;
-                padding-bottom: 10px;
-            }
-            .form-ncr-details-print {
-                display: flex;
-                flex-direction: column;
-                gap: 5px;
-            }
-            .thumbnails-container1{
-                display: grid;
-                grid-template-columns:1fr 1fr 1fr 1fr;
-                gap: 10px;
-                padding: 10px;
-                width:70%;
-                height:70%;
-                border-radius: 5px;
-            }
-
-            .form-header-print {
-                display: grid;
-                grid-template-columns: 1fr 1fr 1fr 1fr;
-                grid-gap: 15px;
-                padding: 30px;
-            }
-                       
-            .form-section-print {
-                display: grid;
-                grid-gap: 30px;
-                box-sizing: border-box;
-            }
-            .four-cols-print {
-                display: grid;
-                grid-gap: 30px;
-                grid-template-columns: 1fr 1fr 1fr 1fr;
-
-            }
-            /* Regular styles for screen */
-            .print-header {
-                display: none; /* Hide header during normal view */
-            }
-
-            .inputs{
-                font-size: 14px;
-            }
-            .form-section-print purchasing-section, .form-section-print{
-                border:2px solid black;
-                padding:10px;
-                background-color:#EFEFEF;
-
-            }
-
-@media print {
-    /* Show header only in print */
-    .print-header {
-        display: block;
-        position: fixed;
-        top: 0;
-        left: 10;
-        width: 100%;
-        padding: 10px;
-        background: white;
-        z-index:-1000;
-        border-bottom: 1px solid #ddd;
-    }
-
-    .form-section-print {
-        page-break-inside: avoid; /* Keep the section content together */
-    }
-    /* Prevent splitting specific elements */
-    .form-ncr-details-print {
-        page-break-inside: avoid; /* Keep detail elements together */
-    }
-    .logo {
-        height: 20px;
-        width: auto;
-        float: left;
-        margin-right: 10px;
-    }
-
-    .document-number {
-        font-size: 14px;
-        font-weight: bold;
-        vertical-align: middle;
-        text-align: right;
-    }
-
-    
-}
-
+                body {
+                    background-color: #fff;
+                    width: 800px;
+                    margin: 0 auto;
+                }
             </style>
         </head>
         <body>
-        <br>
-        <div class="print-header">
-        <img src="images/logo.png" alt="Logo" class="logo">
-        <p class="document-number" >Document Number: OPS-00011</p>
-    </div>
-        <br>
-        <h1>NCR Information : ${ncrNumber1}</h1>
-            ${content}
+            <div class="print-pdf">
+                <section>
+                    ${header}
+                    <div class="print-table">
+                        <div class="four-cols">
+                            <div class="ncr-layout-tb">
+                                <div class="ncr-head">
+                                    <p>NCR Number</p>
+                                </div>
+                                <div class="ncr-content">
+                                    <p>${ncrNumber1}</p>
+                                </div>
+                            </div>
+                            <div class="ncr-layout-tb">
+                                <div class="ncr-head">
+                                    <p>Date Created:</p>
+                                </div>
+                                <div class="ncr-content">
+                                    <p>${dateCreated}</p>
+                                </div>
+                            </div>
+                            <div class="ncr-layout-tb">
+                                <div class="ncr-head">
+                                    <p>Created By</p>
+                                </div>
+                                <div class="ncr-content">
+                                    <p>${createdBy}</p>
+                                </div>
+                            </div>
+                            <div class="ncr-layout-tb">
+                                <div class="ncr-head">
+                                    <p>Status</p>
+                                </div>
+                                <div class="ncr-content">
+                                    <p>${ncrStatus}</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="section-content">
+                            <div class="section-head">
+                                <span>Quality Representatitve</span>
+                            </div>
+                            <div class="section-body">
+                                <div class="three-cols">
+                                    <div class="ncr-layout-tb">
+                                        <div class="ncr-head">
+                                            <p>Applicable Process</p>
+                                        </div>
+                                        <div class="ncr-content">
+                                            <div class="content-checkbox">
+                                                <input type="checkbox" id="cboSupplierRecInsp" ${appProcess.includes("Supplier or Rec-Insp") ? "checked" : ""}>
+                                                <label for="cboSupplierRecInsp">Supplier or Rec-Insp</label>
+                                            </div>
+                                            <div class="content-checkbox">
+                                                <input type="checkbox" id="cboWIP" ${appProcess.includes("WIP (Production Order)") ? "checked" : ""}>
+                                                <label for="cboWIP">WIP (Production Order)</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="ncr-layout-tb">
+                                        <div class="ncr-head">
+                                            <p>Supplier Name</p>
+                                        </div>
+                                        <div class="ncr-content">
+                                            <p>${supplierName}</p>
+                                        </div>
+                                    </div>
+                                    <div class="ncr-layout-lr lr-two-rows ">
+                                        <div class="lr-item">
+                                            <div class="ncr-head">
+                                                <p>Production Number</p>
+                                            </div>
+                                            <div class="ncr-content">
+                                                <p>${productionNumber}</p>
+                                            </div>
+                                        </div>
+                                        <div class="lr-item">
+                                            <div class="ncr-head">
+                                                <p>Sales Order Number</p>
+                                            </div>
+                                            <div class="ncr-content">
+                                                <p>${sonumber}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="three-cols cols-2-3">
+                                    <div class="ncr-layout-tb">
+                                        <div class="ncr-head">
+                                            <p>Description of Item: <span>(Including SAP No.)</span></p>
+                                        </div>
+                                        <div class="ncr-content">
+                                            <p>${itemDescription}</p>
+                                        </div>
+                                    </div>
+                                    <div class="ncr-layout-tb">
+                                        <div class="ncr-head">
+                                            <p>Quantity Received</p>
+                                        </div>
+                                        <div class="ncr-content">
+                                            <p>${qtyRecieved}</p>
+                                        </div>
+                                    </div>
+                                    <div class="ncr-layout-tb">
+                                        <div class="ncr-head">
+                                            <p>Quantity Defective</p>
+                                        </div>
+                                        <div class="ncr-content">
+                                            <p>${qtyDefect}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="ncr-layout-tb">
+                                    <div class="ncr-head">
+                                        <p>Description of Defect: <span>(in as much detail as possible)</span></p>
+                                    </div>
+                                    <div class="ncr-content">
+                                        <p class="textarea">${defectDescription}</p>
+                                    </div>
+                                </div>
+                                <div class="ncr-layout-tb">
+                                    <div class="ncr-head">
+                                        <p>Uploaded Images/Videos</p>
+                                    </div>
+                                    <div class="ncr-content">
+                                        <p class="textarea-min">${fileUploaded}</p>
+                                    </div>
+                                </div>
+                                <div class="two-cols">
+                                    <div class="ncr-layout-tb">
+                                        <div class="ncr-head">
+                                            <p>Item market Non-conforming</p>
+                                        </div>
+                                        <div class="ncr-content two-cols">
+                                            <div class="content-checkbox">
+                                                <input type="checkbox" id="cboItemConformingYes" ${itemConform === "Yes" ? "checked" : ""}>
+                                                <label for="cboItemConformingYes">Yes</label>
+                                            </div>
+                                            <div class="content-checkbox">
+                                                <input type="checkbox" id="cboItemConformingNo" ${itemConform === "No" ? "checked" : ""}>
+                                                <label for="cboItemConformingNo">No</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="ncr-layout-tb">
+                                        <div class="ncr-head">
+                                            <p>Forward to Engineering</p>
+                                        </div>
+                                        <div class="ncr-content two-cols">
+                                            <div class="content-checkbox">
+                                                <input type="checkbox" id="cboItemConformingYes" ${engneeded === "Yes" ? "checked" : ""}>
+                                                <label for="cboItemConformingYes">Yes</label>
+                                            </div>
+                                            <div class="content-checkbox">
+                                                <input type="checkbox" id="cboItemConformingNo" ${engneeded === "No" ? "checked" : ""}>
+                                                <label for="cboItemConformingNo">No</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="ncr-desc">
+                                    <span>Completed NCR to be forwarded to HBC Engineering and Operations Manager complete with any relevant documents attached (pictures, actual measurements, material certs, etc.)</span>
+                                </div>
+                                <div class="ncr-layout-tb">
+                                    <div class="ncr-content content-right">
+                                        <p>Quality Representative's Name: <span class="right-item">${qualityCompletedBy}</span></p>
+                                        <p class="right-date">Date: <span class="right-item">${qualityCompletedOn}</span></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="section-content">
+                            <div class="section-head">
+                                <span>Engineering</span>
+                            </div>
+                            <div class="section-body">
+                                <div class="ncr-layout-tb">
+                                    <div class="ncr-head">
+                                        <p>Review by CF Engineering <span>(indicate disposition by "checking" one of the following)</span></p>
+                                    </div>
+                                    <div class="ncr-content four-cols">
+                                        <div class="content-checkbox">
+                                            <input type="checkbox" id="cboEngUseAsIs" ${reviewByCfEngineering.includes("Use As Is") ? "checked" : ""}>
+                                            <label for="cboEngUseAsIs">Use As Is</label>
+                                        </div>
+                                        <div class="content-checkbox">
+                                            <input type="checkbox" id="cboEngRepair" ${reviewByCfEngineering.includes("Repair") ? "checked" : ""}>
+                                            <label for="cboEngRepair">Repair</label>
+                                        </div>
+                                        <div class="content-checkbox">
+                                            <input type="checkbox" id="cboEngRework" ${reviewByCfEngineering.includes("Rework") ? "checked" : ""}>
+                                            <label for="cboEngRework">Rework</label>
+                                        </div>
+                                        <div class="content-checkbox">
+                                            <input type="checkbox" id="cboEngScrap" ${reviewByCfEngineering.includes("Scrap") ? "checked" : ""}>
+                                            <label for="cboEngScrap">Scrap</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="ncr-layout-lr">
+                                    <div class="lr-item cols-2-1">
+                                        <div class="ncr-head">
+                                            <p>Does Customer require notification of NCR</p>
+                                            <span>(If "Yes" then raise message to customer detailing issues)</span>
+                                        </div>
+                                        <div class="ncr-content two-cols">
+                                            <div class="content-checkbox">
+                                                <input type="checkbox" id="cboEngCusNotifYes" ${customerNotif === "Yes" ? "checked" : ""}>
+                                                <label for="cboEngCusNotifYes">Yes</label>
+                                            </div>
+                                            <div class="content-checkbox">
+                                                <input type="checkbox" id="cboEngCusNotifNo" ${customerNotif === "No" ? "checked" : ""}>
+                                                <label for="cboEngCusNotifNo">No</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="ncr-layout-tb">
+                                    <div class="ncr-head">
+                                        <p>Disposition <span>(Sequence of work steps required when"repair" or "rework" indicated)</span></p>
+                                    </div>
+                                    <div class="ncr-content">
+                                        <p class="textarea">${disposition}</p>
+                                    </div>
+                                </div>
+                                <div class="two-cols">
+                                    <div class="ncr-layout-tb">
+                                        <div class="ncr-head">
+                                            <p>Does the drawing require updating?</p>
+                                        </div>
+                                        <div class="ncr-content two-cols">
+                                            <div class="content-checkbox">
+                                                <input type="checkbox" id="cboDrawingReqYes" ${drawingUpdate === "Yes" ? "checked" : ""}>
+                                                <label for="cboDrawingReqYes">Yes</label>
+                                            </div>
+                                            <div class="content-checkbox">
+                                                <input type="checkbox" id="cboDrawingReqNo" ${drawingUpdate === "No" ? "checked" : ""}>
+                                                <label for="cboDrawingReqNo">No</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="ncr-layout-lr lr-two-rows">
+                                        <div class="lr-item item-short">
+                                            <div class="ncr-head">
+                                                <p>Original Revision Number</p>
+                                            </div>
+                                            <div class="ncr-content">
+                                                <p>${originalRevNumber}</p>
+                                            </div>
+                                        </div>
+                                        <div class="lr-item item-short">
+                                            <div class="ncr-head">
+                                                <p>Updated Revision Number</p>
+                                            </div>
+                                            <div class="ncr-content">
+                                                <p>${updatedRevNumber}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="ncr-layout-tb">
+                                    <div class="ncr-content content-right">
+                                        <p>Engineering: <span class="right-item">${engCompletedBy}</span></p>
+                                        <p class="right-date">Date: <span class="right-item">${engCompletedOn}</span></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="section-content">
+                            <div class="section-head">
+                                <span>Purchasing</span>
+                            </div>
+                            <div class="section-body">
+                                <div class="two-cols">
+                                    <div class="ncr-layout-tb">
+                                        <div class="ncr-head">
+                                            <p>Purchasing's Preliminary Decision</p>
+                                        </div>
+                                        <div class="ncr-content">
+                                            <div class="content-checkbox">
+                                                <input type="checkbox" id="cboPurchReturn" ${preliminaryDecision.includes("Return to Supplier for either \"rework\" or \"replacement\"") ? "checked" : ""}>
+                                                <label for="cboPurchReturn">Return to Supplier for either "rework" or "replacement"</label>
+                                            </div>
+                                            <div class="content-checkbox">
+                                                <input type="checkbox" id="cboPurchRework" ${preliminaryDecision.includes("Rework \"In-House\"") ? "checked" : ""}>
+                                                <label for="cboPurchRework">Rework "In-House"</label>
+                                            </div>
+                                            <div class="content-checkbox">
+                                                <input type="checkbox" id="cboPurchScrap" ${preliminaryDecision.includes("Scrap in House") ? "checked" : ""}>
+                                                <label for="cboPurchScrap">Scrap in House</label>
+                                            </div>
+                                            <div class="content-checkbox">
+                                                <input type="checkbox" id="cboPurchDefer" ${preliminaryDecision.includes("Defer for HBC Engineering Review") ? "checked" : ""}>
+                                                <label for="cboPurchDefer">Defer for HBC Engineering Review</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="two-cols cols-1-2">
+                                            <div class="ncr-layout-tb">
+                                                <div class="ncr-head">
+                                                    <p>Was a CAR Raised?</p>
+                                                </div>
+                                                <div class="ncr-content two-cols">
+                                                    <div class="content-checkbox">
+                                                        <input type="checkbox" id="cboPurchRaisedYes" ${carRaised === "Yes" ? "checked" : ""}>
+                                                        <label for="cboPurchRaisedYes">Yes</label>
+                                                    </div>
+                                                    <div class="content-checkbox">
+                                                        <input type="checkbox" id="cboPurchRaisedNo" ${carRaised === "No" ? "checked" : ""}>
+                                                        <label for="cboPurchRaisedNo">No</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="ncr-layout-tb">
+                                                <div class="ncr-head">
+                                                    <p>If "Yes" indicate CAR Number</p>
+                                                </div>
+                                                <div class="ncr-content">
+                                                    <p>${carNumber}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="two-cols cols-1-2">
+                                            <div class="ncr-layout-tb">
+                                                <div class="ncr-head">
+                                                    <p>Follow-up Required?</p>
+                                                </div>
+                                                <div class="ncr-content two-cols">
+                                                    <div class="content-checkbox">
+                                                        <input type="checkbox" id="cboPurchFollowUpYes" ${followUp === "Yes" ? "checked" : ""}>
+                                                        <label for="cboPurchFollowUpYes">Yes</label>
+                                                    </div>
+                                                    <div class="content-checkbox">
+                                                        <input type="checkbox" id="cboPurchFollowUpNo" ${followUp === "No" ? "checked" : ""}>
+                                                        <label for="cboPurchFollowUpNo">No</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <div class="ncr-layout-tb">
+                                                    <div class="ncr-head">
+                                                        <p>If "Yes" indicate type</p>
+                                                    </div>
+                                                    <div class="ncr-content">
+                                                        <p>${followUpType}</p>
+                                                    </div>
+                                                </div>
+                                                <div class="ncr-layout-tb">
+                                                    <div class="ncr-head">
+                                                        <p>If "Yes" indicate expected date</p>
+                                                    </div>
+                                                    <div class="ncr-content">
+                                                        <p>${followUpDate}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="ncr-layout-tb">
+                                    <div class="ncr-content content-right">
+                                        <p>Operations Manager: <span class="right-item">${completedByPch}</span></p>
+                                        <p class="right-date">Date: <span class="right-item">${completedOnPch}</span></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ncr-layout-tb">
+                            <div class="ncr-content content-left">
+                                <p>NCR Closed:</p>
+                                <div class="content-checkbox">
+                                    <input type="checkbox" id="cboNCRClosed" ${ncrClosed === "Yes" ? "checked" : ""}>
+                                    <label for="cboNCRClosed">Yes</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                ${pageTwo}
+            </div>
         </body>
         </html>
     `);
+
+
     printWindow.document.close();
 
-    // Wait for the new window to fully load, then print
+    // Wait for the new window to load
     printWindow.onload = function () {
-        setTimeout(() => {
-            printWindow.print();
-        }, 500);
-    };
-
-    // Close the print window only after printing is complete
-    printWindow.onafterprint = function () {
-        printWindow.close();
+        printWindow.print(); // Trigger print dialog
+        printWindow.close(); // Close the print window after printing
     };
 }
 

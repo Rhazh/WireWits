@@ -8,7 +8,7 @@
         content="View detailed NCR (Non-Conformance Report) information, including status, quantities, and defect descriptions.">
     <title>NCR Details</title>
 
-    <link href="styles.css" rel="stylesheet">
+    <link href="styles/styles.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&display=swap"
@@ -459,22 +459,6 @@
     <script src="scripts/functions.js"></script>
     <script src="scripts/main.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.2/jspdf.umd.min.js"></script>
 </body>
-<script>
-    document.addEventListener("DOMContentLoaded", () => {
-    const params = new URLSearchParams(window.location.search);
-    const action = params.get("action");
-    const returnUrl = params.get("returnUrl");
-
-    if (action === "print") {
-        printPdf(); // Call the print function
-        setTimeout(() => {
-            if (returnUrl) {
-                window.location.href = returnUrl; // Redirect back to the previous page
-            }
-        }, 1000); // Delay to allow the print dialog to open
-    }
-});
-
-</script>
 </html>
