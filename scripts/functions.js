@@ -1936,6 +1936,7 @@ function printPdf() {
     }
 
     // Format the extracted content for use in the template
+    if(thumbnailCount !== 0){
     var thumbnailContent = thumbnailData.map(
         ({ fileName, imgHtml }) => `
             <div class="thumbnail-print">
@@ -1944,6 +1945,9 @@ function printPdf() {
             </div>
         `
     ).join("");
+    }else{
+        thumbnailContent = "No images uploaded";
+    }
 
 
     const header = `
@@ -1963,7 +1967,10 @@ function printPdf() {
                         <h1>Document No.: <span class="document-number">OPS-00011</span></h1>
                     </div>`;
 
-    const pageTwo = `
+
+    const pageTwo = "";
+    if(thumbnailCount!==0){
+     pageTwo = `
                 <section>
                     ${header}
 
@@ -1979,7 +1986,7 @@ function printPdf() {
                         </div>
                 </section>
                 `;
-
+    }
     // Open a new window
     var printWindow = window.open("", "_blank");
 
