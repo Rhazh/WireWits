@@ -3817,19 +3817,28 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
-// Additional Tooltip
+// Tippy.js
 document.addEventListener("DOMContentLoaded", () => {
-    tippy('[data-tippy-content]', {
-        theme: 'light', // Choose a theme (optional)
-        animation: 'scale', // Animation effect
-        placement: 'top', // Tooltip position
-    });
-    tippy.setDefaultProps({
+    
+    const instances = tippy('[data-tippy-content]', {
+        theme: 'light',
+        animation: 'fade',
         placement: 'top',
-        animation: 'scale',
-        arrow: true,
+        arrow: true, 
         delay: [200, 100],
-        theme: 'dark',
+        onShow(instance) {
+            
+            instances.forEach(tip => {
+                if (tip !== instance) {
+                    tip.hide();
+                }
+            });
+        },
+        onMount(instance) {
+            const tooltip = instance.popper.querySelector('.tippy-box');
+            tooltip.style.boxSizing = 'border-box'; // Dynamically set box-sizing
+            tooltip.style.transition = 'opacity 0.3s ease, transform 0.3s ease'; // Ensure smooth animation
+        },
     });
 });
 
