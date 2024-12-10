@@ -292,11 +292,19 @@ function getOldNotifications(userRole) {
             return;
         }
         const today = new Date();
-        const fourteenDaysAgo = new Date();
-        fourteenDaysAgo.setDate(today.getDate() - 7);
+        // Get the date for 7 days ago
+    const sevenDaysAgo = new Date();
+    sevenDaysAgo.setDate(today.getDate() - 7);
 
-        return quality.filter(item => new Date(item.dateCreated) < fourteenDaysAgo && item.ncrStatus === "Quality")
-            .map(item => item.ncrNumber);
+    // Get the date for 18 days ago
+    const eighteenDaysAgo = new Date();
+    eighteenDaysAgo.setDate(today.getDate() - 18);
+
+    // Filter the items between 7 and 18 days ago with ncrStatus as "Quality"
+    return quality.filter(item => {
+        const itemDate = new Date(item.dateCreated);
+        return itemDate >= eighteenDaysAgo && itemDate < sevenDaysAgo && item.ncrStatus === "Quality";
+    }).map(item => item.ncrNumber);
 
     } else if (userRole == "Engineer") {
 
@@ -1538,8 +1546,7 @@ function submitNCR() {
                 localStorage.setItem('history', JSON.stringify(history));
             }
 
-            //sendEmailToDepartment('Engineer', ncrDetails);
-            
+            /*
             if (qualityEntry.ncrStatus === "Engineering") {
                 // Send email to Engineering
                 sendEmailNotification(ncrNumber, 'Yes');  // 'Yes' for Engineering emails
@@ -1552,6 +1559,7 @@ function submitNCR() {
 
                 // Additional logic for Purchasing...
             }
+            */
 
             showToast('NCR has been successfully submitted.', 'success', 5000);
 
@@ -3278,7 +3286,7 @@ function submitEngNCR() {
         localStorage.setItem('history', JSON.stringify(history));
 
         // Send email notification to Purchasing team
-        sendEmailNotification(ncrNumber, 'No'); // 'No' sends email to Purchasing
+        //sendEmailNotification(ncrNumber, 'No'); // 'No' sends email to Purchasing
 
         showToast('NCR has been successfully submitted.', 'success', 5000);
         window.history.back();
