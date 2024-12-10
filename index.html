@@ -20,6 +20,13 @@
 
 <body>
     <header>
+        <div class="skip-links-div" tabindex="1">
+            <a href="#btnCreate" tabindex="2" class="skip-link" id="createSkip" title="Skip to Create NCR" aria-label="Skip to Create NCR content">Skip to Create NCR</a>
+            <a href="#btnView" tabindex="3" class="skip-link" title="Skip to View NCR" aria-label="Skip to View NCR  content">Skip to View NCR</a>
+            <a href="#btnReports" tabindex="4" class="skip-link" title="Skip to Audits" aria-label="Skip to NCR Audits content">Skip to Audits</a>
+            <a href="#recentNCRs-table" tabindex="5" class="skip-link" title="Skip to Recent NCRs" aria-label="Skip to Recent NCR content">Skip to Recent NCRs</a>
+            <a href="#footer" tabindex="6" class="skip-link" title="Skip to Footer" aria-label="Skip to Footer">Skip to Footer</a>
+        </div>
         <div class="header-col">
             <div class="header-col-left">
                 <!--mobile navigation menu-->
@@ -28,7 +35,7 @@
                 </div>
                 <!--logo-->
                 <div class="logo">
-                    <a href="index.html" data-tippy-content="Crossfire logo" tabindex="5">
+                    <a href="index.html" data-tippy-content="Crossfire logo" tabindex="10">
                         <img src="images/logo.png" alt="Crossfire" height="74" width="345">
                     </a>
                 </div>
@@ -36,22 +43,22 @@
                 <nav aria-label="Main Navigation" id="mainNav">
                     <ul>
                         <li id="homeLi"><a href="index.html" class="nav-active" id="home" data-tippy-content="Dashboard" aria-current="page"
-                                aria-label="Dashboard page" tabindex="10">Dashboard</a></li>
+                                aria-label="Dashboard page" tabindex="20">Dashboard</a></li>
                         <li id="createLi"><a href="create.html" id="create" data-tippy-content="Create" aria-label="Create new Non-Conformance Report"
-                                tabindex="15">Create <abbr title="Non-Conformance Report">NCR</abbr></a></li>
-                        <li id="viewLi"><a href="view.html" id="view" tabindex="20" data-tippy-content="NCR Log"
+                                tabindex="25">Create <abbr title="Non-Conformance Report">NCR</abbr></a></li>
+                        <li id="viewLi"><a href="view.html" id="view" tabindex="30" data-tippy-content="NCR Log"
                                 aria-label="View existing Non-Conformance Reports"><abbr
                                     title="Non-Conformance Reports">NCR</abbr> Log</a></li>
-                        <li id="reportsLi"><a href="reports.html" id="reports" data-tippy-content="Audits" aria-label="View Reports" tabindex="25">Audits</a></li>
+                        <li id="reportsLi"><a href="reports.html" id="reports" data-tippy-content="Audits" aria-label="View Reports" tabindex="35">Audits</a></li>
                         <li id="metricsLi"><a href="metrics.html" id="metrics" data-tippy-content="Reports" aria-label="View Metrics"
-                            tabindex="30">Reports</a></li>
+                            tabindex="40">Reports</a></li>
                     </ul>
                 </nav>
             </div>
             <div class="header-col-right">
                 <div class="header-col-right">
                     <div class="faqs-button-container">
-                        <a href="faqs.html" aria-label="Navigate to FAQs Page" data-tippy-content="FAQs" tabindex="35">
+                        <a href="faqs.html" aria-label="Navigate to FAQs Page" data-tippy-content="FAQs" tabindex="45">
                             <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
                                 xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
                                 viewBox="0 0 24 24">
@@ -64,7 +71,7 @@
                     <div class="notification">
                         <div class="notif-button-container">
                             <button id="btnNotification" data-tippy-content="Notifications" aria-haspopup="true" aria-expanded="false"
-                                tabindex="40" aria-controls="notifDisplay" onclick="toggleDropdown()">
+                                tabindex="50" aria-controls="notifDisplay" onclick="toggleDropdown()">
                                 <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="none"
                                     viewBox="0 0 24 24">
@@ -91,7 +98,7 @@
                 </div>
                 <div class="profile">
                     <div class="user-container">
-                        <button id="btnProfile" aria-label="Click to view profile" data-tippy-content="Profile Menu" aria-haspopup="true" tabindex="45"
+                        <button id="btnProfile" aria-label="Click to view profile" data-tippy-content="Profile Menu" aria-haspopup="true" tabindex="55"
                             aria-expanded="false" aria-controls="profileDropdown" onclick="toggleProfileDropdown()">
                             <span class="user-avatar">
                                 <img id="profilePic" src="images/user-profile.png" alt="User profile image"
@@ -136,14 +143,6 @@
                 </div>
             </div>
         </div>
-        <!--need to create a function for skip links-->
-        <div class="skip-links-div">
-            <a href="#btnCreate" class="skip-link" title="Skip to Create NCR" aria-label="Skip to Create NCR content">Skip to Create NCR</a>
-            <a href="#btnView" class="skip-link" title="Skip to View NCR" aria-label="Skip to View NCR  content">Skip to View NCR</a>
-            <a href="#btnReports" class="skip-link" title="Skip to Audits" aria-label="Skip to NCR Audits content">Skip to Audits</a>
-            <a href="#recentNCRs-table" class="skip-link" title="Skip to Recent NCRs" aria-label="Skip to Recent NCR content">Skip to Recent NCRs</a>
-            <a href="#footer" class="skip-link" title="Skip to Footer" aria-label="Skip to Footer">Skip to Footer</a>
-        </div>
     </header>
     <main>
         <div class="container"> 
@@ -156,28 +155,28 @@
                 <div class="dashboard">
                     <div class="div-container" id="onlyQualityDash">
                         <button id="btnCreate" class="createNCR" data-tippy-content="Create NCR" aria-label="Click to create a new NCR"
-                            tabindex="50">
+                            tabindex="60">
                             <img src="images/icon-create-ncr.svg" alt="Create NCR icon" title="Create NCR icon"
                                 width="95" height="95">
                             Create NCR
                         </button>
                     </div>
                     <div class="div-container">
-                        <button id="btnView" aria-label="Click to View existing NCRs" data-tippy-content="NCR Log" tabindex="55">
+                        <button id="btnView" aria-label="Click to View existing NCRs" data-tippy-content="NCR Log" tabindex="65">
                             <img src="images/icon-view-ncrs.svg" alt="NCR Log icon" title="NCR Log icon"
                                 width="95" height="95">
                             NCR Log
                         </button>
                     </div>
                     <div class="div-container">
-                        <button id="btnReports" aria-label="Click to view the audits" data-tippy-content="Audits" tabindex="60">
+                        <button id="btnReports" aria-label="Click to view the audits" data-tippy-content="Audits" tabindex="70">
                             <img src="images/icon-reports.svg" alt="Audit icon" title="Audit icon" width="95"
                                 height="95">
                             Audits
                         </button>
                     </div>
                     <div class="div-container" id="onlyPurchasingDash">
-                        <button id="btnMetrics" aria-label="Click to view reports" data-tippy-content="Reports" tabindex="65">
+                        <button id="btnMetrics" aria-label="Click to view reports" data-tippy-content="Reports" tabindex="75">
                             <img src="images/icon-metrics.svg" alt="Report icon" title="Report icon" width="95"
                                 height="95">
                             Reports
@@ -191,7 +190,7 @@
                         <h2 id="recentNCRsTitle">Recent NCRs</h2> <!--Heading may change-->
                     </div>
                     <div class="table-container">
-                        <table id="recentNCRs-table" tabindex="70">
+                        <table id="recentNCRs-table" tabindex="80">
                             <thead>
                                 <tr>
                                     <th >NCR Number</th>
@@ -201,7 +200,7 @@
                                     <th >Actions</th>
                                 </tr>
                             </thead>
-                            <tbody id="indexTableContent" tabindex="75">
+                            <tbody id="indexTableContent" tabindex="85">
                                 <!--Results will be populated here-->
                             </tbody>
                         </table>

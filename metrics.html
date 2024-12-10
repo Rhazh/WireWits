@@ -21,6 +21,11 @@
 
 <body>
     <header>
+        <div class="skip-links-div">
+            <a tabindex="1" href="#lblMetrics" class="skip-link" aria-label="Skip to Show All Metrics Tab">Skip to Show All Metrics Tab</a>
+            <a tabindex="2" href="#tblSupplierReport" class="skip-link" aria-label="Skip to Supplier Reports table">Skip to Supplier Reports table</a>
+            <a tabindex="3" href="#footer" class="skip-link" aria-label="Skip to Footer">Skip to Footer</a>
+        </div>
         <div class="header-col">
             <div class="header-col-left">
                 <!--mobile navigation menu-->
@@ -30,25 +35,25 @@
                 </div>
                 <!--logo-->
                 <div class="logo">
-                    <a href="index.html">
-                        <img src="images/logo.png" alt="Crossfire logo" title="Crossfire logo" height="74" width="345">
+                    <a href="index.html" data-tippy-content="Crossfire logo" tabindex="10">
+                        <img src="images/logo.png" alt="Crossfire" height="74" width="345">
                     </a>
                 </div>
                 <!--navigation menu-->
                 <nav aria-label="Main Navigation" id="mainNav">
                     <ul>
-                        <li id="homeLi"><a href="index.html" data-tippy-content="Dashboard" class="nav-active" id="home"
-                                aria-current="page" aria-label="Dashboard page" tabindex="0">Dashboard</a></li>
+                        <li id="homeLi"><a href="index.html" data-tippy-content="Dashboard" id="home"
+                                aria-current="page" aria-label="Dashboard page" tabindex="10">Dashboard</a></li>
                         <li id="createLi"><a href="create.html" data-tippy-content="Create NCR" id="create"
-                                aria-label="Create new Non-Conformance Report" tabindex="0">Create <abbr
+                                aria-label="Create new Non-Conformance Report" tabindex="15">Create <abbr
                                     title="Non-Conformance Report">NCR</abbr></a></li>
-                        <li id="viewLi"><a href="view.html" data-tippy-content="NCR Log" id="view" tabindex="0"
+                        <li id="viewLi"><a href="view.html" data-tippy-content="NCR Log" id="view" tabindex="20"
                                 aria-label="View existing Non-Conformance Reports"><abbr
                                     title="Non-Conformance Reports">NCR</abbr> Log </a></li>
                         <li id="reportsLi"><a href="reports.html" data-tippy-content="Audits" id="reports" aria-label="View Audits"
-                                tabindex="0">Audits</a></li>
-                        <li id="metricsLi"><a href="metrics.html" id="metrics" data-tippy-content="Reports" aria-label="View ReportS"
-                                tabindex="0">Reports</a></li>
+                                tabindex="25">Audits</a></li>
+                        <li id="metricsLi"><a href="metrics.html" id="metrics" data-tippy-content="Reports" class="nav-active" aria-label="View ReportS"
+                                tabindex="30">Reports</a></li>
                     </ul>
                 </nav>
             </div>
@@ -56,7 +61,7 @@
                 <div class="header-col-right">
                     <div class="faqs-button-container">
                         <a href="faqs.html" aria-label="Navigate to FAQs Page" data-tippy-content="FAQs"
-                            tabindex="0">
+                            tabindex="35">
                             <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
                                 xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
                                 viewBox="0 0 24 24">
@@ -69,7 +74,7 @@
                     <div class="notification">
                         <div class="notif-button-container">
                             <button id="btnNotification" data-tippy-content="Notifications" aria-haspopup="true"
-                                aria-expanded="false" tabindex="0" aria-controls="notifDisplay"
+                                aria-expanded="false" tabindex="40" aria-controls="notifDisplay"
                                 onclick="toggleDropdown()">
                                 <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="none"
@@ -89,7 +94,7 @@
                                     <!-- Notifications description -->
                                 </div>
                             </div>
-                            <div class="notif-list" id="notifList" tabindex="0">
+                            <div class="notif-list" id="notifList" tabindex="45">
                                 <!-- Notifications will be populated here -->
                             </div>
                         </div>
@@ -98,7 +103,7 @@
                 <div class="profile">
                     <div class="user-container">
                         <button id="btnProfile" aria-label="Click to view profile" data-tippy-content="Profile Menu"
-                            aria-haspopup="true" tabindex="0" aria-expanded="false" aria-controls="profileDropdown"
+                            aria-haspopup="true" tabindex="50" aria-expanded="false" aria-controls="profileDropdown"
                             onclick="toggleProfileDropdown()">
                             <span class="user-avatar">
                                 <img id="profilePic" src="images/user-profile.png" alt="User profile image"
@@ -110,12 +115,12 @@
                             </span>
                         </button>
                     </div>
-                    <div id="profileDropdown" class="profile-dropdown" tabindex="0" role="region"
+                    <div id="profileDropdown" class="profile-dropdown" tabindex="55" role="region"
                         aria-labelledby="btnProfile">
                         <ul>
                             <li>
                                 <a href="profile_settings.html" title="Account Settings"
-                                    aria-label="Navigate to Profile Page" tabindex="0">
+                                    aria-label="Navigate to Profile Page" tabindex="60">
                                     <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
                                         xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
                                         viewBox="0 0 24 24">
@@ -127,7 +132,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a id="logout" h title="Logout" aria-label="Navigate to Logout Page" tabindex="0">
+                                <a id="logout" h title="Logout" aria-label="Navigate to Logout Page" tabindex="65">
                                     <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
                                         xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
                                         viewBox="0 0 24 24">
@@ -144,20 +149,12 @@
                 </div>
             </div>
         </div>
-        <div class="skip-links-div">
-            <a href="#btnCreate" class="skip-link" aria-label="Skip to Create NCR content">Skip to Create NCR</a>
-            <a href="#btnView" class="skip-link" aria-label="Skip to View NCR  content">Skip to View NCR</a>
-            <a href="#btnReports" class="skip-link" aria-label="Skip to NCR Audits content">Skip to Audits</a>
-            <a href="#recentNCRs-table" class="skip-link" aria-label="Skip to Recent NCR content">Skip to Recent
-                NCRs</a>
-            <a href="#footer" class="skip-link" aria-label="Skip to Footer">Skip to Footer</a>
-        </div>
     </header>
     <main>
         <div class="container">
             <div class="breadcrumb-container">
                 <div aria-label="Breadcrumb">
-                    <ol class="breadcrumb-list" tabindex="0"></ol>
+                    <ol class="breadcrumb-list" tabindex="70"></ol>
                     <!-- Breadcrumbs will be dynamically populated here -->
                 </div>
             </div>
@@ -192,9 +189,9 @@
 
                         <!--Tab Header Selector-->
                         <div class="tab-head">
-                            <label for="sectionMetricAll" title="Supplier NCR and Defect Metrics">Show All</label>
-                            <label for="sectionMetricRecord" title="Number of NCR Records">Supplier Records</label>
-                            <label for="sectionMetricDefect" title="Cumulative Defect Percentage (%)">Cumulative
+                            <label tabindex="75" id="lblMetrics" for="sectionMetricAll" data-tippy-content="Supplier NCR and Defect Metrics">Show All</label>
+                            <label tabindex="80" for="sectionMetricRecord" data-tippy-content="Number of NCR Records">Supplier Records</label>
+                            <label tabindex="85" for="sectionMetricDefect" data-tippy-content="Cumulative Defect Percentage (%)">Cumulative
                                 Defects</label>
                         </div>
                     </div>
@@ -206,7 +203,7 @@
                         <h2 id="supplierMetrics">Supplier Reports</h2> <!--Heading may change-->
                     </div>
                     <div class="table-container">
-                        <table>
+                        <table id="tblSupplierReport">
                             <thead>
                                 <tr>
                                     <th title="Supplier Name">Supplier</th>

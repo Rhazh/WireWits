@@ -424,6 +424,11 @@ document.addEventListener('DOMContentLoaded', async () => {
         cancelEngSubmitButton.addEventListener('click', goBack); // Use event listener instead of inline onclick
     }
 
+    const cancelPchSubmitButton = document.getElementById('btnPchCancel');
+    if (cancelPchSubmitButton) {
+        cancelPchSubmitButton.addEventListener('click', goBack); // Use event listener instead of inline onclick
+    }
+
     // Function to go back to the previous page
     function goBack() {
         console.log("Going back...");

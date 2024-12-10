@@ -16,6 +16,13 @@
 </head>
 <body>
     <header>
+        <div class="skip-links-div">
+            <a tabindex="1" href="#editprofileButton" class="skip-link" aria-label="Skip Edit Account Button" title="Skip Edit Account Button">Skip Edit Account Button</a>
+            <a tabindex="2" href="#secPersonalDetails" class="skip-link" aria-label="Skip to Personal Details Section" title="Skip to Personal Details Section">Skip to Personal Details Section</a>
+            <a tabindex="3" href="#secUserDetails" class="skip-link" aria-label="Skip to User Details Section" title="Skip to User Details Section">Skip to User Details Section</a>
+            <a tabindex="4" href="#secOtherSettings" class="skip-link" aria-label="Skip to Other Settings Section" title="Skip to Other Settings Section">Skip to Other Settings Section</a>
+            <a tabindex="5" href="#footer" class="skip-link" aria-label="Skip to Footer" title="Skip to Footer">Skip to Footer</a>
+        </div>
         <div class="header-col">
             <div class="header-col-left">
                 <!--mobile navigation menu-->
@@ -24,8 +31,8 @@
                 </div>
                 <!--logo-->
                 <div class="logo">
-                    <a href="index.html">
-                        <img src="images/logo.png" alt="Crossfire logo" title="Crossfire logo" height="74" width="345">
+                    <a href="index.html" data-tippy-content="Crossfire logo" tabindex="10">
+                        <img src="images/logo.png" alt="Crossfire" height="74" width="345">
                     </a>
                 </div>
                 <!--navigation menu-->
@@ -116,7 +123,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a id="logout"  title="Logout" aria-label="Navigate to Logout Page" tabindex="0">
+                                <a id="logout" title="Logout" aria-label="Navigate to Logout Page" tabindex="0">
                                     <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
                                         xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
                                         viewBox="0 0 24 24">
@@ -132,9 +139,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="skip-links-div">
-            <a href="#footer" class="skip-link" aria-label="Skip to Footer" title="Skip to Footer">Skip to Footer</a>
         </div>
     </header>
     <main>
@@ -154,33 +158,33 @@
                 <div class="settings-left-col">
                     <div class="settings-acc-img">
                         <div class="profile-picture-container">
-                            <img id="profilePagePic" src="images/user-profile.png" alt="User profile image" title="User profile image" height="100" width="100">
+                            <img id="profilePagePic" src="images/user-profile.png" alt="User profile image" data-tippy-content="User profile image" height="100" width="100">
                             <span class="edit-icon" id="editIcon" style="display:none;">
                                 <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.779 17.779 4.36 19.918 6.5 13.5m4.279 4.279 8.364-8.643a3.027 3.027 0 0 0-2.14-5.165 3.03 3.03 0 0 0-2.14.886L6.5 13.5m4.279 4.279L6.499 13.5m2.14 2.14 6.213-6.504M12.75 7.04 17 11.28"/>
                                 </svg>                                  
                             </span>
-                            <input type="file" id="imageUpload" title="Upload profile picture" style="display: none;" accept="image/*">
+                            <input type="file" id="imageUpload" data-tippy-content="Upload profile picture" style="display: none;" accept="image/*">
                         </div>
     
-                        <span id="userFullnameProfilePage" title="FUll Name"></span>
-                        <span id="username" title="Username" class="settings-profile-username"></span>
+                        <span id="userFullnameProfilePage" data-tippy-content="Full Name"></span>
+                        <span id="username" data-tippy-content="Username" class="settings-profile-username"></span>
                     </div>
                     <div class="settings-left-col">
                         <div>
                             <div class="settings-button one-col">
-                                <button id="editprofileButton" title="Edit Account" class="button-primary" tabindex="1">Edit Account</button>
+                                <button id="editprofileButton" data-tippy-content="Edit Account" class="button-primary" tabindex="1">Edit Account</button>
                             </div>
                             <div class="settings-button two-cols">
-                                <button id="saveprofileButton" title="Save" class="button-primary" style="display: none;">Save</button>
-                                <button id="cancelprofileButton" title="Cancel" class="button-warning" style="display: none;">Cancel</button>
+                                <button id="saveprofileButton" data-tippy-content="Save" class="button-primary" style="display: none;">Save</button>
+                                <button id="cancelprofileButton" data-tippy-content="Cancel" class="button-warning" style="display: none;">Cancel</button>
                             </div>
                             
                         </div>
                     </div>
                 </div>
                 <div class="settings-acc-info">
-                    <div class="div-container">
+                    <div class="div-container" id="secPersonalDetails">
                         <div class="settings-section-title">
                             <h2>Personal Details</h2>
                         </div>
@@ -210,7 +214,7 @@
                             
                         </div>
                     </div>
-                    <div class="div-container">
+                    <div class="div-container"  id="secUserDetails">
                         <div class="settings-section-title">
                             <h2>User Details</h2>
                         </div>
@@ -255,7 +259,7 @@
                         </div>                        
                     </div>
 
-                    <div class="div-container">
+                    <div class="div-container" id="secOtherSettings">
                         <div class="settings-section-title">
                             <h2>Other Settings</h2>
                         </div>
@@ -264,7 +268,7 @@
                             <div class="one-col">
                                 <div class="settings-section-field notifs">
                                     <strong id="notifs">Enable Notifications:</strong>
-                                    <label class="switch" title="Enabel/Disable Notifications">
+                                    <label class="switch" data-tippy-content="Enable/Disable Notifications">
                                         <input type="checkbox" id="toggleSwitch" tabindex="0" checked>
                                         <span class="slider round"></span>
                                     </label>
@@ -272,7 +276,7 @@
                                 </div>
                                 <div class="settings-section-field notifs">
                                     <strong id="notifs">Enable Dark mode:</strong>
-                                    <label class="switch" title="Enabel/Disable Dark Mode">
+                                    <label class="switch" data-tippy-content="Enale/Disable Dark Mode">
                                         <input type="checkbox" id="toggleSwitch1" tabindex="0" checked>
                                         <span class="slider round"></span>
                                     </label>

@@ -3416,18 +3416,19 @@ function correctDate(dateString) {
 //FUNCTION TO CHANGE NAVIGATION LINKS BASED ON USER
 function updateNavLinks(userRole) {
     //const homeLink = document.getElementById('homeLi');
-    const createLink = document.getElementById('createLi');
-    const metricsLink = document.getElementById('metricsLi');
+    const createLink = document.getElementById('createLi') || "";
+    const createSkip = document.getElementById('createSkip') || "";
+    const metricsLink = document.getElementById('metricsLi') || "";
     //const viewLink = document.getElementById('viewLi');
     //const reportsLink = document.getElementById('reports');
 
     // Hide link if the user is not an admin
     if (userRole == "Engineer" || userRole == "Purchasing") {
         createLink.classList = 'nav-hide';
+        createSkip.classList = 'nav-hide';
     }
     if (userRole == "Quality" || userRole == "Engineering") {
         metricsLink.classList = 'nav-hide';
-
     }
 }
 
@@ -4674,7 +4675,8 @@ function Metrics() {
 
     Chart.defaults.font.size = 18;
     Chart.defaults.font.family = "'Instrument Sans', 'sans-serif'";
-    Chart.defaults.color = '00214d';
+    Chart.defaults.color = '#00214d';
+    Chart.defaults.backgroundColor = '#fff';
 
     new Chart(metricAll, {
         type: 'bar', // Base type of the chart
@@ -4849,6 +4851,7 @@ function Metrics() {
 }
 
 
+
 //================================================================================================================
 //EVENT LISTENER FOR YES/NO TO CAR RAISED AND FOLLOW-UP
 //
@@ -4910,11 +4913,16 @@ function toggleDarkMode() {
     const body = document.body;
     const darkModeSettingsMessage = document.getElementById("darkModeSettingsMessage");
     const toggleSwitch = document.getElementById("toggleSwitch1");
+    const logo = document.querySelector(".logo img"); 
 
     const isDarkMode = toggleSwitch.checked;
 
     // Add/remove the dark-mode class on the body
     body.classList.toggle("dark-mode", isDarkMode);
+
+    logo.src = isDarkMode 
+        ? "/images/logo-dark.png" 
+        : "/images/logo.png";
 
     // Update the message based on the toggle state
     darkModeSettingsMessage.textContent = isDarkMode
@@ -4929,12 +4937,17 @@ function toggleDarkMode() {
 function initializeDarkMode() {
     const toggleSwitch = document.getElementById("toggleSwitch1");
     const darkModeSettingsMessage = document.getElementById("darkModeSettingsMessage");
+    const logo = document.querySelector(".logo img");
 
     // Get saved dark mode state from localStorage
     const savedState = localStorage.getItem("darkMode") === "true";
 
     // Apply the saved state to the body
     document.body.classList.toggle("dark-mode", savedState);
+
+    logo.src = savedState
+        ? "/images/logo-dark.png" 
+        : "/images/logo.png";
 
     // Set the toggle switch position
     toggleSwitch.checked = savedState;

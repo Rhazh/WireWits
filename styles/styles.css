@@ -1049,6 +1049,11 @@ ul {
   transition: 0.2s ease-in-out;
   box-sizing: border-box;
 }
+.tab-head label:focus {
+  outline: none;
+  background-color: var(--secondary-color);
+  color: var(--primary-white);
+}
 
 .tab-content {
   display: none;
@@ -1637,6 +1642,10 @@ label {
   width: 0;
   height: 0;
 }
+.switch:focus {
+  outline: 3px solid var(--secondary-color);
+  outline-offset: 2px;
+}
 
 .slider {
   position: absolute;
@@ -1694,13 +1703,41 @@ hr {
 }
 
 .metrics-canvas {
-  padding: 30px 0 0;
+  margin-top: 10px;
+  background-color: rgba(253, 253, 253, 0.5);
+  padding: 15px;
+  border-radius: 10px;
 }
 
 .chart-container {
   position: relative;
   width: 80vw;
   height: 60vh;
+}
+
+.skip-links-div {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  background-color: var(--secondary-color);
+  width: 100%;
+}
+.skip-links-div .skip-link {
+  display: inline-block;
+  padding: 10px 15px;
+  margin: 5px;
+  color: var(--primary-white);
+  text-decoration: none;
+  border-radius: 5px;
+}
+.skip-links-div .skip-link:focus {
+  top: 10px;
+  outline: 2px solid var(--primary-white);
+}
+.skip-links-div:focus-within {
+  top: 10px;
+  outline: 2px solid var(--secondary-color);
 }
 
 @media only screen and (max-width: 425px) {
@@ -2108,7 +2145,7 @@ hr {
   text-align: center;
   background-color: #eee;
   padding: 3px 5px;
-  border: 1.5px solid var(--color-10);
+  border: 1.5px solid #333;
   align-items: center;
   justify-content: center;
 }
