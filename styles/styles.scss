@@ -137,6 +137,7 @@ table {
 		text-transform: uppercase;
 		color: var(--primary-color);
 		font-weight: 700;
+		box-shadow: 0 3px 8px var(--primary-shadow-color);
 		tr {
 			th {
 				&:first-child {
@@ -1771,7 +1772,7 @@ hr {
 		background-color: transparent;
 	}
 	#mainNav {
-		//display: none;
+		display: none;
 		position: absolute;
 		top: 100%;
 		left: 0;

@@ -139,6 +139,7 @@ table thead {
   text-transform: uppercase;
   color: var(--primary-color);
   font-weight: 700;
+  box-shadow: 0 3px 8px var(--primary-shadow-color);
 }
 table thead tr th {
   padding-right: 20px;
@@ -1754,6 +1755,7 @@ hr {
     background-color: transparent;
   }
   #mainNav {
+    display: none;
     position: absolute;
     top: 100%;
     left: 0;
