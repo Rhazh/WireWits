@@ -1593,12 +1593,7 @@ function submitNCR() {
                 localStorage.setItem('history', JSON.stringify(history));
             }
 
-<<<<<<< Updated upstream
             /*
-=======
-            //sendEmailToDepartment('Engineer', ncrDetails);
-
->>>>>>> Stashed changes
             if (qualityEntry.ncrStatus === "Engineering") {
                 // Send email to Engineering
                 sendEmailNotification(ncrNumber, 'Yes');  // 'Yes' for Engineering emails
