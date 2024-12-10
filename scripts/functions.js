@@ -445,6 +445,17 @@ function recentNCRs(userRole) {
         }
         tableBody.innerHTML = ''; // Clear previous results
 
+        if (recentN.length === 0) {
+            tableBody.innerHTML = `
+                <tr>
+                    <td colspan="5" style="text-align: center; padding: 20px; color: #666; font-style: italic; font-size: 16px; background-color: #f9f9f9;">
+                        <svg xmlns="http://www.w3.org/2000/svg" style="width: 24px; height: 24px; vertical-align: middle; margin-right: 10px; color: #888;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35m2.1-5.45a7.5 7.5 0 1 1-15 0 7.5 7.5 0 0 1 15 0z"/>
+                        </svg>
+                        No recent NCRs.
+                    </td>
+                </tr>`;
+        } else {
         recentN.forEach(result => {
             //const editButtonDisabled = result.ncrStatus !== "Quality" ? "disabled" : "";
             const newRow = `<tr>
@@ -473,7 +484,8 @@ function recentNCRs(userRole) {
             </td>
         </tr>`;
             tableBody.innerHTML += newRow;
-        });
+        }); 
+    }
     }
     else if (userRole == "Engineer") {
         //console.log(engineering);
@@ -495,6 +507,17 @@ function recentNCRs(userRole) {
         }
         tableBody.innerHTML = ''; // Clear previous results
 
+        if (recentN.length === 0) {
+            tableBody.innerHTML = `
+                <tr>
+                    <td colspan="5" style="text-align: center; padding: 20px; color: #666; font-style: italic; font-size: 16px; background-color: #f9f9f9;">
+                        <svg xmlns="http://www.w3.org/2000/svg" style="width: 24px; height: 24px; vertical-align: middle; margin-right: 10px; color: #888;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35m2.1-5.45a7.5 7.5 0 1 1-15 0 7.5 7.5 0 0 1 15 0z"/>
+                        </svg>
+                        No recent NCRs.
+                    </td>
+                </tr>`;
+        } else {
         recentN.forEach(result => {
             //const editButtonDisabled = result.ncrStatus !== "Quality" ? "disabled" : "";
             const newRow = `<tr>
@@ -522,7 +545,7 @@ function recentNCRs(userRole) {
                          </tr>`;
             tableBody.innerHTML += newRow;
         });
-
+    }
     }
     else if (userRole == "Purchasing") {
         //console.log(engineering);
@@ -544,6 +567,18 @@ function recentNCRs(userRole) {
         }
         tableBody.innerHTML = ''; // Clear previous results
 
+        if (recentN.length === 0) {
+            tableBody.innerHTML = `
+                <tr>
+                    <td colspan="5" style="text-align: center; padding: 20px; color: #666; font-style: italic; font-size: 16px; background-color: #f9f9f9;">
+                        <svg xmlns="http://www.w3.org/2000/svg" style="width: 24px; height: 24px; vertical-align: middle; margin-right: 10px; color: #888;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35m2.1-5.45a7.5 7.5 0 1 1-15 0 7.5 7.5 0 0 1 15 0z"/>
+                        </svg>
+                        No recent NCRs.
+                    </td>
+                </tr>`;
+        } else 
+        {
         recentN.forEach(result => {
             //const editButtonDisabled = result.ncrStatus !== "Quality" ? "disabled" : "";
             const newRow = `<tr>
@@ -573,6 +608,7 @@ function recentNCRs(userRole) {
                          </tr>`;
             tableBody.innerHTML += newRow;
         });
+    }
     }
     else if (userRole == "Admin") {
         if (!quality.length) {
