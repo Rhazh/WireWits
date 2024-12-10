@@ -3993,6 +3993,8 @@ function populatePchDetailsPage(ncrNumber) {
         //hide print button unless NCR is closed
         if (entry.ncrStatus != "Closed") {
             document.getElementById('printButtonPch').classList.add("non");
+            document.getElementById('editButton').classList.add("non");
+            document.getElementById('editButtonEng').classList.add("non");
         }
     }
 }
