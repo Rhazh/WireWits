@@ -156,7 +156,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 //recentEngNCRs();
             } else if (userRole == "Purchasing") {
                 document.getElementById('onlyQualityDash').style.display = 'none';
-            }
+            } 
             //=======================================================================================================
             //VIEW PAGE
             //=======================================================================================================
@@ -183,6 +183,16 @@ document.addEventListener('DOMContentLoaded', async () => {
                 populateSupplierDropdownN('supplierNamePch')
                 document.getElementById("ncrStatusPch").value = "Purchasing";
                 performSearchPch();
+            }
+            else if (userRole == 'Admin'){
+                
+                document.getElementById('secEngineer').style.display = 'none';
+                document.getElementById('secPurchasing').style.display = 'none';
+                populateSupplierDropdownN('supplierName')
+                document.getElementById("ncrStatus").value = "Quality";
+                //NavBar();
+                performSearch();
+
             }
 
             //=======================================================================================================
@@ -218,13 +228,16 @@ document.addEventListener('DOMContentLoaded', async () => {
                 setupCloseNCR()
                 // setupEngSubmitNCR();
             }
+            else if (userRole == "Admin"){
+                populateAdmEditPage(ncrNumber)
+            }
 
             //=======================================================================================================
             //CREATE PAGE - FOR CREATING AN NCR
             //=======================================================================================================
         } else if (pageName === 'create.html') {
             populateNotifications(userRole);
-            if (userRole == 'Quality') {
+            if (userRole == 'Quality' || userRole == 'Admin') {
                 //document.getElementById('secEngineer').style.display = 'none';
                 toggleCreateEditModal(null, false);
                 setupCreateNCRButton();
@@ -257,6 +270,8 @@ document.addEventListener('DOMContentLoaded', async () => {
                 populateEngDetailsPage(ncrNumber);
                 populatePchDetailsPage(ncrNumber)
                 document.getElementById('sectionPurchasing').checked = true;   
+            } else if (userRole == "Admin"){
+                populateAdmDetailsPage (ncrNumber)
             }
         }
         else if (pageName === 'profile_settings.html') {

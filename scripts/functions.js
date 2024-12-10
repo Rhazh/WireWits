@@ -574,8 +574,55 @@ function recentNCRs(userRole) {
             tableBody.innerHTML += newRow;
         });
     }
+    else if (userRole == "Admin") {
+        if (!quality.length) {
+            console.warn('No quality data available to display.');
+            return;
+        }
 
+        const recentNCRss = [...quality].reverse(); // Clone and reverse to avoid mutating the original array
+        const recentN = recentNCRss.slice(0, 5);
 
+        console.log(recentN);
+        console.log(recentNCRss);
+
+        const tableBody = document.getElementById("indexTableContent");
+        if (!tableBody) {
+            console.warn('Table body element not found.');
+            return;
+        }
+        tableBody.innerHTML = ''; // Clear previous results
+
+        recentN.forEach(result => {
+            //const editButtonDisabled = result.ncrStatus !== "Quality" ? "disabled" : "";
+            const newRow = `<tr>
+            <td data-tippy-content="NCR number - ${result.ncrNumber}">${result.ncrNumber}</td>
+            <td data-tippy-content="Supplier - ${result.supplierName}">${result.supplierName}</td>
+            <td data-tippy-content="Date Created - ${formatDate(result.dateCreated)}">${formatDate(result.dateCreated)}</td>
+            <td data-tippy-content="Status - ${result.ncrStatus}">${result.ncrStatus}</td>
+            <td>
+                <div>
+                   <button data-tippy-content="View Details for ${result.ncrNumber}" onclick="detailsEntry('${result.ncrNumber}')">
+                       <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                           <title>Details Icon</title>
+                           <path stroke="currentColor" stroke-width="2" d="M21 12c0 1.2-4.03 6-9 6s-9-4.8-9-6c0-1.2 4.03-6 9-6s9 4.8 9 6Z"/>
+                           <path stroke="currentColor" stroke-width="2" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
+                       </svg>
+                       Details
+                   </button>
+                   <button data-tippy-content="Edit ${result.ncrNumber}" onclick="handleEditEntry('${result.ncrNumber}', '${result.ncrStatus}')">
+                       <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                           <title>Details Icon</title>
+                           <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"/>
+                       </svg>
+                       Edit
+                   </button>
+                </div>
+            </td>
+        </tr>`;
+            tableBody.innerHTML += newRow;
+       });
+    }
 }
 
 //Supporting Function - For Formatting Dates for User Output
@@ -977,7 +1024,7 @@ function performSearch() {
                                         </svg>
                                         Details
                                     </button>
-                                    ${result.ncrStatus !== 'Closed' && result.ncrStatus !== 'Purchasing' && result.ncrStatus !== 'Engineering' ? `<button data-tippy-content="Edit ${result.ncrNumber}" onclick="handleEditEntry('${result.ncrNumber}', '${result.ncrStatus}')">
+                                    ${((getUserRole() === "Admin" && (result.ncrStatus == ncrStatus || ncrStatus == "All")) || (result.ncrStatus !== 'Closed' && result.ncrStatus !== 'Purchasing' && result.ncrStatus !== 'Engineering')) ? `<button data-tippy-content="Edit ${result.ncrNumber}" onclick="handleEditEntry('${result.ncrNumber}', '${result.ncrStatus}')">
                                         <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                                             <title>Edit Icon</title>
                                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"/>
@@ -1546,7 +1593,12 @@ function submitNCR() {
                 localStorage.setItem('history', JSON.stringify(history));
             }
 
+<<<<<<< Updated upstream
             /*
+=======
+            //sendEmailToDepartment('Engineer', ncrDetails);
+
+>>>>>>> Stashed changes
             if (qualityEntry.ncrStatus === "Engineering") {
                 // Send email to Engineering
                 sendEmailNotification(ncrNumber, 'Yes');  // 'Yes' for Engineering emails
@@ -3330,7 +3382,7 @@ function updateNavLinks(userRole) {
     if (userRole == "Engineer" || userRole == "Purchasing") {
         createLink.classList = 'nav-hide';
     }
-    if (userRole != "Purchasing") {
+    if (userRole == "Quality" || userRole == "Engineering") {
         metricsLink.classList = 'nav-hide';
 
     }
@@ -4287,7 +4339,7 @@ function performSearchPch() {
         const itemDateCreated = new Date(item.dateCreated);
         const isDateCreatedValid = (
             (fromDateObj ? itemDateCreated >= fromDateObj : true) &&
-            (toDateObj ? itemDateCreated <= toDateObj : true) 
+            (toDateObj ? itemDateCreated <= toDateObj : true)
         );
 
         // Return true if all conditions are valid
@@ -4445,12 +4497,12 @@ function sendEmailNotification(ncrNumber, engNeeded) {
         department_name: departmentName,  // Pass department name in the email body
         from_name: "Crossfire System"
     })
-    .then(response => {
-        console.log("Email sent successfully:", response);
-    })
-    .catch(error => {
-        console.error("Error sending email:", error);
-    });
+        .then(response => {
+            console.log("Email sent successfully:", response);
+        })
+        .catch(error => {
+            console.error("Error sending email:", error);
+        });
 }
 
 // showToast('This is an alert message!', 'info');
@@ -4850,3 +4902,86 @@ function initializeDarkMode() {
 
 // Call the initialization function on page load
 initializeDarkMode();
+
+
+function populateAdmDetailsPage(ncrNumber) {
+    var ncrCurrentStatus = quality.find(q => q.ncrNumber === ncrNumber)?.ncrStatus;
+    populateDetailsPage(ncrNumber)
+    if (ncrCurrentStatus == "Quality") {
+        document.getElementById('sectionEngineerlabel').style.display = 'none';
+        document.getElementById('sectionPurchasinglabel').style.display = 'none';
+        document.getElementById('sectionQuality').checked = true;
+
+    } else if (ncrCurrentStatus == "Engineering") {
+        document.getElementById('editButton').style.display = 'none';
+        //populateNotificationsEng()
+        populateEngDetailsPage(ncrNumber);
+        document.getElementById('sectionPurchasinglabel').style.display = 'none';
+        document.getElementById('sectionEngineer').checked = true;
+
+    } else if (ncrCurrentStatus == "Purchasing") {
+        populateEngDetailsPage(ncrNumber);
+        populatePchDetailsPage(ncrNumber)
+        document.getElementById('sectionPurchasing').checked = true;
+    }
+}
+
+function populateAdmEditPage(ncrNumber) {
+    var ncrCurrentStatus = quality.find(q => q.ncrNumber === ncrNumber)?.ncrStatus;
+    document.getElementById('lblCreateEditNCR').innerHTML = 'Edit NCR';
+    if (ncrCurrentStatus == "Quality") {
+        toggleCreateEditModalN(ncrNumber, true);
+
+    } else if (ncrCurrentStatus == "Engineering") {
+        document.getElementById('secCreateEditNCR').style.display = 'none';
+        populateEngEditPage(ncrNumber)
+        document.getElementById('sectionPurchasinglabel').style.display = 'none';
+        document.getElementById('sectionEngineer').checked = true;
+        document.getElementById('btnEngSave').addEventListener('click', () => {
+            saveEngNCR()
+        });
+        document.getElementById('btnEngSubmit').addEventListener('click', () => {
+            submitEngNCR();
+        });
+
+    } else if (ncrCurrentStatus == "Purchasing") {
+        document.getElementById('secCreateEditNCR').style.display = 'none';
+        document.getElementById('sectionPurchasing').checked = true;
+        populatePchEditPage(ncrNumber)
+        document.getElementById('btnPchSave').addEventListener('click', () => {
+            savePchNCR();
+        });
+        document.getElementById('btnPchClose').addEventListener('click', () => {
+            closeNCR();
+        });
+
+    }
+}
+
+
+// Toggle between create and edit modals
+function toggleCreateEditModalN(ncrNumber, isEditMode) {
+    const createNCRModal = document.getElementById('createNCRModal');
+    const qualityEditModal = document.getElementById('formNCR');
+    const engineerEditModal = document.getElementById('formInfo');
+
+    if (isEditMode) {
+        createNCRModal.style.display = 'none';
+        engineerEditModal.style.display = 'none';
+        qualityEditModal.style.visibility = 'visible';
+        populateNotifications();
+        //NavBar();
+        populateEditPage(ncrNumber);
+        populateSupplierDropdown('supplierName', ncrNumber);
+        document.getElementById('btnSave').addEventListener('click', () => {
+            saveNCR();
+        });
+        document.getElementById('btnSubmit').addEventListener('click', () => {
+            submitNCR()
+        });
+    } else {
+        createNCRModal.style.visibility = 'visible';
+        qualityEditModal.style.visibility = 'hidden';
+        populateSupplierDropdown('nsupplierName');
+    }
+}
