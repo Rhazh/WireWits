@@ -144,9 +144,6 @@ document.addEventListener('DOMContentLoaded', async () => {
             populateNotifications(userRole);
             if (userRole == "Quality") {
                 document.getElementById('onlyPurchasingDash').style.display = 'none';
-                //NavBar(); //commented out because of loading errors.
-                //recentNCRs();
-                //setupNavigationButtons();
             }
             else if (userRole == "Engineer") {
                 document.getElementById('onlyQualityDash').style.display = 'none';
@@ -156,7 +153,9 @@ document.addEventListener('DOMContentLoaded', async () => {
                 //recentEngNCRs();
             } else if (userRole == "Purchasing") {
                 document.getElementById('onlyQualityDash').style.display = 'none';
-            } 
+            } else if (userRole == "Admin"){
+                document.getElementById('notifToggle').style.display = 'none';
+            }
             //=======================================================================================================
             //VIEW PAGE
             //=======================================================================================================
@@ -185,7 +184,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 performSearchPch();
             }
             else if (userRole == 'Admin'){
-                
+                document.getElementById('notifToggle').style.display = 'none';
                 document.getElementById('secEngineer').style.display = 'none';
                 document.getElementById('secPurchasing').style.display = 'none';
                 populateSupplierDropdownN('supplierName')
@@ -229,6 +228,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 // setupEngSubmitNCR();
             }
             else if (userRole == "Admin"){
+                document.getElementById('notifToggle').style.display = 'none';
                 populateAdmEditPage(ncrNumber)
             }
 
@@ -245,6 +245,8 @@ document.addEventListener('DOMContentLoaded', async () => {
             } else if (userRole == 'Engineer') {
                 // document.getElementById('secQuality').style.display = 'none';
                 //restrictInputToNumbersAndDashes(["poNumber", "soNumber"]);
+            }else if (userRole == 'Admin'){
+                document.getElementById('notifToggle').style.display = 'none';
             }
         } else if (ncrNumber && pageName === 'details.html') {
             populateNotifications(userRole);
@@ -271,6 +273,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 populatePchDetailsPage(ncrNumber)
                 document.getElementById('sectionPurchasing').checked = true;   
             } else if (userRole == "Admin"){
+                document.getElementById('notifToggle').style.display = 'none';
                 populateAdmDetailsPage (ncrNumber)
             }
         }
@@ -282,6 +285,9 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
             else if (userRole == "Engineer") {
             }
+            else if (userRole == 'Admin'){
+                document.getElementById('notifToggle').style.display = 'none';
+            }
         }
         else if (pageName === 'faqs.html') {
             populateNotifications(userRole);
@@ -290,6 +296,9 @@ document.addEventListener('DOMContentLoaded', async () => {
                 //NavBar();
             }
             else if (userRole == "Engineer") {
+            }
+            else if (userRole == "Admin"){
+                document.getElementById('notifToggle').style.display = 'none';
             }
         
 
@@ -301,17 +310,16 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
             else if (userRole == "Engineer") {
             }
-       
-            populateNotifications(userRole);
-            if (userRole == "Quality") {
-                //NavBar();
-            }
-            else if (userRole == "Engineer") {
+            else if (userRole == 'Admin'){
+                document.getElementById('notifToggle').style.display = 'none';
             }
 
         } else if (pageName === 'metrics.html'){
             populateNotifications(userRole);
             Metrics();
+            if(userRole == 'Admin'){
+                document.getElementById('notifToggle').style.display = 'none';
+            }
         }
 
 

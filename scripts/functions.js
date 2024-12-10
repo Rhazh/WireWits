@@ -1585,10 +1585,6 @@ function submitNCR() {
                 engineering.push(engineeringEntry);
                 localStorage.setItem('engineering', JSON.stringify(engineering));
 
-                // Send email notification
-                // Send email to appropriate department
-                //sendEmailNotification(ncrNumber, 'Yes');
-
                 //make history array and push to history json
                 const historyEntry = {
                     ncrNumber: ncrNumber,
@@ -1641,7 +1637,7 @@ function submitNCR() {
                 localStorage.setItem('history', JSON.stringify(history));
             }
 
-            /*
+            
             if (qualityEntry.ncrStatus === "Engineering") {
                 // Send email to Engineering
                 sendEmailNotification(ncrNumber, 'Yes');  // 'Yes' for Engineering emails
@@ -1654,13 +1650,15 @@ function submitNCR() {
 
                 // Additional logic for Purchasing...
             }
-            */
+            
 
             showToast('NCR has been successfully submitted.', 'success', 5000);
 
-            // Redirect or perform other actions as needed
-            //window.history.back();
-            window.location.href = "index.html"; // Redirect to edit page
+            // Delay the execution of detailsEntry to match the toast's duration
+            setTimeout(() => {
+                window.location.href = "index.html"; // Redirect to index page
+            }, 2000); // 5000ms matches the toast duration
+            
 
 
             /*ncrNumber = ncrNumber;
@@ -3188,9 +3186,8 @@ function saveEngNCR() {
             history.push(historyEntry);
             localStorage.setItem('history', JSON.stringify(history));
 
-            showToast('Your changes have been saved. You can continue later.', 'success', 5000);
-            window.history.back();
-            console.log(typeof (revisionDate), revisionDate)
+            //showToast('Your changes have been saved. You can continue later.', 'info', 5000);
+            windows.location.href = "index.html"
         } else {
             showToast("Save operation cancelled.", 'info', 5000);
         }
@@ -3388,7 +3385,7 @@ function submitEngNCR() {
         localStorage.setItem('history', JSON.stringify(history));
 
         // Send email notification to Purchasing team
-        //sendEmailNotification(ncrNumber, 'No'); // 'No' sends email to Purchasing
+        sendEmailNotification(ncrNumber, 'No'); // 'No' sends email to Purchasing
 
         showToast('NCR has been successfully submitted.', 'success', 5000);
         window.history.back();
