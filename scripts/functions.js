@@ -3986,6 +3986,9 @@ function populatePchDetailsPage(ncrNumber) {
         }
         if (entry.ncrStatus == "Closed") {
             document.getElementById('completionToggle3').style.display = 'grid';
+            document.getElementById('editButton').classList.add("non");
+            document.getElementById('editButtonEng').classList.add("non");
+            document.getElementById('editButtonPch').classList.add("non");
         }
         //hide print button unless NCR is closed
         if (entry.ncrStatus != "Closed") {
