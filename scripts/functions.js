@@ -3988,7 +3988,7 @@ function populatePchDetailsPage(ncrNumber) {
             document.getElementById('completionToggle3').style.display = 'grid';
         }
         //hide print button unless NCR is closed
-        if (entry.ncrStatus != "Close") {
+        if (entry.ncrStatus != "Closed") {
             document.getElementById('printButtonPch').classList.add("non");
         }
     }
