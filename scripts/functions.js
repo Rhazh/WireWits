@@ -4921,6 +4921,11 @@ function toggleDarkMode() {
     const darkModeSettingsMessage = document.getElementById("darkModeSettingsMessage");
     const toggleSwitch = document.getElementById("toggleSwitch1");
     const logo = document.querySelector(".logo img"); 
+    const iconCreate = document.querySelector("#btnCreate img"); 
+    const iconView = document.querySelector("#btnView img"); 
+    const iconReport = document.querySelector("#btnReports img"); 
+    const iconMetrics = document.querySelector("#btnMetrics img");
+
 
     const isDarkMode = toggleSwitch.checked;
 
@@ -4930,6 +4935,22 @@ function toggleDarkMode() {
     logo.src = isDarkMode 
         ? "/images/logo-dark.png" 
         : "/images/logo.png";
+        
+    iconCreate.src = isDarkMode 
+        ? "/images/icon-create-ncr-dark-11.svg" 
+        : "/images/icon-create-ncr.svg";
+
+    iconView.src = isDarkMode 
+        ? "/images/icon-view-ncrs-dark-11.svg" 
+        : "/images/icon-view-ncrs.svg";
+
+    iconReport.src = isDarkMode 
+        ? "/images/icon-reports-dark-11.svg" 
+        : "/images/icon-reports.svg";
+
+    iconMetrics.src = isDarkMode 
+        ? "/images/icon-metrics-dark-11.svg" 
+        : "/images/icon-metrics.svg";
 
     // Update the message based on the toggle state
     darkModeSettingsMessage.textContent = isDarkMode
@@ -4945,6 +4966,10 @@ function initializeDarkMode() {
     const toggleSwitch = document.getElementById("toggleSwitch1");
     const darkModeSettingsMessage = document.getElementById("darkModeSettingsMessage");
     const logo = document.querySelector(".logo img");
+    const iconCreate = document.querySelector("#btnCreate img"); 
+    const iconView = document.querySelector("#btnView img"); 
+    const iconReport = document.querySelector("#btnReports img"); 
+    const iconMetrics = document.querySelector("#btnMetrics img");
 
     // Get saved dark mode state from localStorage
     const savedState = localStorage.getItem("darkMode") === "true";
@@ -4955,6 +4980,23 @@ function initializeDarkMode() {
     logo.src = savedState
         ? "/images/logo-dark.png" 
         : "/images/logo.png";
+
+        
+    iconCreate.src = savedState 
+        ? "/images/icon-create-ncr-dark-11.svg" 
+        : "/images/icon-create-ncr.svg";
+
+    iconView.src = savedState 
+        ? "/images/icon-view-ncrs-dark-11.svg" 
+        : "/images/icon-view-ncrs.svg";
+
+    iconReport.src = savedState 
+        ? "/images/icon-reports-dark-11.svg" 
+        : "/images/icon-reports.svg";
+
+    iconMetrics.src = savedState 
+        ? "/images/icon-metrics-dark-11.svg" 
+        : "/images/icon-metrics.svg";
 
     // Set the toggle switch position
     toggleSwitch.checked = savedState;
