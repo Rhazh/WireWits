@@ -4921,10 +4921,10 @@ function toggleDarkMode() {
     const darkModeSettingsMessage = document.getElementById("darkModeSettingsMessage");
     const toggleSwitch = document.getElementById("toggleSwitch1");
     const logo = document.querySelector(".logo img"); 
-    const iconCreate = document.querySelector("#btnCreate img"); 
-    const iconView = document.querySelector("#btnView img"); 
-    const iconReport = document.querySelector("#btnReports img"); 
-    const iconMetrics = document.querySelector("#btnMetrics img");
+    const iconCreate = document.querySelector("#btnCreate img") || ""; 
+    const iconView = document.querySelector("#btnView img") || ""; 
+    const iconReport = document.querySelector("#btnReports img") || ""; 
+    const iconMetrics = document.querySelector("#btnMetrics img") || "";
 
 
     const isDarkMode = toggleSwitch.checked;
@@ -4966,10 +4966,10 @@ function initializeDarkMode() {
     const toggleSwitch = document.getElementById("toggleSwitch1");
     const darkModeSettingsMessage = document.getElementById("darkModeSettingsMessage");
     const logo = document.querySelector(".logo img");
-    const iconCreate = document.querySelector("#btnCreate img"); 
-    const iconView = document.querySelector("#btnView img"); 
-    const iconReport = document.querySelector("#btnReports img"); 
-    const iconMetrics = document.querySelector("#btnMetrics img");
+    const iconCreate = document.querySelector("#btnCreate img") || ""; 
+    const iconView = document.querySelector("#btnView img") || ""; 
+    const iconReport = document.querySelector("#btnReports img") || ""; 
+    const iconMetrics = document.querySelector("#btnMetrics img") || "";
 
     // Get saved dark mode state from localStorage
     const savedState = localStorage.getItem("darkMode") === "true";
