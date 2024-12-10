@@ -1709,12 +1709,6 @@ hr {
   border-radius: 10px;
 }
 
-.chart-container {
-  position: relative;
-  width: 80vw;
-  height: 60vh;
-}
-
 .skip-links-div {
   position: absolute;
   left: 50%;
