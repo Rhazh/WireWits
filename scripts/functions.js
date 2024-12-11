@@ -1394,7 +1394,11 @@ function saveNCR() {
             localStorage.setItem('history', JSON.stringify(history));
 
             showToast('Your changes have been saved. You can continue later.', 'success', 5000);
-            window.history.back();
+             // Delay the execution of detailsEntry to match the toast's duration
+             setTimeout(() => {
+                window.history.back();
+            }, 2000)
+            //window.history.back();
         } else {
             // If the user cancels, do nothing or add custom logic
             showToast("Save operation cancelled.", 'info', 5000);
@@ -3117,6 +3121,7 @@ function saveEngNCR() {
 
     const ncrNumber = document.getElementById('ncrNumberE').textContent;
     const changedBy = getUserName();
+    const date = Timestamp();
     const reviewByCfEngineering = document.getElementById('reviewByCfEngineering').value;
     const customerNotification = document.getElementById('customerNotification').value;
     const disposition = document.getElementById('disposition').value;
@@ -3186,8 +3191,11 @@ function saveEngNCR() {
             history.push(historyEntry);
             localStorage.setItem('history', JSON.stringify(history));
 
-            //showToast('Your changes have been saved. You can continue later.', 'info', 5000);
-            windows.location.href = "index.html"
+            showToast('Your changes have been saved. You can continue later.', 'success', 5000);
+            // Delay the execution of detailsEntry to match the toast's duration
+            setTimeout(() => {
+                window.history.back();
+            }, 2000); // 5000ms matches the toast duration
         } else {
             showToast("Save operation cancelled.", 'info', 5000);
         }
@@ -4129,8 +4137,9 @@ function savePchNCR() {
             console.log(ncrLog)
 
             showToast('Your changes have been saved. You can continue later.', 'success', 5000);
-            window.history.back();
-            //console.log(typeof (revisionDate), revisionDate)
+            setTimeout(() => {
+                window.history.back();
+            }, 2000); // 5000ms matches the toast duration
         } else {
             showToast("Save operation cancelled.", 'info', 5000);
         }
